@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="Abstract\Auditable.cs" />
     <Compile Include="Abstract\IAuditable.cs" />
+    <Compile Include="Models\Agent.cs" />
     <Compile Include="Models\ApplicationGroup.cs" />
     <Compile Include="Models\ApplicationRole.cs" />
     <Compile Include="Models\ApplicationRoleGroup.cs" />
@@ -67,9 +68,22 @@
     <Compile Include="Models\ApplicationUserGroup.cs" />
     <Compile Include="Models\District.cs" />
     <Compile Include="Models\Error.cs" />
+    <Compile Include="Models\LandCategory.cs" />
+    <Compile Include="Models\LandFile.cs" />
+    <Compile Include="Models\LandNews.cs" />
+    <Compile Include="Models\LandNewsOrther.cs" />
+    <Compile Include="Models\LandNewsSchedule.cs" />
+    <Compile Include="Models\LandNewsTag.cs" />
+    <Compile Include="Models\LandNewsType.cs" />
+    <Compile Include="Models\LProject.cs" />
+    <Compile Include="Models\LandType.cs" />
     <Compile Include="Models\Notify.cs" />
+    <Compile Include="Models\Post.cs" />
+    <Compile Include="Models\PostCategory.cs" />
+    <Compile Include="Models\PostTag.cs" />
     <Compile Include="Models\Province.cs" />
     <Compile Include="Models\SystemConfig.cs" />
+    <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\VisitorStatistic.cs" />
     <Compile Include="Models\Ward.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -18,8 +18,25 @@ namespace LandProject.Data
         public DbSet<ApplicationRole> ApplicationRoles { set; get; }
         public DbSet<ApplicationRoleGroup> ApplicationRoleGroups { set; get; }
         public DbSet<ApplicationUserGroup> ApplicationUserGroups { set; get; }
+		public DbSet<Agent> Agents { set; get; }
+		public DbSet<District> Districts { set; get; }
+		public DbSet<Province> Provinces { set; get; }
+		public DbSet<Ward> Wards { set; get; }
+		public DbSet<LandCategory> LandCategories { set; get; }
+		public DbSet<LandNews> LandNewss { set; get; }
+		public DbSet<LandFile> LandFiles { set; get; }
+		public DbSet<LandNewsOrther> LandNewsOrthers { set; get; }
+		public DbSet<LandNewsSchedule> LandNewsSchedules { set; get; }
+		public DbSet<LandNewsType> LandNewsTypes { set; get; }
+		public DbSet<LProject> LProjects { set; get; }
+		public DbSet<LandType> LandTypes { set; get; }
+		public DbSet<Post> Posts { set; get; }
+		public DbSet<PostCategory> PostCategories { set; get; }
+		public DbSet<Tag> Tags { set; get; }
+		public DbSet<LandNewsTag> LandNewsTags { set; get; }
+		public DbSet<PostTag> PostTags { set; get; }
 
-        public static LandDbContext Create()
+		public static LandDbContext Create()
         {
             return new LandDbContext();
         }

@@ -13,6 +13,21 @@ namespace LandProject.Web
 		{
 			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+
+			routes.MapRoute(
+				name: "NeedSaleAndForRent",
+				url: "dang-tin-rao-vat-ban-nha-dat.html",
+				defaults: new { controller = "PostingNews", action = "NeedSaleAndForRent", id = UrlParameter.Optional },
+				  namespaces: new string[] { "LandProject.Web.Controllers" }
+			);
+
+			routes.MapRoute(
+				name: "NeedBuyAndNeedRent",
+				url: "dang-tin-rao-vat-mua-nha-dat.html",
+				defaults: new { controller = "PostingNews", action = "NeedBuyAndNeedRent", id = UrlParameter.Optional },
+				  namespaces: new string[] { "LandProject.Web.Controllers" }
+			);
+
 			routes.MapRoute(
 				name: "Default",
 				url: "{controller}/{action}/{id}",
