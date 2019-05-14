@@ -17,12 +17,12 @@ namespace LandProject.Data
         public DbSet<ApplicationGroup> ApplicationGroups { set; get; }
         public DbSet<ApplicationRole> ApplicationRoles { set; get; }
         public DbSet<ApplicationRoleGroup> ApplicationRoleGroups { set; get; }
-        public DbSet<ApplicationUserGroup> ApplicationUserGroups { set; get; }
-		public DbSet<Agent> Agents { set; get; }
+        public DbSet<ApplicationUserGroup> ApplicationUserGroups { set; get; }	
 		public DbSet<District> Districts { set; get; }
 		public DbSet<Province> Provinces { set; get; }
 		public DbSet<Ward> Wards { set; get; }
-		public DbSet<LandCategory> LandCategories { set; get; }
+        public DbSet<Agent> Agents { set; get; }
+        public DbSet<LandCategory> LandCategories { set; get; }
 		public DbSet<LandNews> LandNewss { set; get; }
 		public DbSet<LandFile> LandFiles { set; get; }
 		public DbSet<LandNewsOrther> LandNewsOrthers { set; get; }

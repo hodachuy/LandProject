@@ -5204,8 +5204,12 @@ button.close {
 
 @font-face {
     font-family: glyphicons halflings;
-    src: url(../fonts/glyphicons-halflings-regular.eot);
-    src: url(../fonts/glyphicons-halflings-regular.eot?#iefix) format("embedded-opentype"),url(../fonts/glyphicons-halflings-regular.woff2) format("woff2"),url(../fonts/glyphicons-halflings-regular.woff) format("woff"),url(../fonts/glyphicons-halflings-regular.ttf) format("truetype"),url(../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular) format("svg");
+    src: url(../../../fonts/glyphicons-halflings-regular.eot);
+    src: url(../../../fonts/glyphicons-halflings-regular.eot?#iefix) format("embedded-opentype"),
+        url(../../../fonts/glyphicons-halflings-regular.woff2) format("woff2"),
+        url(../../../fonts/glyphicons-halflings-regular.woff) format("woff"),
+        url(../../../fonts/glyphicons-halflings-regular.ttf) format("truetype"),
+        url(../../../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular) format("svg");
 }
 
 .glyphicon {
@@ -11062,12 +11066,12 @@ html .page .icon-xxs-mod-2 {
 
 @font-face {
     font-family: fontawesome;
-    src: url(../assets/client/css/font-awesome-4.6.3/fonts/fontawesome-webfont.eot?v=4.6.3);
-    src: url(../assets/client/css/font-awesome-4.6.3/fonts/fontawesome-webfont.eot?#iefix&v=4.6.3) format("embedded-opentype"),
-        url(../assets/client/css/font-awesome-4.6.3/fonts/fontawesome-webfont.woff2?v=4.6.3) format("woff2"),
-        url(../assets/client/css/font-awesome-4.6.3/fonts/fontawesome-webfont.woff?v=4.6.3) format("woff"),
-        url(../assets/client/css/font-awesome-4.6.3/fonts/fontawesome-webfont.ttf?v=4.6.3) format("truetype"),
-        url(../assets/client/css/font-awesome-4.6.3/fonts/fontawesome-webfont.svg?v=4.6.3#fontawesomeregular) format("svg");
+    src: url('font-awesome-4.6.3/fonts/fontawesome-webfont.eot?v=4.6.3');
+    src: url('font-awesome-4.6.3/fonts/fontawesome-webfont.eot?#iefix&v=4.6.3') format("embedded-opentype"),
+        url('font-awesome-4.6.3/fonts/fontawesome-webfont.woff2?v=4.6.3') format("woff2"),
+        url('font-awesome-4.6.3/fonts/fontawesome-webfont.woff?v=4.6.3') format("woff"),
+        url('font-awesome-4.6.3/fonts/fontawesome-webfont.ttf?v=4.6.3') format("truetype"),
+        url('font-awesome-4.6.3/fonts/fontawesome-webfont.svg?v=4.6.3#fontawesomeregular') format("svg");
     font-weight: 400;
     font-style: normal;
 

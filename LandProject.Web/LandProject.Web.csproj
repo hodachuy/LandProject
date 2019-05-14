@@ -260,6 +260,10 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\client\css\font-awesome-4.6.3\css\font-awesome.css" />
+    <Content Include="assets\client\css\font-awesome-4.6.3\css\font-awesome.min.css" />
+    <Content Include="assets\client\css\font-awesome-4.6.3\fonts\fontawesome-webfont.svg" />
+    <Content Include="assets\client\css\font-awesome-4.6.3\HELP-US-OUT.txt" />
     <Content Include="assets\client\css\style.css" />
     <Content Include="assets\client\js\jquery.js" />
     <Content Include="assets\client\libs\core.min.js" />
@@ -276,6 +280,39 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="assets\client\css\font-awesome-4.6.3\fonts\fontawesome-webfont.eot" />
+    <Content Include="assets\client\css\font-awesome-4.6.3\fonts\fontawesome-webfont.ttf" />
+    <Content Include="assets\client\css\font-awesome-4.6.3\fonts\fontawesome-webfont.woff" />
+    <Content Include="assets\client\css\font-awesome-4.6.3\fonts\fontawesome-webfont.woff2" />
+    <Content Include="assets\client\css\font-awesome-4.6.3\fonts\FontAwesome.otf" />
+    <Content Include="assets\client\css\font-awesome-4.6.3\less\animated.less" />
+    <Content Include="assets\client\css\font-awesome-4.6.3\less\bordered-pulled.less" />
+    <Content Include="assets\client\css\font-awesome-4.6.3\less\core.less" />
+    <Content Include="assets\client\css\font-awesome-4.6.3\less\fixed-width.less" />
+    <Content Include="assets\client\css\font-awesome-4.6.3\less\font-awesome.less" />
+    <Content Include="assets\client\css\font-awesome-4.6.3\less\icons.less" />
+    <Content Include="assets\client\css\font-awesome-4.6.3\less\larger.less" />
+    <Content Include="assets\client\css\font-awesome-4.6.3\less\list.less" />
+    <Content Include="assets\client\css\font-awesome-4.6.3\less\mixins.less" />
+    <Content Include="assets\client\css\font-awesome-4.6.3\less\path.less" />
+    <Content Include="assets\client\css\font-awesome-4.6.3\less\rotated-flipped.less" />
+    <Content Include="assets\client\css\font-awesome-4.6.3\less\screen-reader.less" />
+    <Content Include="assets\client\css\font-awesome-4.6.3\less\stacked.less" />
+    <Content Include="assets\client\css\font-awesome-4.6.3\less\variables.less" />
+    <Content Include="assets\client\css\font-awesome-4.6.3\scss\font-awesome.scss" />
+    <Content Include="assets\client\css\font-awesome-4.6.3\scss\_animated.scss" />
+    <Content Include="assets\client\css\font-awesome-4.6.3\scss\_bordered-pulled.scss" />
+    <Content Include="assets\client\css\font-awesome-4.6.3\scss\_core.scss" />
+    <Content Include="assets\client\css\font-awesome-4.6.3\scss\_fixed-width.scss" />
+    <Content Include="assets\client\css\font-awesome-4.6.3\scss\_icons.scss" />
+    <Content Include="assets\client\css\font-awesome-4.6.3\scss\_larger.scss" />
+    <Content Include="assets\client\css\font-awesome-4.6.3\scss\_list.scss" />
+    <Content Include="assets\client\css\font-awesome-4.6.3\scss\_mixins.scss" />
+    <Content Include="assets\client\css\font-awesome-4.6.3\scss\_path.scss" />
+    <Content Include="assets\client\css\font-awesome-4.6.3\scss\_rotated-flipped.scss" />
+    <Content Include="assets\client\css\font-awesome-4.6.3\scss\_screen-reader.scss" />
+    <Content Include="assets\client\css\font-awesome-4.6.3\scss\_stacked.scss" />
+    <Content Include="assets\client\css\font-awesome-4.6.3\scss\_variables.scss" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
