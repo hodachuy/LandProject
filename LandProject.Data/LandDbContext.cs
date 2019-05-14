@@ -29,6 +29,7 @@ namespace LandProject.Data
 		public DbSet<LandNewsSchedule> LandNewsSchedules { set; get; }
 		public DbSet<LandNewsType> LandNewsTypes { set; get; }
 		public DbSet<LProject> LProjects { set; get; }
+		public DbSet<LProjectCategory> LProjectCategories { set; get; }
 		public DbSet<LandType> LandTypes { set; get; }
 		public DbSet<Post> Posts { set; get; }
 		public DbSet<PostCategory> PostCategories { set; get; }

@@ -16,9 +16,15 @@ namespace LandProject.Model.Models
         public int ID { set; get; }
 
         [MaxLength(200)]
-        public string Name { set; get; }
+		[Required]
+		public string Name { set; get; }
 
-        [MaxLength(250)]
+		[Required]
+		[MaxLength(256)]
+		[Column(TypeName = "varchar")]
+		public string Alias { set; get; }
+
+		[MaxLength(250)]
         public string Description { set; get; }
 
         [Required]

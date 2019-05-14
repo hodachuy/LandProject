@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace LandProject.Model.Models
 {
+
 	public class LandFile
 	{
+
 	}
 }
