@@ -19,6 +19,12 @@ namespace LandProject.Web.Areas.Admin
                 "Admin/{controller}/{action}/{id}",
                 new { action = "Index", id = UrlParameter.Optional }
             );
+
+            context.MapRoute(
+                name: "Admin",
+                url: "Admin/{controller}/{action}/{id}/{sid}",
+                defaults: new { controller = "Account", action = "Login", id = UrlParameter.Optional, sid = UrlParameter.Optional }
+            );
         }
     }
 }

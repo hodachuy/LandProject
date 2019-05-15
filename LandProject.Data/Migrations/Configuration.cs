@@ -41,7 +41,7 @@
 				FullName = "Ho Dac Huy"
 			};
 
-			manager.Create(user, "hdhuy@123456");
+			manager.Create(user, "hdhuy@123");
 
 			if (!roleManager.Roles.Any())
 			{

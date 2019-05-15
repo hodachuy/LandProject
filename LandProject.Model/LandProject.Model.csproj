@@ -71,14 +71,13 @@
     <Compile Include="Models\LandCategory.cs" />
     <Compile Include="Models\LandFile.cs" />
     <Compile Include="Models\LandNews.cs" />
-    <Compile Include="Models\LandNewsOrther.cs" />
     <Compile Include="Models\LandNewsSchedule.cs" />
     <Compile Include="Models\LandNewsTag.cs" />
-    <Compile Include="Models\LandNewsType.cs" />
     <Compile Include="Models\LProject.cs" />
     <Compile Include="Models\LandType.cs" />
     <Compile Include="Models\LProjectCategory.cs" />
     <Compile Include="Models\Notify.cs" />
+    <Compile Include="Models\Page.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\PostCategory.cs" />
     <Compile Include="Models\PostTag.cs" />

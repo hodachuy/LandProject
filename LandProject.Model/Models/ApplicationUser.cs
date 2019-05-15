@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -18,6 +19,10 @@ namespace LandProject.Model.Models
 
         public string Avatar { set; get; }
 
+        [Column(TypeName = "varchar")]
+        [StringLength(50)]
+        public string MobilePhone { set; get; }
+
         public DateTime? BirthDay { set; get; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)
@@ -28,7 +33,6 @@ namespace LandProject.Model.Models
             return userIdentity;
         }
 
-        //public virtual IEnumerable<Bot> Bots { set; get; }
-        //public virtual IEnumerable<Order> Orders { set; get; }
+        public virtual IEnumerable<LandNews> LandNewss { set; get; }
     }
 }

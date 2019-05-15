@@ -58,9 +58,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddressCommonService.cs" />
+    <Compile Include="AgentService.cs" />
     <Compile Include="ApplicationGroupService.cs" />
     <Compile Include="ApplicationRoleService.cs" />
     <Compile Include="ErrorService.cs" />
+    <Compile Include="LandCategorySerivce.cs" />
+    <Compile Include="LandFileSerivce.cs" />
+    <Compile Include="LandNewsScheduleService.cs" />
+    <Compile Include="LandNewsService.cs" />
+    <Compile Include="LandTypeService.cs" />
+    <Compile Include="LProjectCategoryService.cs" />
+    <Compile Include="LProjectService.cs" />
+    <Compile Include="NotifyService.cs" />
+    <Compile Include="PageService.cs" />
+    <Compile Include="PostCategoryService.cs" />
+    <Compile Include="PostService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
