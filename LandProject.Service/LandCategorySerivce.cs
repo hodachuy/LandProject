@@ -45,14 +45,20 @@ namespace LandProject.Service
 
         public IEnumerable<LandCategory> GetAllByCondition(string condition, int lTypeID)
         {
-            if (!String.IsNullOrEmpty(condition) && lTypeID == 0)
-                return _landCategoryRepository.GetMulti(x => x.Name.Contains(condition), new string[] { "LandType" });
-            if (String.IsNullOrEmpty(condition) && lTypeID != 0)
-                return _landCategoryRepository.GetMulti(x => x.LandTypeID == lTypeID, new string[] { "LandType" });
-            if (!String.IsNullOrEmpty(condition) && lTypeID != 0)
-                return _landCategoryRepository.GetMulti(x => x.Name.Contains(condition) && x.LandTypeID == lTypeID, new string[] { "LandType" });
-            return _landCategoryRepository.GetAll(new string[] { "LandType" });
-        }
+			//if (!String.IsNullOrEmpty(condition) && lTypeID == 0)
+			//    return _landCategoryRepository.GetMulti(x => x.Name.Contains(condition), new string[] { "LandType" });
+			//if (String.IsNullOrEmpty(condition) && lTypeID != 0)
+			//    return _landCategoryRepository.GetMulti(x => x.LandTypeID == lTypeID, new string[] { "LandType" });
+			//if (!String.IsNullOrEmpty(condition) && lTypeID != 0)
+			//    return _landCategoryRepository.GetMulti(x => x.Name.Contains(condition) && x.LandTypeID == lTypeID, new string[] { "LandType" });
+			//return _landCategoryRepository.GetAll(new string[] { "LandType" });
+			var lstLandCategory = _landCategoryRepository.GetAll(new string[] { "LandType" });
+			if (!String.IsNullOrEmpty(condition))
+				lstLandCategory = lstLandCategory.Where(x => x.Name.Contains(condition));
+			if (lTypeID != 0)
+				lstLandCategory = lstLandCategory.Where(x => x.LandTypeID == lTypeID);
+			return lstLandCategory;
+		}
 
         public IEnumerable<LandCategory> GetByLandTypeID(int lTypeID)
         {

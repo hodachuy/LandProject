@@ -30,5 +30,7 @@ namespace LandProject.Model.Models
 		public bool IsDelete { set; get; }
 
 		public bool IsPublished { set; get; }
+
+		public virtual IEnumerable<LProject> LProjects { set; get; }
 	}
 }

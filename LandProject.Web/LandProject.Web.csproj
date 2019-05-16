@@ -243,8 +243,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\AddressCommonController.cs" />
     <Compile Include="API\LandCategoryController.cs" />
     <Compile Include="API\LandTypeController.cs" />
+    <Compile Include="API\LProjectCategoryController.cs" />
+    <Compile Include="API\LProjectController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -1744,6 +1747,7 @@
     <Folder Include="assets\admin\img\" />
     <Folder Include="assets\admin\libs\" />
     <Folder Include="assets\client\img\" />
+    <Folder Include="Views\AddressCommon\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

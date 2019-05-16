@@ -34,7 +34,10 @@ namespace LandProject.Model.Models
 		public string Investors { set; get; }
 
 		[Required]
-		public string LProjectCaregoryID { set; get; }
+		public int LProjectCaregoryID { set; get; }
+
+		[ForeignKey("LProjectCaregoryID")]
+		public virtual LProjectCategory LProjectCategory { set; get; }
 
 		public decimal Price { set; get; }
 
@@ -46,6 +49,8 @@ namespace LandProject.Model.Models
 
 		[Required]
 		public int ProvinceID { set; get; }
+
+		[Required]
 
 		public int DistrictID { set; get; }
 

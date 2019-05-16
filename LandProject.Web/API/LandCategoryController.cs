@@ -21,7 +21,24 @@ namespace LandProject.Web.API
             _landCategoryService = landCategoryService;
         }
 
-        [Route("getalltable")]
+		[Route("getall")]
+		[HttpPost]
+		public HttpResponseMessage GetAll(HttpRequestMessage request, int lTypeID)
+		{
+			return CreateHttpResponse(request, () =>
+			{
+				HttpResponseMessage response;
+				if(lTypeID == 0)
+					return request.CreateResponse(HttpStatusCode.NoContent);
+
+				var lstLandCategory = _landCategoryService.GetByLandTypeID(lTypeID);
+				response = request.CreateResponse(HttpStatusCode.OK, lstLandCategory);
+				return response;
+			});
+		}
+
+
+		[Route("getalltable")]
         [HttpPost]
         public HttpResponseMessage GetAllToTable(HttpRequestMessage request, Request rqFilter)
         {
@@ -29,8 +46,8 @@ namespace LandProject.Web.API
             {
                 HttpResponseMessage response;
                 int totalRow = 0;
-                string filter = "";
-                int lTypeID = 0;
+                string filterLCategoryName = "";
+                int filterLTypeID = 0;
                 rqFilter.pageSize = rqFilter.pageSize == 0 ? 20 : rqFilter.pageSize;
                 rqFilter.page = (rqFilter.pageSize == 0 ? 1 : rqFilter.page) - 1;
                 if (rqFilter.filter != null)
@@ -39,15 +56,15 @@ namespace LandProject.Web.API
                     {
                         if(item.Field == "LandTypeID")
                         {
-                            lTypeID = Int32.Parse(item.Value);
+							filterLTypeID = Int32.Parse(item.Value);
                         }
                         if(item.Field == "Name")
                         {
-                            filter = item.Value;
+							filterLCategoryName = item.Value;
                         }
                     }
                 }
-                var lstLandType = _landCategoryService.GetAllByCondition(filter, lTypeID);
+                var lstLandType = _landCategoryService.GetAllByCondition(filterLCategoryName, filterLTypeID);
                 totalRow = lstLandType.Count();
                 var query = lstLandType.Skip(rqFilter.page * rqFilter.pageSize).Take(rqFilter.pageSize);
                 var paginationSet = new PaginationSet<LandCategory>()

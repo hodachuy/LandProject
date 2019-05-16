@@ -42,14 +42,14 @@ namespace LandProject.Web.API
             {
                 HttpResponseMessage response;
                 int totalRow = 0;
-                string filter = "";
+                string filterLTypeName = "";
                 rqFilter.pageSize = rqFilter.pageSize == 0 ? 20 : rqFilter.pageSize;
                 rqFilter.page = (rqFilter.pageSize == 0 ? 1 : rqFilter.page) - 1;
                 if (rqFilter.filter != null)
                 {
-                    filter = rqFilter.filter.filters[0].Value;
+					filterLTypeName = rqFilter.filter.filters[0].Value;
                 }
-                var lstLandType = _landTypeService.GetAllByCondition(filter);
+                var lstLandType = _landTypeService.GetAllByCondition(filterLTypeName);
                 totalRow = lstLandType.Count();
                 var query = lstLandType.Skip(rqFilter.page * rqFilter.pageSize).Take(rqFilter.pageSize);
                 var paginationSet = new PaginationSet<LandType>()

@@ -12,7 +12,9 @@ namespace LandProject.Service
     public interface ILProjectService
     {
         IEnumerable<LProject> GetAll();
-        LProject Add(LProject LProject);
+		IEnumerable<LProject> GetAllByCondition(string lProjectName, int lProjectCategoryID);
+		IEnumerable<LProject> GetByLProjectCategoryID(int lProjectCategoryID);
+		LProject Add(LProject LProject);
         LProject Delete(int id);
         void Update(LProject LProject);
         void Save();
@@ -38,10 +40,25 @@ namespace LandProject.Service
 
         public IEnumerable<LProject> GetAll()
         {
-            return _lProjectRepository.GetAll();
+            return _lProjectRepository.GetAll(new string[] { "LProjectCategory" });
         }
 
-        public void Save()
+		public IEnumerable<LProject> GetAllByCondition(string lProjectName, int lProjectCategoryID)
+		{
+			var lstLProject = _lProjectRepository.GetAll(new string[] { "LProjectCategory" });
+			if (!String.IsNullOrEmpty(lProjectName))
+				lstLProject = lstLProject.Where(x => x.Name.Contains(lProjectName));
+			if (lProjectCategoryID != 0)
+				lstLProject = lstLProject.Where(x => x.LProjectCaregoryID == lProjectCategoryID);
+			return lstLProject;
+		}
+
+		public IEnumerable<LProject> GetByLProjectCategoryID(int lProjectCategoryID)
+		{
+			return _lProjectRepository.GetMulti(x => x.LProjectCaregoryID == lProjectCategoryID, new string[] {"LProjectCategory"});
+		}
+
+		public void Save()
         {
             _unitOfWork.Commit();
         }
