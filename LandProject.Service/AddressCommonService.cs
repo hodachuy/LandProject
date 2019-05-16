@@ -1,4 +1,7 @@
-﻿using System;
+﻿using LandProject.Data.Infrastructure;
+using LandProject.Data.Repositories;
+using LandProject.Model.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +9,48 @@ using System.Threading.Tasks;
 
 namespace LandProject.Service
 {
-    class AddressCommonService
+    public interface IAddressCommonService
     {
+        IEnumerable<Province> GetAllProvince();
+        IEnumerable<District> GetDistrictByProvinceID(int provinceId);
+        IEnumerable<Ward> GetWardByDistrictID(int districtId);
+        void Save();
+    }
+    public class AddressCommonService : IAddressCommonService
+    {
+        IProvinceRepository _provinceRepository;
+        IDistrictRepository _districtRepository;
+        IWardRepository _wardRepository;
+        IUnitOfWork _unitOfWork;
+        public AddressCommonService(IProvinceRepository provinceRepository,
+            IUnitOfWork unitOfWork,
+            IDistrictRepository districtRepository,
+            IWardRepository wardRepository)
+        {
+            _provinceRepository = provinceRepository;
+            _districtRepository = districtRepository;
+            _wardRepository = wardRepository;
+            _unitOfWork = unitOfWork;
+        }
+
+        public IEnumerable<Province> GetAllProvince()
+        {
+            return _provinceRepository.GetAll();
+        }
+
+        public IEnumerable<District> GetDistrictByProvinceID(int provinceId)
+        {
+            return _districtRepository.GetMulti(x => x.ProvinceID == provinceId);
+        }
+
+        public IEnumerable<Ward> GetWardByDistrictID(int districtId)
+        {
+            return _wardRepository.GetMulti(x => x.DistrictID == districtId);
+        }
+
+        public void Save()
+        {
+            _unitOfWork.Commit();
+        }
     }
 }

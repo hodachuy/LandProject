@@ -28,5 +28,7 @@ namespace LandProject.Model.Models
         public string Description { set; get; }
 
         public bool IsDelete { set; get; }
+
+        public virtual IEnumerable<LandCategory> LandCategories { set; get; }
     }
 }

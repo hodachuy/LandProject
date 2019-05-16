@@ -24,7 +24,9 @@
 			//ContactDetail(context);
 
 			CreateUser(context);
-		}
+            //CreateRole(context);
+
+        }
 
 		private void CreateUser(LandDbContext context)
 		{
@@ -53,6 +55,23 @@
 
 			manager.AddToRoles(adminUser.Id, new string[] { "Admin", "User" });
 		}
+
+        private void CreateRole(LandDbContext context)
+        {
+            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new LandDbContext()));
+
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new LandDbContext()));
+
+            if (!roleManager.Roles.Any())
+            {
+                roleManager.Create(new IdentityRole { Name = "Admin" });
+                roleManager.Create(new IdentityRole { Name = "User" });
+            }
+
+            var adminUser = manager.FindByEmail("hodachuy123@gmail.com");
+
+            manager.AddToRoles(adminUser.Id, new string[] { "Admin", "User" });
+        }
 
 
 	}

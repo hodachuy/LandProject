@@ -1,4 +1,5 @@
-﻿
+﻿@using LandProject.Web.Models
+@model LoginViewModel
 @{
     Layout = null;
 }
@@ -24,8 +25,15 @@
     <link href="~/assets/vendors/animate.css/animate.min.css" rel="stylesheet">
     <!-- Custom Theme Style -->
     <link href="~/assets/build/css/custom.min.css" rel="stylesheet">
+    <style>
+                #ckbRememberMe {
+            margin: 5px 3px 3px 4px !important;
+        }
+                .validation-summary-errors ul li{
+                    color:red;
+                }
+    </style>
 </head>
-
 <body class="login">
     <div>
         <a class="hiddenanchor" id="signup"></a>
@@ -33,24 +41,29 @@
         <div class="login_wrapper">
             <div class="animate form login_form">
                 <section class="login_content">
-                    <form>
-                        <h1>Login Form</h1>
+                @using (Html.BeginForm("Login", "Account", new { returnUrl = @ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+                {
+                    <h1>Login Form</h1>
+                    @Html.ValidationSummary(false, "", new { @class = "error" })
+                    <div>
+                        @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", @placeholder = "Name" })
+                        @*<input type="text" class="form-control" placeholder="Username" required="" />*@
+                    </div>
                         <div>
-                            <input type="text" class="form-control" placeholder="Username" required="" />
-                        </div>
-                        <div>
-                            <input type="password" class="form-control" placeholder="Password" required="" />
+                            @Html.PasswordFor(model => model.Password, new { @class = "form-control", @placeholder = "Password" })
+                            @*<input type="password" class="form-control" placeholder="Password" required="" />*@
                         </div>
                         <div class="input-group">
-                            <input type="checkbox" id="ckbRememberMe" class="form-group">
+                            @*<input type="checkbox" id="ckbRememberMe" class="form-group">*@
+                            @Html.CheckBoxFor(model => model.RememberMe, new { @id = "ckbRememberMe" })
                             <label> Remember me?</label>
                         </div>
-                        <div>
-                            <a class="btn btn-default submit" href="index.html">Đăng nhập</a>
+                        <div class="input-group" style="width:100%">
+                            <input class="btn btn-default submit" type="submit" value="Login" style="text-align:center">
+                            @*<a class="btn btn-default submit" href="index.html">Đăng nhập</a>*@
                         </div>
 
                         <div class="clearfix"></div>
-
                         <div class="separator">
                             <p class="change_link">
                                 <a href="#signup" class="to_register"> Quên mật khẩu </a>
@@ -59,7 +72,7 @@
                             <div class="clearfix"></div>
                             <br />
                         </div>
-                    </form>
+                }
                 </section>
             </div>
 

@@ -10,7 +10,7 @@ namespace LandProject.Common
     public class CommonConstants
     {
         public const string SessionUser = "User";
-        public const string Administrator = "Administrator";
+        public const string Administrator = "Admin";
         public const string Visitor = "Visitor";
         public const string PathImage = "Card";
 

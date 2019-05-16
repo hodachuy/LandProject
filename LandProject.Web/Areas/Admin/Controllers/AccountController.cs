@@ -10,6 +10,9 @@ using LandProject.Web.Models;
 using LandProject.Common;
 using System.Web.Mvc;
 using AutoMapper;
+using LandProject.Web.Infrastructure.Core;
+using LandProject.Service;
+using System.Linq;
 
 namespace LandProject.Web.Areas.Admin.Controllers
 {
@@ -82,6 +85,13 @@ namespace LandProject.Web.Areas.Admin.Controllers
                 ApplicationUser user = _userManager.Find(model.UserName, model.Password);
                 if (user != null)
                 {
+                    var applicationGroupService = ServiceFactory.Get<IApplicationGroupService>();
+                    var listGroup = applicationGroupService.GetListGroupByUserId(user.Id).ToList();
+                    if ((listGroup.Count == 0) || ((listGroup.Count) != 0 && (listGroup.Any(x => x.Name != CommonConstants.Administrator))))
+                    {
+                        ModelState.AddModelError("", "Bạn không có quyền truy cập vào trang quản trị.");
+                        return View(model);
+                    }
                     var applicationUserViewModel = Mapper.Map<ApplicationUser, ApplicationUserViewModel>(user);
                     Session[CommonConstants.SessionUser] = applicationUserViewModel;
                     IAuthenticationManager authenticationManager = HttpContext.GetOwinContext().Authentication;

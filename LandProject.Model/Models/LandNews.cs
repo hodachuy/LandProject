@@ -27,6 +27,9 @@ namespace LandProject.Model.Models
         public string Description { set; get; }
 
         [StringLength(256)]
+        public string Code { set; get; }
+
+        [StringLength(256)]
         [Required]
         public string Address { set; get; }
 

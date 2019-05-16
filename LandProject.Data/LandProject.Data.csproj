@@ -74,6 +74,14 @@
     <Compile Include="Migrations\201905150451473_AddPage.Designer.cs">
       <DependentUpon>201905150451473_AddPage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905160446021_AddNewsCode.cs" />
+    <Compile Include="Migrations\201905160446021_AddNewsCode.Designer.cs">
+      <DependentUpon>201905160446021_AddNewsCode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905161105187_AddFKLT.cs" />
+    <Compile Include="Migrations\201905161105187_AddFKLT.Designer.cs">
+      <DependentUpon>201905161105187_AddFKLT.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AgentRepository.cs" />
@@ -122,6 +130,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905150451473_AddPage.resx">
       <DependentUpon>201905150451473_AddPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905160446021_AddNewsCode.resx">
+      <DependentUpon>201905160446021_AddNewsCode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905161105187_AddFKLT.resx">
+      <DependentUpon>201905161105187_AddFKLT.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
