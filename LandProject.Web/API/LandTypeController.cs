@@ -9,6 +9,8 @@ using LandProject.Service;
 using LandProject.Common;
 using LandProject.Model.Models;
 using LandProject.Web.Infrastructure.Core;
+using LandProject.Web.Models;
+using LandProject.Web.Infrastructure.Extensions;
 
 namespace LandProject.Web.API
 {
@@ -22,7 +24,7 @@ namespace LandProject.Web.API
         }
 
         [Route("getall")]
-        [HttpPost]
+        [HttpGet]
         public HttpResponseMessage GetAll(HttpRequestMessage request)
         {
             return CreateHttpResponse(request, () =>
@@ -63,5 +65,65 @@ namespace LandProject.Web.API
                 return response;
             });
         }
-    }
+
+		[Route("getbyid")]
+		[HttpGet]
+		public HttpResponseMessage GetByID(HttpRequestMessage request, int lTypeId)
+		{
+			return CreateHttpResponse(request, () =>
+			{
+				HttpResponseMessage response;
+				if(lTypeId == 0)
+				{
+					return request.CreateResponse(HttpStatusCode.NoContent);
+				}
+				var landType = _landTypeService.GetByID(lTypeId);
+				response = request.CreateResponse(HttpStatusCode.OK, landType);
+				return response;
+			});
+		}
+
+
+		[Route("create")]
+		[HttpPost]
+		public HttpResponseMessage Create(HttpRequestMessage request, LandTypeViewModel lTypeVm)
+		{
+			return CreateHttpResponse(request, () =>
+			{
+				HttpResponseMessage response;
+				if (!ModelState.IsValid)
+				{
+					response = request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+					return response;
+				}
+				LandType landTypeDb = new LandType();
+				landTypeDb.UpdateLandType(lTypeVm);
+				_landTypeService.Add(landTypeDb);
+				_landTypeService.Save();
+				response = request.CreateResponse(HttpStatusCode.OK, landTypeDb);
+				return response;
+			});
+		}
+
+		[Route("update")]
+		[HttpPost]
+		public HttpResponseMessage Update(HttpRequestMessage request, LandTypeViewModel lTypeVm)
+		{
+			return CreateHttpResponse(request, () =>
+			{
+				HttpResponseMessage response;
+				if (!ModelState.IsValid)
+				{
+					response = request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+					return response;
+				}
+				LandType landTypeDb = new LandType();
+				landTypeDb.UpdateLandType(lTypeVm);
+				_landTypeService.Update(landTypeDb);
+				_landTypeService.Save();
+				response = request.CreateResponse(HttpStatusCode.OK, landTypeDb);
+				return response;
+			});
+		}
+	}
 }

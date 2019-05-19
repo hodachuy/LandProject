@@ -11,7 +11,7 @@ LoadComboBoxWithServices = function (element, url, param, valueField, textField,
             transport: {
                 read: function (options) {
                     var svr = new AjaxCall(url, param);
-                    svr.callService(function (data) {
+                    svr.callServiceGET(function (data) {
                         if (data != null && data.length > 0) {
                             if (data.Table != null) {
                                 options.success(data.Table);

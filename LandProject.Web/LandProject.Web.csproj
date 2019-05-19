@@ -261,6 +261,8 @@
     <Compile Include="Areas\Admin\Controllers\LandCategoryContronler.cs" />
     <Compile Include="Areas\Admin\Controllers\LandNewsController.cs" />
     <Compile Include="Areas\Admin\Controllers\LandTypeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\LProjectCategoryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\LProjectController.cs" />
     <Compile Include="Areas\Admin\Infrastructure\Core\BaseController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -280,7 +282,11 @@
     <Compile Include="Models\ApplicationRoleViewModel.cs" />
     <Compile Include="Models\ApplicationUserViewModel.cs" />
     <Compile Include="Models\ExternalLoginListViewModel.cs" />
+    <Compile Include="Models\LandCategoryViewModel.cs" />
+    <Compile Include="Models\LandTypeViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
+    <Compile Include="Models\LProjectCategoryViewModel.cs" />
+    <Compile Include="Models\LProjectViewModel.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -288,6 +294,7 @@
     <Content Include="assets\admin\css\custom.css" />
     <Content Include="assets\admin\js\LandCategory.js" />
     <Content Include="assets\admin\js\LandType.js" />
+    <Content Include="assets\admin\js\LProjectCategory.js" />
     <Content Include="assets\build\css\custom.css" />
     <Content Include="assets\build\css\custom.min.css" />
     <Content Include="assets\build\images\back_disabled.png" />
@@ -307,6 +314,7 @@
     <Content Include="assets\client\js\jquery.js" />
     <Content Include="assets\client\libs\core.min.js" />
     <Content Include="assets\library\helper\CallServiceHelper.js" />
+    <Content Include="assets\library\helper\common.js" />
     <Content Include="assets\library\KendoUI\custom-kendo.js" />
     <Content Include="assets\library\KendoUI\grid-support.js" />
     <Content Include="assets\library\KendoUI\images\pi-white.png" />
@@ -1709,6 +1717,8 @@
     <Content Include="Areas\Admin\Views\LandNews\Create.cshtml" />
     <Content Include="Areas\Admin\Views\LandType\Index.cshtml" />
     <Content Include="Areas\Admin\Views\LandCategory\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\LProject\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\LProjectCategory\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -1747,7 +1757,6 @@
     <Folder Include="assets\admin\img\" />
     <Folder Include="assets\admin\libs\" />
     <Folder Include="assets\client\img\" />
-    <Folder Include="Views\AddressCommon\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

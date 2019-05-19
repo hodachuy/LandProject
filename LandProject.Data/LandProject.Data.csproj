@@ -82,6 +82,10 @@
     <Compile Include="Migrations\201905161105187_AddFKLT.Designer.cs">
       <DependentUpon>201905161105187_AddFKLT.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905190530476_NewUpdate.cs" />
+    <Compile Include="Migrations\201905190530476_NewUpdate.Designer.cs">
+      <DependentUpon>201905190530476_NewUpdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AgentRepository.cs" />
@@ -136,6 +140,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905161105187_AddFKLT.resx">
       <DependentUpon>201905161105187_AddFKLT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905190530476_NewUpdate.resx">
+      <DependentUpon>201905190530476_NewUpdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,5 +1,5 @@
 ﻿var _idgrid = "#grid";
-var LandTypeModel = {
+var LProjectCategoryModel = {
     ID:'',
     Name: '',
     Alias:'',
@@ -8,37 +8,37 @@ var LandTypeModel = {
 var TypeActionAdd = true;
 $(document).ready(function () {
     LoadGrid();
-    $('body').on('click', '#form-create-landType', function () {
+    $('body').on('click', '#form-create-lProjectCategory', function () {
         $('#form').validationEngine('hide');
         TypeActionAdd = true;
-        $('#txtLandTypeName').val('');
-        $("#LandTypeModel").modal({
+        $('#txtLProjectCategoryName').val('');
+        $("#LProjectCategoryModel").modal({
             backdrop: 'static',
             keyboard: true,
             show: true
         });
     })
-    $('body').on('click', '#saveLandType', function () {
+    $('body').on('click', '#saveLProjectCategory', function () {
         if (checkValid()) {
-            LandTypeModel.Name = $('#txtLandTypeName').val();
-            LandTypeModel.Alias = new commonService().getSeoTitle($('#txtLandTypeName').val());
-            LandTypeModel.IsDelete = false;
+            LProjectCategoryModel.Name = $('#txtLProjectCategoryName').val();
+            LProjectCategoryModel.Alias = new commonService().getSeoTitle($('#txtLProjectCategoryName').val());
+            LProjectCategoryModel.IsDelete = false;
             if (TypeActionAdd) {//add          
-                var svr = new AjaxCall("api/landtype/create", JSON.stringify(LandTypeModel));
+                var svr = new AjaxCall("api/lprojectcategory/create", JSON.stringify(LProjectCategoryModel));
                 svr.callServicePOST(function (data) {
                     console.log(data)
                     if (data != null) {
-                        $("#LandTypeModel").modal('hide');
+                        $("#LProjectCategoryModel").modal('hide');
                         $('#grid').data('kendoGrid').dataSource.read();
                         $('#grid').data('kendoGrid').refresh();
                     }
                 });
             } else {//update
-                var svr = new AjaxCall("api/landtype/update", JSON.stringify(LandTypeModel));
+                var svr = new AjaxCall("api/lprojectcategory/update", JSON.stringify(LProjectCategoryModel));
                 svr.callServicePOST(function (data) {
                     console.log(data)
                     if (data != null) {
-                        $("#LandTypeModel").modal('hide');
+                        $("#LProjectCategoryModel").modal('hide');
                         $('#grid').data('kendoGrid').dataSource.read();
                         $('#grid').data('kendoGrid').refresh();
                     }
@@ -46,8 +46,8 @@ $(document).ready(function () {
             }
         }
     })
-    $('body').on('click', '#closeLandType', function () {
-        $("#LandTypeModel").modal('hide');
+    $('body').on('click', '#closeLProjectCategory', function () {
+        $("#LProjectCategoryModel").modal('hide');
     })
 })
 
@@ -56,12 +56,12 @@ checkValid = function () {
     setTimeout(function () {
         $('#form').validationEngine('hide');
     }, 10000);
-    var landTypeName = $('#txtLandTypeName').val();
-    if (landTypeName.trim() == "") {
-        $('#txtLandTypeName').validationEngine('showPrompt', '* Trường này bắt buộc', 'red', 'topRight', true);
+    var lProjectCategoryName = $('#txtLProjectCategoryName').val();
+    if (lProjectCategoryName.trim() == "") {
+        $('#txtLProjectCategoryName').validationEngine('showPrompt', '* Trường này bắt buộc', 'red', 'topRight', true);
         res = false;
     } else {
-        $("#txtLandTypeName").validationEngine('hide');
+        $("#txtLProjectCategoryName").validationEngine('hide');
     }
     return res;
 }
@@ -173,7 +173,7 @@ var Columns = [
 
 ];
 LoadGrid = function () {
-    InitKendoGrid(_idgrid, Columns, new DataSource().MasterDatasource("" + _Host + "api/landtype/getalltable"), null, false, '')
+    InitKendoGrid(_idgrid, Columns, new DataSource().MasterDatasource("" + _Host + "api/lprojectcategory/getalltable"), null, false, '')
 }
 function templateForAction(e) {
     var html = '';
@@ -211,7 +211,7 @@ function templateForAction(e) {
 ForumCatg = function (id) {
     this.Edit = function () {
         TypeActionAdd = false;
-        $("#LandTypeModel").modal({
+        $("#LProjectCategoryModel").modal({
             backdrop: 'static',
             keyboard: true,
             show: true
@@ -220,12 +220,12 @@ ForumCatg = function (id) {
         var param = {
             lTypeId: id
         }
-        var svr = new AjaxCall("api/landtype/getbyid", param);
+        var svr = new AjaxCall("api/lprojectcategory/getbyid", param);
         svr.callServiceGET(function (data) {
             console.log(data)
             if (data != undefined) {
-                $('#txtLandTypeName').val(data.Name);
-                LandTypeModel.ID = data.ID;
+                $('#txtLProjectCategoryName').val(data.Name);
+                LProjectCategoryModel.ID = data.ID;
             }
         });
 

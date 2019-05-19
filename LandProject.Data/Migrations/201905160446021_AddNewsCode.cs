@@ -3,7 +3,7 @@ namespace LandProject.Data.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class AddNewsCode : DbMigration
+    public partial class f : DbMigration
     {
         public override void Up()
         {

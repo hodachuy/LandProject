@@ -11,9 +11,11 @@ namespace LandProject.Service
 {
     public interface ILProjectCategoryService
     {
-        IEnumerable<LProjectCategory> GetAll();
+		IEnumerable<LProjectCategory> GetAllByCondition(string condition);
+		IEnumerable<LProjectCategory> GetAll();
         LProjectCategory Add(LProjectCategory LProjectCategory);
-        LProjectCategory Delete(int id);
+		LProjectCategory GetByID(int lProjectCategoryID);
+		LProjectCategory Delete(int id);
         void Update(LProjectCategory LProjectCategory);
         void Save();
     }
@@ -26,7 +28,15 @@ namespace LandProject.Service
             _lProjectCategoryRepository = lProjectCategoryRepository;
             _unitOfWork = unitOfWork;
         }
-        public LProjectCategory Add(LProjectCategory LProjectCategory)
+
+		public IEnumerable<LProjectCategory> GetAllByCondition(string condition)
+		{
+			if (!String.IsNullOrEmpty(condition))
+				return _lProjectCategoryRepository.GetMulti(x => x.Name.Contains(condition));
+			return _lProjectCategoryRepository.GetAll();
+		}
+
+		public LProjectCategory Add(LProjectCategory LProjectCategory)
         {
             return _lProjectCategoryRepository.Add(LProjectCategory);
         }
@@ -50,5 +60,10 @@ namespace LandProject.Service
         {
             _lProjectCategoryRepository.Update(LProjectCategory);
         }
-    }
+
+		public LProjectCategory GetByID(int lProjectCategoryID)
+		{
+			return _lProjectCategoryRepository.GetSingleById(lProjectCategoryID);
+		}
+	}
 }

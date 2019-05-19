@@ -11,7 +11,7 @@
         <div class="title_right">
             <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
                 <div class="input-group" style="float:right">
-                    <a class="btn btn-primary">
+                    <a class="btn btn-primary" id="form-create-landType">
                         Thêm
                     </a>
                 </div>
@@ -32,6 +32,31 @@
             </p>*@
             <div id="grid"></div>
         </div>
+    </div>
+</div>
+
+<div class="modal fade" id="LandTypeModel" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Thêm thể loại nhà đất</h4>
+            </div>
+            <div class="modal-body">
+                <form id="form">
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Name</label>
+                        <input type="text" class="form-control" id="txtLandTypeName" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="saveLandType">Lưu</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="closeLandType">Đóng</button>
+            </div>
+        </div>
+
     </div>
 </div>
 

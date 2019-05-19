@@ -6,12 +6,12 @@
 <div class="">
     <div class="page-title">
         <div class="title_left">
-            <h3>Phân mục nhà đất</h3>
+            <h3>Thể loại nhà đất</h3>
         </div>
         <div class="title_right">
             <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
                 <div class="input-group" style="float:right">
-                    <a class="btn btn-primary" id="form-create-landCategory">
+                    <a class="btn btn-primary" id="form-create-lProjectCategory">
                         Thêm
                     </a>
                 </div>
@@ -21,7 +21,7 @@
     <div class="clearfix"></div>
     <div class="x_panel">
         <div class="x_title">
-            <small>Trang chủ</small> / <small>Nhà đất</small> / <small>Phân mục</small>
+            <small>Trang chủ</small> / <small>Nhà đất</small> / <small>Thể loại</small>
             <div class="clearfix"></div>
         </div>
         <div class="x_content">
@@ -34,38 +34,32 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="LandCategoryModel" role="dialog">
+
+<div class="modal fade" id="LProjectCategoryModel" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Thêm phân mục nhà đất</h4>
+                <h4 class="modal-title">Thêm thể loại nhà đất</h4>
             </div>
             <div class="modal-body">
                 <form id="form">
                     <div class="form-group">
                         <label for="exampleFormControlTextarea1">Name</label>
-                        <input type="text" class="form-control" id="txtLandCategoryName" />
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleFormControlTextarea1">Thể loại</label>
-                        <div class="w100 form-control" id="cboLandType"></div>
+                        <input type="text" class="form-control" id="txtLProjectCategoryName" />
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="saveLandCategory">Lưu</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal" id="closeLandCategory">Đóng</button>
+                <button type="button" class="btn btn-primary" id="saveLProjectCategory">Lưu</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="closeLProjectCategory">Đóng</button>
             </div>
         </div>
 
     </div>
 </div>
+
 @section footerJS{
-    <script src="~/assets/admin/js/LandCategory.js"></script>
+    <script src="~/assets/admin/js/LProjectCategory.js"></script>
 }
-
-
-
-

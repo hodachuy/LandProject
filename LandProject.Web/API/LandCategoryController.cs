@@ -3,6 +3,8 @@ using LandProject.Common;
 using LandProject.Model.Models;
 using LandProject.Service;
 using LandProject.Web.Infrastructure.Core;
+using LandProject.Web.Infrastructure.Extensions;
+using LandProject.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +35,22 @@ namespace LandProject.Web.API
 
 				var lstLandCategory = _landCategoryService.GetByLandTypeID(lTypeID);
 				response = request.CreateResponse(HttpStatusCode.OK, lstLandCategory);
+				return response;
+			});
+		}
+
+		[Route("getbyid")]
+		[HttpGet]
+		public HttpResponseMessage GetByID(HttpRequestMessage request, int landCategoryID)
+		{
+			return CreateHttpResponse(request, () =>
+			{
+				HttpResponseMessage response;
+				if (landCategoryID == 0)
+					return request.CreateResponse(HttpStatusCode.NoContent);
+
+				var landCategory = _landCategoryService.GetByID(landCategoryID);
+				response = request.CreateResponse(HttpStatusCode.OK, landCategory);
 				return response;
 			});
 		}
@@ -78,5 +96,47 @@ namespace LandProject.Web.API
                 return response;
             });
         }
-    }
+
+		[Route("create")]
+		[HttpPost]
+		public HttpResponseMessage Create(HttpRequestMessage request, LandCategoryViewModel lCategoryVm)
+		{
+			return CreateHttpResponse(request, () =>
+			{
+				HttpResponseMessage response;
+				if (!ModelState.IsValid)
+				{
+					response = request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+					return response;
+				}
+				LandCategory landCategoryDb = new LandCategory();
+				landCategoryDb.UpdateLandCategory(lCategoryVm);
+				_landCategoryService.Add(landCategoryDb);
+				_landCategoryService.Save();
+				response = request.CreateResponse(HttpStatusCode.OK, landCategoryDb);
+				return response;
+			});
+		}
+
+		[Route("update")]
+		[HttpPost]
+		public HttpResponseMessage Update(HttpRequestMessage request, LandCategoryViewModel lCategoryVm)
+		{
+			return CreateHttpResponse(request, () =>
+			{
+				HttpResponseMessage response;
+				if (!ModelState.IsValid)
+				{
+					response = request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+					return response;
+				}
+				LandCategory landCategoryDb = new LandCategory();
+				landCategoryDb.UpdateLandCategory(lCategoryVm);
+				_landCategoryService.Update(landCategoryDb);
+				_landCategoryService.Save();
+				response = request.CreateResponse(HttpStatusCode.OK, landCategoryDb);
+				return response;
+			});
+		}
+	}
 }

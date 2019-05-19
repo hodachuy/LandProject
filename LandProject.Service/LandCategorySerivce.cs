@@ -14,7 +14,8 @@ namespace LandProject.Service
         IEnumerable<LandCategory> GetAll();
         IEnumerable<LandCategory> GetAllByCondition(string condition, int lTypeID);
         IEnumerable<LandCategory> GetByLandTypeID(int lTypeID);
-        LandCategory Add(LandCategory landCategory);
+		LandCategory GetByID(int landCategoryID);
+		LandCategory Add(LandCategory landCategory);
         LandCategory Delete(int id);
         void Update(LandCategory LandCategory);
         void Save();
@@ -60,7 +61,12 @@ namespace LandProject.Service
 			return lstLandCategory;
 		}
 
-        public IEnumerable<LandCategory> GetByLandTypeID(int lTypeID)
+		public LandCategory GetByID(int landCategoryID)
+		{
+			return _landCategoryRepository.GetSingleById(landCategoryID);
+		}
+
+		public IEnumerable<LandCategory> GetByLandTypeID(int lTypeID)
         {
             return _landCategoryRepository.GetMulti(x => x.LandTypeID == lTypeID);
         }

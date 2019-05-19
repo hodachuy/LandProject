@@ -13,7 +13,8 @@ namespace LandProject.Service
     {
         IEnumerable<LandType> GetAllByCondition(string condition);
         IEnumerable<LandType> GetAll();
-        LandType Add(LandType landType);
+		LandType GetByID(int landTypeID);
+		LandType Add(LandType landType);
         LandType Delete(int id);
         void Update(LandType landType);
         void Save();
@@ -49,7 +50,12 @@ namespace LandProject.Service
             return _landTypeRepository.GetAll();
         }
 
-        public void Save()
+		public LandType GetByID(int landTypeID)
+		{
+			return _landTypeRepository.GetSingleById(landTypeID);
+		}
+
+		public void Save()
         {
             _unitOfWork.Commit();
         }

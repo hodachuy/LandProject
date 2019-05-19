@@ -68,7 +68,7 @@ namespace LandProject.Web.Controllers
 						return Redirect(returnUrl);
 				}
 
-				return RedirectToAction("Index", "Dashboard");
+				return RedirectToAction("Index", "Home");
 			}
 
 			return View();
@@ -96,7 +96,7 @@ namespace LandProject.Web.Controllers
 					}
 					else
 					{
-						return RedirectToAction("Index", "Dashboard");
+						return RedirectToAction("Index", "Home");
 					}
 				}
 				else
@@ -151,7 +151,7 @@ namespace LandProject.Web.Controllers
 				}
 				else
 				{
-					returnUrl = "Dashboard/Index";
+					returnUrl = "Home/Index";
 				}
 
 				return Json(new

@@ -15,7 +15,7 @@
                     "func": function(field, rules, i, options){
                         return (field.val() == "test") ? true : false;
                     },
-                    "alertText": "* Giá trị của trường phải là test"
+                    "alertText": "* Giá trị của trường phải là text"
                 },                
                 "dateRange": {
                     "regex": "none",

@@ -7,13 +7,13 @@ namespace LandProject.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class f : IMigrationMetadata
+    public sealed partial class NewUpdate : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(f));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(NewUpdate));
         
         string IMigrationMetadata.Id
         {
-            get { return "201905160446021_AddNewsCode"; }
+            get { return "201905190530476_NewUpdate"; }
         }
         
         string IMigrationMetadata.Source
