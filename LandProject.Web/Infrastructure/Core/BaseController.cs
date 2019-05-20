@@ -47,11 +47,11 @@ namespace LandProject.Web.Infrastructure.Core
         /// <param name="filterContext"></param>
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-			if (Session[CommonConstants.SessionUser] == null)
-			{
-				filterContext.Result = new RedirectResult(Url.Action("Index", "Home"));
-				return;
-			}
+			//if (Session[CommonConstants.SessionUser] == null)
+			//{
+			//	filterContext.Result = new RedirectResult(Url.Action("Index", "Home"));
+			//	return;
+			//}
 			base.OnActionExecuting(filterContext);
         }
   

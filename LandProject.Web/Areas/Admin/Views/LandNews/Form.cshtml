@@ -1,8 +1,8 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Form";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
+<input type="hidden" id="landTypeID" value="@ViewBag.LandTypeID"/>
 <div class="">
     <div class="page-title">
         <div class="title_left">
@@ -46,12 +46,11 @@
         </div>
         <div class="x_content">
             <br />
-
-            <h4>Horizontal labels</h4>
+            @*<h4>Horizontal labels</h4>
             <p class="font-gray-dark">
                 Using the grid system you can control the position of the labels. The form example below has the <b>col-md-10</b> which sets the width to 10/12 and <b>center-margin</b> which centers it.
-            </p>
-
+            </p>*@
+            <div id="grid"></div>
         </div>
     </div>
 </div>

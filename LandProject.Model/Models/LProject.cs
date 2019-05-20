@@ -28,6 +28,8 @@ namespace LandProject.Model.Models
 		[StringLength(256)]
 		public string Address { set; get; }
 
+        public string Image { set; get; }
+
 		[MaxLength(250)]
 		public string Description { set; get; }
 
@@ -39,9 +41,13 @@ namespace LandProject.Model.Models
 		[ForeignKey("LProjectCaregoryID")]
 		public virtual LProjectCategory LProjectCategory { set; get; }
 
-		public decimal Price { set; get; }
+		public decimal? Price { set; get; }
 
-		public string Unit { set; get; }
+        public string TotalPrice { set; get; }
+
+        public decimal? DecimalTotalPrice { set; get; }
+
+        public string Unit { set; get; }
 
 		public string Area { set; get; }
 

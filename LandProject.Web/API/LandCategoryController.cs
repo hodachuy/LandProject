@@ -1,8 +1,8 @@
-﻿using BotProject.Web.Infrastructure.Core;
+﻿using AutoMapper;
+using LandProject.Web.Infrastructure.Core;
 using LandProject.Common;
 using LandProject.Model.Models;
 using LandProject.Service;
-using LandProject.Web.Infrastructure.Core;
 using LandProject.Web.Infrastructure.Extensions;
 using LandProject.Web.Models;
 using System;
@@ -34,7 +34,8 @@ namespace LandProject.Web.API
 					return request.CreateResponse(HttpStatusCode.NoContent);
 
 				var lstLandCategory = _landCategoryService.GetByLandTypeID(lTypeID);
-				response = request.CreateResponse(HttpStatusCode.OK, lstLandCategory);
+                var lstLandCategoryVm = Mapper.Map<IEnumerable<LandCategory>, IEnumerable<LandCategoryViewModel>>(lstLandCategory);
+                response = request.CreateResponse(HttpStatusCode.OK, lstLandCategoryVm);
 				return response;
 			});
 		}
@@ -50,7 +51,8 @@ namespace LandProject.Web.API
 					return request.CreateResponse(HttpStatusCode.NoContent);
 
 				var landCategory = _landCategoryService.GetByID(landCategoryID);
-				response = request.CreateResponse(HttpStatusCode.OK, landCategory);
+                var landCategoryVm = Mapper.Map<LandCategory, LandCategoryViewModel>(landCategory);
+                response = request.CreateResponse(HttpStatusCode.OK, landCategoryVm);
 				return response;
 			});
 		}
@@ -82,10 +84,11 @@ namespace LandProject.Web.API
                         }
                     }
                 }
-                var lstLandType = _landCategoryService.GetAllByCondition(filterLCategoryName, filterLTypeID);
-                totalRow = lstLandType.Count();
-                var query = lstLandType.Skip(rqFilter.page * rqFilter.pageSize).Take(rqFilter.pageSize);
-                var paginationSet = new PaginationSet<LandCategory>()
+                var lstLandCategory = _landCategoryService.GetAllByCondition(filterLCategoryName, filterLTypeID);
+                var lstLandCategoryVm = Mapper.Map<IEnumerable<LandCategory>, IEnumerable<LandCategoryViewModel>>(lstLandCategory);
+                totalRow = lstLandCategoryVm.Count();
+                var query = lstLandCategoryVm.Skip(rqFilter.page * rqFilter.pageSize).Take(rqFilter.pageSize);
+                var paginationSet = new PaginationSet<LandCategoryViewModel>()
                 {
                     Items = query,
                     Page = rqFilter.page + 1,
@@ -113,7 +116,9 @@ namespace LandProject.Web.API
 				landCategoryDb.UpdateLandCategory(lCategoryVm);
 				_landCategoryService.Add(landCategoryDb);
 				_landCategoryService.Save();
-				response = request.CreateResponse(HttpStatusCode.OK, landCategoryDb);
+
+                var landCategoryVm = Mapper.Map<LandCategory, LandCategoryViewModel>(landCategoryDb);
+                response = request.CreateResponse(HttpStatusCode.OK, landCategoryVm);
 				return response;
 			});
 		}
@@ -134,7 +139,9 @@ namespace LandProject.Web.API
 				landCategoryDb.UpdateLandCategory(lCategoryVm);
 				_landCategoryService.Update(landCategoryDb);
 				_landCategoryService.Save();
-				response = request.CreateResponse(HttpStatusCode.OK, landCategoryDb);
+
+                var landCategoryVm = Mapper.Map<LandCategory, LandCategoryViewModel>(landCategoryDb);
+                response = request.CreateResponse(HttpStatusCode.OK, landCategoryVm);
 				return response;
 			});
 		}

@@ -16,6 +16,7 @@ namespace LandProject.Web.Areas.Admin.Controllers
 
         public ActionResult Form(int lTypeID)
         {
+            ViewBag.LandTypeID = lTypeID;
             return View();
         }
 

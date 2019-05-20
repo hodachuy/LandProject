@@ -24,6 +24,10 @@ namespace LandProject.Model.Models
 
 		public int TelephoneCode { set; get; }
 
+        public int CountryID { set; get; }
+
+        public string CountryCode { set; get; }
+
 		[MaxLength(20)]
 		public string ZipCode { set; get; }
 
@@ -32,5 +36,7 @@ namespace LandProject.Model.Models
 		public bool IsPublished { set; get; }
 
 		public bool IsDeleted { set; get; }
+
+        public virtual IEnumerable<District> Districts { set; get; }
 	}
 }

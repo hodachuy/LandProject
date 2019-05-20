@@ -1,4 +1,4 @@
-﻿using BotProject.Web.Infrastructure.Core;
+﻿using LandProject.Web.Infrastructure.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +8,13 @@ using System.Web.Http;
 using LandProject.Service;
 using LandProject.Common;
 using LandProject.Model.Models;
-using LandProject.Web.Infrastructure.Core;
+using AutoMapper;
+using LandProject.Web.Models;
 
 namespace LandProject.Web.API
 {
-	public class LProjectController : ApiControllerBase
+    [RoutePrefix("api/lproject")]
+    public class LProjectController : ApiControllerBase
 	{
 		private ILProjectService _lProjectService;
 		public LProjectController(IErrorService errorService, ILProjectService lProjectService) : base(errorService)
@@ -28,13 +30,14 @@ namespace LandProject.Web.API
 			{
 				HttpResponseMessage response;
 				var lstLProject = _lProjectService.GetAll();
-				response = request.CreateResponse(HttpStatusCode.OK, lstLProject);
+                var lstLProjectVm = Mapper.Map<IEnumerable<LProject>, IEnumerable<LProjectViewModel>>(lstLProject);
+                response = request.CreateResponse(HttpStatusCode.OK, lstLProjectVm);
 				return response;
 			});
 		}
 
 		[Route("getbylprojectcategory")]
-		[HttpPost]
+		[HttpGet]
 		public HttpResponseMessage GetAllByLProjectCategory(HttpRequestMessage request, int lProjectCategoryID)
 		{
 			return CreateHttpResponse(request, () =>
@@ -44,12 +47,30 @@ namespace LandProject.Web.API
 					return request.CreateResponse(HttpStatusCode.NoContent);
 
 				var lstLProject = _lProjectService.GetByLProjectCategoryID(lProjectCategoryID);
-				response = request.CreateResponse(HttpStatusCode.OK, lstLProject);
+                var lstLProjectVm = Mapper.Map<IEnumerable<LProject>, IEnumerable<LProjectViewModel>>(lstLProject);
+                response = request.CreateResponse(HttpStatusCode.OK, lstLProjectVm);
 				return response;
 			});
 		}
 
-		[Route("getalltable")]
+        [Route("getbydistrict")]
+        [HttpGet]
+        public HttpResponseMessage GetAllByDistrict(HttpRequestMessage request, int districtID)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response;
+                if (districtID == 0)
+                    return request.CreateResponse(HttpStatusCode.NoContent);
+
+                var lstLProject = _lProjectService.GetByDistrictID(districtID);
+                var lstLProjectVm = Mapper.Map<IEnumerable<LProject>, IEnumerable<LProjectViewModel>>(lstLProject);
+                response = request.CreateResponse(HttpStatusCode.OK, lstLProjectVm);
+                return response;
+            });
+        }
+
+        [Route("getalltable")]
 		[HttpPost]
 		public HttpResponseMessage GetAllToTable(HttpRequestMessage request, Request rqFilter)
 		{
@@ -75,10 +96,11 @@ namespace LandProject.Web.API
 						}
 					}
 				}
-				var lstLandType = _lProjectService.GetAllByCondition(filterLProjectName, filterLTypeID);
-				totalRow = lstLandType.Count();
-				var query = lstLandType.Skip(rqFilter.page * rqFilter.pageSize).Take(rqFilter.pageSize);
-				var paginationSet = new PaginationSet<LProject>()
+				var lstLProject = _lProjectService.GetAllByCondition(filterLProjectName, filterLTypeID);
+                var lstLProjectVm = Mapper.Map<IEnumerable<LProject>, IEnumerable<LProjectViewModel>>(lstLProject);
+                totalRow = lstLProjectVm.Count();
+				var query = lstLProjectVm.Skip(rqFilter.page * rqFilter.pageSize).Take(rqFilter.pageSize);
+				var paginationSet = new PaginationSet<LProjectViewModel>()
 				{
 					Items = query,
 					Page = rqFilter.page + 1,

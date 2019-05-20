@@ -12,10 +12,8 @@ namespace LandProject.Common
         public const string SessionUser = "User";
         public const string Administrator = "Admin";
         public const string Visitor = "Visitor";
-        public const string PathImage = "Card";
-
-        public const string PostBackCard = "postback_card_";
-
+        public const string FolderLandNews = "LandNews";
+        public const string FolderLProject = "LProject";
         public const string CreateQnA = "Create";
         public const string UpdateQnA = "Update";
     }
@@ -25,18 +23,7 @@ namespace LandProject.Common
         /// <summary>
         /// HttpContext.Current.Server.MapPath("~/File/Images/");
         /// </summary>
-        public static string PathImage = HttpContext.Current.Server.MapPath("~/File/Images/");
-        /// <summary>
-        /// HttpContext.Current.Server.MapPath("~/File/AIML/");
-        /// </summary>
-        public static string PathAIML = HttpContext.Current.Server.MapPath("~/File/AIML/");
-
-        /// <summary>
-        /// HttpContext.Current.Server.MapPath("~/File/Datasets_Training_Accent/")
-        /// </summary>
-        public static string PathAccent = HttpContext.Current.Server.MapPath("~/File/Datasets_Training_Accent/");
-
-        public static string PathLogoSetting = HttpContext.Current.Server.MapPath("~/assets/images/logo/");
+        public static string PathImage = HttpContext.Current.Server.MapPath("~/fileman/Uploads/");
     }
 
     public class PathConfig

@@ -28,6 +28,9 @@ namespace LandProject.Model.Models
 		[Required]
 		public int DistrictID { set; get; }
 
+        [ForeignKey("DistrictID")]
+        public virtual District District { set; get; }
+
 		[Required]
 		public int SortOrder { set; get; }
 

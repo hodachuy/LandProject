@@ -27,10 +27,15 @@ namespace LandProject.Model.Models
 		[Required]
 		public int ProvinceID { set; get; }
 
+        [ForeignKey("ProvinceID")]
+        public virtual Province Province { set; get; }
+
 		public int SortOrder { set; get; }
 
 		public bool IsPublished { set; get; }
 
 		public bool IsDeleted { set; get; }
+
+        public virtual IEnumerable<Ward> Wards { set; get; }
 	}
 }

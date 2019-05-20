@@ -4,7 +4,7 @@ using LandProject.Model.Models;
 using System.Collections.Generic;
 using System;
 
-namespace ShopProject.Service
+namespace LandProject.Service
 {
     public interface ILandFileService
     {

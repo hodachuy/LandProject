@@ -33,9 +33,13 @@ namespace LandProject.Web.Models
 
 		public virtual LProjectCategoryViewModel LProjectCategory { set; get; }
 
-		public decimal Price { set; get; }
+        public decimal? Price { set; get; }
 
-		public string Unit { set; get; }
+        public string TotalPrice { set; get; }
+
+        public decimal? DecimalTotalPrice { set; get; }
+
+        public string Unit { set; get; }
 
 		public string Area { set; get; }
 

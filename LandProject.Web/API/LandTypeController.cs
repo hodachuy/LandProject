@@ -1,4 +1,4 @@
-﻿using BotProject.Web.Infrastructure.Core;
+﻿using LandProject.Web.Infrastructure.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +8,9 @@ using System.Web.Http;
 using LandProject.Service;
 using LandProject.Common;
 using LandProject.Model.Models;
-using LandProject.Web.Infrastructure.Core;
 using LandProject.Web.Models;
 using LandProject.Web.Infrastructure.Extensions;
+using AutoMapper;
 
 namespace LandProject.Web.API
 {
@@ -31,7 +31,8 @@ namespace LandProject.Web.API
             {
                 HttpResponseMessage response;            
                 var lstLandType = _landTypeService.GetAll();
-                response = request.CreateResponse(HttpStatusCode.OK, lstLandType);
+                var lstLandTypeVm = Mapper.Map<IEnumerable<LandType>, IEnumerable<LandTypeViewModel>>(lstLandType);
+                response = request.CreateResponse(HttpStatusCode.OK, lstLandTypeVm);
                 return response;
             });
         }
@@ -52,9 +53,10 @@ namespace LandProject.Web.API
 					filterLTypeName = rqFilter.filter.filters[0].Value;
                 }
                 var lstLandType = _landTypeService.GetAllByCondition(filterLTypeName);
-                totalRow = lstLandType.Count();
-                var query = lstLandType.Skip(rqFilter.page * rqFilter.pageSize).Take(rqFilter.pageSize);
-                var paginationSet = new PaginationSet<LandType>()
+                var lstLandTypeVm = Mapper.Map<IEnumerable<LandType>, IEnumerable<LandTypeViewModel>>(lstLandType);
+                totalRow = lstLandTypeVm.Count();
+                var query = lstLandTypeVm.Skip(rqFilter.page * rqFilter.pageSize).Take(rqFilter.pageSize);
+                var paginationSet = new PaginationSet<LandTypeViewModel>()
                 {
                     Items = query,
                     Page = rqFilter.page + 1,
@@ -78,7 +80,8 @@ namespace LandProject.Web.API
 					return request.CreateResponse(HttpStatusCode.NoContent);
 				}
 				var landType = _landTypeService.GetByID(lTypeId);
-				response = request.CreateResponse(HttpStatusCode.OK, landType);
+                var landTypeVm = Mapper.Map<LandType, LandTypeViewModel>(landType);
+                response = request.CreateResponse(HttpStatusCode.OK, landTypeVm);
 				return response;
 			});
 		}
@@ -100,7 +103,8 @@ namespace LandProject.Web.API
 				landTypeDb.UpdateLandType(lTypeVm);
 				_landTypeService.Add(landTypeDb);
 				_landTypeService.Save();
-				response = request.CreateResponse(HttpStatusCode.OK, landTypeDb);
+                var landTypeVm = Mapper.Map<LandType, LandTypeViewModel>(landTypeDb);
+                response = request.CreateResponse(HttpStatusCode.OK, landTypeVm);
 				return response;
 			});
 		}
@@ -121,7 +125,8 @@ namespace LandProject.Web.API
 				landTypeDb.UpdateLandType(lTypeVm);
 				_landTypeService.Update(landTypeDb);
 				_landTypeService.Save();
-				response = request.CreateResponse(HttpStatusCode.OK, landTypeDb);
+                var landTypeVm = Mapper.Map<LandType, LandTypeViewModel>(landTypeDb);
+                response = request.CreateResponse(HttpStatusCode.OK, landTypeVm);
 				return response;
 			});
 		}

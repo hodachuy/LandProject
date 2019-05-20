@@ -1,4 +1,4 @@
-﻿using BotProject.Web.Infrastructure.Core;
+﻿using LandProject.Web.Infrastructure.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +8,9 @@ using System.Web.Http;
 using LandProject.Service;
 using LandProject.Common;
 using LandProject.Model.Models;
-using LandProject.Web.Infrastructure.Core;
 using LandProject.Web.Models;
 using LandProject.Web.Infrastructure.Extensions;
+using AutoMapper;
 
 namespace LandProject.Web.API
 {
@@ -31,7 +31,8 @@ namespace LandProject.Web.API
 			{
 				HttpResponseMessage response;
 				var lstLProjectCategory = _lProjectCategoryService.GetAll();
-				response = request.CreateResponse(HttpStatusCode.OK, lstLProjectCategory);
+                var lstLProjectCategoryVm = Mapper.Map<IEnumerable<LProjectCategory>, IEnumerable<LProjectCategoryViewModel>>(lstLProjectCategory);
+                response = request.CreateResponse(HttpStatusCode.OK, lstLProjectCategoryVm);
 				return response;
 			});
 		}
@@ -52,9 +53,10 @@ namespace LandProject.Web.API
 					filterLProjectCategoryName = rqFilter.filter.filters[0].Value;
 				}
 				var lstLProjectCategory = _lProjectCategoryService.GetAllByCondition(filterLProjectCategoryName);
-				totalRow = lstLProjectCategory.Count();
-				var query = lstLProjectCategory.Skip(rqFilter.page * rqFilter.pageSize).Take(rqFilter.pageSize);
-				var paginationSet = new PaginationSet<LProjectCategory>()
+                var lstLProjectCategoryVm = Mapper.Map<IEnumerable<LProjectCategory>, IEnumerable<LProjectCategoryViewModel>>(lstLProjectCategory);
+                totalRow = lstLProjectCategoryVm.Count();
+				var query = lstLProjectCategoryVm.Skip(rqFilter.page * rqFilter.pageSize).Take(rqFilter.pageSize);
+				var paginationSet = new PaginationSet<LProjectCategoryViewModel>()
 				{
 					Items = query,
 					Page = rqFilter.page + 1,
@@ -78,7 +80,8 @@ namespace LandProject.Web.API
 					return request.CreateResponse(HttpStatusCode.NoContent);
 				}
 				var lprjCategory = _lProjectCategoryService.GetByID(lProjectCategoryID);
-				response = request.CreateResponse(HttpStatusCode.OK, lprjCategory);
+                var lprjCategoryVm = Mapper.Map<LProjectCategory, LProjectCategoryViewModel>(lprjCategory);
+                response = request.CreateResponse(HttpStatusCode.OK, lprjCategoryVm);
 				return response;
 			});
 		}
@@ -100,7 +103,9 @@ namespace LandProject.Web.API
 				lProjectCategoryDb.UpdateLProjectCategory(lProjectCategoryVm);
 				_lProjectCategoryService.Add(lProjectCategoryDb);
 				_lProjectCategoryService.Save();
-				response = request.CreateResponse(HttpStatusCode.OK, lProjectCategoryDb);
+
+                var lprjCategoryVm = Mapper.Map<LProjectCategory, LProjectCategoryViewModel>(lProjectCategoryDb);
+                response = request.CreateResponse(HttpStatusCode.OK, lprjCategoryVm);
 				return response;
 			});
 		}
@@ -121,7 +126,9 @@ namespace LandProject.Web.API
 				lProjectCategoryDb.UpdateLProjectCategory(lProjectCategoryVm);
 				_lProjectCategoryService.Update(lProjectCategoryDb);
 				_lProjectCategoryService.Save();
-				response = request.CreateResponse(HttpStatusCode.OK, lProjectCategoryDb);
+
+                var lprjCategoryVm = Mapper.Map<LProjectCategory, LProjectCategoryViewModel>(lProjectCategoryDb);
+                response = request.CreateResponse(HttpStatusCode.OK, lprjCategoryVm);
 				return response;
 			});
 		}

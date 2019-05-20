@@ -13,7 +13,17 @@ namespace LandProject.Web.Mappings
                 cfg.CreateMap<ApplicationGroup, ApplicationGroupViewModel>();
                 cfg.CreateMap<ApplicationRole, ApplicationRoleViewModel>();
                 cfg.CreateMap<ApplicationUser, ApplicationUserViewModel>();
-			});
+                cfg.CreateMap<LandType, LandTypeViewModel>();
+                cfg.CreateMap<LandCategory, LandCategoryViewModel>();
+                cfg.CreateMap<LProject, LProjectViewModel>();
+                cfg.CreateMap<LProjectCategory, LProjectCategoryViewModel>();
+                cfg.CreateMap<Province, ProvinceViewModel>();
+                cfg.CreateMap<District, DistrictViewModel>();
+                cfg.CreateMap<Ward, WardViewModel>();
+                cfg.CreateMap<LandNews, LandNewsViewModel>();
+                cfg.CreateMap<LandFile, LandFileViewModel>();
+                cfg.CreateMap<Agent, AgentViewModel>();
+            });
         }
     }
 }

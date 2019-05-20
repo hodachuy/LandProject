@@ -1,4 +1,4 @@
-﻿using BotProject.Web.Infrastructure.Core;
+﻿using LandProject.Web.Infrastructure.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +6,9 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using LandProject.Service;
+using AutoMapper;
+using LandProject.Model.Models;
+using LandProject.Web.Models;
 
 namespace LandProject.Web.API
 {
@@ -26,7 +29,8 @@ namespace LandProject.Web.API
 			{
 				HttpResponseMessage response;
 				var lstProvince = _addressCommonService.GetAllProvince();
-				response = request.CreateResponse(HttpStatusCode.OK, lstProvince);
+                var lstProvinceVm = Mapper.Map<IEnumerable<Province>, IEnumerable<ProvinceViewModel>>(lstProvince);
+                response = request.CreateResponse(HttpStatusCode.OK, lstProvinceVm);
 				return response;
 			});
 		}
@@ -39,7 +43,8 @@ namespace LandProject.Web.API
 			{
 				HttpResponseMessage response;
 				var lstDistrict = _addressCommonService.GetDistrictByProvinceID(provinceID);
-				response = request.CreateResponse(HttpStatusCode.OK, lstDistrict);
+                var lstDistrictVm = Mapper.Map<IEnumerable<District>, IEnumerable<DistrictViewModel>>(lstDistrict);
+                response = request.CreateResponse(HttpStatusCode.OK, lstDistrictVm);
 				return response;
 			});
 		}
@@ -52,7 +57,8 @@ namespace LandProject.Web.API
 			{
 				HttpResponseMessage response;
 				var lstWard = _addressCommonService.GetWardByDistrictID(districtID);
-				response = request.CreateResponse(HttpStatusCode.OK, lstWard);
+                var lstWardVm = Mapper.Map<IEnumerable<Ward>, IEnumerable<WardViewModel>>(lstWard);
+                response = request.CreateResponse(HttpStatusCode.OK, lstWardVm);
 				return response;
 			});
 		}

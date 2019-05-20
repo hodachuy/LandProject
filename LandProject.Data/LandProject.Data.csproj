@@ -86,6 +86,26 @@
     <Compile Include="Migrations\201905190530476_NewUpdate.Designer.cs">
       <DependentUpon>201905190530476_NewUpdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905200243224_UpdateAgent.cs" />
+    <Compile Include="Migrations\201905200243224_UpdateAgent.Designer.cs">
+      <DependentUpon>201905200243224_UpdateAgent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905200307224_UpdateAddressCommon.cs" />
+    <Compile Include="Migrations\201905200307224_UpdateAddressCommon.Designer.cs">
+      <DependentUpon>201905200307224_UpdateAddressCommon.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905200318171_UpdateDbAddressCommon.cs" />
+    <Compile Include="Migrations\201905200318171_UpdateDbAddressCommon.Designer.cs">
+      <DependentUpon>201905200318171_UpdateDbAddressCommon.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905200725395_UpdatePrice.cs" />
+    <Compile Include="Migrations\201905200725395_UpdatePrice.Designer.cs">
+      <DependentUpon>201905200725395_UpdatePrice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201905200847390_UpdateImage.cs" />
+    <Compile Include="Migrations\201905200847390_UpdateImage.Designer.cs">
+      <DependentUpon>201905200847390_UpdateImage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AgentRepository.cs" />
@@ -143,6 +163,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905190530476_NewUpdate.resx">
       <DependentUpon>201905190530476_NewUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905200243224_UpdateAgent.resx">
+      <DependentUpon>201905200243224_UpdateAgent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905200307224_UpdateAddressCommon.resx">
+      <DependentUpon>201905200307224_UpdateAddressCommon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905200318171_UpdateDbAddressCommon.resx">
+      <DependentUpon>201905200318171_UpdateDbAddressCommon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905200725395_UpdatePrice.resx">
+      <DependentUpon>201905200725395_UpdatePrice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905200847390_UpdateImage.resx">
+      <DependentUpon>201905200847390_UpdateImage.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

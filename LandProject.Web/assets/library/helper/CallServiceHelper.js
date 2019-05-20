@@ -8,6 +8,24 @@ var AjaxCall = function (servicePathName, serviceParams, serviceAsync) {
 };
 
 AjaxCall.prototype = {
+    callService: function (serviceCallSuccess) {
+        var root = _Host;
+        $.ajax({
+            type: 'POST',
+            url: root + this._servicePathName,
+            data: this._serviceParams,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            //async: this._serviceAsync,
+            success: serviceCallSuccess,
+            error: function (error) {
+                $(block).unblock();
+                console.log(error.responseJSON)
+            },
+        });
+    },
+
+
     callServicePOST: function (serviceCallSuccess) {
         var root = _Host;
         $.ajax({

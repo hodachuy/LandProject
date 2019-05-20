@@ -8,7 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 
-namespace BotProject.Web.Infrastructure.Core
+namespace LandProject.Web.Infrastructure.Core
 {
     public class ApiControllerBase : ApiController
     {

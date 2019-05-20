@@ -49,6 +49,8 @@ namespace LandProject.Model.Models
         [Column(TypeName = "nvarchar")]
         public string UserID { set; get; }
 
+        public string Image { set; get; }
+
         public int LandNewsScheduleID { set; get; }
 
         public int AgentID { set; get; }
@@ -56,29 +58,26 @@ namespace LandProject.Model.Models
         public int? WardID { set; get; }
 
         public int? LProjectID { set; get; }
-
-        public int Area { set; get; }
-
-        public decimal Price { set; get; }
-
+        public int? Area { set; get; }
+        public decimal? Price { set; get; }
         public string TotalPrice { set; get; }
-
+        public decimal? DecimalTotalPrice { set; get; }
         public string Unit { set; get; }
 
         //Thông tin khác
         // Mặt tiền m
-        public int Facade { set; get; }
+        public int? Facade { set; get; }
 
         // Đường vào m
-        public int Entry { set; get; }
+        public int? Entry { set; get; }
 
         [StringLength(50)]
         public string HouseDirection { set; get; }
         [StringLength(50)]
         public string BalconyDirection {set;get;}
-        public int NumberFloor { set; get; }
-        public int NumberBedroom { set; get; }
-        public int NumberWC { set; get; }
+        public int? NumberFloor { set; get; }
+        public int? NumberBedroom { set; get; }
+        public int? NumberWC { set; get; }
         // nooi that
         public string Furniture { set; get; }
 

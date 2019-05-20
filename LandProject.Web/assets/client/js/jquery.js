@@ -1,4 +1,6 @@
 ﻿//"use strict";
+var _Host = "http://localhost:55557/";
+
 var userAgent = navigator.userAgent.toLowerCase(),
     initialDate = new Date(),
     $document = $(document),

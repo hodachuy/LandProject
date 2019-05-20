@@ -1,27 +1,248 @@
-﻿
-@{
-    ViewBag.Title = "NeedBuyAndNeedRent";
+﻿@{
+    ViewBag.Title = "Cần mua nhà | Cần thuê nhà - Đăng tin cần mua nhà, cần thuê nhà nhanh nhất!";
     Layout = "~/Views/Shared/_LayoutLand.cshtml";
 }
-<!-- Section Title Breadcrumbs-->
+
+@section css{
+    <link href="~/assets/vendors/select2/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="~/assets/client/css/need-buy-and-need-rent.css" rel="stylesheet" />
+    <link href="~/assets/vendors/toastr/toastr.min.css" rel="stylesheet" />
+}
 <section class="section-full text-left">
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <h1>Single Property Page</h1>
+                <h1>Đăng tin rao bán nhà đất miễn phí</h1>
                 <p></p>
                 <ol class="breadcrumb">
                     <li>
-                        <a href="index.html">Home</a>
+                        <a href="index.html">Trang chủ</a>
                     </li>
-                    <li>
-                        <a href="#">Property Catalog</a>
-                    </li>
-                    <li class="active">Single Property Page</li>
+                    <li class="active">Đăng tin rao</li>
                 </ol>
             </div>
         </div>
     </div>
 </section>
-<h2>NeedBuyAndNeedRent</h2>
+<section class="section-md text-left">
+    <div class="container">
+        <div class="row offset-1">
+            <div class="col-xs-12 col-md-8 col-lg-8">
+                <div class="tabs-custom">
+                    <ul class="nav nav-tabs" style="width: 100%">
+                        <li style="width: 50%">
+                            <a class="font-seogui" href="/dang-tin-rao-vat-ban-nha-dat.html" title="Cần bán/Cho thuê" aria-expanded="False">
+                                <h3 class="font-seogui">Cần bán/Cho thuê</h3>
+                            </a>
+                        </li>
+                        <li class="active">
+                            <a class="font-seogui" href="/dang-tin-rao-vat-mua-nha-dat.html" aria-expanded="True">
+                                <h3 class="font-seogui">  Cần mua/Cần thuê</h3>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="tab1" class="tab-pane fade">                          
+                        </div>
+                        <div id="tab2" class="tab-pane fade active in">
+                            <div class="post-news" id="divPostNews">
+                                <div class="col-xs-12 col-md-12 col-lg-12" style="padding-bottom: 15px;">
+                                    <div class="form-group" style="float: left; width: 100%;">
+                                        <label for="name" class="form-label rd-input-label font-weight-600">Tiêu đề <span style="color: red">*</span></label>
+                                        <input type="text" name="Title" class="form-control" maxlength="99" title="Vui lòng nhập tiêu đề tin  đăng của bạn. Tối thiểu là 30 ký tự và tối đa là 99 ký tự.">
+                                    </div>
+                                    <div class="form-group" style="float: left; width: 100%">
+                                        <label for="name" class="form-label rd-input-label" style="width: 100%; padding-top: 0px;">(<span style="color: red">*</span>) Tối đa chỉ 3000 ký tự</label>
+                                        <div class="description" name="Description" contenteditable="true" data-text="Thông tin chi tiết" title="Giới thiệu chung về bất động sản của bạn. Ví dụ: Khu nhà có vị trí thuận lợi: Gần công viên, gần trường học ... Tổng diện tích 52m2, đường đi ô tô vào tận cửa.">
+                                            <div><br></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-md-12 col-lg-12" style="text-align: justify; line-height: 25px;">
+                                </div>
+                                <div class="col-xs-12 col-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label for="name" class="form-label rd-input-label">Hình ảnh</label>
+                                        <div class="upload-zone" style="margin-bottom: 5px;">
+                                            <p><span class="fa-file-image-o" style="color: #d9d9d9; font-size: 48px;"></span></p>
+                                            <p>
+                                                <label>
+                                                    <span class="btn btn-white btn-primary">Chọn ảnh</span>
+                                                    <input id="multi-file" class="hidden" type="file" accept="image/*" multiple="">
+                                                </label>
+                                            </p>
+                                        </div>
+                                        <div data-id="cover" class="img-input">
+                                            <div class="img-preview clearfix" style="display: flex; flex-wrap: wrap"></div>
+                                        </div>
+                                    </div>
 
+                                </div>
+                            </div>
+                            <div class="post-news" id="divPostNews">
+                                <div class="col-xs-12 col-md-6 col-lg-6 form-group">
+                                    <label for="name" class="form-label rd-input-label font-weight-600">Hình thức <span style="color: red">*</span></label>
+                                    <input type="text" name="PlandTypeID" class="form-control">
+                                </div>
+                                <div class="col-xs-12 col-md-6 col-lg-6 form-group">
+                                    <label for="name" class="form-label rd-input-label">Loại <span style="color: red">*</span></label>
+                                    <input type="text" name="LandCategoryID" class="form-control">
+                                </div>
+                                <div class="col-xs-12 col-md-6 col-lg-6 form-group">
+                                    <label for="name" class="form-label rd-input-label">Tỉnh/Thành phố <span style="color: red">*</span></label>
+                                    <select type="text" name="ProvinceID" id="ProvinceID" class="form-control"></select>
+                                </div>
+                                <div class="col-xs-12 col-md-6 col-lg-6 form-group">
+                                    <label for="name" class="form-label rd-input-label">Quận/Huyện<span style="color: red">*</span></label>
+                                    <select type="text" name="DistrictID" id="DistrictID" class="form-control"></select>
+                                </div>
+                                <div class="col-xs-12 col-md-6 col-lg-6 form-group">
+                                    <label for="name" class="form-label rd-input-label">Phường/Xã</label>
+                                    <input type="text" name="WardID" class="form-control">
+                                </div>
+                                <div class="col-xs-12 col-md-6 col-lg-6 form-group">
+                                    <label for="name" class="form-label rd-input-label">Dự án </label>
+                                    <input type="text" name="LProjectID" class="form-control">
+                                </div>
+                                <div class="col-xs-12 col-md-6 col-lg-6 form-group">
+                                    <label for="name" class="form-label rd-input-label">Diện Tích</label>
+                                    <input type="text" name="Acreage" class="form-control">
+                                </div>
+                                <div class="col-xs-12 col-md-6 col-lg-6 form-group">
+                                    <label for="name" class="form-label rd-input-label">Giá</label>
+                                    <input type="text" name="Price" class="form-control">
+                                </div>
+
+                                <div class="col-xs-12 col-md-12 col-lg-12 form-group">
+                                    <label for="name" class="form-label rd-input-label">Địa chỉ <span style="color: red">*</span></label>
+                                    <input type="text" name="Area" id="Area" class="form-control" placeholder="Nhập địa chỉ" />
+                                </div>
+                            </div>
+                            <div class="post-news" id="Agents">
+                                <h4 class="border-bottom font-seogui">LIÊN HỆ</h4>
+                                <div class="col-xs-12 col-md-12 col-lg-12">
+                                    <input name="WardID" class="hidden" />
+                                    <div class="col-xs-12 col-md-6 col-lg-6 form-group">
+                                        <label for="name" class="form-label rd-input-label">Tên liên hệ:</label>
+                                        <input type="text" name="name" class="form-control">
+                                    </div>
+                                    <div class="ol-xs-12 col-md-6 col-lg-6 form-group">
+                                        <label for="name" class="form-label rd-input-label">Địa chỉ: </label>
+                                        <input type="text" name="AgentName" class="form-control">
+                                    </div>
+                                    <div class="col-xs-12 col-md-6 col-lg-6 form-group">
+                                        <label for="name" class="form-label rd-input-label">Điện thoại: </label>
+                                        <input type="text" name="AgentPhone" class="form-control">
+                                    </div>
+                                    <div class="col-xs-12 col-md-6 col-lg-6 form-group">
+                                        <label for="name" class="form-label rd-input-label">Di động:(*) <span style="color: red">*</span></label>
+                                        <input type="text" name="AgentMobilePhone" class="form-control">
+                                    </div>
+                                    <div class="col-xs-12 col-md-6 col-lg-6 form-group">
+                                        <label for="name" class="form-label rd-input-label">Email:</label>
+                                        <input type="text" name="AgentEmail" class="form-control">
+                                    </div>
+                                    <div class="col-xs-12 col-md-6 col-lg-6 form-group">
+                                        <label for="checkbox">Nhận phản hồi qua email</label>
+                                        <input type="checkbox" class="checkbox checkbox-custom" id="CheckEmail" style="float: left;margin-right: 10px;width: 28px;height: 28px;">
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="btn btn-sm btn-sushi btn-min-width-sm" onclick="SubmitBuyPlan()">ĐĂNG TIN</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4 p-t-20">
+                <div class="sidebar sidebar-mod-2">
+                    <div class="sidebar-module">
+                        <h4>Categories</h4>
+                        <ul class="list-marked">
+                            <li>
+                                <a href="#" class="text-sushi">Market Insights</a>
+                            </li>
+                            <li>
+                                <a href="#" class="text-sushi">Market Report</a>
+                            </li>
+                            <li>
+                                <a href="#" class="text-sushi">Buying a Foreclosure</a>
+                            </li>
+                            <li>
+                                <a href="#" class="text-sushi">Pricing Your Home to Sell</a>
+                            </li>
+                            <li>
+                                <a href="#" class="text-sushi">Your Strategic Sales Plan</a>
+                            </li>
+                            <li>
+                                <a href="#" class="text-sushi">Find Your Home's Value</a>
+                            </li>
+                            <li>
+                                <a href="#" class="text-sushi">Short Sale Selling</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="sidebar-module">
+                        <div class="banner">
+                            <img src="images/left_sidebar_blog-4.jpg" alt="" width="340" height="500">
+                            <div class="banner-text">
+                                <h4>Banner 340x500</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4 inset-7 text-center text-md-left search p-t-20">
+                <h5 class="border-bottom font-seogui" style="margin-bottom: 15px;">Tìm kiếm</h5>
+                <div class="post-news">
+                    <div class="form-group">
+                        <label for="select-1" class="form-label">Loại nhà đất</label>
+                        <!--Select 2-->
+                        <select id="TypePlan" class="form-control">
+                            <option value="1">Cho thuê</option>
+                            <option value="2">Mua bán</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Tỉnh/Thành phố</label>
+                        <!--Select 2-->
+                        <select id="Province" type="text" class="form-control"></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="select-3" class="form-label">Quận/Huyện</label>
+                        <!--Select 2-->
+                        <select id="District" class="form-control"></select>
+                    </div>
+                    <div class="form-group">
+                        <label for="price" class="form-label">Mức giá</label>
+                        <div class="form-inline-flex-xs">
+                            <input id="price" type="text" name="min-price" placeholder="100" class="form-control">
+                            <span class="text-abbey dash">–</span>
+                            <input id="max-price" type="text" name="max-price" placeholder="10000" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="area" class="form-label">Diện tích</label>
+                        <div class="form-inline-flex-xs">
+                            <input id="area" type="text" name="min-area" placeholder="1500" class="form-control">
+                            <span class="text-abbey dash">–</span>
+                            <input id="max-area" type="text" name="max-area" placeholder="22000" class="form-control">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-sushi btn-sm btn-min-width-mod-3">TÌM KIẾM</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section footerJS{
+    <script type="text/javascript" src="//maps.google.com/maps/api/js?sensor=false&key=AIzaSyAfx5a8yx5MqeGoTS3ierzoe35TXoX0ZOY&libraries=places&callback=initMap"></script>
+
+    <script src="~/assets/vendors/select2/dist/js/select2.full.js"></script>
+    <script src="~/assets/vendors/toastr/toastr.min.js"></script>
+    <script src="~/assets/client/js/commont.js"></script>
+    <script src="~/assets/client/js/upload-file.js"></script>
+    <script src="~/assets/client/js/need-sale-and-for-rent.js"></script>
+
+}

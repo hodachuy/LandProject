@@ -33,5 +33,7 @@ namespace LandProject.Model.Models
         [Column(TypeName = "varchar")]
         [StringLength(128)]
         public string Email { set; get; }
+
+        public string UserId { set; get; }
     }
 }
