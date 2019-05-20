@@ -1,49 +1,50 @@
 ﻿var _idgrid = "#grid";
-var LandCategoryModel = {
-    ID:'',
+var LandNewsModel = {
+    ID: '',
     Name: '',
     Alias: '',
-    LandTypeID:'',
-    IsDelete:false
+    LandTypeID: '',
+    IsDelete: false
 }
 var param = null;
 var TypeActionAdd = true;
 $(document).ready(function () {
     LoadGrid();
-    $('body').on('click', '#form-create-landCategory', function () {
+
+    $('body').on('click', '#form-create-landNews', function () {
         TypeActionAdd = true;
         var urlLandType = "api/landtype/getall";
         var element = "#cboLandType";
         LoadComboBoxWithServices(element, urlLandType, param, "ID", "Name", null, "Chọn Thể Loại", false, null, function () { }, null);
-        $('#txtLandCategoryName').val('');
-        $("#LandCategoryModel").modal({
+        $('#txtLandNewsName').val('');
+        $("#LandNewsModel").modal({
             backdrop: 'static',
             keyboard: true,
             show: true
         });
     })
-    $('body').on('click', '#saveLandCategory', function () {
+    $('body').on('click', '#saveLandNews', function () {
         if (checkValid()) {
-            LandCategoryModel.Name = $('#txtLandCategoryName').val();
-            LandCategoryModel.Alias = new commonService().getSeoTitle($('#txtLandCategoryName').val());
-            LandCategoryModel.IsDelete = false;
-            LandCategoryModel.LandTypeID = $("#cboLandType").val();
-            if (TypeActionAdd) {//add          
-                var svr = new AjaxCall("api/landcategory/create", JSON.stringify(LandCategoryModel));
+            LandNewsModel.Name = $('#txtLandNewsName').val();
+            LandNewsModel.Alias = new commonService().getSeoTitle($('#txtLandNewsName').val());
+            LandNewsModel.IsDelete = false;
+            LandNewsModel.LandTypeID = $("#cboLandType").val();
+            if (TypeActionAdd) { //add          
+                var svr = new AjaxCall("api/landnews/create", JSON.stringify(LandNewsModel));
                 svr.callServicePOST(function (data) {
                     console.log(data)
                     if (data != null) {
-                        $("#LandCategoryModel").modal('hide');
+                        $("#LandNewsModel").modal('hide');
                         $('#grid').data('kendoGrid').dataSource.read();
                         $('#grid').data('kendoGrid').refresh();
                     }
                 });
-            } else {//update
-                var svr = new AjaxCall("api/landcategory/update", JSON.stringify(LandCategoryModel));
+            } else { //update
+                var svr = new AjaxCall("api/landnews/update", JSON.stringify(LandNewsModel));
                 svr.callServicePOST(function (data) {
                     console.log(data)
                     if (data != null) {
-                        $("#LandCategoryModel").modal('hide');
+                        $("#LandNewsModel").modal('hide');
                         $('#grid').data('kendoGrid').dataSource.read();
                         $('#grid').data('kendoGrid').refresh();
                     }
@@ -51,22 +52,23 @@ $(document).ready(function () {
             }
         }
     })
-    $('body').on('click', '#closeLandCategory', function () {
-        $("#LandCategoryModel").modal('hide');
+    $('body').on('click', '#closeLandNews', function () {
+        $("#LandNewsModel").modal('hide');
     })
 })
+
 
 checkValid = function () {
     var res = $("#form").validationEngine('validate');
     setTimeout(function () {
         $('#form').validationEngine('hide');
     }, 10000);
-    var landCategoryName = $('#txtLandCategoryName').val();
-    if (landCategoryName.trim() == "") {
-        $('#txtLandCategoryName').validationEngine('showPrompt', '* Trường này bắt buộc', 'red', 'topRight', true);
+    var LandNewsName = $('#txtLandNewsName').val();
+    if (LandNewsName.trim() == "") {
+        $('#txtLandNewsName').validationEngine('showPrompt', '* Trường này bắt buộc', 'red', 'topRight', true);
         res = false;
     } else {
-            $("#txtLandCategoryName").validationEngine('hide');
+        $("#txtLandNewsName").validationEngine('hide');
     }
     if ($("#cboLandType").data("kendoComboBox").selectedIndex == -1) {
         $('#cboLandType').validationEngine('showPrompt', '* Trường này bắt buộc', 'red', 'topRight', true);
@@ -108,10 +110,8 @@ DataSource = function () {
                                     backgroundColor: 'transparent',
                                 }
                             });
-                            //$("body").append('<div class="wt-waiting wt-fixed wt-large"></div>');
                         },
                         complete: function (e) {
-                            //$(".wt-waiting").remove();
                             $(block).unblock();
                         },
                         success: function (result) {
@@ -120,8 +120,7 @@ DataSource = function () {
                                 if (result.Items != null) {
                                     options.success(result);
                                 }
-                            }
-                            else {
+                            } else {
                                 options.success([]);
                             }
                         },
@@ -135,7 +134,7 @@ DataSource = function () {
                 data: function (data) {
                     console.log(data)
                     if (data != null) {
-                        if(data.Items != null)
+                        if (data.Items != null)
                             return data.Items;
                     }
                     return [];
@@ -148,6 +147,11 @@ DataSource = function () {
                     }
                     return 0;
                 },
+                model: {
+                    fields: {
+                        CreatedDate: { type: "date" },
+                    }
+                }
             },
             pageSize: 20,
             serverPaging: true,
@@ -157,47 +161,128 @@ DataSource = function () {
         return data;
     }
 }
-var Columns = [
-        {
-            title: "Stt",
-            template: '#= record++ #',
-            filterable: false,
-            width: 50,
-            attributes: { style: "text-align: center" },
-            headerAttributes: { style: "text-align: center" },
+var Columns = [{
+    title: "Stt",
+    template: '#= record++ #',
+    filterable: false,
+    width: 50,
+    attributes: {
+        style: "text-align: center"
+    },
+    headerAttributes: {
+        style: "text-align: center"
+    },
+},
+    {
+        template: templateForAction,
+        filterable: false,
+        width: 100,
+        title: "Tiện ích",
+        attributes: {
+            style: "text-align: center; overflow : visible; cursor: pointer",
         },
-        {
-            template: templateForAction,
-            filterable: false,
-            width: 100,
-            title: "Tiện ích",
-            attributes: { style: "text-align: center; overflow : visible; cursor: pointer", },
-            headerAttributes: { style: "text-align: center" },
+        headerAttributes: {
+            style: "text-align: center"
         },
+    },
         {
-            template: '#=data.Name#',
-            field: "Name",
-            title: "Phân mục",
-        },
-        {
-            template: '#if(data.Description != null){##=data.Description##}#',
-            field: "Description",
-            title: "Mô tả",
-            filterable: false,
-        },
-        {
-            template: '#=data.LandType.Name#',
-            field: "LandTypeID",
-            title: "Thể loại",
+            template: '#if(data.IsPublished == true){#<span style="color:green">Đã duyệt</span>#} else if(data.IsPublished == false){#<span style="color:red">Đang chờ duyệt</span>#}#',
+            field: "ln.IsPublished",
+            title: "Trạng thái",
             filterable: {
-                ui: landTypeFilter
+                ui: statusFilter
             }
         },
+            {
+                template: '#=data.Code#',
+                field: "ln.Code",
+                title: "Mã tin",
+            },
+                {
+                    template: '#if(data.CreatedDate != null){#<div>#=kendo.toString(new Date(data.CreatedDate), "dd/MM/yyyy")#</div>#}#',
+                    field: "CreatedDate",
+                    title: "Ngày tạo",
+                    groupable: false,
+                    sortable: true,
+                    filterable: {
+                        extra: false,
+                        operators: {
+                            date: {
+                                eq: "Bằng với",
+                                gte: "Lớn hơn",
+                                lte: "Nhỏ hơn",
+
+                            }
+                        },
+                    },
+
+                },
+    {
+        template: '#=data.Title#',
+        field: "ln.Title",
+        title: "Tiêu đề",
+    },
+    {
+        template: '#if(data.Address != null){##=data.Address##}#',
+        field: "ln.Address",
+        title: "Địa chỉ",
+        filterable: false,
+    },
+    {
+        template: '#if(data.Area != null){##=data.Area##}#',
+        field: "ln.Area",
+        title: "Diện tích/m2",
+        filterable: false,
+    },
+    {
+        template: '#if(data.Price != null){##=data.Price##}#',
+        field: "ln.Price",
+        title: "Giá tiền",
+        filterable: false,
+    },
+    {
+        template: '#if(data.Unit != null){##=data.Unit##}#',
+        field: "ln.Unit",
+        title: "Đơn vị",
+        filterable: false,
+    },
+    {
+        template: '#if(data.TotalPrice != null){##=data.TotalPrice##}#',
+        field: "ln.TotalPrice",
+        title: "Tổng tiền",
+        filterable: false,
+    },
+      {
+          template: '#if(data.ProvinceName != null){##=data.ProvinceName##}#',
+          field: "ln.ProvinceID",
+          title: "Tỉnh/Thành phố",
+      },
+            {
+                template: '#if(data.DistrictName != null){##=data.DistrictName##}#',
+                field: "ln.DistrictID",
+                title: "Quận/Huyện",
+            },
+                  {
+                      template: '#if(data.WardName != null){##=data.WardName##}#',
+                      field: "ln.WardID",
+                      title: "Phường/Xã",
+                  },
+
+    {
+        template: '#=data.LandTypeName#',
+        field: "ln.LandTypeID",
+        title: "Thể loại",
+        filterable: {
+            ui: landTypeFilter
+        }
+    },
 
 ];
 LoadGrid = function () {
-    InitKendoGrid(_idgrid, Columns, new DataSource().MasterDatasource("" + _Host + "api/landcategory/getalltable"), null, false, '')
+
+    InitKendoGrid(_idgrid, Columns, new DataSource().MasterDatasource("" + _Host + "api/landnews/getalltable"), null, false, '')
 }
+
 function templateForAction(e) {
     var html = '';
     var permission = {
@@ -228,21 +313,21 @@ function templateForAction(e) {
 ForumCatg = function (id) {
     this.Edit = function () {
         TypeActionAdd = false;
-        $("#LandCategoryModel").modal({
+        $("#LandNewsModel").modal({
             backdrop: 'static',
             keyboard: true,
             show: true
         });
 
         var param = {
-            landCategoryID: id
+            LandNewsID: id
         }
-        var svr = new AjaxCall("api/landcategory/getbyid", param);
+        var svr = new AjaxCall("api/landnews/getbyid", param);
         svr.callServiceGET(function (data) {
             console.log(data)
             if (data != undefined) {
-                $('#txtLandCategoryName').val(data.Name);
-                LandCategoryModel.ID = data.ID;
+                $('#txtLandNewsName').val(data.Name);
+                LandNewsModel.ID = data.ID;
                 var urlLandType = "api/landtype/getall";
                 var element = "#cboLandType";
                 LoadComboBoxWithServices(element, urlLandType, param, "ID", "Name", data.LandTypeID, "Chọn Thể Loại", false, null, function () { }, null);
@@ -258,8 +343,7 @@ ForumCatg = function (id) {
                 url: url,
                 type: "POST",
                 dataType: "json",
-                data:
-                {
+                data: {
                     DocTypeID: id
                 },
                 success: function (result) {
@@ -273,17 +357,28 @@ ForumCatg = function (id) {
                                 });
                                 break;
                             case "2":
-                                AlertDialog("Thông báo", "Bạn không có quyền xóa loại văn bản", function () {
-                                });
+                                AlertDialog("Thông báo", "Bạn không có quyền xóa loại văn bản", function () { });
                                 break;
                         }
                     }
                 },
-                error: function (result) {
-                }
+                error: function (result) { }
             })
         });
     }
+}
+statusF = new kendo.data.DataSource({
+    data: [{ STT: 0, TEXT: "Đã duyệt" }, { STT: 1, TEXT: "Đang chờ duyệt" }]
+});
+
+function statusFilter(element) {
+    element.kendoDropDownList({
+        dataSource: statusF,//statusF,
+        dataTextField: "TEXT",
+        dataValueField: "STT",
+        optionLabel: "--Chọn trạng thái--",
+        //template: '#="<span>"+TEXT+"</span>" #',
+    });
 }
 
 function landTypeFilter(element) {
@@ -305,8 +400,7 @@ var lstLanType = new kendo.data.DataSource({
                     //console.log(result)
                     if (result != "" && result != null) {
                         options.success(result);
-                    }
-                    else {
+                    } else {
                         options.success([]);
                     }
                 },

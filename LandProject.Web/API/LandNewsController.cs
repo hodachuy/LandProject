@@ -54,7 +54,7 @@ namespace LandProject.Web.API
                 var paginationSet = new PaginationSet<LandNewsFilterViewModel>()
                 {
                     Items = lstLandNews,
-                    Page = page + 1,
+                    Page = page,
                     TotalCount = totalRow,
                     MaxPage = pageSize,
                     TotalPages = (int)Math.Ceiling((decimal)totalRow / pageSize)

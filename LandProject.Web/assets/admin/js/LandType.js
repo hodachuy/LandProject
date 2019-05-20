@@ -166,7 +166,7 @@ var Columns = [
         },
         {
             template: '#if(data.Description != null){##=data.Description##}#',
-            field: "data.Description",
+            field: "Description",
             title: "Mô tả",
             filterable: false,
         },
