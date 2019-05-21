@@ -27,7 +27,19 @@ namespace LandProject.Web
 				defaults: new { controller = "PostingNews", action = "NeedBuyAndNeedRent", id = UrlParameter.Optional },
 				  namespaces: new string[] { "LandProject.Web.Controllers" }
 			);
+			routes.MapRoute(
+				name: "Login",
+				url: "dang-nhap.html",
+				defaults: new { controller = "Account", action = "Login", id = UrlParameter.Optional },
+				  namespaces: new string[] { "LandProject.Web.Controllers" }
+			);
 
+			routes.MapRoute(
+				name: "Register",
+				url: "dang-ky.html",
+				defaults: new { controller = "Account", action = "Register", id = UrlParameter.Optional },
+				  namespaces: new string[] { "LandProject.Web.Controllers" }
+			);
 			routes.MapRoute(
 				name: "Default",
 				url: "{controller}/{action}/{id}",

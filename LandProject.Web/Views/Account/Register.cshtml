@@ -1,0 +1,101 @@
+﻿@model LandProject.Web.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_LayoutLand.cshtml";
+}
+<style>
+    @@media (min-width: 992px) {
+        .section-md {
+            padding-bottom: 90px;
+        }
+    }
+    .field-validation-error{
+                color: red;
+    }
+    
+</style>
+
+<section class="section-full undefined text-center text-sm-left">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 undefined">
+                <p></p>
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="index.html">Trang chủ</a>
+                    </li>
+                    <li class="active">Đăng ký-Đăng nhập</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+<!--Section Login-->
+<section class="section-md text-center text-sm-left">
+    <div class="container">
+        <h2>Đăng ký</h2>
+        <hr />
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-lg-5">
+                <div class="tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li>
+                            <a href="/dang-nhap.html">Đăng nhập</a>
+                        </li>
+                        <li class="active">
+                            <a data-toggle="tab" href="#tab2">Tạo tài khoản</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="tab2" class="tab-pane fade in active">
+                            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form" }))
+                            {
+                                @Html.AntiForgeryToken();
+                                <div class="form-group">
+                                    @Html.ValidationMessageFor(model => Model.FullName, "", new { @class = "error" })
+                                    <label for="name-2" class="form-label">Tài khoản</label>
+                                    @Html.TextBoxFor(model => Model.FullName, new { @class = "form-control", @placeholder = "" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.ValidationMessageFor(model => Model.Email, "", new { @class = "error" })
+                                    <label for="email" class="form-label">E-mail</label>
+                                    @Html.TextBoxFor(model => Model.Email, new { @class = "form-control", @placeholder = "" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.ValidationMessageFor(model => Model.PhoneNumber, "", new { @class = "error" })
+                                    <label for="email" class="form-label">Số điện thoại</label>
+                                    @Html.TextBoxFor(model => Model.PhoneNumber, new { @class = "form-control", @placeholder = "" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.ValidationMessageFor(model => Model.Address, "", new { @class = "error" })
+                                    <label for="email" class="form-label">Địa chỉ</label>
+                                    @Html.TextBoxFor(model => Model.Address, new { @class = "form-control", @placeholder = "" })
+
+                                </div>
+                                <div class="form-group">
+                                    @Html.ValidationMessageFor(model => Model.Password, "", new { @class = "error" })
+                                    <label for="password-2" class="form-label">Mật khẩu</label>
+                                    @Html.PasswordFor(model => Model.Password, new { @class = "form-control", @placeholder = "" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.ValidationMessageFor(model => Model.ConfirmPassword, "", new { @class = "error" })
+                                    <label for="password-2" class="form-label">Nhập lại mật khẩu</label>
+                                    @Html.PasswordFor(model => Model.ConfirmPassword, new { @class = "form-control", @placeholder = "" })
+                                </div>
+                                <div class="form-group-btn">
+                                    <button type="submit" class="btn btn-sushi btn-sm btn-min-width-xs">Đăng ký</button>
+                                    <p>or đăng nhập bằng</p>
+                                    <div class="icon-group">
+                                        <a href="#" class="icon icon-sm icon-social fa-facebook"></a>
+                                    </div>
+                                </div>}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+

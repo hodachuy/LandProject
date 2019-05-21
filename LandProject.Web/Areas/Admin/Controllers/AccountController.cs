@@ -186,11 +186,11 @@ namespace LandProject.Web.Areas.Admin.Controllers
             ViewBag.ReturnUrl = returnUrl;
             return View(model);
         }
-        [HttpGet]
-        public ActionResult Register()
-        {
-            return View();
-        }
+        //[HttpGet]
+        //public ActionResult Register()
+        //{
+        //    return View();
+        //}
 
         //[HttpPost]
         //[CaptchaValidation("CaptchaCode", "Captcha", "Mã xác nhận không đúng")]

@@ -1,0 +1,78 @@
+﻿@model LandProject.Web.Models.LoginViewModel
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LayoutLand.cshtml";
+}
+<style>
+    @@media (min-width: 992px){
+        .section-md {
+     padding-bottom: 90px;
+}
+    }
+    .validation-summary-errors ul li{
+        color:red;
+        list-style:circle;
+    }
+</style>
+
+<section class="section-full undefined text-center text-sm-left">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 undefined">
+                <p></p>
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="index.html">Trang chủ</a>
+                    </li>
+                    <li class="active">Đăng ký-Đăng nhập</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+<!--Section Login-->
+<section class="section-md text-center text-sm-left">
+    <div class="container">
+        <h2>Đăng nhập</h2>
+        <hr />
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 col-lg-5">
+                <div class="tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a data-toggle="tab" href="#tab1">Đăng nhập</a>
+                        </li>
+                        <li>
+                            <a href="/dang-ky.html">Tạo tài khoản</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="tab1" class="tab-pane fade in active">
+                            @using (Html.BeginForm("Login", "Account", new { returnUrl = @ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+                            {
+                                @Html.ValidationSummary(false, "", new { @class = "error" })
+                                <div class="form-group">
+                                    <label for="name-1" class="form-label">Tài khoản</label>
+                                    @Html.TextBoxFor(model => Model.UserName, new { @class = "form-control", @placeholder = "" })
+                                </div>
+                                <div class="form-group">
+                                    <label for="password-1" class="form-label">Mật khẩu</label>
+                                    @Html.PasswordFor(model => Model.Password, new { @class = "form-control", @placeholder = "" })
+                                </div>
+                               
+                                <div class="form-group-btn">
+                                    <button type="submit" class="btn btn-sushi btn-sm btn-min-width-xs" >Đăng nhập</button>
+                                    <p>hoặc đăng nhập bằng</p>
+                                    <div class="icon-group">
+                                        <a href="#" class="icon icon-sm icon-social fa-facebook"></a>
+                                    </div>
+                                </div>
+                            }
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

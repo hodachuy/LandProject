@@ -88,7 +88,7 @@ namespace LandProject.Web.Controllers
 					authenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
 					ClaimsIdentity identity = _userManager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
 					AuthenticationProperties props = new AuthenticationProperties();
-					props.IsPersistent = model.RememberMe;
+					props.IsPersistent = true;// model.RememberMe;
 					authenticationManager.SignIn(props, identity);
 					if (Url.IsLocalUrl(returnUrl))
 					{
@@ -241,65 +241,65 @@ namespace LandProject.Web.Controllers
 			return View();
 		}
 
-		//[HttpPost]
-		//[CaptchaValidation("CaptchaCode", "Captcha", "Mã xác nhận không đúng")]
-		//public async Task<ActionResult> Register(RegisterViewModel model)
-		//{
-		//    if (ModelState.IsValid)
-		//    {
-		//        var userByEmail = await _userManager.FindByEmailAsync(model.Email);
-		//        if (userByEmail != null)
-		//        {
-		//            ModelState.AddModelError("Email", "Email đã tồn tại");
-		//         hoặc là nếu email này đã đăng nhập với mạng xã hội trước đó
-		//          ModelState.AddModelError("Email", "Email này đã đăng nhập từ mạng xã hội ");
-		//            return View(model);
-		//        }
-		//        var userByUserName = await _userManager.FindByNameAsync(model.UserName);
-		//        if (userByUserName != null)
-		//        {
-		//            ModelState.AddModelError("UserName", "Tài khoản đã tồn tại");
-		//            return View(model);
-		//        }
-		//        var user = new ApplicationUser()
-		//        {
-		//            UserName = model.UserName,
-		//            Email = model.Email,
-		//            EmailConfirmed = true,
-		//            BirthDay = DateTime.Now,
-		//            FullName = model.FullName,
-		//            PhoneNumber = model.PhoneNumber,
-		//            Address = model.Address
+		[HttpPost]
+		public async Task<ActionResult> Register(RegisterViewModel model)
+		{
+			if (ModelState.IsValid)
+			{
+				var userByUserName = await _userManager.FindByNameAsync(model.UserName);
+				if (userByUserName != null)
+				{
+					ModelState.AddModelError("UserName", "Tài khoản đã tồn tại");
+					return View(model);
+				}
+				var user = new ApplicationUser()
+				{
+					UserName = model.UserName,
+					Email = model.Email,
+					EmailConfirmed = true,
+					BirthDay = DateTime.Now,
+					FullName = model.FullName,
+					PhoneNumber = model.PhoneNumber,
+					Address = model.Address
 
-		//        };
+				};
 
-		//        await _userManager.CreateAsync(user, model.Password);
+				await _userManager.CreateAsync(user, model.Password);
 
 
-		//        var adminUser = await _userManager.FindByEmailAsync(model.Email);
-		//        //if (adminUser != null)
-		//        //    await _userManager.AddToRolesAsync(adminUser.Id, new string[] { "User" });
+				var adminUser = await _userManager.FindByEmailAsync(model.Email);
+				if (adminUser != null)
+				    await _userManager.AddToRolesAsync(adminUser.Id, new string[] { "User" });
 
-		//        string content = System.IO.File.ReadAllText(Server.MapPath("/assets/client/template/newuser.html"));
-		//        content = content.Replace("{{UserName}}", adminUser.FullName);
-		//        content = content.Replace("{{Link}}", ConfigHelper.GetByKey("CurrentLink") + "dang-nhap.html");
+				var applicationUserViewModel = Mapper.Map<ApplicationUser, ApplicationUserViewModel>(user);
+				Session[CommonConstants.SessionUser] = applicationUserViewModel;
+				IAuthenticationManager authenticationManager = HttpContext.GetOwinContext().Authentication;
+				authenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+				ClaimsIdentity identity = _userManager.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
+				AuthenticationProperties props = new AuthenticationProperties();
+				props.IsPersistent = true;// model.RememberMe;
+				authenticationManager.SignIn(props, identity);
 
-		//        MailHelper.SendMail(adminUser.Email, "Đăng ký thành công", content);
+				//string content = System.IO.File.ReadAllText(Server.MapPath("/assets/client/template/newuser.html"));
+				//content = content.Replace("{{UserName}}", adminUser.FullName);
+				//content = content.Replace("{{Link}}", ConfigHelper.GetByKey("CurrentLink") + "dang-nhap.html");
 
-		//        ViewData["SuccessMsg"] = "Đăng ký thành công";
+				//MailHelper.SendMail(adminUser.Email, "Đăng ký thành công", content);
 
+				//ViewData["SuccessMsg"] = "Đăng ký thành công";
 
+				return RedirectToAction("Index", "Home");
 
-		//        ModelState["FullName"].Value = new ValueProviderResult("", "", CultureInfo.CurrentCulture);
-		//        ModelState["Email"].Value = new ValueProviderResult("", "", CultureInfo.CurrentCulture);
-		//        ModelState["Address"].Value = new ValueProviderResult("", "", CultureInfo.CurrentCulture);
-		//        ModelState["PhoneNumber"].Value = new ValueProviderResult("", "", CultureInfo.CurrentCulture);
-		//        ModelState["UserName"].Value = new ValueProviderResult("", "", CultureInfo.CurrentCulture);
-		//        ModelState["Password"].Value = new ValueProviderResult("", "", CultureInfo.CurrentCulture);
-		//    }
+				//ModelState["FullName"].Value = new ValueProviderResult("", "", CultureInfo.CurrentCulture);
+				//ModelState["Email"].Value = new ValueProviderResult("", "", CultureInfo.CurrentCulture);
+				//ModelState["Address"].Value = new ValueProviderResult("", "", CultureInfo.CurrentCulture);
+				//ModelState["PhoneNumber"].Value = new ValueProviderResult("", "", CultureInfo.CurrentCulture);
+				//ModelState["UserName"].Value = new ValueProviderResult("", "", CultureInfo.CurrentCulture);
+				//ModelState["Password"].Value = new ValueProviderResult("", "", CultureInfo.CurrentCulture);
+			}
 
-		//    return View();
-		//}
+			return View();
+		}
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]

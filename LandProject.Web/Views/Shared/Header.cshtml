@@ -1,25 +1,39 @@
-﻿<nav class="rd-navbar" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fullwidth" data-md-layout="rd-navbar-fullwidth" data-lg-layout="rd-navbar-fullwidth" data-device-layout="rd-navbar-fixed" data-sm-device-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed"
+﻿@model LandProject.Web.Models.ApplicationUserViewModel
+<nav class="rd-navbar" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fullwidth" data-md-layout="rd-navbar-fullwidth" data-lg-layout="rd-navbar-fullwidth" data-device-layout="rd-navbar-fixed" data-sm-device-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed"
      data-lg-device-layout="rd-navbar-fullwidth" data-stick-up-offset="100px">
     <!--RD Navbar Panel-->
     <div class="rd-navbar-top-panel">
         <div class="rd-navbar-top-panel-wrap">
             <div class="top-panel-inner">
                 <dl class="dl-horizontal-mod-1 login">
-                    <dt>
-                        <span class="fa-sign-in icon-xxs-mod-2"></span>
-                    </dt>
-                    <dd>
-                        <a href="javascript:void(0)" class="text-sushi" id="btn-register">Đăng ký</a>
-                    </dd>
+                    @if (Model != null)
+                    {
+                        <dt>
+                            <span class="fa-user icon-xxs-mod-2"></span>
+                        </dt>
+                        <dd>
+                            <a href="#" class="text-sushi">@Model.UserName</a>
+                        </dd>
+                    }
+                    else
+                    {
+                        <dt>
+                            <span class="fa-sign-in icon-xxs-mod-2"></span>
+                        </dt>
+                        <dd>
+                            <a href="/dang-nhap.html" class="text-sushi">Đăng ký/Đăng nhập</a>
+                        </dd>
+                    }
+
                 </dl>
-                <dl class="dl-horizontal-mod-1 login">
+                @*<dl class="dl-horizontal-mod-1 login">
                     <dt>
                         <span class="fa-user icon-xxs-mod-2"></span>
                     </dt>
                     <dd>
                         <a href="#" class="text-sushi">Đăng nhập</a>
                     </dd>
-                </dl>
+                </dl>*@
             </div>
 
             <dl class="dl-horizontal-mod-1">
