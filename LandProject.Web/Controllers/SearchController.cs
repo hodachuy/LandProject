@@ -6,15 +6,10 @@ using System.Web.Mvc;
 
 namespace LandProject.Web.Controllers
 {
-    public class LandNewsController : Controller
+    public class SearchController : Controller
     {
-        // GET: LandNews
+        // GET: Search
         public ActionResult Index()
-        {
-            return View();
-        }
-
-        public ActionResult Detail(int id)
         {
             return View();
         }

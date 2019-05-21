@@ -246,6 +246,7 @@
     <Compile Include="API\AddressCommonController.cs" />
     <Compile Include="API\LandCategoryController.cs" />
     <Compile Include="API\LandNewsController.cs" />
+    <Compile Include="API\LandNewsScheduleController.cs" />
     <Compile Include="API\LandTypeController.cs" />
     <Compile Include="API\LProjectCategoryController.cs" />
     <Compile Include="API\LProjectController.cs" />
@@ -261,6 +262,7 @@
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Admin\Controllers\LandCategoryContronler.cs" />
     <Compile Include="Areas\Admin\Controllers\LandNewsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\LandNewsScheduleController.cs" />
     <Compile Include="Areas\Admin\Controllers\LandTypeController.cs" />
     <Compile Include="Areas\Admin\Controllers\LProjectCategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\LProjectController.cs" />
@@ -269,6 +271,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LandNewsController.cs" />
     <Compile Include="Controllers\PostingNewsController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -288,6 +291,7 @@
     <Compile Include="Models\ExternalLoginListViewModel.cs" />
     <Compile Include="Models\LandCategoryViewModel.cs" />
     <Compile Include="Models\LandFileViewModel.cs" />
+    <Compile Include="Models\LandNewsScheduleViewModel.cs" />
     <Compile Include="Models\LandNewsViewModel.cs" />
     <Compile Include="Models\LandTypeViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
@@ -302,6 +306,7 @@
     <Content Include="assets\admin\css\custom.css" />
     <Content Include="assets\admin\js\LandCategory.js" />
     <Content Include="assets\admin\js\LandNews.js" />
+    <Content Include="assets\admin\js\LandNewsSchedule.js" />
     <Content Include="assets\admin\js\LandType.js" />
     <Content Include="assets\admin\js\LProjectCategory.js" />
     <Content Include="assets\build\css\custom.css" />
@@ -2030,6 +2035,7 @@
     <Content Include="fileman\lang\sk.json" />
     <Content Include="fileman\lang\tr.json" />
     <Content Include="fileman\web.config" />
+    <Content Include="Areas\Admin\Views\LandNewsSchedule\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -2061,6 +2067,8 @@
     <Content Include="Views\PostingNews\NeedBuyAndNeedRent.cshtml" />
     <Content Include="Views\Shared\Header.cshtml" />
     <Content Include="Views\Shared\Footer.cshtml" />
+    <Content Include="Views\LandNews\Detail.cshtml" />
+    <Content Include="Views\Search\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="API Client\" />
@@ -2077,7 +2085,6 @@
     <Folder Include="fileman\Uploads\FLV\" />
     <Folder Include="fileman\Uploads\LandNews\" />
     <Folder Include="fileman\Uploads\LProject\" />
-    <Folder Include="Views\LandNews\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

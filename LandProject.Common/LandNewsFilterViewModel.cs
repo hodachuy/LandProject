@@ -39,6 +39,7 @@ namespace LandProject.Common
         public string UserName { set; get; }
 
         public int LandNewsScheduleID { set; get; }
+        public string LandNewsScheduleName { set; get; }
 
         public int AgentID { set; get; }
         public string AgentName { set; get; }
@@ -96,5 +97,6 @@ namespace LandProject.Common
         public bool IsSale { set; get; }
 
         public int Total { set; get; }
+
     }
 }

@@ -88,5 +88,16 @@ namespace LandProject.Web.Infrastructure.Extensions
             agent.UserId = agentVm.UserId;
         }
 
+        public static void UpdateLandNewsChedule(this LandNewsSchedule landSchedule, LandNewsScheduleViewModel landScheduleVm)
+        {
+            landSchedule.ID = landScheduleVm.ID;
+            landSchedule.Name = landScheduleVm.Name;
+            landSchedule.Description = landScheduleVm.Description;
+            landSchedule.Alias = landScheduleVm.Alias;
+            landSchedule.Price = landScheduleVm.Price;
+            landSchedule.StartDate = landScheduleVm.StartDate;
+            landSchedule.EndDate = landScheduleVm.EndDate;
+        }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using LandProject.Data.Infrastructure;
+﻿using LandProject.Common;
+using LandProject.Data.Infrastructure;
 using LandProject.Data.Repositories;
 using LandProject.Model.Models;
 using System;
@@ -14,6 +15,7 @@ namespace LandProject.Service
         IEnumerable<Province> GetAllProvince();
         IEnumerable<District> GetDistrictByProvinceID(int provinceId);
         IEnumerable<Ward> GetWardByDistrictID(int districtId);
+        IEnumerable<CountLandNewsDistrictViewModel> GetTotalLandNewsOfWards(int districtId);
         void Save();
     }
     public class AddressCommonService : IAddressCommonService
@@ -51,6 +53,11 @@ namespace LandProject.Service
         public void Save()
         {
             _unitOfWork.Commit();
+        }
+
+        public IEnumerable<CountLandNewsDistrictViewModel> GetTotalLandNewsOfWards(int districtId)
+        {
+            return _wardRepository.GetTotalLandNewsOfWards(districtId);
         }
     }
 }

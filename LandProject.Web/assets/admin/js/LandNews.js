@@ -87,13 +87,17 @@ DataSource = function () {
                 read: function (options) {
                     console.log(options);
                     console.log(options.data);
-                    var request = JSON.stringify(options.data);
+                    //var request = JSON.stringify(options.data);
+                    var form = new FormData();
+                    form.append('requestFilter',JSON.stringify(options.data))
+                    form.append('lTypeID', JSON.stringify($("#landTypeID").val()))
                     $.ajax({
                         url: url,
                         type: "POST",
-                        contentType: "application/json; charset=utf-8",
-                        dataType: "json",
-                        data: request,
+                        contentType: false,
+                        processData: false,
+                        cache: false,
+                        data: form,
                         beforeSend: function () {
                             //console.log(1);
                             $(block).block({
@@ -176,7 +180,7 @@ var Columns = [{
     {
         template: templateForAction,
         filterable: false,
-        width: 100,
+        width: 90,
         title: "Tiện ích",
         attributes: {
             style: "text-align: center; overflow : visible; cursor: pointer",
@@ -189,6 +193,7 @@ var Columns = [{
             template: '#if(data.IsPublished == true){#<span style="color:green">Đã duyệt</span>#} else if(data.IsPublished == false){#<span style="color:red">Đang chờ duyệt</span>#}#',
             field: "ln.IsPublished",
             title: "Trạng thái",
+            width: 120,
             filterable: {
                 ui: statusFilter
             }
@@ -197,11 +202,13 @@ var Columns = [{
                 template: '#=data.Code#',
                 field: "ln.Code",
                 title: "Mã tin",
+                width: 100,
             },
                 {
                     template: '#if(data.CreatedDate != null){#<div>#=kendo.toString(new Date(data.CreatedDate), "dd/MM/yyyy")#</div>#}#',
                     field: "CreatedDate",
                     title: "Ngày tạo",
+                    width: 100,
                     groupable: false,
                     sortable: true,
                     filterable: {
@@ -221,61 +228,70 @@ var Columns = [{
         template: '#=data.Title#',
         field: "ln.Title",
         title: "Tiêu đề",
+        width: 250,
     },
     {
         template: '#if(data.Address != null){##=data.Address##}#',
         field: "ln.Address",
         title: "Địa chỉ",
+        width: 150,
         filterable: false,
     },
     {
         template: '#if(data.Area != null){##=data.Area##}#',
         field: "ln.Area",
         title: "Diện tích/m2",
+        width: 100,
         filterable: false,
     },
     {
         template: '#if(data.Price != null){##=data.Price##}#',
         field: "ln.Price",
         title: "Giá tiền",
+        width: 100,
         filterable: false,
     },
     {
         template: '#if(data.Unit != null){##=data.Unit##}#',
         field: "ln.Unit",
         title: "Đơn vị",
+        width: 100,
         filterable: false,
     },
     {
         template: '#if(data.TotalPrice != null){##=data.TotalPrice##}#',
         field: "ln.TotalPrice",
         title: "Tổng tiền",
+        width: 100,
         filterable: false,
     },
       {
           template: '#if(data.ProvinceName != null){##=data.ProvinceName##}#',
           field: "ln.ProvinceID",
           title: "Tỉnh/Thành phố",
+          width: 100,
       },
             {
                 template: '#if(data.DistrictName != null){##=data.DistrictName##}#',
                 field: "ln.DistrictID",
                 title: "Quận/Huyện",
+                width: 100,
             },
                   {
                       template: '#if(data.WardName != null){##=data.WardName##}#',
                       field: "ln.WardID",
                       title: "Phường/Xã",
+                      width: 100,
                   },
 
-    {
-        template: '#=data.LandTypeName#',
-        field: "ln.LandTypeID",
-        title: "Thể loại",
-        filterable: {
-            ui: landTypeFilter
-        }
-    },
+    //{
+    //    template: '#=data.LandTypeName#',
+    //    field: "ln.LandTypeID",
+    //    title: "Thể loại",
+    //    filterable: {
+    //        ui: landTypeFilter
+    //    }
+    //},
 
 ];
 LoadGrid = function () {

@@ -35,17 +35,24 @@ namespace LandProject.Web.API
 
         [Route("getalltable")]
         [HttpPost]
-        public HttpResponseMessage GetAllToTable(HttpRequestMessage request, Request requestFilter)
+        public HttpResponseMessage GetAllToTable(HttpRequestMessage request)
         {
             return CreateHttpResponse(request, () =>
             {
                 HttpResponseMessage response;
+
+                var formRequest= HttpContext.Current.Request.Unvalidated.Form["requestFilter"];
+                var requestFilter = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue, RecursionLimit = 100 }.Deserialize<Request>(formRequest);
+                var formlTypeID = HttpContext.Current.Request.Unvalidated.Form["lTypeID"];
+                var landTypeID = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue, RecursionLimit = 100 }.Deserialize<int>(formlTypeID);
+
                 int totalRow = 0;
                 string filter = Common.CommonSer.ConvertFilertToString(requestFilter.filter);
                 string sort = Common.CommonSer.ConvertSortToString(requestFilter.sort);
                 int page = requestFilter.page;
                 int pageSize = requestFilter.pageSize;
 
+                filter += "ln.LandTypeID = " + landTypeID;
                 var lstLandNews = _landNewsService.GetAllByFilter(filter, sort, page, pageSize).ToList();
                 if (lstLandNews.Count() != 0)
                 {
@@ -60,6 +67,34 @@ namespace LandProject.Web.API
                     TotalPages = (int)Math.Ceiling((decimal)totalRow / pageSize)
                 };
                 response = request.CreateResponse(HttpStatusCode.OK, paginationSet);
+                return response;
+            });
+        }
+
+
+        [Route("getbyid")]
+        [HttpGet]
+        public HttpResponseMessage GetByID(HttpRequestMessage request, int landNewsID)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response;
+                if (landNewsID == 0)
+                {
+                    return request.CreateResponse(HttpStatusCode.NoContent);
+                }
+                var landNews = _landNewsService.GetByID(landNewsID);
+                var landNewsVm = Mapper.Map<LandNewsFilterViewModel, LandNewsViewModel>(landNews);
+
+                var lstLandFile = _landFileService.GetByLandNewsID(landNewsID);
+                var lstLandFileVm = Mapper.Map<IEnumerable<LandFile>,IEnumerable<LandFileViewModel>>(lstLandFile);
+                landNewsVm.LandFiles = lstLandFileVm;
+
+                var agent = _agentService.GetByID(landNewsVm.AgentID);
+                var agentDb = Mapper.Map<Agent, AgentViewModel>(agent);
+                landNewsVm.Agent = agentDb;
+
+                response = request.CreateResponse(HttpStatusCode.OK, landNewsVm);
                 return response;
             });
         }

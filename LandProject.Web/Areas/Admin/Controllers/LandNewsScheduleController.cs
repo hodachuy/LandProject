@@ -4,17 +4,12 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace LandProject.Web.Controllers
+namespace LandProject.Web.Areas.Admin.Controllers
 {
-    public class LandNewsController : Controller
+    public class LandNewsScheduleController : Controller
     {
-        // GET: LandNews
+        // GET: Admin/LandNewsSchedule
         public ActionResult Index()
-        {
-            return View();
-        }
-
-        public ActionResult Detail(int id)
         {
             return View();
         }

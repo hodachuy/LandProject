@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using LandProject.Common;
 using LandProject.Model.Models;
 using LandProject.Web.Models;
 
@@ -20,9 +21,10 @@ namespace LandProject.Web.Mappings
                 cfg.CreateMap<Province, ProvinceViewModel>();
                 cfg.CreateMap<District, DistrictViewModel>();
                 cfg.CreateMap<Ward, WardViewModel>();
-                cfg.CreateMap<LandNews, LandNewsViewModel>();
+                cfg.CreateMap<LandNewsFilterViewModel, LandNewsViewModel>();
                 cfg.CreateMap<LandFile, LandFileViewModel>();
                 cfg.CreateMap<Agent, AgentViewModel>();
+                cfg.CreateMap<LandNewsSchedule, LandNewsScheduleViewModel>();
             });
         }
     }

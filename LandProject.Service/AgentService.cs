@@ -11,6 +11,7 @@ namespace LandProject.Service
 {
     public interface IAgentService
     {
+        Agent GetByID(int id);
         Agent Add(Agent Agent);
         Agent Delete(int id);
         void Update(Agent Agent);
@@ -33,6 +34,11 @@ namespace LandProject.Service
         public Agent Delete(int id)
         {
             return _agentRepository.Delete(id);
+        }
+
+        public Agent GetByID(int id)
+        {
+            return _agentRepository.GetSingleById(id);
         }
 
         public void Save()

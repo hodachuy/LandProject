@@ -15,6 +15,8 @@ namespace LandProject.Data.Repositories
         IEnumerable<LandNews> GetAllByTag(string tag, int pageIndex, int pageSize, out int totalRow);
 
         IEnumerable<LandNewsFilterViewModel> GetLandNewsByFilter(string filter, string sort, int page, int pageSize);
+
+        LandNewsFilterViewModel GetLandNewsByID(int id);
     }
 
     public class LandNewsRepository : RepositoryBase<LandNews>, ILandNewsRepository
@@ -49,6 +51,14 @@ namespace LandProject.Data.Repositories
             query = query.Skip((pageIndex - 1) * pageSize).Take(pageSize);
 
             return query;
+        }
+
+        public LandNewsFilterViewModel GetLandNewsByID(int id)
+        {
+            var parameters = new SqlParameter[]{
+                new SqlParameter("@LandNewsID",id)
+            };
+            return DbContext.Database.SqlQuery<LandNewsFilterViewModel>("sp_GetLandNewsByID @LandNewsID", parameters).FirstOrDefault();
         }
     }
 }

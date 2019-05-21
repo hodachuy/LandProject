@@ -32,27 +32,33 @@ namespace LandProject.Web.Models
 
         [Required]
         public int LandTypeID { set; get; }
+        public string LandTypeName { set; get; }
 
         [Required]
         public int LandCategoryID { set; get; }
+        public string LandCategoryName { set; get; }
 
         [Required]
         public int ProvinceID { set; get; }
+        public string ProvinceName { set; get; }
 
         [Required]
         public int DistrictID { set; get; }
+        public string DistrictName { set; get; }
 
         [StringLength(128)]
         [Column(TypeName = "nvarchar")]
         public string UserID { set; get; }
 
         public int LandNewsScheduleID { set; get; }
+        public string LandNewsScheduleName { set; get; }
 
         public int AgentID { set; get; }
 
         public int? WardID { set; get; }
 
         public int? LProjectID { set; get; }
+        public string LProjectName { set; get; }
 
         public int? Area { set; get; }
 
@@ -103,5 +109,8 @@ namespace LandProject.Web.Models
         public bool IsPublished { set; get; }
 
         public bool IsSale { set; get; }
+
+        public virtual IEnumerable<LandFileViewModel> LandFiles { set; get; }
+        public virtual AgentViewModel Agent  { set; get; }
     }
 }
