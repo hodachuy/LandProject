@@ -14,10 +14,11 @@ namespace LandProject.Web.Areas.Admin.Controllers
             return View();
         }
 
-        public ActionResult Form(int lTypeID)
+        public ActionResult Form(int lTypeID, string lTypeName)
         {
             ViewBag.LandTypeID = lTypeID;
-            return View();
+			ViewBag.LandTypeName = lTypeName;
+			return View();
         }
 
         public ActionResult Create()

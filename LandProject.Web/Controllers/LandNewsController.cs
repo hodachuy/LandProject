@@ -18,5 +18,31 @@ namespace LandProject.Web.Controllers
         {
             return View();
         }
-    }
+
+		public ActionResult LandNewsByLandType(int landTypeID)
+		{
+			return View();
+		}
+		public ActionResult LandNewsByLandCategory(int landCategoryID)
+		{
+			return View();
+		}
+		public ActionResult LandNewsByWard(int wardID)
+		{
+			return View();
+		}
+		public ActionResult LandNewsByDistrict(int districtID)
+		{
+			return View();
+		}
+		public ActionResult LandNewsByProvince(int provinceID)
+		{
+			return View();
+		}
+
+		public ActionResult SearchLandNews()
+		{
+			return View();
+		}
+	}
 }

@@ -29,3 +29,19 @@ function replaceCommas(yourNumber) {
         components[1] = components[1].replace(/\D/g, "");
     return components.join(".");
 }
+
+//Bỏ dấu tiếng việt
+function stringToSlug(str) {
+    // remove accents
+    var from = "àáãảạăằắẳẵặâầấẩẫậèéẻẽẹêềếểễệđùúủũụưừứửữựòóỏõọôồốổỗộơờớởỡợìíỉĩịäëïîöüûñç",
+        to = "aaaaaaaaaaaaaaaaaeeeeeeeeeeeduuuuuuuuuuuoooooooooooooooooiiiiiaeiiouunc";
+    for (var i = 0, l = from.length; i < l; i++) {
+        str = str.replace(RegExp(from[i], "gi"), to[i]);
+    }
+
+    str = str.toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9\-]/g, '-')
+        .replace(/-+/g, '-');
+    return str;
+}

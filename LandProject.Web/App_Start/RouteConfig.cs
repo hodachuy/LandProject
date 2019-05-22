@@ -40,6 +40,52 @@ namespace LandProject.Web
 				defaults: new { controller = "Account", action = "Register", id = UrlParameter.Optional },
 				  namespaces: new string[] { "LandProject.Web.Controllers" }
 			);
+
+			routes.MapRoute(
+				name: "SearchLandNews",
+				url: "tim-kiem/tin-nha-dat.html",
+				defaults: new { controller = "LandNews", action = "SearchLandNews", id = UrlParameter.Optional },
+				  namespaces: new string[] { "LandProject.Web.Controllers" }
+			);
+
+			routes.MapRoute(
+				name: "LandNewsByDistrict",
+				url: "nha-dat/{alias}.d-{id}.html",
+				defaults: new { controller = "LandNews", action = "LandNewsByDistrict", id = UrlParameter.Optional },
+				  namespaces: new string[] { "LandProject.Web.Controllers" }
+			);
+			routes.MapRoute(
+				name: "LandNewsByLandCategory",
+				url: "nha-dat/{alias}.lc-{id}.html",
+				defaults: new { controller = "LandNews", action = "LandNewsByLandCategory", id = UrlParameter.Optional },
+				  namespaces: new string[] { "LandProject.Web.Controllers" }
+			);
+			routes.MapRoute(
+				name: "LandNewsByLandType",
+				url: "nha-dat/{alias}.lt-{id}.html",
+				defaults: new { controller = "LandNews", action = "LandNewsByLandType", id = UrlParameter.Optional },
+				  namespaces: new string[] { "LandProject.Web.Controllers" }
+			);
+			routes.MapRoute(
+				name: "LandNewsByProvince",
+				url: "nha-dat/{alias}.p-{id}.html",
+				defaults: new { controller = "LandNews", action = "LandNewsByProvince", id = UrlParameter.Optional },
+				  namespaces: new string[] { "LandProject.Web.Controllers" }
+			);
+			routes.MapRoute(
+				name: "LandNewsByWard",
+				url: "nha-dat/{alias}.w-{id}.html",
+				defaults: new { controller = "LandNews", action = "LandNewsByWard", id = UrlParameter.Optional },
+				  namespaces: new string[] { "LandProject.Web.Controllers" }
+			);
+
+			routes.MapRoute(
+				name: "LandNewsByDetail",
+				url: "{alias}.l-{id}.html",
+				defaults: new { controller = "LandNews", action = "Detail", id = UrlParameter.Optional },
+				  namespaces: new string[] { "LandProject.Web.Controllers" }
+			);
+
 			routes.MapRoute(
 				name: "Default",
 				url: "{controller}/{action}/{id}",

@@ -70,6 +70,8 @@
     <Compile Include="LandTypeService.cs" />
     <Compile Include="LProjectCategoryService.cs" />
     <Compile Include="LProjectService.cs" />
+    <Compile Include="MenuGroupService.cs" />
+    <Compile Include="MenuService.cs" />
     <Compile Include="NotifyService.cs" />
     <Compile Include="PageService.cs" />
     <Compile Include="PostCategoryService.cs" />

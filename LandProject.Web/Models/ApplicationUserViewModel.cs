@@ -19,7 +19,9 @@ namespace LandProject.Web.Models
 
         public string Avatar { set; get; }
 
-        public string Password { set; get; }
+		public string Address { set; get; }
+
+		public string Password { set; get; }
 
         public string PhoneNumber { set; get; }
 

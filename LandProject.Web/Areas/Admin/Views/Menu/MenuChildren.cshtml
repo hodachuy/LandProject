@@ -1,0 +1,86 @@
+﻿@{
+    ViewBag.Title = "MenuChildren";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="">
+    <div class="page-title">
+        <div class="title_left">
+            <h3>Nhóm danh mục con trang nhà đất</h3>
+        </div>
+        <div class="title_right">
+            <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                <div class="input-group" style="float:right">
+                    <a class="btn btn-primary" id="form-create-menuChild">
+                        Thêm
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="x_panel">
+        <div class="x_title">
+            <small>Trang chủ</small> / <small>Danh mục Con</small>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            <br />
+            <div id="grid"></div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="MenuChildModel" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Thêm danh mục con</h4>
+            </div>
+            <div class="modal-body">
+                <form id="form">
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Tên danh mục</label>
+                        <input type="text" class="form-control" id="txtMenuChildName" />
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Đường dẫn liên kết</label>
+                        <input type="text" class="form-control" id="txtMenuChildURL" />
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Thứ tự hiển thị</label>
+                        <input type="text" class="form-control" id="txtMenuChildDisplayOrder" placeholder="Vị trí hiển thị tăng dần theo thứ tự từ trái sang phải" />
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Target</label>
+                        <input type="text" class="form-control" id="txtMenuChildTarget" placeholder="nhập '_blank' chuyển liên kết link tới tap trình duyệt mới , nhập '_self' chuyển liên kết link ngay trại trang " />
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Danh mục cha (*)</label>
+                        <div class="w100 form-control" id="cboMenuGroup"></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Danh mục đa cấp</label>
+                        <div class="w100 form-control" id="cboMenuParent"></div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="saveMenuChild">Lưu</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="closeMenuChild">Đóng</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section footerJS{
+    <script src="~/assets/admin/js/MenuChild.js"></script>
+}
+
+
+
+
+
+

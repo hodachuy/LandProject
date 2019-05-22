@@ -46,7 +46,7 @@ namespace LandProject.Web.Infrastructure.Extensions
             landNews.Title = landNewsVm.Title;
             landNews.Alias = landNewsVm.Alias;
             landNews.Description = landNewsVm.Description;
-            landNews.Address = landNewsVm.Description;
+            landNews.Address = landNewsVm.Address;
             landNews.LandTypeID = landNewsVm.LandTypeID;
             landNews.LandCategoryID = landNewsVm.LandCategoryID;
             landNews.ProvinceID = landNewsVm.ProvinceID;
@@ -59,6 +59,7 @@ namespace LandProject.Web.Infrastructure.Extensions
             landNews.Price = landNewsVm.Price;
             landNews.TotalPrice = landNewsVm.TotalPrice;
             landNews.Unit = landNewsVm.Unit;
+			landNews.DecimalTotalPrice = landNewsVm.DecimalTotalPrice;
             landNews.Facade = landNewsVm.Facade;
             landNews.Entry = landNewsVm.Entry;
             landNews.CreatedDate = DateTime.Now;
@@ -99,5 +100,30 @@ namespace LandProject.Web.Infrastructure.Extensions
             landSchedule.EndDate = landScheduleVm.EndDate;
         }
 
-    }
+		public static void UpdateMenuGroup(this MenuGroup menuGroup, MenuGroupViewModel menuGroupVm)
+		{
+			menuGroup.ID = menuGroupVm.ID;
+			menuGroup.Name = menuGroupVm.Name;
+			menuGroup.DisplayOrder = menuGroupVm.DisplayOrder;
+			menuGroup.Target = menuGroupVm.Target;
+			menuGroup.Status = menuGroupVm.Status;
+			menuGroup.URL = menuGroupVm.URL;
+			menuGroup.Alias = menuGroupVm.Alias;
+		}
+		public static void UpdateMenu(this Menu menu, MenuViewModel menuVm)
+		{
+			menu.ID = menuVm.ID;
+			menu.Name = menuVm.Name;
+			menu.URL = menuVm.URL;
+			menu.DisplayOrder = menuVm.DisplayOrder;
+			menu.Image = menuVm.Image;
+			menu.ParentID = menuVm.ParentID;
+			menu.MenuGroupID = menuVm.MenuGroupID;
+			menu.Target = menuVm.Target;
+			menu.Alias = menuVm.Alias;
+			menu.Status = menuVm.Status;
+		}
+
+
+	}
 }

@@ -58,7 +58,7 @@ namespace LandProject.Common
 
         public string TotalPrice { set; get; }
 
-        public decimal? DecimalTotalPrice2 { set; get; }
+        public decimal? DecimalTotalPrice { set; get; }
 
         public string Unit { set; get; }
 

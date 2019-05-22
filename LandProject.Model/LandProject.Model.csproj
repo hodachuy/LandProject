@@ -76,6 +76,8 @@
     <Compile Include="Models\LProject.cs" />
     <Compile Include="Models\LandType.cs" />
     <Compile Include="Models\LProjectCategory.cs" />
+    <Compile Include="Models\Menu.cs" />
+    <Compile Include="Models\MenuGroup.cs" />
     <Compile Include="Models\Notify.cs" />
     <Compile Include="Models\Page.cs" />
     <Compile Include="Models\Post.cs" />

@@ -250,6 +250,8 @@
     <Compile Include="API\LandTypeController.cs" />
     <Compile Include="API\LProjectCategoryController.cs" />
     <Compile Include="API\LProjectController.cs" />
+    <Compile Include="API\MenuController.cs" />
+    <Compile Include="API\MenuGroupController.cs" />
     <Compile Include="API\VisitorController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -267,13 +269,13 @@
     <Compile Include="Areas\Admin\Controllers\LandTypeController.cs" />
     <Compile Include="Areas\Admin\Controllers\LProjectCategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\LProjectController.cs" />
+    <Compile Include="Areas\Admin\Controllers\MenuController.cs" />
     <Compile Include="Areas\Admin\Controllers\VisitorController.cs" />
     <Compile Include="Areas\Admin\Infrastructure\Core\BaseController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LandNewsController.cs" />
     <Compile Include="Controllers\PostingNewsController.cs" />
-    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -300,6 +302,8 @@
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\LProjectCategoryViewModel.cs" />
     <Compile Include="Models\LProjectViewModel.cs" />
+    <Compile Include="Models\MenuGroupViewModel.cs" />
+    <Compile Include="Models\MenuViewModel.cs" />
     <Compile Include="Models\ProvinceViewModel.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Models\WardViewModel.cs" />
@@ -312,6 +316,8 @@
     <Content Include="assets\admin\js\LandNewsSchedule.js" />
     <Content Include="assets\admin\js\LandType.js" />
     <Content Include="assets\admin\js\LProjectCategory.js" />
+    <Content Include="assets\admin\js\MenuChildren.js" />
+    <Content Include="assets\admin\js\MenuParent.js" />
     <Content Include="assets\admin\js\VisitorStatistic.js" />
     <Content Include="assets\build\css\custom.css" />
     <Content Include="assets\build\css\custom.min.css" />
@@ -330,8 +336,10 @@
     <Content Include="assets\client\css\font-awesome-4.6.3\HELP-US-OUT.txt" />
     <Content Include="assets\client\css\need-buy-and-need-rent.css" />
     <Content Include="assets\client\css\style.css" />
+    <Content Include="assets\client\img\Ban_do_quy_hoach_bac_van_phong.jpg" />
     <Content Include="assets\client\img\gmap_marker.png" />
     <Content Include="assets\client\img\gmap_marker_active.png" />
+    <Content Include="assets\client\img\icon-dang-tin.png" />
     <Content Include="assets\client\js\commont.js" />
     <Content Include="assets\client\js\countIPv4AccessPage.js" />
     <Content Include="assets\client\js\jquery.js" />
@@ -2042,6 +2050,10 @@
     <Content Include="fileman\web.config" />
     <Content Include="Areas\Admin\Views\LandNewsSchedule\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Visitor\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Menu\MenuParent.cshtml" />
+    <Content Include="Areas\Admin\Views\Menu\MenuChildren.cshtml" />
+    <Content Include="assets\client\fonts\MaterialIcons-Regular.woff" />
+    <Content Include="assets\client\fonts\MaterialIcons-Regular.woff2" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -2074,9 +2086,14 @@
     <Content Include="Views\Shared\Header.cshtml" />
     <Content Include="Views\Shared\Footer.cshtml" />
     <Content Include="Views\LandNews\Detail.cshtml" />
-    <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\LandNews\LandNewsByLandType.cshtml" />
+    <Content Include="Views\LandNews\LandNewsByLandCategory.cshtml" />
+    <Content Include="Views\LandNews\LandNewsByWard.cshtml" />
+    <Content Include="Views\LandNews\LandNewsByDistrict.cshtml" />
+    <Content Include="Views\LandNews\LandNewsByProvince.cshtml" />
+    <Content Include="Views\LandNews\SearchLandNews.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="API Client\" />
@@ -2085,7 +2102,6 @@
     <Folder Include="assets\admin\img\" />
     <Folder Include="assets\admin\libs\" />
     <Folder Include="assets\client\css\select2\" />
-    <Folder Include="assets\client\fonts\" />
     <Folder Include="fileman\aspnet_client\system_web\2_0_50727\" />
     <Folder Include="fileman\aspnet_client\system_web\4_0_30319\" />
     <Folder Include="fileman\tmp\" />

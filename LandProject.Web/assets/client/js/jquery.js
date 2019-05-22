@@ -294,4 +294,5 @@ $document.ready(function () {
         $("#myModal").show("slow");
         jQuery('body').css('height', '100vh').css('overflow-y', 'hidden');
     })
+
 });

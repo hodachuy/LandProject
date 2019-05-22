@@ -35,6 +35,8 @@ namespace LandProject.Data
 		public DbSet<Tag> Tags { set; get; }
 		public DbSet<LandNewsTag> LandNewsTags { set; get; }
 		public DbSet<PostTag> PostTags { set; get; }
+		public DbSet<Menu> Menus { set; get; }
+		public DbSet<MenuGroup> MenuGroups { set; get; }
 
 		public static LandDbContext Create()
         {

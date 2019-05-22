@@ -8,12 +8,37 @@
     <link href="~/assets/vendors/select2/dist/css/select2.min.css" rel="stylesheet" />
     <link href="~/assets/client/css/need-buy-and-need-rent.css" rel="stylesheet" />
     <link href="~/assets/vendors/toastr/toastr.min.css" rel="stylesheet" />
+    <style>
+        .post-bg-Title {
+            height: 50px;
+            margin-top: 30px;
+            background-image: url('../../assets/client/img/icon-dang-tin.png');
+            background-position: 115px 0;
+            background-repeat: no-repeat;
+            text-align: center;
+            background-color: antiquewhite;
+        }
+
+        .graycolor {
+            color: #666;
+        }
+
+        .post-bg-Title div {
+            font-family: Arial;
+            font-size: 12px;
+        }
+
+        .post-bg-Title h1 {
+            font-family: Calibri;
+            font-size: 22px;
+        }
+    </style>
 }
 <section class="section-full text-left">
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <h1>Đăng tin rao bán nhà đất miễn phí</h1>
+                <h1 class="font-seogui">Đăng tin rao bán nhà đất miễn phí</h1>
                 <p></p>
                 <ol class="breadcrumb">
                     <li>
@@ -29,157 +54,180 @@
     <div class="container">
         <div class="row offset-1">
             <div class="col-xs-12 col-md-8 col-lg-8">
+                <div class="post-bg-Title">
+                    <h1 class="bluecolor">Đăng tin rao bán, cho thuê nhà đất</h1>
+                    <div class="graycolor">
+                        (Quý vị nhập thông tin nhà đất cần bán hoặc cho thuê vào các mục dưới đây)
+                    </div>
+                </div>
                 <div class="tabs-custom">
                     <ul class="nav nav-tabs" style="width: 100%">
-                        <li class="active" style="width: 50%">
+                        <li class="active">
                             <a class="font-seogui" href="/dang-tin-rao-vat-ban-nha-dat.html" title="Cần bán/Cho thuê" aria-expanded="False">
-                                <h3 class="font-seogui">Cần bán/Cho thuê</h3>
+                                <div class="tab-name font-seogui">Cần bán/Cho thuê</div>
                             </a>
                         </li>
                         <li class="">
                             <a class="font-seogui" href="/dang-tin-rao-vat-mua-nha-dat.html" aria-expanded="True">
-                                <h3 class="font-seogui">  Cần mua/Cần thuê</h3>
+                                <div class="tab-name font-seogui"> Cần mua/Cần thuê</div>
                             </a>
                         </li>
                     </ul>
                     <div class="tab-content">
                         <div id="tab1" class="tab-pane fade active in">
                             <div class="post-news" id="divPostNews">
-                                <div class="col-xs-12 col-md-12 col-lg-12">
+                                <h5 class="border-bottom font-seogui">THÔNG TIN CƠ BẢN</h5>
+                                <div class="col-xs-12 col-md-12 col-lg-12 info-parent">
                                     <div class="col-xs-12 col-md-12 col-lg-12 form-group">
                                         <label for="name" class="form-label rd-input-label font-weight-600">Tiêu đề <span style="color: red">*</span></label>
-                                        <input type="text" name="Title" id="Title" class="form-control"  onfocus="hideErrorMessage(this)">
-                                        <div class="errorMessage" style="display: none;color: red;padding-top: 5px;float: left;"></div>
+                                        <input type="text" name="Title" id="Title" class="form-control" onfocus="hideErrorMessage(this)" />
+                                        <div class="errorMessage" style="display: none; color: red; padding-top: 5px; float: left;"></div>
                                     </div>
                                     <div class="ol-xs-12 col-md-6 col-lg-6 form-group">
                                         <label for="name" class="form-label rd-input-label">Hình thức <span style="color: red">*</span></label>
-                                        <select type="text" name="PlandTypeID" id="PlandTypeID" class="form-control" onfocus="hideErrorMessage(this)">
-                                            <option value="0">--Chọn hình thức--</option>
-                                            <option value="1"> Nhà đất bán</option>
-                                            <option value="2"> Nhà đất cho thuê</option>
+                                        <select type="text" name="LandTypeID" id="LandTypeID" onchange="LoadLandCategory();" class="form-control" onfocus="hideErrorMessage(this)">
+                                            <option value="0">-- Hình thức --</option>
                                         </select>
-                                        <div class="errorMessage" style="display: none;color: red;padding-top: 5px;float: left;"></div>
+                                        <div class="errorMessage" style="display: none; color: red; padding-top: 5px; float: left;"></div>
                                     </div>
                                     <div class="col-xs-12 col-md-6 col-lg-6 form-group">
                                         <label for="name" class="form-label rd-input-label">Loại <span style="color: red">*</span></label>
                                         <select name="LandCategoryID" id="LandCategoryID" class="form-control" onfocus="hideErrorMessage(this)">
-                                            <option value="0"> Nhà chung cư</option>
-                                            <option value="1"> Nhà chung cư</option>
-                                            <option value="2"> Nhà riêng</option>
-                                            <option value="3"> Nhà biệt thự</option>
+                                            <option value="0">-- Loại --</option>
                                         </select>
-                                        <div class="errorMessage" style="display: none;color: red;padding-top: 5px;float: left;"></div>
+                                        <div class="errorMessage" style="display: none; color: red; padding-top: 5px; float: left;"></div>
                                     </div>
                                     <div class="col-xs-12 col-md-6 col-lg-6 form-group">
                                         <label for="name" class="form-label rd-input-label">Tỉnh/Thành phố <span style="color: red">*</span></label>
-                                        <select type="text" name="ProvinceID" id="ProvinceID" class="form-control" onfocus="hideErrorMessage(this)"> </select>
-                                        <div class="errorMessage" style="display: none;color: red;padding-top: 5px;float: left;"></div>
+                                        <select type="text" name="ProvinceID" onchange="LoadDistricts();" id="ProvinceID" class="form-control" onfocus="hideErrorMessage(this)"> </select>
+                                        <div class="errorMessage" style="display: none; color: red; padding-top: 5px; float: left;"></div>
                                     </div>
                                     <div class="col-xs-12 col-md-6 col-lg-6 form-group">
                                         <label for="name" class="form-label rd-input-label">Quận/Huyện<span style="color: red">*</span></label>
-                                        <select type="text" name="DistrictID" id="DistrictID" class="form-control" onfocus="hideErrorMessage(this)"></select>
-                                        <div class="errorMessage" style="display: none;color: red;padding-top: 5px;float: left;"></div>
+                                        <select type="text" onchange="LoadWards();" name="DistrictID" id="DistrictID" class="form-control" onfocus="hideErrorMessage(this)">
+                                            <option value="0"> -- Quận/huyện --</option>
+                                        </select>
+                                        <div class="errorMessage" style="display: none; color: red; padding-top: 5px; float: left;"></div>
                                     </div>
                                     <div class="col-xs-12 col-md-6 col-lg-6 form-group">
                                         <label for="name" class="form-label rd-input-label">Phường/Xã</label>
                                         <select type="text" name="WardID" id="WardID" class="form-control">
-                                            <option value="0">--Chọn phường/xã--</option>
-                                            <option value="0">Phường 1</option>
-                                            <option value="1" >Phường 2</option>
-                                            <option value="3 ">Phường 3</option>
-                                            <option value="5" >Phường 4</option>
+                                            <option value="0">-- Phường/xã --</option>
                                         </select>
                                     </div>
                                     <div class="col-xs-12 col-md-6 col-lg-6 form-group">
                                         <label for="name" class="form-label rd-input-label">Dự án </label>
                                         <select type="text" name="LProjectID" id="LProjectID" class="form-control">
-                                            <option value="0">--Chọn dự án--</option>
-                                            <option value="1">Dự án 1</option>
-                                            <option value="2">Dự án 2</option>
-                                            <option value="3 ">Dự án 3</option>
-                                            <option value="4">Dự án 4</option>
+                                            <option value="0">-- Dự án --</option>
                                         </select>
+                                    </div>
+                                    <div class="col-xs-12 col-md-6 col-lg-6 form-group">
+                                        <label for="name" class="form-label rd-input-label"> Diện tích(m²)</label>
+                                        <input type="text" name="Area" id="Area" class="form-control number" onchange="CalculatePrice();">
                                     </div>
                                     <div class="col-xs-12 col-md-6 col-lg-6 form-group">
                                         <label for="name" class="form-label rd-input-label">Giá</label>
-                                        <input type="text" name="Price" id="Price" class="form-control price">
+                                        <input type="text" name="Price" id="Price" class="form-control price" onchange="CalculatePrice();">
                                     </div>
                                     <div class="col-xs-12 col-md-6 col-lg-6 form-group">
                                         <label for="name" class="form-label rd-input-label">Đơn vị</label>
-                                        <select type="text" name="Unit" id="Unit" class="form-control">
+                                        <select type="text" name="Unit" id="Unit" class="form-control" onchange="CalculatePrice();">
                                             <option value="0">Thỏa thuận</option>
                                             <option value="1">Triệu</option>
                                             <option value="2">Tỷ</option>
-                                            <option value="6">Trăm nghìn/m2</option>
-                                            <option value="7">Triệu/m2</option>
+                                            <option value="3">Trăm nghìn/m2</option>
+                                            <option value="4">Triệu/m2</option>
                                         </select>
                                     </div>
 
-                                    <div class="col-xs-12 col-md-12 col-lg-12 form-group">
+                                    <div class="col-xs-12 col-md-6 col-lg-6 form-group">
                                         <label for="name" class="form-label rd-input-label">Tổng tiền</label>
-                                        <input type="text" name="TotalPrice" id="TotalPrice" class="form-control">
+                                        <input type="text" name="TotalPrice" id="TotalPrice" class="form-control" disabled="disabled" style="background-color: white;">
+                                        <input type="text" name="DecimalTotalPrice" id="DecimalTotalPrice" class="form-control hidden">
                                     </div>
                                     <div class="col-xs-12 col-md-12 col-lg-12 form-group">
                                         <label for="name" class="form-label rd-input-label">Địa chỉ <span style="color: red">*</span></label>
-                                        <input type="text" name="Address" id="Address" class="form-control" placeholder="Nhập địa chỉ" onfocus="hideErrorMessage(this)"/>
-                                        <div class="errorMessage" style="display: none;color: red;padding-top: 5px;float: left;"></div>
+                                        <input type="text" name="Address" id="Address" class="form-control" placeholder="Nhập địa chỉ" onfocus="hideErrorMessage(this)" />
+                                        <div class="errorMessage" style="display: none; color: red; padding-top: 5px; float: left;"></div>
                                     </div>
                                     <div class="col-xs-12 col-md-12 col-lg-12 form-group">
                                         <input name="LatiLongTude" id="LatiLongTude" class="hidden" />
-                                        <input id="Latitude" class="hidden" />
-                                        <input id="Longitude" class="hidden" />
                                         <div id="map" class="map"></div>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="post-news" id="divPostNews">
-                                <h4 class="border-bottom font-seogui">THÔNG TIN MÔ TẢ</h4>
-                                <div class="col-xs-12 col-md-8 col-lg-8" style="padding-bottom: 15px;">
+                                <h5 class="border-bottom font-seogui">THÔNG TIN MÔ TẢ</h5>
+                                <div class="col-xs-12 col-md-12 col-lg-12 info-parent">
                                     <div class="form-group">
-                                        <label for="name" class="form-label rd-input-label" style="width: 100%; padding-top: 0px;">(<span style="color: red">*</span>) Tối đa chỉ 3000 ký tự</label>
+                                        <div class="col-xs-12 col-md-8 col-lg-8">
+                                            <label for="name" class="form-label rd-input-label" style="width: 100%; padding-top: 0px;">(<span style="color: red">*</span>) Tối đa chỉ 3000 ký tự</label>
 
-                                        <div class="description" name="Description" id="Description" contenteditable="true" data-text="Thông tin chi tiết" onfocus="hideErrorMessage(this)">
+                                            @*<div class="description" name="Description" id="Description" contenteditable="true" data-text="Thông tin chi tiết" onfocus="hideErrorMessage(this)">
+                                                </div>*@
+                                            <textarea class="form-control" name="Description" id="Description" rows="5" style="height: 130px;"></textarea>
+                                            <div class="errorMessage" style="display: none; color: red; padding-top: 5px; float: left;"></div>
+                                        </div><div class="col-xs-12 col-md-4 col-lg-4" style="text-align: justify; line-height: 25px; padding-bottom: 20px;">
+                                            Giới thiệu chung về bất động sản của bạn. Ví dụ: Khu nhà có vị trí thuận lợi: Gần công viên, gần trường học ... Tổng diện tích 52m2, đường đi ô tô vào tận cửa.
+                                            <br /> <span style="color: #f00">Lưu ý: tin rao chỉ để mệnh giá tiền Việt Nam Đồng.</span>
                                         </div>
-                                        <div class="errorMessage" style="display: none;color: red;padding-top: 5px;float: left;"></div>
+
                                     </div>
                                 </div>
-                                <div class="col-xs-12 col-md-4 col-lg-4" style="text-align: justify; line-height: 25px;">
-                                    Giới thiệu chung về bất động sản của bạn. Ví dụ: Khu nhà có vị trí thuận lợi: Gần công viên, gần trường học ... Tổng diện tích 52m2, đường đi ô tô vào tận cửa.
-                                    <br /> <span style="color: #f00">Lưu ý: tin rao chỉ để mệnh giá tiền Việt Nam Đồng.</span>
-                                </div>
+
                             </div>
                             <div class="post-news" id="divPostNews">
-                                <h4 class="border-bottom font-seogui">THÔNG TIN KHÁC</h4>
-                                <div class="title-chid"> Quý vị nên điền đầy đủ thông tin vào các mục dưới đây để tin đăng có hiệu quả hơn</div>
-                                <div class="col-xs-12 col-md-12 col-lg-12">
+                                <h5 class="border-bottom font-seogui">THÔNG TIN KHÁC</h5>
+                                <div class="col-xs-12 col-md-12 col-lg-12 info-parent">
+                                    <div class="form-group title-chid"> Quý vị nên điền đầy đủ thông tin vào các mục dưới đây để tin đăng có hiệu quả hơn</div>
                                     <div class="ol-xs-12 col-md-6 col-lg-6 form-group">
-                                        <label for="name" class="form-label rd-input-label">Mặt tiền </label>
-                                        <input type="text" name="Facede" id="Facede" class="form-control">
+                                        <label for="name" class="form-label rd-input-label">Mặt tiền(m) </label>
+                                        <input type="text" name="Facade" id="Facade" class="form-control price">
                                     </div>
                                     <div class="col-xs-12 col-md-6 col-lg-6 form-group">
-                                        <label for="name" class="form-label rd-input-label">Mặt đường </label>
-                                        <input type="text" name="Entry" id="Entry" class="form-control">
+                                        <label for="name" class="form-label rd-input-label price">Mặt đường(m)</label>
+                                        <input type="text" name="Entry" id="Entry" class="form-control number">
                                     </div>
                                     <div class="ol-xs-12 col-md-6 col-lg-6 form-group">
                                         <label for="name" class="form-label rd-input-label">Hướng nhà </label>
-                                        <input type="text" name="HouseDirection" id="HouseDirection" class="form-control">
+                                        <select type="text" name="HouseDirection" id="HouseDirection" class="form-control">
+                                            <option value="Không xác định">Không xác định</option>
+                                            <option value="Đông">Đông</option>
+                                            <option value="Tây">Tây</option>
+                                            <option value="Nam">Nam</option>
+                                            <option value="Bắc">Bắc</option>
+                                            <option value="Đông-Bắc">Đông-Bắc</option>
+                                            <option value="Tây-Bắc">Tây-Bắc</option>
+                                            <option value="Tây-Nam">Tây-Nam</option>
+                                            <option value="Đông-Nam">Đông-Nam</option>
+                                        </select>
                                     </div>
                                     <div class="col-xs-12 col-md-6 col-lg-6 form-group">
                                         <label for="name" class="form-label rd-input-label">Hướng ban công </label>
-                                        <input type="text" name="BalconyDirection" id="BalconyDirection" class="form-control">
+                                        <select type="text" name="BalconyDirection" id="BalconyDirection" class="form-control">
+                                            <option value="Không xác định">Không xác định</option>
+                                            <option value="Đông">Đông</option>
+                                            <option value="Tây">Tây</option>
+                                            <option value="Nam">Nam</option>
+                                            <option value="Bắc">Bắc</option>
+                                            <option value="Đông-Bắc">Đông-Bắc</option>
+                                            <option value="Tây-Bắc">Tây-Bắc</option>
+                                            <option value="Tây-Nam">Tây-Nam</option>
+                                            <option value="Đông-Nam">Đông-Nam</option>
+                                        </select>
                                     </div>
                                     <div class="ol-xs-12 col-md-6 col-lg-6 form-group">
                                         <label for="name" class="form-label rd-input-label">Số tầng </label>
-                                        <input type="text" name="NumberFloor" id="NumberFloor" class="form-control">
+                                        <input type="text" name="NumberFloor" id="NumberFloor" class="form-control number">
                                     </div>
                                     <div class="ol-xs-12 col-md-6 col-lg-6 form-group">
                                         <label for="name" class="form-label rd-input-label">Số phòng ngủ</label>
-                                        <input type="text" name="NumberBedroom" id="NumberBedroom" class="form-control">
+                                        <input type="text" name="NumberBedroom" id="NumberBedroom" class="form-control number">
                                     </div>
                                     <div class="col-xs-12 col-md-6 col-lg-6 form-group">
                                         <label for="name" class="form-label rd-input-label">Số toilet</label>
-                                        <input type="text" name="NumberWC" id="NumberWC" class="form-control">
+                                        <input type="text" name="NumberWC" id="NumberWC" class="form-control number">
                                     </div>
                                     <div class="col-xs-12 col-md-2 col-lg-12 form-group">
                                         <label for="name" class="form-label rd-input-label">Nội thất</label>
@@ -189,85 +237,92 @@
                             </div>
 
                             <div class="post-news" id="divPostNews">
-                                <h4 class="border-bottom font-seogui">HÌNH ẢNH VÀ VIDEO</h4>
-                                <div class="col-xs-12 col-md-6 col-lg-6">
+                                <h5 class="border-bottom font-seogui">HÌNH ẢNH VÀ VIDEO</h5>
+                                <div class="col-xs-12 col-md-12 col-lg-12 info-parent">
                                     <div class="form-group">
-                                        <div class="upload-zone" style="margin-bottom: 5px;">
-                                            <p><span class="fa-file-image-o" style="color: #d9d9d9; font-size: 48px;"></span></p>
-                                            <p>
-                                                <label>
-                                                    <span class="btn btn-white btn-primary">Chọn ảnh</span>
-                                                    <input id="multi-file" class="hidden" type="file" accept="image/*" multiple="">
-                                                </label>
-                                            </p>
+                                        <div class="col-xs-12 col-md-6 col-lg-6">
+                                            <div class="upload-zone" style="margin-bottom: 20px;">
+                                                <p><span class="fa-file-image-o" style="color: #d9d9d9; font-size: 48px;"></span></p>
+                                                <p>
+                                                    <label>
+                                                        <span class="btn btn-white btn-primary">Chọn ảnh</span>
+                                                        <input id="multi-file" class="hidden" type="file" accept="image/*" multiple="">
+                                                    </label>
+                                                </p>
+                                            </div>
+                                            <div data-id="cover" class="img-input">
+                                                <div class="img-preview clearfix" style="display: flex; flex-wrap: wrap"></div>
+                                            </div>
                                         </div>
-                                        <div data-id="cover" class="img-input">
-                                            <div class="img-preview clearfix" style="display: flex; flex-wrap: wrap"></div>
+                                        <div class="col-xs-12 col-md-6 col-lg-6">
+                                            <div class="title-chid">
+                                                Tối đa 8 ảnh với tin thường và 16 với tin VIP. Mỗi ảnh tối đa 2MB <br />
+                                                Tin rao có ảnh sẽ được xem nhiều hơn gấp 10 lần và được nhiều người gọi gấp 5 lần so với tin rao không có ảnh.
+                                                Hãy đăng ảnh để được giao dịch nhanh chóng!
+                                            </div>
                                         </div>
                                     </div>
+                                </div>
 
-                                </div>
-                                <div class="col-xs-12 col-md-6 col-lg-6">
-                                    <div class="title-chid">
-                                        Tối đa 8 ảnh với tin thường và 16 với tin VIP. Mỗi ảnh tối đa 2MB <br />
-                                        Tin rao có ảnh sẽ được xem nhiều hơn gấp 10 lần và được nhiều người gọi gấp 5 lần so với tin rao không có ảnh.
-                                        Hãy đăng ảnh để được giao dịch nhanh chóng!
-                                    </div>
-                                </div>
                             </div>
 
                             <div class="post-news" id="Agents">
-                                <h4 class="border-bottom font-seogui">LIÊN HỆ</h4>
-                                <div class="col-xs-12 col-md-12 col-lg-12">
-                                    <input name="AgentID" class="hidden" />
-                                    <div class="col-xs-12 col-md-6 col-lg-6 form-group">
-                                        <label for="name" class="form-label rd-input-label">Tên liên hệ:</label>
-                                        <input type="text" id="AgentName" name="AgentName" class="form-control">
-                                    </div>
-                                    <div class="ol-xs-12 col-md-6 col-lg-6 form-group">
-                                        <label for="name" class="form-label rd-input-label">Địa chỉ: </label>
-                                        <input type="text" name="AgentAddress" id="AgentAddress" class="form-control">
-                                    </div>
-                                    <div class="col-xs-12 col-md-6 col-lg-6 form-group">
-                                        <label for="name" class="form-label rd-input-label">Điện thoại: </label>
-                                        <input type="text" name="AgentPhone" id="AgentPhone" class="form-control">
-                                    </div>
-                                    <div class="col-xs-12 col-md-6 col-lg-6 form-group">
-                                        <label for="name" class="form-label rd-input-label">Di động:(*) <span style="color: red">*</span></label>
-                                        <input type="text" name="AgentMobilePhone" id="AgentMobilePhone" class="form-control" onfocus="hideErrorMessage(this)">
-                                        <div class="errorMessage" style="display: none;color: red;padding-top: 5px;float: left;"></div>
-                                    </div>
-                                    <div class="col-xs-12 col-md-6 col-lg-6 form-group">
-                                        <label for="name" class="form-label rd-input-label">Email:</label>
-                                        <input type="text" name="AgentEmail" id="AgentEmail" class="form-control">
-                                    </div>
-                                    <div class="col-xs-12 col-md-6 col-lg-6 form-group">
-                                        <label for="checkbox">Nhận phản hồi qua email</label>
-                                        <input type="checkbox" class="checkbox checkbox-custom" id="CheckEmail" style="float: left;margin-right: 10px;width: 28px;height: 28px;">
+                                <h5 class="border-bottom font-seogui">LIÊN HỆ</h5>
+                                <div class="col-xs-12 col-md-12 col-lg-12 info-parent">
+                                    <div class="form-group">
+                                        @*<input name="AgentID" id="AgentID" class="hidden" />
+                                            <input name="UserId" id="UserId" value="1" class="hidden" />*@
+                                        <div class="col-xs-12 col-md-6 col-lg-6 form-group">
+                                            <label for="name" class="form-label rd-input-label">Tên liên hệ:</label>
+                                            <input type="text" id="AgentName" name="AgentName" class="form-control">
+                                        </div>
+                                        <div class="ol-xs-12 col-md-6 col-lg-6 form-group">
+                                            <label for="name" class="form-label rd-input-label">Địa chỉ: </label>
+                                            <input type="text" name="AgentAddress" id="AgentAddress" class="form-control">
+                                        </div>
+                                        <div class="col-xs-12 col-md-6 col-lg-6 form-group">
+                                            <label for="name" class="form-label rd-input-label">Điện thoại: </label>
+                                            <input type="text" name="AgentPhone" id="AgentPhone" class="form-control number">
+                                        </div>
+                                        <div class="col-xs-12 col-md-6 col-lg-6 form-group">
+                                            <label for="name" class="form-label rd-input-label">Di động:(*) <span style="color: red">*</span></label>
+                                            <input type="text" name="AgentMobilePhone" id="AgentMobilePhone" class="form-control number" onfocus="hideErrorMessage(this)">
+                                            <div class="errorMessage" style="display: none; color: red; padding-top: 5px; float: left;"></div>
+                                        </div>
+                                        <div class="col-xs-12 col-md-6 col-lg-6 form-group">
+                                            <label for="name" class="form-label rd-input-label">Email:</label>
+                                            <input type="text" name="AgentEmail" id="AgentEmail" class="form-control">
+                                        </div>
+                                        <div class="col-xs-12 col-md-6 col-lg-6 form-group">
+                                            <label for="checkbox">Nhận phản hồi qua email</label>
+                                            <input type="checkbox" class="checkbox checkbox-custom" id="CheckEmail" style="float: left; margin-right: 10px; width: 28px; height: 28px;">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="post-news">
-                                <div class="col-xs-12 col-md-12 col-lg-12">
+                                <div class="col-xs-12 col-md-6 col-lg-6">
+                                    <div id="imgCaptcha"></div>
                                     <label for="name" class="form-label rd-input-label">Captcha <span style="color: red">*</span></label>
                                     <input type="text" name="Captcha" id="Captcha" class="form-control" placeholder="Nhập captcha" onfocus="hideErrorMessage(this)" />
-                                    <div id="imgCaptcha"></div>
+                                    <div class="errorMessage" style="display: none; color: red; padding-top: 5px; float: left;"></div>
+                                    <button class="btn btn-sushi" id="btnSalePlan" style="padding-top: 20px; margin-top: 20px;" onclick="SubmitSalePlan()">ĐĂNG TIN</button>
+                                </div>
+                                <div class="col-xs-12 col-md-6 col-lg-6">
                                 </div>
                             </div>
-
-                            <button class="btn btn-sm btn-sushi btn-min-width-sm" onclick="SubmitSalePlan()">ĐĂNG TIN</button>
                         </div>
                         <div id="tab2" class="tab-pane fade ">
-                          
+
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-4 p-t-20">
+            <div class="col-xs-12 col-sm-12 col-md-4">
                 <div class="sidebar sidebar-mod-2">
                     <div class="sidebar-module">
-                        <h4>Vị trí bất động sản</h4>
+                        <h4 class="font-seogui">Vị trí bất động sản</h4>
                         <ul class="list-marked">
                             <li>
                                 <a href="#" class="text-sushi">Vạn </a>
@@ -303,7 +358,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-12 col-md-4 inset-7 text-center text-md-left search p-t-20">
+            <div class="col-xs-12 col-sm-12 col-md-4 inset-7 text-center text-md-left search">
                 <h5 class="border-bottom font-seogui" style="margin-bottom: 15px;">Tìm kiếm</h5>
                 <div class="post-news">
                     <div class="form-group">
@@ -317,17 +372,21 @@
                     <div class="form-group">
                         <label class="form-label">Tỉnh/Thành phố</label>
                         <!--Select 2-->
-                        <select id="Province" type="text" class="form-control"></select>
+                        <select id="Province" onchange="LoadDistrictsSearch();" type="text" class="form-control">
+                            <option value="0">-- Tỉnh/thành phố --</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="select-3" class="form-label">Quận/Huyện</label>
                         <!--Select 2-->
-                        <select id="District" class="form-control"></select>
+                        <select id="District" class="form-control">
+                            <option value="0">-- Quận/huyện --</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="price" class="form-label">Mức giá</label>
                         <div class="form-inline-flex-xs">
-                            <input id="price" type="text" name="min-price" placeholder="100" class="form-control price" >
+                            <input id="price" type="text" name="min-price" placeholder="100" class="form-control price">
                             <span class="text-abbey dash">–</span>
                             <input id="max-price" type="text" name="max-price" placeholder="10000" class="form-control price">
                         </div>
@@ -343,14 +402,13 @@
                     <button type="submit" class="btn btn-sushi btn-sm btn-min-width-mod-3">TÌM KIẾM</button>
                 </div>
             </div>
-
         </div>
     </div>
 </section>
 
 @section footerJS{
     <script type="text/javascript" src="//maps.google.com/maps/api/js?sensor=false&key=AIzaSyAfx5a8yx5MqeGoTS3ierzoe35TXoX0ZOY&libraries=places&callback=initMap"></script>
-
+    <script src="~/assets/vendors/bootbox/bootbox.min.js"></script>
     <script src="~/assets/vendors/select2/dist/js/select2.full.js"></script>
     <script src="~/assets/vendors/toastr/toastr.min.js"></script>
     <script src="~/assets/client/js/commont.js"></script>

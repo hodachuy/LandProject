@@ -16,7 +16,7 @@
                     {
                         foreach (var item in Model)
                         {
-                            <li><a href="@Url.Action("Form","LandNews",new { lTypeID = item.ID })"> Tin @item.Name</a></li>
+                            <li><a href="@Url.Action("Form","LandNews",new { lTypeID = item.ID , lTypeName = item.Name })"> Tin @item.Name</a></li>
                         }
                     }
                 </ul>
@@ -31,16 +31,26 @@
             <li>
                 <a><i class="fa fa-tasks"></i> Dự án <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
-                    <li><a href="tables.html"> Thể loại</a></li>
-                    <li><a href="chartjs2.html"> Phân mục</a></li>
+                    <li><a href="@Url.Action("Index","LProjectCategory")"> Thể loại</a></li>
+                    <li><a href="@Url.Action("Index","LProject")"> Danh sách dự án</a></li>
                 </ul>
             </li>
-
             <li>
                 <a><i class="fa fa-newspaper-o"></i> Tin tức <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
-                    <li><a href="fixed_sidebar.html">Danh sách tin tức</a></li>
-                    <li><a href="fixed_footer.html">Tạo tin tức</a></li>
+                    <li><a href="#">Danh sách tin tức</a></li>
+                    <li><a href="#">Tạo tin tức</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="@Url.Action("Index","LandNewsSchedule")"><i class="fa fa-newspaper-o"></i> Loại phí tin</a>
+            </li>
+
+            <li>
+                <a><i class="fa fa-newspaper-o"></i> Danh mục - menu<span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu">
+                    <li><a href="@Url.Action("MenuParent","Menu")">Danh mục cha</a></li>
+                    <li><a href="@Url.Action("MenuChildren","Menu")">Danh mục con</a></li>
                 </ul>
             </li>
 
@@ -51,10 +61,6 @@
                     <li><a href="fixed_footer.html">Phân quyền</a></li>
                     <li><a href="fixed_footer.html">Người dùng</a></li>
                 </ul>
-            </li>
-
-            <li>
-                <a href="@Url.Action("Index","LandNewsSchedule")"><i class="fa fa-newspaper-o"></i> Loại tin</a>
             </li>
 
         </ul>

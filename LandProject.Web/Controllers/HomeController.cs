@@ -7,13 +7,23 @@ using System.Web.Mvc;
 using LandProject.Service;
 using LandProject.Common;
 using LandProject.Web.Models;
+using AutoMapper;
+using LandProject.Model.Models;
 
 namespace LandProject.Web.Controllers
 {
 	public class HomeController : Controller
 	{
+		IMenuGroupService _menugroupService;
+		IMenuService _menuService;
 
-        public ActionResult Index()
+		public HomeController(IMenuGroupService menugroupService, IMenuService menuService)
+		{
+			_menugroupService = menugroupService;
+			_menuService = menuService;
+		}
+
+		public ActionResult Index()
 		{
 			ViewBag.Title = "Home Page";
 
@@ -23,7 +33,15 @@ namespace LandProject.Web.Controllers
         [ChildActionOnly]
         public ActionResult Header()
         {
-			return PartialView(UserInfo);
+			var lstMenuGroup = _menugroupService.GetMenuGroupActive();
+			var lstMenuGroupVm = Mapper.Map<IEnumerable<MenuGroup>, IEnumerable<MenuGroupViewModel>>(lstMenuGroup).OrderBy(x => x.DisplayOrder);
+			foreach (var item in lstMenuGroupVm)
+			{
+				var menu = _menuService.GetMenuActiveByMenuGroup(item.ID);
+				item.Menus = Mapper.Map<IEnumerable<Menu>, IEnumerable<MenuViewModel>>(menu);
+			}
+			ViewBag.UserInfo = UserInfo;
+			return PartialView(lstMenuGroupVm);
         }
 
         [ChildActionOnly]

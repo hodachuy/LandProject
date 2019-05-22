@@ -25,7 +25,9 @@ namespace LandProject.Web.Mappings
                 cfg.CreateMap<LandFile, LandFileViewModel>();
                 cfg.CreateMap<Agent, AgentViewModel>();
                 cfg.CreateMap<LandNewsSchedule, LandNewsScheduleViewModel>();
-            });
+				cfg.CreateMap<Menu, MenuViewModel>();
+				cfg.CreateMap<MenuGroup, MenuGroupViewModel>();
+			});
         }
     }
 }
