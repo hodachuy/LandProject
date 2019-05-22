@@ -75,6 +75,7 @@
     <Compile Include="PostCategoryService.cs" />
     <Compile Include="PostService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VisitorService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

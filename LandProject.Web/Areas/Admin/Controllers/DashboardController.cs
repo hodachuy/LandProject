@@ -11,9 +11,13 @@ namespace LandProject.Web.Areas.Admin.Controllers
     public class DashboardController : BaseController
     {
         private ILandTypeService _lTypeService;
-        public DashboardController(IErrorService errorService, ILandTypeService lTypeService) : base(errorService)
+        private IVisitorService _visitorService;
+        public DashboardController(IErrorService errorService,
+            ILandTypeService lTypeService,
+            IVisitorService visitorService) : base(errorService)
         {
             _lTypeService = lTypeService;
+            _visitorService = visitorService;
         }
 
         // GET: Admin/Dashboard
@@ -32,6 +36,8 @@ namespace LandProject.Web.Areas.Admin.Controllers
         public ActionResult Sidebar()
         {
             var lstLandType = _lTypeService.GetAll();
+            var totalVisitor = _visitorService.CountVisitor();
+            ViewBag.TotalVisitor = totalVisitor;
             return PartialView(lstLandType);
         }
 

@@ -1,0 +1,160 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .box {
+        margin: 4.5em auto;
+    }
+
+    .box-col {
+        display: block;
+        float: left;
+        padding: 0 3em 1.667em 0;
+    }
+
+    .options {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    div.box {
+    height: auto;
+    padding: 10px;
+    overflow: auto;
+    border: 1px solid #8080FF;
+    background-color: white;
+}
+
+</style>
+
+<div class="">
+    <div class="page-title">
+        <div class="title_left">
+            <h3>THỐNG KÊ KHÁCH TRUY CẬP</h3>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="x_panel">
+        <div class="x_title">
+            <small>Trang chủ</small> / <small>Thống kê</small>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            <br />
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="txt" style="padding-left:5%" class="col-sm-2">Chọn ngày:</label>
+                    <div class="col-md-6">
+                        <input type="text" id="txtTungay" placeholder="Từ ngày" />
+                        <input type="text" id="txtDenngay" placeholder="Đến ngày" />
+                    </div>
+                    <a class="btn btn-smal btn-primary" style="margin-bottom:5px;" onclick="SearchForDate()">
+                        Lọc
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div id="mainVisitors" class="mainVisitors">
+                        <div class="col-xs-4">
+                        </div>
+                        <div class="col-xs-4">
+                            <p style="text-align: center; font-size:larger;font-weight:bold;display:none" id="showTitle">THỐNG KÊ LƯỢT KHÁCH TRUY CẬP TẠI CỔNG</p>
+                            <p style="text-align: center;display:none" id="showDate"></p>
+                        </div>
+                        <div class="col-xs-4">
+                        </div>
+                        <div class="demo-section k-content wide">
+                            <div id="chart"></div>
+                        </div>
+                    </div>
+
+                    <div class="Clear"></div>
+                    <div class="box wide">
+                        <div class="box-col">
+                            <h4>Hiển thị theo:</h4>
+                            <ul class="options" style="list-style:none;">
+                                <li>
+                                    <input id="baseUnitDays" name="baseUnit"
+                                           type="radio" value="days" checked="checked" autocomplete="off" />
+                                    <label for="baseUnitDays">Ngày</label>
+                                </li>
+                                <li>
+                                    <input id="baseUnitWeeks" name="baseUnit"
+                                           type="radio" value="weeks" autocomplete="off" />
+                                    <label for="baseUnitWeeks">Tuần</label>
+                                </li>
+                                <li>
+                                    <input id="baseUnitMonths" name="baseUnit"
+                                           type="radio" value="months" autocomplete="off" />
+                                    <label for="baseUnitMonths">Tháng</label>
+                                </li>
+                                <li>
+                                    <input id="baseUnitYears" name="baseUnit"
+                                           type="radio" value="years" autocomplete="off" />
+                                    <label for="baseUnitYears">Năm</label>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="box-col">
+                            <h4>Lượt truy cập:</h4>
+                            <ul class="options" style="list-style:none;">
+                                <li>
+                                    <input id="aggregateSum" name="aggregate"
+                                           type="radio" value="sum" autocomplete="off" checked="checked" />
+                                    <label for="aggregateSum">Tổng</label>
+                                </li>
+                                <li>
+                                    <input id="aggregateMax" name="aggregate"
+                                           type="radio" value="max" autocomplete="off" />
+                                    <label for="aggregateMax">Nhiều nhất</label>
+                                </li>
+                                <li>
+                                    <input id="aggregateMin" name="aggregate"
+                                           type="radio" value="min" autocomplete="off" />
+                                    <label for="aggregateMin">Thấp nhất</label>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <div class="box-col">
+                            <h4>Biểu đồ:</h4>
+                            <ul class="options">
+                                <li>
+                                    <input id="typeColumn" name="seriesType"
+                                           type="radio" value="column" checked="checked" autocomplete="off" />
+                                    <label for="typeColumn">Cột</label>
+                                </li>
+                                <li>
+                                    <input id="typeLine" name="seriesType"
+                                           type="radio" value="line" autocomplete="off" />
+                                    <label for="typeLine">Sóng</label>
+                                </li>
+                                <li>
+                                    <input id="typeBar" name="seriesType"
+                                           type="radio" value="bar" autocomplete="off" />
+                                    <label for="typeBar">Dòng</label>
+                                </li>
+                                <li>
+                                    <input id="typePie" name="seriesType"
+                                           type="radio" value="pie" autocomplete="off" />
+                                    <label for="typePie">Tròn</label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section footerJS{
+    <script src="~/assets/admin/js/VisitorStatistic.js"></script>
+}
+
+
+
+

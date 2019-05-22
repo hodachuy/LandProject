@@ -1,7 +1,4 @@
-﻿//"use strict";
-var _Host = "http://localhost:55557/";
-
-var userAgent = navigator.userAgent.toLowerCase(),
+﻿var userAgent = navigator.userAgent.toLowerCase(),
     initialDate = new Date(),
     $document = $(document),
     $window = $(window),
@@ -297,5 +294,4 @@ $document.ready(function () {
         $("#myModal").show("slow");
         jQuery('body').css('height', '100vh').css('overflow-y', 'hidden');
     })
-
 });

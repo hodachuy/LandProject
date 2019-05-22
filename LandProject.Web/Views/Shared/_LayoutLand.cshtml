@@ -74,9 +74,10 @@
 
     <!-- Java script-->
     <script src="~/assets/client/libs/core.min.js"></script>
+    <script> var _Host = "@Url.Content("~")";</script>
     <script src="~/assets/client/js/jquery.js"></script>
     <script src="~/assets/library/helper/CallServiceHelper.js"></script>
-
+    <script src="~/assets/client/js/countIPv4AccessPage.js"></script>
     @RenderSection("footerJS", required: false)
 </body>
 

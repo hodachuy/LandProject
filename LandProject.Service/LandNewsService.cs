@@ -15,8 +15,10 @@ namespace LandProject.Service
         IEnumerable<LandNews> GetAll();
         IEnumerable<LandNewsFilterViewModel> GetAllByFilter(string filter, string sort, int page, int pageSize);
         LandNewsFilterViewModel GetByID(int id);
+        LandNews GetLandNewsDbModelByID(int id);
         LandNews Add(LandNews landNews);
         LandNews Delete(int id);
+        void PublishedLandNews(LandNews landNews);
         void Update(LandNews landNews);
         void Save();
     }
@@ -52,6 +54,16 @@ namespace LandProject.Service
         public LandNewsFilterViewModel GetByID(int id)
         {
             return _landNewsRepository.GetLandNewsByID(id);
+        }
+
+        public LandNews GetLandNewsDbModelByID(int id)
+        {
+            return _landNewsRepository.GetSingleById(id);
+        }
+
+        public void PublishedLandNews(LandNews landNews)
+        {
+            _landNewsRepository.PublishLandNews(landNews);
         }
 
         public void Save()

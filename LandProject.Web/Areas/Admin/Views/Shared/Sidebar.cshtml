@@ -1,4 +1,7 @@
 ﻿@model IEnumerable<LandProject.Model.Models.LandType>
+@{ 
+    var totalVisitor = (LandProject.Common.VisitorStatisticTotalViewModel)ViewBag.TotalVisitor;
+}
 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
     <div class="menu_section">
         <h3>Quản lý thông tin</h3>
@@ -57,13 +60,13 @@
         </ul>
     </div>
     <div class="menu_section">
-        <h3>Khách truy cập</h3>
+        <h3><i class="fa fa-arrow-circle-right"></i> <a href="@Url.Action("Index","Visitor")" style="text-decoration:underline;cursor:pointer; color:white">Khách truy cập</a></h3>
         <ul class="nav side-menu">
-            <li>
-                <a><i class="fa fa-user"></i> Hôm nay : 0 </a>
+            <li style="cursor:unset">
+                <a style="cursor:unset"><i class="fa fa-user"></i> Hôm nay : @totalVisitor.TotalInDay </a>
             </li>
-            <li>
-                <a><i class="fa fa-user"></i> Tất cả : 0 </a>
+            <li style="cursor:unset">
+                <a style="cursor:unset"><i class="fa fa-user"></i> Tất cả : @totalVisitor.TotalAllDay </a>
             </li>
         </ul>
     </div>

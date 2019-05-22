@@ -15,17 +15,23 @@
                     </a>
                     <ul class="dropdown-menu dropdown-usermenu pull-right">
                         <li><a href="javascript:;"> Thông tin cá nhân</a></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Đăng xuất</a></li>
+                        <li style="padding-bottom:10px;">
+                            @using (Html.BeginForm("LogOut", "Account", FormMethod.Post, new { @id = "frmLogout" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <a href="#"><i class="fa fa-sign-out pull-right"></i> Đăng xuất</a>
+                            }
+                        </li>
                     </ul>
                 </li>
 
                 <li role="presentation" class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-bell-o"></i>
-                        <span class="badge bg-green">6</span>
+                        <span class="badge bg-green"></span>
                     </a>
                     <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                        <li>
+                        @*<li>
                             <a>
                                 <span class="image"><img src="~/assets/vendors/images/img.jpg" alt="Profile Image" /></span>
                                 <span>
@@ -36,7 +42,7 @@
                                     Film festivals used to be do-or-die moments for movie makers. They were where...
                                 </span>
                             </a>
-                        </li>
+                        </li>*@
                         <li>
                             <div class="text-center">
                                 <a>
@@ -51,3 +57,13 @@
         </nav>
     </div>
 </div>
+@section footerJS{
+    <script>
+        $('#btnLogout').off('click').on('click', function (e) {
+            e.preventDefault();
+            $('#frmLogout').submit();
+        });
+    </script>
+}
+
+

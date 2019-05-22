@@ -14,6 +14,7 @@ using AutoMapper;
 using System.Web;
 using System.Web.Script.Serialization;
 using System.IO;
+using Newtonsoft.Json.Linq;
 
 namespace LandProject.Web.API
 {
@@ -95,6 +96,54 @@ namespace LandProject.Web.API
                 landNewsVm.Agent = agentDb;
 
                 response = request.CreateResponse(HttpStatusCode.OK, landNewsVm);
+                return response;
+            });
+        }
+
+        [Route("published")]
+        [HttpPost]
+        public HttpResponseMessage PublishedLandNews(HttpRequestMessage request, JObject jsonData)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response;
+                dynamic json = jsonData;
+                int landNewsID = json.landNewsID;
+                if (landNewsID == 0)
+                {
+                    return request.CreateResponse(HttpStatusCode.NoContent);
+                }
+                var landNews = _landNewsService.GetLandNewsDbModelByID(landNewsID);
+                landNews.IsPublished = true;
+                _landNewsService.PublishedLandNews(landNews);
+                _landNewsService.Save();
+                //var landNewsVm = Mapper.Map<LandNewsFilterViewModel, LandNewsViewModel>(landNews);
+
+                response = request.CreateResponse(HttpStatusCode.OK, true);
+                return response;
+            });
+        }
+
+        [Route("canclepublished")]
+        [HttpPost]
+        public HttpResponseMessage CanclePublishedLandNews(HttpRequestMessage request, JObject jsonData)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response;
+                dynamic json = jsonData;
+                int landNewsID = json.landNewsID;
+                if (landNewsID == 0)
+                {
+                    return request.CreateResponse(HttpStatusCode.NoContent);
+                }
+                var landNews = _landNewsService.GetLandNewsDbModelByID(landNewsID);
+                landNews.IsPublished = false;
+                _landNewsService.PublishedLandNews(landNews);
+                _landNewsService.Save();
+                //var landNewsVm = Mapper.Map<LandNewsFilterViewModel, LandNewsViewModel>(landNews);
+
+                response = request.CreateResponse(HttpStatusCode.OK, true);
                 return response;
             });
         }

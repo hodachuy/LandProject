@@ -42,9 +42,10 @@ namespace LandProject.Web.Controllers
         }
 
         [HttpPost]
-        public JsonResult Create(string captchaCode)
+        public JsonResult Create()
         {
-            if (String.IsNullOrEmpty(captchaCode))
+            var formCatpcha = System.Web.HttpContext.Current.Request.Unvalidated.Form["captcha"];
+            if (formCatpcha == null)
             {
                 return Json(new
                 {
@@ -52,6 +53,7 @@ namespace LandProject.Web.Controllers
                     status = false
                 });
             }
+            var captchaCode = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue, RecursionLimit = 100 }.Deserialize<string>(formCatpcha);
             if (Session["Captcha"].ToString() != captchaCode)
             {
                 return Json(new

@@ -250,6 +250,7 @@
     <Compile Include="API\LandTypeController.cs" />
     <Compile Include="API\LProjectCategoryController.cs" />
     <Compile Include="API\LProjectController.cs" />
+    <Compile Include="API\VisitorController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -266,6 +267,7 @@
     <Compile Include="Areas\Admin\Controllers\LandTypeController.cs" />
     <Compile Include="Areas\Admin\Controllers\LProjectCategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\LProjectController.cs" />
+    <Compile Include="Areas\Admin\Controllers\VisitorController.cs" />
     <Compile Include="Areas\Admin\Infrastructure\Core\BaseController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -310,6 +312,7 @@
     <Content Include="assets\admin\js\LandNewsSchedule.js" />
     <Content Include="assets\admin\js\LandType.js" />
     <Content Include="assets\admin\js\LProjectCategory.js" />
+    <Content Include="assets\admin\js\VisitorStatistic.js" />
     <Content Include="assets\build\css\custom.css" />
     <Content Include="assets\build\css\custom.min.css" />
     <Content Include="assets\build\images\back_disabled.png" />
@@ -330,6 +333,7 @@
     <Content Include="assets\client\img\gmap_marker.png" />
     <Content Include="assets\client\img\gmap_marker_active.png" />
     <Content Include="assets\client\js\commont.js" />
+    <Content Include="assets\client\js\countIPv4AccessPage.js" />
     <Content Include="assets\client\js\jquery.js" />
     <Content Include="assets\client\js\need-sale-and-for-rent.js" />
     <Content Include="assets\client\js\upload-file.js" />
@@ -2037,6 +2041,7 @@
     <Content Include="fileman\lang\tr.json" />
     <Content Include="fileman\web.config" />
     <Content Include="Areas\Admin\Views\LandNewsSchedule\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Visitor\Index.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
