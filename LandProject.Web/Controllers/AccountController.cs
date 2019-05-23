@@ -108,7 +108,7 @@ namespace LandProject.Web.Controllers
 		}
 
 		[HttpPost]
-		public async Task<ActionResult> LoginSocial(LoginSocialViewModel model, string returnUrl)
+		public async Task<ActionResult> LoginSocial(LoginSocialViewModel model)
 		{
 			if (ModelState.IsValid)
 			{
@@ -146,17 +146,9 @@ namespace LandProject.Web.Controllers
 				AuthenticationProperties props = new AuthenticationProperties();
 				props.IsPersistent = false;
 				authenticationManager.SignIn(props, identity);
-				if (Url.IsLocalUrl(returnUrl))
-				{
-				}
-				else
-				{
-					returnUrl = "Home/Index";
-				}
-
 				return Json(new
 				{
-					returnUrl = returnUrl,
+					returnUrl = "Home/Index",
 					status = true
 				});
 			}

@@ -94,7 +94,7 @@
             user = JSON.stringify(user);
             $.ajax({
                 type: 'POST',
-                url: _Host + "account/LoginSocial",
+                url: _Host + "Account/LoginSocial",
                 data: user,
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",

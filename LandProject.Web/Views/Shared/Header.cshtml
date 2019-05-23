@@ -17,7 +17,12 @@
                             <span class="fa-user icon-xxs-mod-2"></span>
                         </dt>
                         <dd>
-                            <a href="#" class="text-sushi">@userInfo.UserName</a>
+                            @using (Html.BeginForm("LogOut", "Account", FormMethod.Post, new { @id = "frmLogout" }))
+                            {
+                                @Html.AntiForgeryToken()
+                               <span>@userInfo.UserName</span><a href="#" id="btnLogout"> / đăng xuất</a>
+                            }
+
                             <input name="UserId" id="UserId" value="@userInfo.Id" class="hidden" />
                             <input name="UserId" id="UserName" value="@userInfo.FullName" class="hidden" />
                             <input name="UserId" id="UserMobile" value="@userInfo.PhoneNumber" class="hidden" />

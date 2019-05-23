@@ -4,7 +4,9 @@
     $window = $(window),
     $html = $("html"),
     isDesktop = $html.hasClass("desktop"),
-    isIE = userAgent.indexOf("msie") != -1 ? parseInt(userAgent.split("msie")[1]) : userAgent.indexOf("trident") != -1 ? 11 : userAgent.indexOf("edge") != -1 ? 12 : false, isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent), isTouch = "ontouchstart" in window,
+    isIE = userAgent.indexOf("msie") != -1 ? parseInt(userAgent.split("msie")[1]) : userAgent.indexOf("trident") != -1 ? 11 : userAgent.indexOf("edge") != -1 ? 12 : false,
+    isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent),
+    isTouch = "ontouchstart" in window,
     plugins = {
         pointerEvents: isIE < 11 ? "js/pointer-events.min.js" : false,
         smoothScroll: $html.hasClass("use--smoothscroll") ? "js/smoothscroll.min.js" : false,
@@ -105,22 +107,24 @@ $document.ready(function () {
             options.spin.parents('.rd-search').find('.input-group-addon').removeClass('loading');
         })
     }
-    function attachFormValidator(elements) {
-        for (var i = 0; i < elements.length; i++) { var o = $(elements[i]), v; o.addClass("form-control-has-validation").after("<span class='form-validation'></span>"); v = o.parent().find(".form-validation"); if (v.is(":last-child")) { o.addClass("form-control-last-child"); } }
-        elements.on('input change propertychange blur', function (e) {
-            var $this = $(this), results; if (e.type != "blur") { if (!$this.parent().hasClass("has-error")) { return; } }
-            if ($this.parents('.rd-mailform').hasClass('success')) { return; }
-            if ((results = $this.regula('validate')).length) { for (i = 0; i < results.length; i++) { $this.siblings(".form-validation").text(results[i].message).parent().addClass("has-error") } } else { $this.siblings(".form-validation").text("").parent().removeClass("has-error") }
-        }).regula('bind');
+    //function attachFormValidator(elements) {
+    //    for (var i = 0; i < elements.length; i++) { var o = $(elements[i]), v; o.addClass("form-control-has-validation").after("<span class='form-validation'></span>"); v = o.parent().find(".form-validation"); if (v.is(":last-child")) { o.addClass("form-control-last-child"); } }
+    //    elements.on('input change propertychange blur', function (e) {
+    //        var $this = $(this), results; if (e.type != "blur") { if (!$this.parent().hasClass("has-error")) { return; } }
+    //        if ($this.parents('.rd-mailform').hasClass('success')) { return; }
+    //        if ((results = $this.regula('validate')).length) { for (i = 0; i < results.length; i++) { $this.siblings(".form-validation").text(results[i].message).parent().addClass("has-error") } } else { $this.siblings(".form-validation").text("").parent().removeClass("has-error") }
+    //    }).regula('bind');
+    //}
+    //function isValidated(elements) {
+    //    var results, errors = 0; if (elements.length) {
+    //        for (j = 0; j < elements.length; j++) { var $input = $(elements[j]); if ((results = $input.regula('validate')).length) { for (k = 0; k < results.length; k++) { errors++; $input.siblings(".form-validation").text(results[k].message).parent().addClass("has-error"); } } else { $input.siblings(".form-validation").text("").parent().removeClass("has-error") } }
+    //        return errors == 0;
+    //    }
+    //    return true;
+    //}
+    function initBootstrapTooltip(tooltipPlacement) {
+        if (window.innerWidth < 599) { plugins.bootstrapTooltip.tooltip('destroy'); plugins.bootstrapTooltip.tooltip({ placement: 'bottom' }); } else { plugins.bootstrapTooltip.tooltip('destroy'); plugins.bootstrapTooltip.tooltipPlacement; plugins.bootstrapTooltip.tooltip(); }
     }
-    function isValidated(elements) {
-        var results, errors = 0; if (elements.length) {
-            for (j = 0; j < elements.length; j++) { var $input = $(elements[j]); if ((results = $input.regula('validate')).length) { for (k = 0; k < results.length; k++) { errors++; $input.siblings(".form-validation").text(results[k].message).parent().addClass("has-error"); } } else { $input.siblings(".form-validation").text("").parent().removeClass("has-error") } }
-            return errors == 0;
-        }
-        return true;
-    }
-    function initBootstrapTooltip(tooltipPlacement) { if (window.innerWidth < 599) { plugins.bootstrapTooltip.tooltip('destroy'); plugins.bootstrapTooltip.tooltip({ placement: 'bottom' }); } else { plugins.bootstrapTooltip.tooltip('destroy'); plugins.bootstrapTooltip.tooltipPlacement; plugins.bootstrapTooltip.tooltip(); } }
     var o = $("#copyright-year"); if (o.length) { o.text(initialDate.getFullYear()); }
     if (isIE) {
         if (isIE < 10) { $html.addClass("lt-ie-10"); }
@@ -132,15 +136,15 @@ $document.ready(function () {
     if (plugins.smoothScroll) { $.getScript(plugins.smoothScroll); }
     if (plugins.rdAudioPlayer.length > 0 && !isNoviBuilder) { var i; for (i = 0; i < plugins.rdAudioPlayer.length; i++) { $(plugins.rdAudioPlayer[i]).RDAudio(); } }
     if (plugins.textRotator.length && !isNoviBuilder) { var i; for (i = 0; i < plugins.textRotator.length; i++) { var textRotatorItem = plugins.textRotator[i]; $(textRotatorItem).rotator(); } }
-    if (plugins.rdGoogleMaps.length) {
-        var i; $.getScript("//maps.google.com/maps/api/js?key=AIzaSyAFeB0kVA6ouyJ_gEvFbMaefLy3cBCyRwo&sensor=false&libraries=geometry,places&v=3.7", function () {
-            var head = document.getElementsByTagName('head')[0], insertBefore = head.insertBefore; head.insertBefore = function (newElement, referenceElement) {
-                if (newElement.href && newElement.href.indexOf('//fonts.googleapis.com/css?family=Roboto') != -1 || newElement.innerHTML.indexOf('gm-style') != -1) { return; }
-                insertBefore.call(head, newElement, referenceElement);
-            }; function initGoogleMap() { var $this = $(this), styles = $this.attr("data-styles"); $this.googleMap({ styles: styles ? JSON.parse(styles) : [], onInit: function (map) { var inputAddress = $('#rd-google-map-address'); if (inputAddress.length) { var input = inputAddress; var geocoder = new google.maps.Geocoder(); var marker = new google.maps.Marker({ map: map, icon: "images/gmap_marker.png", }); var autocomplete = new google.maps.places.Autocomplete(inputAddress[0]); autocomplete.bindTo('bounds', map); inputAddress.attr('placeholder', ''); inputAddress.on('change', function () { $("#rd-google-map-address-submit").trigger('click'); }); inputAddress.on('keydown', function (e) { if (e.keyCode == 13) { $("#rd-google-map-address-submit").trigger('click'); } }); $("#rd-google-map-address-submit").on('click', function (e) { e.preventDefault(); var address = input.val(); geocoder.geocode({ 'address': address }, function (results, status) { if (status == google.maps.GeocoderStatus.OK) { var latitude = results[0].geometry.location.lat(); var longitude = results[0].geometry.location.lng(); map.setCenter(new google.maps.LatLng(parseFloat(latitude), parseFloat(longitude))); marker.setPosition(new google.maps.LatLng(parseFloat(latitude), parseFloat(longitude))) } }); }); } } }); }
-            for (i = 0; i < plugins.rdGoogleMaps.length; i++) { if (isNoviBuilder !== "designMode") { lazyInit($(plugins.rdGoogleMaps[i]), initGoogleMap.bind(plugins.rdGoogleMaps[i])); } else { initGoogleMap.bind(plugins.rdGoogleMaps[i])(); } }
-        });
-    }
+    //if (plugins.rdGoogleMaps.length) {
+    //    var i; $.getScript("//maps.google.com/maps/api/js?key=AIzaSyAFeB0kVA6ouyJ_gEvFbMaefLy3cBCyRwo&sensor=false&libraries=geometry,places&v=3.7", function () {
+    //        var head = document.getElementsByTagName('head')[0], insertBefore = head.insertBefore; head.insertBefore = function (newElement, referenceElement) {
+    //            if (newElement.href && newElement.href.indexOf('//fonts.googleapis.com/css?family=Roboto') != -1 || newElement.innerHTML.indexOf('gm-style') != -1) { return; }
+    //            insertBefore.call(head, newElement, referenceElement);
+    //        }; function initGoogleMap() { var $this = $(this), styles = $this.attr("data-styles"); $this.googleMap({ styles: styles ? JSON.parse(styles) : [], onInit: function (map) { var inputAddress = $('#rd-google-map-address'); if (inputAddress.length) { var input = inputAddress; var geocoder = new google.maps.Geocoder(); var marker = new google.maps.Marker({ map: map, icon: "images/gmap_marker.png", }); var autocomplete = new google.maps.places.Autocomplete(inputAddress[0]); autocomplete.bindTo('bounds', map); inputAddress.attr('placeholder', ''); inputAddress.on('change', function () { $("#rd-google-map-address-submit").trigger('click'); }); inputAddress.on('keydown', function (e) { if (e.keyCode == 13) { $("#rd-google-map-address-submit").trigger('click'); } }); $("#rd-google-map-address-submit").on('click', function (e) { e.preventDefault(); var address = input.val(); geocoder.geocode({ 'address': address }, function (results, status) { if (status == google.maps.GeocoderStatus.OK) { var latitude = results[0].geometry.location.lat(); var longitude = results[0].geometry.location.lng(); map.setCenter(new google.maps.LatLng(parseFloat(latitude), parseFloat(longitude))); marker.setPosition(new google.maps.LatLng(parseFloat(latitude), parseFloat(longitude))) } }); }); } } }); }
+    //        for (i = 0; i < plugins.rdGoogleMaps.length; i++) { if (isNoviBuilder !== "designMode") { lazyInit($(plugins.rdGoogleMaps[i]), initGoogleMap.bind(plugins.rdGoogleMaps[i])); } else { initGoogleMap.bind(plugins.rdGoogleMaps[i])(); } }
+    //    });
+    //}
     if (plugins.bootstrapDateTimePicker.length) {
         var i; for (i = 0; i < plugins.bootstrapDateTimePicker.length; i++) {
             var $dateTimePicker = $(plugins.bootstrapDateTimePicker[i]); var options = {}; options['format'] = 'dddd DD MMMM YYYY - HH:mm'; if ($dateTimePicker.attr("date-time-picker") == "date") { options['format'] = 'dddd DD MMMM YYYY'; options['minDate'] = new Date(); } else if ($dateTimePicker.attr("date-time-picker") == "time") { options['format'] = 'HH:mm'; }
@@ -184,29 +188,29 @@ $document.ready(function () {
             });
         }
     }
-    if (plugins.circleProgress.length) { var i; for (i = 0; i < plugins.circleProgress.length; i++) { var circleProgressItem = $(plugins.circleProgress[i]); $document.on("scroll", function () { if (!circleProgressItem.hasClass('animated')) { var arrayGradients = circleProgressItem.attr('data-gradient').split(","); circleProgressItem.circleProgress({ value: circleProgressItem.attr('data-value'), size: circleProgressItem.attr('data-size') ? circleProgressItem.attr('data-size') : 175, fill: { gradient: arrayGradients, gradientAngle: Math.PI / 4 }, startAngle: -Math.PI / 4 * 2, emptyFill: $(this).attr('data-empty-fill') ? $(this).attr('data-empty-fill') : "rgb(245,245,245)" }).on('circle-animation-progress', function (event, progress, stepValue) { $(this).find('span').text(String(stepValue.toFixed(2)).replace('0.', '').replace('1.', '1')); }); circleProgressItem.addClass('animated'); } }).trigger("scroll"); } }
-    if (plugins.progressBar.length) {
-        var i, bar, type; for (i = 0; i < plugins.progressBar.length; i++) {
-            var progressItem = plugins.progressBar[i]; bar = null; if (progressItem.className.indexOf("progress-bar-horizontal") > -1) { type = 'Line'; }
-            if (progressItem.className.indexOf("progress-bar-radial") > -1) { type = 'Circle'; }
-            if (progressItem.getAttribute("data-stroke") && progressItem.getAttribute("data-value") && type) {
-                bar = new ProgressBar[type](progressItem, { strokeWidth: Math.round(parseFloat(progressItem.getAttribute("data-stroke")) / progressItem.offsetWidth * 100), trailWidth: progressItem.getAttribute("data-trail") ? Math.round(parseFloat(progressItem.getAttribute("data-trail")) / progressItem.offsetWidth * 100) : 0, text: { value: progressItem.getAttribute("data-counter") === "true" ? '0' : null, className: 'progress-bar__body', style: null } }); bar.svg.setAttribute('preserveAspectRatio', "none meet"); if (type === 'Line') { bar.svg.setAttributeNS(null, "height", progressItem.getAttribute("data-stroke")); }
-                bar.path.removeAttribute("stroke"); bar.path.className.baseVal = "progress-bar__stroke"; if (bar.trail) { bar.trail.removeAttribute("stroke"); bar.trail.className.baseVal = "progress-bar__trail"; }
-                if (progressItem.getAttribute("data-easing") && !isIE) {
-                    $(document).on("scroll", { "barItem": bar }, $.proxy(function (event) {
-                        var bar = event.data.barItem; var $this = $(this); if (isScrolledIntoView($this) && this.className.indexOf("progress-bar--animated") === -1) {
-                            this.className += " progress-bar--animated"; bar.animate(parseInt($this.attr("data-value")) / 100.0, {
-                                easing: $this.attr("data-easing"), duration: $this.attr("data-duration") ? parseInt($this.attr("data-duration")) : 800, step: function (state, b) {
-                                    if (b._container.className.indexOf("progress-bar-horizontal") > -1 || b._container.className.indexOf("progress-bar-vertical") > -1) { b.text.style.width = Math.abs(b.value() * 100).toFixed(0) + "%" }
-                                    b.setText(Math.abs(b.value() * 100).toFixed(0));
-                                }
-                            });
-                        }
-                    }, progressItem)).trigger("scroll");
-                } else { bar.set(parseInt($(progressItem).attr("data-value")) / 100.0); bar.setText($(progressItem).attr("data-value")); if (type === 'Line') { bar.text.style.width = parseInt($(progressItem).attr("data-value")) + "%"; } }
-            } else { console.error(progressItem.className + ": progress bar type is not defined"); }
-        }
-    }
+    //if (plugins.circleProgress.length) { var i; for (i = 0; i < plugins.circleProgress.length; i++) { var circleProgressItem = $(plugins.circleProgress[i]); $document.on("scroll", function () { if (!circleProgressItem.hasClass('animated')) { var arrayGradients = circleProgressItem.attr('data-gradient').split(","); circleProgressItem.circleProgress({ value: circleProgressItem.attr('data-value'), size: circleProgressItem.attr('data-size') ? circleProgressItem.attr('data-size') : 175, fill: { gradient: arrayGradients, gradientAngle: Math.PI / 4 }, startAngle: -Math.PI / 4 * 2, emptyFill: $(this).attr('data-empty-fill') ? $(this).attr('data-empty-fill') : "rgb(245,245,245)" }).on('circle-animation-progress', function (event, progress, stepValue) { $(this).find('span').text(String(stepValue.toFixed(2)).replace('0.', '').replace('1.', '1')); }); circleProgressItem.addClass('animated'); } }).trigger("scroll"); } }
+    //if (plugins.progressBar.length) {
+    //    var i, bar, type; for (i = 0; i < plugins.progressBar.length; i++) {
+    //        var progressItem = plugins.progressBar[i]; bar = null; if (progressItem.className.indexOf("progress-bar-horizontal") > -1) { type = 'Line'; }
+    //        if (progressItem.className.indexOf("progress-bar-radial") > -1) { type = 'Circle'; }
+    //        if (progressItem.getAttribute("data-stroke") && progressItem.getAttribute("data-value") && type) {
+    //            bar = new ProgressBar[type](progressItem, { strokeWidth: Math.round(parseFloat(progressItem.getAttribute("data-stroke")) / progressItem.offsetWidth * 100), trailWidth: progressItem.getAttribute("data-trail") ? Math.round(parseFloat(progressItem.getAttribute("data-trail")) / progressItem.offsetWidth * 100) : 0, text: { value: progressItem.getAttribute("data-counter") === "true" ? '0' : null, className: 'progress-bar__body', style: null } }); bar.svg.setAttribute('preserveAspectRatio', "none meet"); if (type === 'Line') { bar.svg.setAttributeNS(null, "height", progressItem.getAttribute("data-stroke")); }
+    //            bar.path.removeAttribute("stroke"); bar.path.className.baseVal = "progress-bar__stroke"; if (bar.trail) { bar.trail.removeAttribute("stroke"); bar.trail.className.baseVal = "progress-bar__trail"; }
+    //            if (progressItem.getAttribute("data-easing") && !isIE) {
+    //                $(document).on("scroll", { "barItem": bar }, $.proxy(function (event) {
+    //                    var bar = event.data.barItem; var $this = $(this); if (isScrolledIntoView($this) && this.className.indexOf("progress-bar--animated") === -1) {
+    //                        this.className += " progress-bar--animated"; bar.animate(parseInt($this.attr("data-value")) / 100.0, {
+    //                            easing: $this.attr("data-easing"), duration: $this.attr("data-duration") ? parseInt($this.attr("data-duration")) : 800, step: function (state, b) {
+    //                                if (b._container.className.indexOf("progress-bar-horizontal") > -1 || b._container.className.indexOf("progress-bar-vertical") > -1) { b.text.style.width = Math.abs(b.value() * 100).toFixed(0) + "%" }
+    //                                b.setText(Math.abs(b.value() * 100).toFixed(0));
+    //                            }
+    //                        });
+    //                    }
+    //                }, progressItem)).trigger("scroll");
+    //            } else { bar.set(parseInt($(progressItem).attr("data-value")) / 100.0); bar.setText($(progressItem).attr("data-value")); if (type === 'Line') { bar.text.style.width = parseInt($(progressItem).attr("data-value")) + "%"; } }
+    //        } else { console.error(progressItem.className + ": progress bar type is not defined"); }
+    //    }
+    //}
     if (isDesktop && !isNoviBuilder) { $().UItoTop({ easingType: 'easeOutQuart', containerClass: 'ui-to-top fa fa-angle-up' }); }
     if (plugins.rdNavbar.length) { plugins.rdNavbar.RDNavbar({ stickUpClone: (plugins.rdNavbar.attr("data-stick-up-clone") && !isNoviBuilder) ? plugins.rdNavbar.attr("data-stick-up-clone") === 'true' : false, responsive: { 0: { stickUp: plugins.rdNavbar.attr("data-stick-up") ? (!isNoviBuilder ? plugins.rdNavbar.attr("data-stick-up") === 'true' : false) : isNoviBuilder !== "designMode" }, 768: { stickUp: plugins.rdNavbar.attr("data-sm-stick-up") ? (!isNoviBuilder ? plugins.rdNavbar.attr("data-sm-stick-up") === 'true' : false) : isNoviBuilder !== "designMode" }, 992: { stickUp: plugins.rdNavbar.attr("data-md-stick-up") ? (!isNoviBuilder ? plugins.rdNavbar.attr("data-md-stick-up") === 'true' : false) : isNoviBuilder !== "designMode" }, 1200: { stickUp: plugins.rdNavbar.attr("data-lg-stick-up") ? (!isNoviBuilder ? plugins.rdNavbar.attr("data-lg-stick-up") === 'true' : false) : isNoviBuilder !== "designMode" } } }); if (plugins.rdNavbar.attr("data-body-class")) { document.body.className += ' ' + plugins.rdNavbar.attr("data-body-class"); } }
     if (plugins.viewAnimate.length) { var i; for (i = 0; i < plugins.viewAnimate.length; i++) { var $view = $(plugins.viewAnimate[i]).not('.active'); $document.on("scroll", $.proxy(function () { if (isScrolledIntoView(this)) { this.addClass("active"); } }, $view)).trigger("scroll"); } }
@@ -221,11 +225,11 @@ $document.ready(function () {
             }); $(window).on("resize", function () { var mh = getSwiperHeight(s, "min-height"), h = getSwiperHeight(s, "height"); if (h) { s.css("height", mh ? mh > h ? mh : h : h); } }).trigger("resize");
         }
     }
-    if (plugins.rdVideoPlayer.length) { var i; for (i = 0; i < plugins.rdVideoPlayer.length; i++) { var videoItem = plugins.rdVideoPlayer[i], volumeWrap = $(".rd-video-volume-wrap"); $(videoItem).RDVideoPlayer({}); volumeWrap.on("mouseenter", function () { $(this).addClass("hover") }); volumeWrap.on("mouseleave", function () { $(this).removeClass("hover") }); if (isTouch) { volumeWrap.find(".rd-video-volume").on("click", function () { $(this).toggleClass("hover") }); $document.on("click", function (e) { if (!$(e.target).is(volumeWrap) && $(e.target).parents(volumeWrap).length == 0) { volumeWrap.find(".rd-video-volume").removeClass("hover") } }) } } }
-    if (plugins.rdParallax.length) {
-        var i; if (isNoviBuilder) { for (i = 0; i < plugins.rdParallax.length; i++) { var parallax = $(plugins.rdParallax[i]); var imgPath = parallax.find(".rd-parallax-layer" + "[data-type=media]").first().attr("data-url"); parallax.css({ "background-image": 'url(' + imgPath + ')', "background-attachment": "fixed", "background-size": "cover" }); } } else { $.RDParallax(); if (!isIE && !isMobile) { $(window).on("scroll", function () { for (i = 0; i < plugins.rdParallax.length; i++) { var parallax = $(plugins.rdParallax[i]); if (isScrolledIntoView(parallax)) { parallax.find(".rd-parallax-inner").css("position", "fixed"); } else { parallax.find(".rd-parallax-inner").css("position", "absolute"); } } }); } }
-        $("a[href='#']").on("click", function (event) { setTimeout(function () { $(window).trigger("resize"); }, 300); });
-    }
+    //if (plugins.rdVideoPlayer.length) { var i; for (i = 0; i < plugins.rdVideoPlayer.length; i++) { var videoItem = plugins.rdVideoPlayer[i], volumeWrap = $(".rd-video-volume-wrap"); $(videoItem).RDVideoPlayer({}); volumeWrap.on("mouseenter", function () { $(this).addClass("hover") }); volumeWrap.on("mouseleave", function () { $(this).removeClass("hover") }); if (isTouch) { volumeWrap.find(".rd-video-volume").on("click", function () { $(this).toggleClass("hover") }); $document.on("click", function (e) { if (!$(e.target).is(volumeWrap) && $(e.target).parents(volumeWrap).length == 0) { volumeWrap.find(".rd-video-volume").removeClass("hover") } }) } } }
+    //if (plugins.rdParallax.length) {
+    //    var i; if (isNoviBuilder) { for (i = 0; i < plugins.rdParallax.length; i++) { var parallax = $(plugins.rdParallax[i]); var imgPath = parallax.find(".rd-parallax-layer" + "[data-type=media]").first().attr("data-url"); parallax.css({ "background-image": 'url(' + imgPath + ')', "background-attachment": "fixed", "background-size": "cover" }); } } else { $.RDParallax(); if (!isIE && !isMobile) { $(window).on("scroll", function () { for (i = 0; i < plugins.rdParallax.length; i++) { var parallax = $(plugins.rdParallax[i]); if (isScrolledIntoView(parallax)) { parallax.find(".rd-parallax-inner").css("position", "fixed"); } else { parallax.find(".rd-parallax-inner").css("position", "absolute"); } } }); } }
+    //    $("a[href='#']").on("click", function (event) { setTimeout(function () { $(window).trigger("resize"); }, 300); });
+    //}
     if (plugins.search.length || plugins.searchResults) {
         var handler = "bat/rd-search.php"; var defaultTemplate = '<h5 class="search_title"><a target="_top" href="#{href}" class="search_link">#{title}</a></h5>' +
         '<p>...#{token}...</p>' +
@@ -294,5 +298,10 @@ $document.ready(function () {
         $("#myModal").show("slow");
         jQuery('body').css('height', '100vh').css('overflow-y', 'hidden');
     })
+
+        $('body').on('click','#btnLogout', function (e) {
+            e.preventDefault();
+            $('#frmLogout').submit();
+        });
 
 });
