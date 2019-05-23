@@ -148,6 +148,30 @@ namespace LandProject.Web.API
             });
         }
 
+        [Route("delete")]
+        [HttpPost]
+        public HttpResponseMessage Delete(HttpRequestMessage request, JObject jsonData)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response;
+                dynamic json = jsonData;
+                int landNewsID = json.landNewsID;
+                if (landNewsID == 0)
+                {
+                    return request.CreateResponse(HttpStatusCode.NoContent);
+                }
+                var landNews = _landNewsService.GetLandNewsDbModelByID(landNewsID);
+                landNews.IsDelete = true;
+                _landNewsService.DeleteLandNews(landNews);
+                _landNewsService.Save();
+                //var landNewsVm = Mapper.Map<LandNewsFilterViewModel, LandNewsViewModel>(landNews);
+
+                response = request.CreateResponse(HttpStatusCode.OK, true);
+                return response;
+            });
+        }
+
 
         [Route("create")]
         [HttpPost]

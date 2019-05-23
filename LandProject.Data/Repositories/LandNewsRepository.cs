@@ -18,7 +18,11 @@ namespace LandProject.Data.Repositories
 
         LandNewsFilterViewModel GetLandNewsByID(int id);
 
+        IEnumerable<CountLandNewsByLandTypeViewModel> GetTotalLandNewsToLandType();
+
         void PublishLandNews(LandNews lnews);
+
+        void DeleteLandNews(LandNews lnews);
     }
 
     public class LandNewsRepository : RepositoryBase<LandNews>, ILandNewsRepository
@@ -26,7 +30,13 @@ namespace LandProject.Data.Repositories
         public LandNewsRepository(IDbFactory dbFactory) : base(dbFactory)
         {
         }
-
+        public IEnumerable<CountLandNewsByLandTypeViewModel> GetTotalLandNewsToLandType()
+        {
+            var parameters = new SqlParameter[]{
+                new SqlParameter("@LandNewsID",1),
+            };
+            return DbContext.Database.SqlQuery<CountLandNewsByLandTypeViewModel>("sp_GetTotalLandNewsToLandType @LandNewsID", parameters);
+        }
         public IEnumerable<LandNewsFilterViewModel> GetLandNewsByFilter(string filter, string sort, int page, int pageSize)
         {
             var parameters = new SqlParameter[]{
@@ -67,6 +77,12 @@ namespace LandProject.Data.Repositories
         {
             DbContext.LandNewss.Attach(lnews);
             DbContext.Entry(lnews).Property(x => x.IsPublished).IsModified = true;
+        }
+
+        public void DeleteLandNews(LandNews lnews)
+        {
+            DbContext.LandNewss.Attach(lnews);
+            DbContext.Entry(lnews).Property(x => x.IsDelete).IsModified = true;
         }
     }
 }

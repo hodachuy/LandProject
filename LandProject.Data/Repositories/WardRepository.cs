@@ -27,7 +27,6 @@ namespace LandProject.Data.Repositories
                 new SqlParameter("@DistrictID",districtId),
             };
             return DbContext.Database.SqlQuery<CountLandNewsDistrictViewModel>("sp_GetTotalLandNewsByWards @DistrictID", parameters);
-
         }
     }
 }

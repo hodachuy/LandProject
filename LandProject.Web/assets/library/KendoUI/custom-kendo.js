@@ -56,6 +56,64 @@ LoadComboBoxWithServices = function (element, url, param, valueField, textField,
     if (valueDelete)
         DeleteDataComboBoxMultiSelection(id, valueField, valueDelete);
 }
+LoadComboBoxWithServicesMethodPOST = function (element, url, param, valueField, textField, value, placeholder, template, isSearch, FuncChange, valueDelete, isMultiSelect) {
+    if (isSearch == undefined) isSearch = false;
+    if (FuncChange == undefined) FuncChange = null;
+
+    var combobox = $(element).kendoComboBox({
+        dataTextField: textField,
+        dataValueField: valueField,
+        template: template,
+        dataSource: {
+            transport: {
+                read: function (options) {
+                    var svr = new AjaxCall(url, param);
+                    svr.callServicePOST(function (data) {
+                        if (data != null && data.length > 0) {
+                            if (data.Table != null) {
+                                options.success(data.Table);
+                            } else {
+                                options.success(data);
+                            }
+
+                        } else {
+                            options.success("");
+                        }
+                    });
+
+                }
+            }
+        }
+        ,
+        filter: "contains",
+        suggest: true,
+        change: FuncChange
+    });
+
+    //if (!isSearch) {
+    //    combobox.data("kendoComboBox").input.attr("readonly", true)
+    //       .on("keydown", function (e) {
+    //           if (e.keyCode === 8) {
+    //               e.preventDefault();
+    //           }
+    //       });
+    //}
+    combobox.data("kendoComboBox").input.click(function () {
+        combobox.data("kendoComboBox").open();
+    });
+
+    if (placeholder != undefined)
+        combobox.data("kendoComboBox").input.attr("placeholder", placeholder);
+    if (value != undefined) {
+        combobox.data("kendoComboBox").value(value);
+    } else {
+        combobox.data("kendoComboBox").value(null);
+    }
+
+    if (valueDelete)
+        DeleteDataComboBoxMultiSelection(id, valueField, valueDelete);
+}
+
 LoadComboBoxWithServices2 = function (element, url, param, valueField, textField, value, placeholder, template, isSearch, FuncChange, valueDelete) {
     if (isSearch == undefined) isSearch = false;
     if (FuncChange == undefined) FuncChange = null;

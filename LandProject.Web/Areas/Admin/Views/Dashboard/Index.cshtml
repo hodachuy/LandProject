@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<LandProject.Common.CountLandNewsByLandTypeViewModel>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
@@ -6,38 +6,20 @@
 
 <div class="">
     <div class="row top_tiles">
-        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-            <div class="tile-stats">
-                <div class="icon"><i class="fa fa-caret-square-o-right"></i></div>
-                <div class="count">179</div>
-                <h4 class="p-l-10">NHÀ ĐẤT CẦN BÁN</h4>
-                <p>Tin rao bán</p>
-            </div>
-        </div>
-        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-            <div class="tile-stats">
-                <div class="icon"><i class="fa fa-comments-o"></i></div>
-                <div class="count">179</div>
-                <h4 class="p-l-10">NHÀ ĐẤT CHO THUÊ</h4>
-                <p>Tin rao bán</p>
-            </div>
-        </div>
-        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-            <div class="tile-stats">
-                <div class="icon"><i class="fa fa-sort-amount-desc"></i></div>
-                <div class="count">179</div>
-                <h4 class="p-l-10">NHÀ ĐẤT CẦN MUA</h4>
-                <p>Tin rao bán</p>
-            </div>
-        </div>
-        <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
-            <div class="tile-stats">
-                <div class="icon"><i class="fa fa-check-square-o"></i></div>
-                <div class="count">179</div>
-                <h4 class="p-l-10">NHÀ ĐẤT CẦN THUÊ</h4>
-                <p>Tin rao bán</p>
-            </div>
-        </div>
+        @if (Model.Count() != 0)
+        {
+            foreach (var item in Model)
+            {
+                <div class="animated flipInY col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="tile-stats">
+                        <div class="icon"><i class="fa fa-caret-square-o-right"></i></div>
+                        <div class="count">@item.TotalLandNews</div>
+                        <h4 class="p-l-10">@item.Name</h4>
+                        <p>Tin nhà đất</p>
+                    </div>
+                </div>
+            }
+        }
     </div>
 </div>
 

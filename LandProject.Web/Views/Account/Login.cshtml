@@ -64,7 +64,7 @@
                                     <button type="submit" class="btn btn-sushi btn-sm btn-min-width-xs" >Đăng nhập</button>
                                     <p>hoặc đăng nhập bằng</p>
                                     <div class="icon-group">
-                                        <a href="#" class="icon icon-sm icon-social fa-facebook"></a>
+                                        <a href="javascript:void(0);" onclick="checkLoginFbDialog();" class="icon icon-sm icon-social fa-facebook"></a>
                                     </div>
                                 </div>
                             }
@@ -76,3 +76,8 @@
         </div>
     </div>
 </section>
+
+@section footerJS{
+<script src="~/assets/vendors/blockUI/jquery.blockUI.min.js"></script>
+<script src="~/assets/client/js/loginFacebook.js"></script>
+}

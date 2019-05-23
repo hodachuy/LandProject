@@ -7,12 +7,65 @@
     <link href="~/assets/vendors/select2/dist/css/select2.min.css" rel="stylesheet" />
     <link href="~/assets/client/css/need-buy-and-need-rent.css" rel="stylesheet" />
     <link href="~/assets/vendors/toastr/toastr.min.css" rel="stylesheet" />
+<style>
+    .post-bg-Title {
+        height: 50px;
+        margin-top: 20px;
+        /*background-image: url('../../assets/client/img/icon-dang-tin.png');*/
+        background-position: 115px 0;
+        background-repeat: no-repeat;
+        text-align: center;
+        background-color: antiquewhite;
+    }
+
+    .graycolor {
+        color: #666;
+    }
+
+    .post-bg-Title div {
+        font-family: Arial;
+        font-size: 12px;
+    }
+
+    .post-bg-Title h1 {
+        font-family: Calibri;
+        font-size: 22px;
+    }
+
+    .section-md {
+        padding-top: 0px;
+        /* padding-bottom: 60px; */
+    }
+
+    @@media (min-width: 768px) {
+        .tabs-custom .nav li + li {
+            margin-top: 0;
+            margin-left: 0px;
+        }
+    }
+
+    @@media only screen and (min-width: 1024px) {
+        .tab-name {
+            font-size: 15pt;
+            font-weight: 900;
+        }
+    }
+
+    .tabs-custom .nav li + li {
+        margin-top: 0px;
+    }
+
+    .tabs-custom .nav-tabs li {
+        margin-top: 0px;
+        width: 50%;
+    }
+</style>
 }
 <section class="section-full text-left">
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <h1>Đăng tin rao bán nhà đất miễn phí</h1>
+                <h1>Đăng tin rao mua, thuê nhà đất</h1>
                 <p></p>
                 <ol class="breadcrumb">
                     <li>
@@ -28,16 +81,24 @@
     <div class="container">
         <div class="row offset-1">
             <div class="col-xs-12 col-md-8 col-lg-8">
+                <div class="post-bg-Title">
+                    <h1 class="bluecolor">Đăng tin cần mua, cần thuê nhà đất</h1>
+                    <div class="graycolor">
+                        (Quý vị nhập thông tin nhà đất cần bán hoặc cho thuê vào các mục dưới đây)
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-8 col-lg-8">
                 <div class="tabs-custom">
                     <ul class="nav nav-tabs" style="width: 100%">
-                        <li style="width: 50%">
+                        <li>
                             <a class="font-seogui" href="/dang-tin-rao-vat-ban-nha-dat.html" title="Cần bán/Cho thuê" aria-expanded="False">
-                                <h3 class="font-seogui">Cần bán/Cho thuê</h3>
+                                <div class="tab-name font-seogui">Cần bán/Cho thuê</div>
                             </a>
                         </li>
                         <li class="active">
                             <a class="font-seogui" href="/dang-tin-rao-vat-mua-nha-dat.html" aria-expanded="True">
-                                <h3 class="font-seogui">  Cần mua/Cần thuê</h3>
+                                <div class="tab-name font-seogui"> Cần mua/Cần thuê</div>
                             </a>
                         </li>
                     </ul>

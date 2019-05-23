@@ -11,26 +11,46 @@
     <style>
         .post-bg-Title {
             height: 50px;
-            margin-top: 30px;
-            background-image: url('../../assets/client/img/icon-dang-tin.png');
+            margin-top: 20px;
+            /*background-image: url('../../assets/client/img/icon-dang-tin.png');*/
             background-position: 115px 0;
             background-repeat: no-repeat;
             text-align: center;
             background-color: antiquewhite;
         }
-
         .graycolor {
             color: #666;
         }
-
         .post-bg-Title div {
             font-family: Arial;
             font-size: 12px;
         }
-
         .post-bg-Title h1 {
             font-family: Calibri;
             font-size: 22px;
+        }
+        .section-md {
+            padding-top: 0px;
+            /* padding-bottom: 60px; */
+        }
+        @@media (min-width: 768px){
+            .tabs-custom .nav li + li {
+                margin-top: 0;
+                margin-left:0px;
+            }
+        }
+        @@media only screen and (min-width: 1024px){
+            .tab-name {
+                font-size: 15pt;
+                font-weight: 900;
+            }
+        }
+        .tabs-custom .nav li + li {
+            margin-top: 0px;
+        }
+        .tabs-custom .nav-tabs li{
+            margin-top: 0px;
+            width: 50%;
         }
     </style>
 }
@@ -38,7 +58,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <h1 class="font-seogui">Đăng tin rao bán nhà đất miễn phí</h1>
+                <h1 class="font-seogui">Đăng tin rao bán, cho thuê nhà đất</h1>
                 <p></p>
                 <ol class="breadcrumb">
                     <li>
@@ -60,6 +80,8 @@
                         (Quý vị nhập thông tin nhà đất cần bán hoặc cho thuê vào các mục dưới đây)
                     </div>
                 </div>
+            </div>
+            <div class="col-xs-12 col-md-8 col-lg-8">
                 <div class="tabs-custom">
                     <ul class="nav nav-tabs" style="width: 100%">
                         <li class="active">
@@ -141,7 +163,7 @@
                                     </div>
 
                                     <div class="col-xs-12 col-md-6 col-lg-6 form-group">
-                                        <label for="name" class="form-label rd-input-label">Tổng tiền</label>
+                                        <label for="name" class="form-label rd-input-label">Tổng tiền: (diện tích x giá x đơn vị)</label>
                                         <input type="text" name="TotalPrice" id="TotalPrice" class="form-control" disabled="disabled" style="background-color: white;">
                                         <input type="text" name="DecimalTotalPrice" id="DecimalTotalPrice" class="form-control hidden">
                                     </div>
@@ -365,8 +387,7 @@
                         <label for="select-1" class="form-label">Loại nhà đất</label>
                         <!--Select 2-->
                         <select id="TypePlan" class="form-control">
-                            <option value="1">Cho thuê</option>
-                            <option value="2">Mua bán</option>
+                            <option value="0">-- Hình thức --</option>
                         </select>
                     </div>
                     <div class="form-group">

@@ -71,14 +71,8 @@
                 <h4 class="modal-title">Tin nhà đất - Thể loại tin <span id="lTypeTitle"></span></h4>
             </div>
             <div class="modal-body">
-                <input type="hidden" id="txtIsPublished"/>
-                <input type="hidden" id="txtStatus"/>
                 <input type="hidden" id="txtMetaKeyword" />
                 <input type="hidden" id="txtMetaDescription" />
-                <input type="hidden" id="txtIsDelete"/>
-                <input type="hidden" id="txtIsSale" />
-                <input type="hidden" id="txtCode"/>
-                <input type="hidden" id="txtDecimalPrice" />
                 <div class="row">
                     <div class="col-md-6 col-xs-12">
                         <div class="x_panel">
@@ -159,6 +153,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Tổng tiền</label>
                                         <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" class="form-control" disabled id="txtDecimalTotalPrice">
                                             <input type="text" class="form-control" disabled id="txtTotalPrice">
                                         </div>
                                     </div>
@@ -285,7 +280,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Di động</label>
                                         <div class="col-md-9 col-sm-9 col-xs-12">
-                                            <input type="text" class="form-control" id="txtAgentModile">
+                                            <input type="text" class="form-control" id="txtAgentMobile">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -316,7 +311,7 @@
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
-                                <textarea id="txtDescription"></textarea>
+                                <textarea id="txtDescription" style="width:100%;height:200px"></textarea>
                             </div>
                         </div>
                     </div>
@@ -332,22 +327,11 @@
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
-                                <div class="row">
+                                <div class="row" id="lst-file-image">
                                     <div class="col-md-55">
                                         <div class="thumbnail">
                                             <div class="image view view-first">
                                                 <img style="width: 100%; display: block;" src="~/assets/client/img/gmap_marker.png" alt="image" />
-                                                <div class="mask">
-                                                    <p>Your Text</p>
-                                                    <div class="tools tools-bottom">
-                                                        <a href="#"><i class="fa fa-link"></i></a>
-                                                        <a href="#"><i class="fa fa-pencil"></i></a>
-                                                        <a href="#"><i class="fa fa-times"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="caption">
-                                                <p>Snow and Ice Incoming for the South</p>
                                             </div>
                                         </div>
                                     </div>
@@ -373,24 +357,24 @@
                                         <input name="LatiLongTude" id="LatiLongTude" class="hidden" />
                                         <input id="Latitude" class="hidden" />
                                         <input id="Longitude" class="hidden" />
+                                        <div id="map" class="map" style="height:220px"></div>
                                     </div>
                                 </div>
-                                <div id="map" class="map"></div>
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="saveLandType">Lưu</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal" id="closeLandType">Đóng</button>
+                <button type="button" class="btn btn-primary" disabled id="saveLandNews">Lưu</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="closeLandNews">Đóng</button>
             </div>
         </div>
 
     </div>
 </div>
 @section footerJS{
-<script type="text/javascript" src="//maps.google.com/maps/api/js?sensor=false&key=AIzaSyAfx5a8yx5MqeGoTS3ierzoe35TXoX0ZOY&libraries=places&callback=initMap"></script>
-
+<script type="text/javascript" src="//maps.google.com/maps/api/js?sensor=false&key=AIzaSyAfx5a8yx5MqeGoTS3ierzoe35TXoX0ZOY&libraries=places"></script>
     <script src="~/assets/admin/js/LandNews.js"></script>
 }

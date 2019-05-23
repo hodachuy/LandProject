@@ -27,6 +27,8 @@ namespace LandProject.Model.Models
 		[MaxLength(250)]
         public string Description { set; get; }
 
+        public int SortOrder { set; get; }
+
         public bool IsDelete { set; get; }
 
         public virtual IEnumerable<LandCategory> LandCategories { set; get; }

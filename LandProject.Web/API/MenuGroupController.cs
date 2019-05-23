@@ -16,7 +16,6 @@ using System.Web.Script.Serialization;
 
 namespace LandProject.Web.API
 {
-	[Authorize]
 	[RoutePrefix("api/menugroup")]
 	public class MenuGroupController : ApiControllerBase
 	{
@@ -50,7 +49,7 @@ namespace LandProject.Web.API
 		}
 
 		[Route("getalltable")]
-		[HttpGet]
+		[HttpPost]
 		public HttpResponseMessage GetAll(HttpRequestMessage request, Request rqFilter)
 		{
 			return CreateHttpResponse(request, () => {

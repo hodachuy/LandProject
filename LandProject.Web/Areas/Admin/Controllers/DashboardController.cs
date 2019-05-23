@@ -12,18 +12,22 @@ namespace LandProject.Web.Areas.Admin.Controllers
     {
         private ILandTypeService _lTypeService;
         private IVisitorService _visitorService;
+        private ILandNewsService _landNewsService;
         public DashboardController(IErrorService errorService,
             ILandTypeService lTypeService,
-            IVisitorService visitorService) : base(errorService)
+            IVisitorService visitorService,
+            ILandNewsService landNewsService) : base(errorService)
         {
             _lTypeService = lTypeService;
             _visitorService = visitorService;
+            _landNewsService = landNewsService;
         }
 
         // GET: Admin/Dashboard
         public ActionResult Index()
         {
-            return View();
+            var lstCountLand = _landNewsService.CountLandNewsInLandType().ToList();
+            return View(lstCountLand);
         }
 
         [ChildActionOnly]

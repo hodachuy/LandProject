@@ -48,6 +48,7 @@
     <Compile Include="CommonSer.cs" />
     <Compile Include="ConfigHelper.cs" />
     <Compile Include="Convert\ConvertData.cs" />
+    <Compile Include="CountLandNewsByLandTypeViewModel.cs" />
     <Compile Include="CountLandNewsDistrictViewModel.cs" />
     <Compile Include="Exceptions\NameDuplicatedException.cs" />
     <Compile Include="GetFileExtension.cs" />

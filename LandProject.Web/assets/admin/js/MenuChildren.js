@@ -44,7 +44,8 @@ $(document).ready(function () {
             MenuChildModel.URL = $('#txtMenuChildURL').val();
             MenuChildModel.MenuGroupID = $("#cboMenuGroup").val();
             MenuChildModel.ParentID = $("#cboMenuParent").val();
-            if (TypeActionAdd) {//add          
+            if (TypeActionAdd) {//add   
+             MenuChildModel.ID = 0;
                 var svr = new AjaxCall("api/menu/create", JSON.stringify(MenuChildModel));
                 svr.callServicePOST(function (data) {
                     console.log(data)

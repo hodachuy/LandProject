@@ -1,62 +1,128 @@
 ﻿var _idgrid = "#grid";
 var LandNewsModel = {
     ID: '',
-    Name: '',
+    Title: '',
     Alias: '',
+    Description: '',
+    Image: '',
+    Code: '',
+    Address: '',
     LandTypeID: '',
-    IsDelete: false
-}
+    LandCategoryID: '',
+    ProvinceID: '',
+    DistrictID: '',
+    UserID: '',
+    AgentID: '',
+    WardID: '',
+    LProjectID: '',
+    Area: '',
+    Price: '',
+    TotalPrice: '',
+    DecimalTotalPrice: '',
+    Unit: '',
+    Facade: '',
+    Entry: '',
+    HouseDirection: '',
+    BalconyDirection: '',
+    NumberFloor: '',
+    NumberBedroom: '',
+    NumberWC: '',
+    Furniture: '',
+    LatiLongTude: '',
+    IsDelete: false,
+    IsPublished: false,
+    IsSale: false,
+    Status: false,
+    CreatedDate: '',
+    LandNewsScheduleID: '1',
+    Agent: {
+        ID: '',
+        Phone: '',
+        Address: '',
+        Mobile: '',
+        Name: '',
+        UserId:''
+    }
+};
+
+
 var param = null;
 var TypeActionAdd = true;
-
 $(document).ready(function () {
     LoadGrid();
-    //$('body').on('click', '#form-create-landNews', function () {
-    //    TypeActionAdd = true;
-    //    var urlLandType = "api/landtype/getall";
-    //    var element = "#cboLandType";
-    //    LoadComboBoxWithServices(element, urlLandType, param, "ID", "Name", null, "Chọn Thể Loại", false, null, function () { }, null);
-    //    $('#txtLandNewsName').val('');
-    //    $("#LandNewsModel").modal({
-    //        backdrop: 'static',
-    //        keyboard: true,
-    //        show: true
-    //    });
-    //})
-    //$('body').on('click', '#saveLandNews', function () {
-    //    if (checkValid()) {
-    //        LandNewsModel.Name = $('#txtLandNewsName').val();
-    //        LandNewsModel.Alias = new commonService().getSeoTitle($('#txtLandNewsName').val());
-    //        LandNewsModel.IsDelete = false;
-    //        LandNewsModel.LandTypeID = $("#cboLandType").val();
-    //        if (TypeActionAdd) { //add          
-    //            var svr = new AjaxCall("api/landnews/create", JSON.stringify(LandNewsModel));
-    //            svr.callServicePOST(function (data) {
-    //                //console.log(data)
-    //                if (data != null) {
-    //                    $("#LandNewsModel").modal('hide');
-    //                    $('#grid').data('kendoGrid').dataSource.read();
-    //                    $('#grid').data('kendoGrid').refresh();
-    //                }
-    //            });
-    //        } else { //update
-    //            var svr = new AjaxCall("api/landnews/update", JSON.stringify(LandNewsModel));
-    //            svr.callServicePOST(function (data) {
-    //                //console.log(data)
-    //                if (data != null) {
-    //                    $("#LandNewsModel").modal('hide');
-    //                    $('#grid').data('kendoGrid').dataSource.read();
-    //                    $('#grid').data('kendoGrid').refresh();
-    //                }
-    //            });
-    //        }
-    //    }
-    //})
-    //$('body').on('click', '#closeLandNews', function () {
-    //    $("#LandNewsModel").modal('hide');
-    //})
-})
 
+    $('body').on('click', '#saveLandNews', function () {
+        if (checkValid()) {
+            LandNewsModel.Title = $('#txtTitle').val();
+            LandNewsModel.Alias = new commonService().getSeoTitle($('#txtTitle').val());
+            LandNewsModel.Description = $('#txtDescription').val();
+            LandNewsModel.Address = $('#txtAddress').val();
+            LandNewsModel.LandTypeID = $('#cboLandType').val();
+            LandNewsModel.LandCategoryID = $('#cboLandCategory').val();
+            LandNewsModel.DistrictID = $('#cboDistrict').val();
+            LandNewsModel.WardID = $('#cboWard').val();
+            LandNewsModel.LProjectID = $('#cboLProject').val();
+            LandNewsModel.Area = $('#txtArea').val();
+            LandNewsModel.Price = $("#txtPrice").val();
+            LandNewsModel.TotalPrice = $('#txtTotalPrice').val();
+            LandNewsModel.DecimalTotalPrice = $('#txtDecimalTotalPrice').val();
+            LandNewsModel.Unit = $('#txtUnit').val(); 
+            LandNewsModel.Facade = $('#txtFacade').val();
+            LandNewsModel.Entry = $('#txtEntry').val();
+            LandNewsModel.HouseDirection = $('#txtHouseDirection').val();
+            LandNewsModel.BalconyDirection = $('#txtBalconyDirection').val();
+            LandNewsModel.NumberFloor = $('#txtNumberFloor').val();
+            LandNewsModel.NumberBedroom = $('#txtNumberBedroom').val();
+            LandNewsModel.NumberWC = $('#txtNumberWC').val();
+            LandNewsModel.Furniture = $('#txtFurniture').val();
+            LandNewsModel.Agent.Name = $('#txtAgentName').val();
+            LandNewsModel.Agent.Mobile = $('#txtAgentMobile').val();
+            LandNewsModel.Agent.Address = $('#txtAgentAddress').val();
+            LandNewsModel.Agent.Phone = $('#txtAgentPhone').val();
+            LandNewsModel.Agent.Email = $('#txtAgentEmail').val();
+            LandNewsModel.Agent.UserId = $('#txtUserId').val();
+
+
+            if (TypeActionAdd) {//add          
+                var svr = new AjaxCall("api/landtype/create", JSON.stringify(LandNewsModel));
+                svr.callServicePOST(function (data) {
+                    console.log(data)
+                    if (data != undefined) {
+                        $("#LandNewsModel").modal('hide');
+                        $('#grid').data('kendoGrid').dataSource.read();
+                        $('#grid').data('kendoGrid').refresh();
+                    }
+                });
+            } else {//update
+                var svr = new AjaxCall("api/landtype/update", JSON.stringify(LandNewsModel));
+                svr.callServicePOST(function (data) {
+                    console.log(data)
+                    if (data != undefined) {
+                        $("#LandNewsModel").modal('hide');
+                        $('#grid').data('kendoGrid').dataSource.read();
+                        $('#grid').data('kendoGrid').refresh();
+                    }
+                });
+            }
+        }
+    })
+    $('body').on('click', '#closeLandType', function () {
+        $("#LandNewsModel").modal('hide');
+    })
+
+    // event rmfile load update
+    $('body').on('click', '.rmFileImage', function () {
+        var fileId = $(this).attr('data-id-file');
+        var fileName = $(this).attr('data-name-file');
+        var params = {
+            fileId: fileId,
+            fileName: fileName
+        }
+        params = JSON.stringify(parmas);
+        console.log(params)
+    })
+
+})
 
 checkValid = function () {
     var res = $("#form").validationEngine('validate');
@@ -64,6 +130,7 @@ checkValid = function () {
         $('#form').validationEngine('hide');
     }, 10000);
     var LandNewsName = $('#txtLandNewsName').val();
+    var AgentPhone = $('#txtAgentPhone').val();
     if (LandNewsName.trim() == "") {
         $('#txtLandNewsName').validationEngine('showPrompt', '* Trường này bắt buộc', 'red', 'topRight', true);
         res = false;
@@ -76,6 +143,37 @@ checkValid = function () {
     } else {
         $("#cboLandType").validationEngine('hide');
     }
+    if ($("#cboLandCategory").data("kendoComboBox").selectedIndex == -1) {
+        $('#cboLandCategory').validationEngine('showPrompt', '* Trường này bắt buộc', 'red', 'topRight', true);
+        res = false;
+    } else {
+        $("#cboLandCategory").validationEngine('hide');
+    }
+    if ($("#cboProvince").data("kendoComboBox").selectedIndex == -1) {
+        $('#cboProvince').validationEngine('showPrompt', '* Trường này bắt buộc', 'red', 'topRight', true);
+        res = false;
+    } else {
+        $("#cboProvince").validationEngine('hide');
+    }
+    if ($("#cboDistrict").data("kendoComboBox").selectedIndex == -1) {
+        $('#cboDistrict').validationEngine('showPrompt', '* Trường này bắt buộc', 'red', 'topRight', true);
+        res = false;
+    } else {
+        $("#cboDistrict").validationEngine('hide');
+    }
+    if (AgentPhone.trim() == "") {
+        $('#txtAgentPhone').validationEngine('showPrompt', '* Trường này bắt buộc', 'red', 'topRight', true);
+        res = false;
+    } else {
+        $("#txtAgentPhone").validationEngine('hide');
+    }
+    if ($('#txtAddress').val().trim() == "") {
+        $('#txtAddress').validationEngine('showPrompt', '* Trường này bắt buộc', 'red', 'topRight', true);
+        res = false;
+    } else {
+        $("#txtAddress").validationEngine('hide');
+    }
+
     return res;
 }
 
@@ -89,7 +187,7 @@ DataSource = function () {
                     //console.log(options.data);
                     //var request = JSON.stringify(options.data);
                     var form = new FormData();
-                    form.append('requestFilter',JSON.stringify(options.data))
+                    form.append('requestFilter', JSON.stringify(options.data))
                     form.append('lTypeID', JSON.stringify($("#landTypeID").val()))
                     $.ajax({
                         url: url,
@@ -300,7 +398,6 @@ LoadGrid = function () {
 }
 
 function templateForAction(e) {
-    console.log(e)
     var html = '';
     var permission = {
         IsView: true,
@@ -315,7 +412,7 @@ function templateForAction(e) {
         html += '<ul class="dropdown-menu dropdown-white dropdown-menu-right">';
         if (permission.IsUpdate) {
             html += '<li>';
-            html += '<a href="javascript:new ForumCatg(' + e.ID + ').Edit(\'' + e.LandTypeName + '\')">Xem/Chỉnh sửa</a>';
+            html += '<a href="javascript:new ForumCatg(' + e.ID + ').Edit(\'' + e.LandTypeName + '\')">Xem / Chỉnh sửa</a>';
             html += '</li>';
         }
         if (!e.IsPublished) {
@@ -327,29 +424,61 @@ function templateForAction(e) {
             html += '<a href="javascript:new ForumCatg(' + e.ID + ').CanclePublished()">Hạ tin</a>';
             html += '</li>';
         }
-        //if (permission.IsDelete && e.IsDelete == "1") {
-        //    html += '<li>';
-        //    html += '<a href="javascript:new ForumCatg(' + e.ID + ').Delete(\'' + e.Name + '\')">Xóa</a>';
-        //    html += '</li>';
-        //}
+        if (!e.IsDelete) {
+            html += '<li>';
+            html += '<a href="javascript:new ForumCatg(' + e.ID + ').Delete(\'' + e.Name + '\')">Xóa</a>';
+            html += '</li>';
+        }
         html += '</ul></div>';
     }
     return html;
 }
 ForumCatg = function (id) {
-    console.log(id)
     this.Edit = function (landTypeName) {
         var form = new FormData();
         TypeActionAdd = false;
         $("#lTypeTitle").empty().html(landTypeName)
+        $('#txtTitle').val('');
+        $('#txtArea').val('');
+        $('#txtUnit').val('');
+        $('#txtPrice').val('');
+        $('#txtTotalPrice').val('');
+        $('#txtAddress').val('');
+        $('#txtDecimalTotalPrice').val('');
+        $('#txtMetaKeyword').val('');
+        $('#txtMetaDescription').val('');
+
+        $('#txtFacade').val('');
+        $('#txtEntry').val('');
+        $('#txtHouseDirection').val('');
+        $('#txtBalconyDirection').val('');
+        $('#txtNumberFloor').val('');
+        $('#txtNumberBedroom').val('');
+        $('#txtNumberWC').val('');
+        $('#txtFurniture').val('');
+        $('#txtDescription').val('');
+
+        $('#txtAgentName').val('');
+        $('#txtAgentAddress').val('');
+        $('#txtAgentMobile').val('');
+        $('#txtAgentPhone').val('');
+        $('#txtAgentEmail').val('');
+
+        $("#cboLandType").val('');
+        $("#cboLandCategory").val('');
+        $("#cboProvince").val('');
+        $("#cboDistrict").val('');
+        $("#cboWard").val('');
+        $("#cboLProject").val('');
+
+        $("#lst-file-image").empty();
+
         $("#LandNewsModel").modal({
             backdrop: 'static',
             keyboard: true,
             show: true
         });
 
-        //initMap();
-        
         var param = {
             LandNewsID: id
         }
@@ -357,11 +486,106 @@ ForumCatg = function (id) {
         svr.callServiceGET(function (data) {
             console.log(data)
             if (data != undefined) {
+
+               
                 LandNewsModel.ID = data.ID;
-                $('#txtLandNewsName').val(data.Name);
-                var urlLandType = "api/landtype/getall";
+                LandNewsModel.IsDelete = data.IsDelete;
+                LandNewsModel.IsPublished = data.IsPublished;
+                LandNewsModel.IsSale = data.IsSale;
+                LandNewsModel.Status = data.Status;
+                LandNewsModel.LandNewsScheduleID = data.LandNewsScheduleID;
+                LandNewsModel.CreatedDate = data.CreatedDate;
+                LandNewsModel.Image = data.Image;
+                LandNewsModel.Code = data.Code;
+                LandNewsModel.UserID = data.UserID;
+                LandNewsModel.LatiLongTude = data.LatiLongTude;
+
+                if (LandNewsModel.LatiLongTude != undefined) {
+                    var arrLatLong = LandNewsModel.LatiLongTude.split(',');
+                    initMap(arrLatLong[0], arrLatLong[1]);
+                }
+
+                var url1 = "api/landtype/getall";
                 var element = "#cboLandType";
-                LoadComboBoxWithServices(element, urlLandType, param, "ID", "Name", data.LandTypeID, "Chọn Thể Loại", false, null, function () { }, null);
+                LoadComboBoxWithServices(element, url1, null, "ID", "Name", data.LandTypeID, "Chọn Hình thức", false, null, function () { }, null);
+                var param1 = {
+                    lTypeID: data.LandTypeID
+                }
+                var url2 = "api/landcategory/getall";
+                var element = "#cboLandCategory";
+                LoadComboBoxWithServices(element, url2,param1, "ID", "Name", data.LandCategoryID, "Chọn Thể Loại", false, null, function () { }, null);
+
+                var url3 = "api/address/getprovince";
+                var element = "#cboProvince";
+                LoadComboBoxWithServices(element, url3, null, "ID", "Name", data.ProvinceID, "Chọn Tỉnh/Thành phố", false, null, function () { }, null);
+
+                var param4 = {
+                    provinceID: data.ProvinceID
+                }
+                var url4 = "api/address/getdistrict";
+                var element = "#cboDistrict";
+                LoadComboBoxWithServices(element, url4, param4, "ID", "Name", data.DistrictID, "Chọn Quận/Huyện", false, null, function () { }, null);
+                var param5 = {
+                    districtID: data.DistrictID
+                }
+                var url5 = "api/address/getward";
+                var element = "#cboWard";
+                LoadComboBoxWithServices(element, url5, param5, "ID", "Name", data.WardID, "Chọn Phường/Xã", false, null, function () { }, null);
+
+                var url6 = "api/lproject/getall";
+                var element = "#cboLProject";
+                LoadComboBoxWithServices(element, url6, null, "ID", "Name", data.LProjectID, "Chọn Dự án", false, null, function () { }, null);
+
+
+                $('#txtTitle').val(data.Title);
+                $('#txtArea').val(data.Area);
+                $('#txtUnit').val(data.Unit);
+                $('#txtPrice').val(data.Price);
+                $('#txtTotalPrice').val(data.TotalPrice);
+                $('#txtAddress').val(data.Address);
+                $('#txtDecimalTotalPrice').val(data.DecimalTotalPrice);
+                $('#txtMetaKeyword').val(data.MetaKeyword);
+                $('#txtMetaDescription').val(data.MetaDescription);
+
+
+                $('#txtFacade').val(data.Facade);
+                $('#txtEntry').val(data.Entry);
+                $('#txtHouseDirection').val(data.HouseDirection);
+                $('#txtBalconyDirection').val(data.BalconyDirection);
+                $('#txtNumberFloor').val(data.NumberFloor);
+                $('#txtNumberBedroom').val(data.NumberBedroom);
+                $('#txtNumberWC').val(data.NumberWC);
+                $('#txtFurniture').val(data.Furniture);
+                $('#txtDescription').val(data.Description);
+                if (data.Agent != undefined) {
+                    LandNewsModel.AgentID = data.Agent.AgentID;
+                    LandNewsModel.Agent.AgentID = data.Agent.AgentID;
+                    $('#txtAgentName').val(data.Agent.Name);
+                    $('#txtAgentAddress').val(data.Agent.Address);
+                    $('#txtAgentMobile').val(data.Agent.Mobile);
+                    $('#txtAgentPhone').val(data.Agent.Phone);
+                    $('#txtAgentEmail').val(data.Agent.Email);
+                    $('#txtUserId').val(data.Agent.UserId);
+                }
+
+                var html = '';
+                if (data.LandFiles.length != 0) {
+                    $.each(data.LandFiles, function (index, value) {
+                        html +='<div class="col-md-55">'
+                        html +=                '<div class="thumbnail">';
+                        html +=                     '<div class="image view view-first" data-id-file="' + value.ID + '" data-name-file="' + value.FileName + '">';
+                        html +=                         '<img style="width: 100%; display: block;" src="' + _Host + 'fileman/Uploads/LandNews/' + value.FileName + '" alt="image" />';
+                        html +=                             '<div class="mask">';
+                        html +=                                 '<div class="tools tools-bottom">';
+                        html +=                                     '<a href="#" data-id-file="' + value.ID + '" data-name-file="' + value.FileName + '" class="rmFileImage"><i class="fa fa-times"></i></a>';
+                        html +=                                 '</div>';
+                        html +=                             '</div>';
+                        html +=                    '</div>';
+                        html +=                '</div>';
+                        html += '</div>';
+                    })
+                }
+                $("#lst-file-image").append(html);
 
                 $("#LandNewsModel").modal({
                     backdrop: 'static',
@@ -410,36 +634,40 @@ ForumCatg = function (id) {
         });
     }
     this.Delete = function (title) {
-        ConfirmDialog("Xác nhận thông tin", "Bạn muốn xóa loại văn bản '" + title + "' ?", function (e) {
-            //if (result) {
-            //Logic to delete the item
-            var url = _Host + "Ajax/DeleteDocumentType";
-            $.ajax({
-                url: url,
-                type: "POST",
-                dataType: "json",
-                data: {
-                    DocTypeID: id
+        bootbox.confirm({
+            message: "Bạn có chắc muốn xóa tin này",
+            buttons: {
+                confirm: {
+                    label: "Đồng ý",
+                    className: 'btn-primary'
                 },
-                success: function (result) {
-                    //console.log(result);
-                    if (result) {
-                        switch (result.Table[0].ReturnCode) {
-                            case "0":
-                                AlertDialog("Kết quả thao tác", "Xóa thành công", function () {
-                                    $('#grid').data('kendoGrid').dataSource.read();
-                                    $('#grid').data('kendoGrid').refresh();
-                                });
-                                break;
-                            case "2":
-                                AlertDialog("Thông báo", "Bạn không có quyền xóa loại văn bản", function () { });
-                                break;
-                        }
+                cancel: {
+                    label: "Hủy",
+                    className: 'btn-default'
+                }
+            },
+            callback: function (result) {
+                if (result) {
+                    var param = {
+                        landNewsID: id
                     }
-                },
-                error: function (result) { }
-            })
-        });
+                    var svr1 = new AjaxCall("api/landnews/delete", JSON.stringify(param));
+                    svr1.callServicePOST(function (data) {
+                        if (data != undefined) {
+                            $("#model-notify").modal('hide');
+                            swal({
+                                title: "Thông báo",
+                                text: "Xóa tin thành công",
+                                confirmButtonColor: "#EF5350",
+                                type: "success"
+                            }, function () { $("#model-notify").modal('show'); });
+                            $('#grid').data('kendoGrid').dataSource.read();
+                            $('#grid').data('kendoGrid').refresh();
+                        }
+                    });
+                }
+            }
+        })
     }
 }
 statusF = new kendo.data.DataSource({
@@ -488,74 +716,30 @@ var lstLanType = new kendo.data.DataSource({
 });
 
 //init map
-function initMap() {
+function initMap(latitude, longitude) {
     var posVietNam = { lat: 16.4498, lng: 107.5624 };
+    var zoomSize = 5;
+    if (latitude && longitude) {
+        posVietNam = { lat: parseFloat(latitude), lng: parseFloat(longitude) };
+        zoomSize = 18;
+    }
     var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 5,
+        zoom: zoomSize,
         center: posVietNam
     });
-    var image = {
-        url: "/assets/client/img/gmap_marker.png",
-        anchor: new google.maps.Point(25, 25),
-        scaledSize: new google.maps.Size(25, 25)
-    };
     marker = new google.maps.Marker({
         map: map,
         draggable: true,
         animation: google.maps.Animation.DROP,
-        position: posVietNam,
-        //icon: image
-    });
-
-
-
-    google.maps.event.addListener(marker, 'dragend', function (event) {
-        document.getElementById("Latitude").value = this.getPosition().lat();
-        document.getElementById("Longitude").value = this.getPosition().lng();
-    });
-    //autocomplete = new google.maps.places.Autocomplete((document.getElementById('address')), {types: ['geocode'] });
-    var input = document.getElementById('Address');
-    autocomplete = new google.maps.places.Autocomplete(input);
-    autocomplete.addListener('place_changed', fillInAddress);
-}
-
-function fillInAddress() {
-    // Get the place details from the autocomplete object.
-    var place = autocomplete.getPlace();
-    document.getElementById("Latitude").value = place.geometry.location.lat();
-    document.getElementById("Longitude").value = place.geometry.location.lng();
-    var pos = { lat: place.geometry.location.lat(), lng: place.geometry.location.lng() };
-    var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 18,
-        center: pos
-    }); var image = {
-        url: "/assets/client/img/gmap_marker_active.png",
-        anchor: new google.maps.Point(25, 25),
-        scaledSize: new google.maps.Size(45, 45)
-    };
-    marker = new google.maps.Marker({
-        map: map,
-        draggable: true,
-        animation: google.maps.Animation.DROP,
-        position: pos,
-        //icon: image
+        position: posVietNam
     });
     google.maps.event.addListener(marker, 'dragend', function (event) {
         document.getElementById("Latitude").value = this.getPosition().lat();
         document.getElementById("Longitude").value = this.getPosition().lng();
     });
-}
-
-function getLatitudeLongitude(callback, address) {
-    address = address || 'Ferrol, Galicia, Spain';
-    geocoder = new google.maps.Geocoder();
-    if (geocoder) {
-        geocoder.geocode({
-            'address': address
-        }, function (results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-                callback(results[0]);
-            }
-        });
-    }
+    //autocomplete = new google.maps.places.Autocomplete(
+    //    (document.getElementById('address')), { types: ['geocode'] });
+    //var input = document.getElementById('address');
+    //autocomplete = new google.maps.places.Autocomplete(input);
+    //autocomplete.addListener('place_changed', fillInAddress);
 }

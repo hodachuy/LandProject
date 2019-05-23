@@ -19,7 +19,6 @@ using System.Web.Script.Serialization;
 
 namespace LandProject.Web.API
 {
-	[Authorize]
 	[RoutePrefix("api/menu")]
 	public class MenuController : ApiControllerBase
     {
@@ -58,8 +57,8 @@ namespace LandProject.Web.API
 			});
 		}
 
-		[Route("getall")]
-		[HttpGet]
+		[Route("getalltable")]
+		[HttpPost]
 		public HttpResponseMessage GetAll(HttpRequestMessage request, Request rqFilter)
 		{
 

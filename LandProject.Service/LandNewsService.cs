@@ -13,12 +13,14 @@ namespace LandProject.Service
     public interface ILandNewsService
     {
         IEnumerable<LandNews> GetAll();
+        IEnumerable<CountLandNewsByLandTypeViewModel> CountLandNewsInLandType();
         IEnumerable<LandNewsFilterViewModel> GetAllByFilter(string filter, string sort, int page, int pageSize);
         LandNewsFilterViewModel GetByID(int id);
         LandNews GetLandNewsDbModelByID(int id);
         LandNews Add(LandNews landNews);
         LandNews Delete(int id);
         void PublishedLandNews(LandNews landNews);
+        void DeleteLandNews(LandNews landNews);
         void Update(LandNews landNews);
         void Save();
     }
@@ -36,9 +38,20 @@ namespace LandProject.Service
             return _landNewsRepository.Add(landNews);
         }
 
+        public IEnumerable<CountLandNewsByLandTypeViewModel> CountLandNewsInLandType()
+        {
+            var lst = _landNewsRepository.GetTotalLandNewsToLandType().ToList();
+            return lst;
+        }
+
         public LandNews Delete(int id)
         {
             return _landNewsRepository.Delete(id);
+        }
+
+        public void DeleteLandNews(LandNews landNews)
+        {
+            _landNewsRepository.DeleteLandNews(landNews);
         }
 
         public IEnumerable<LandNews> GetAll()
@@ -48,7 +61,7 @@ namespace LandProject.Service
 
         public IEnumerable<LandNewsFilterViewModel> GetAllByFilter(string filter, string sort, int page, int pageSize)
         {
-            return _landNewsRepository.GetLandNewsByFilter(filter,sort,page,pageSize);
+            return _landNewsRepository.GetLandNewsByFilter(filter,sort,page,pageSize).Where(x=>x.IsDelete == false);
         }
 
         public LandNewsFilterViewModel GetByID(int id)

@@ -37,17 +37,17 @@ namespace LandProject.Service
 
         public IEnumerable<Province> GetAllProvince()
         {
-            return _provinceRepository.GetAll();
+            return _provinceRepository.GetAll().OrderBy(x=>x.SortOrder);
         }
 
         public IEnumerable<District> GetDistrictByProvinceID(int provinceId)
         {
-            return _districtRepository.GetMulti(x => x.ProvinceID == provinceId);
+            return _districtRepository.GetMulti(x => x.ProvinceID == provinceId).OrderBy(x => x.SortOrder);
         }
 
         public IEnumerable<Ward> GetWardByDistrictID(int districtId)
         {
-            return _wardRepository.GetMulti(x => x.DistrictID == districtId);
+            return _wardRepository.GetMulti(x => x.DistrictID == districtId).OrderBy(x => x.SortOrder);
         }
 
         public void Save()

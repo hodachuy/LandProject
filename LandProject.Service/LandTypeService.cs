@@ -40,7 +40,7 @@ namespace LandProject.Service
 
         public IEnumerable<LandType> GetAll()
         {
-            return _landTypeRepository.GetAll();
+            return _landTypeRepository.GetAll().OrderBy(x => x.SortOrder);
         }
 
         public IEnumerable<LandType> GetAllByCondition(string condition)

@@ -3,7 +3,7 @@
     Layout = "~/Views/Shared/_LayoutLand.cshtml";
 }
 <style>
-    .bg-clients {
+    /*.bg-clients {
         background-image: url('../../assets/client/img/Ban_do_quy_hoach_bac_van_phong.jpg');
         background-size: cover;
         background-position: center;
@@ -11,7 +11,47 @@
         width: 100%;
         object-fit: cover;
         opacity: 0.5;
+    }*/
+    .position-map {
+        position: absolute;
+        padding: 50px 10px 20px 10px;
+        width: 100%;
+        color: #fff;
+        text-align: center;
+        bottom: 0px;
+        margin-bottom: 150px; 
     }
+    .button-map{
+          border: 3px solid #fff;
+           padding: 15px;
+           color: white;
+           font-size: 21px;
+           text-transform: uppercase;
+           font-weight: 700;
+    }
+    .section-md {
+        padding-top: 0px; 
+        padding-bottom:40px
+    }
+
+    @@media (min-width: 992px){
+        hr + .btn-group-mod-1, hr + .icon-group, hr + .row {
+    margin-top: 0px;
+}
+    }
+
+hr + .btn-group-mod-1, hr + .icon-group, hr + .row {
+     margin-top: 0px;
+}
+@@media (min-width: 1200px){
+    * + .row {
+     margin-top: 0px;
+    }
+}
+
+* + .row {
+     margin-top: 0px;
+}
 </style>
 <section class="section-full text-xs-left banner-home">
     <div class="container">
@@ -62,7 +102,7 @@
                     <div class="col-sm-6">
                         <div class="thumbnail thumbnail-3">
                             <a href="/detail.html" class="img-link">
-                                <img src="https://livedemo00.template-help.com/wt_prod-1143/images/index-6.jpg" alt="" width="370" height="250">
+                                <img src="~/assets/client/img/tourdisan3.jpg" width="370" height="250"/>
                             </a>
                             <div class="caption">
                                 <p>
@@ -348,26 +388,7 @@
                         </div>
                     </div>
                     <div class="col-sm-12 text-center text-sm-left offset-11">
-                        <ul class="pagination">
-                            <li class="disabled">
-                                <span class="fa-chevron-left"></span>
-                            </li>
-                            <li class="active">
-                                <span>1</span>
-                            </li>
-                            <li>
-                                <a href="#">2</a>
-                            </li>
-                            <li>
-                                <a href="#">3</a>
-                            </li>
-                            <li>
-                                <a href="#">4</a>
-                            </li>
-                            <li>
-                                <a href="#" class="fa-chevron-right"></a>
-                            </li>
-                        </ul>
+                        <a href="property-catalog-grid.html" class="btn btn-sm btn-sushi offset-11">Xem tất cả</a>
                     </div>
                 </div>
             </div>
@@ -377,86 +398,42 @@
                     <div class="form-group">
                         <label for="select-1" class="form-label">Loại nhà đất</label>
                         <!--Select 2-->
-                        <select id="select-1" data-minimum-results-for-search="Infinity" class="form-control select-filter">
-                            <option value="Any" selected="selected">Any</option>
-                            <option value="Denver">Denver</option>
-                            <option value="Houston">Houston</option>
-                            <option value="Las Vegas">Las Vegas</option>
-                            <option value="Orlando">Orlando</option>
-                            <option value="Phoenix">Phoenix</option>
-                            <option value="San Diego">San Diego</option>
-                            <option value="Miami">Miami</option>
-                            <option value="Atlanta">Atlanta</option>
+                        <select id="TypePlan" class="form-control">
+                            <option value="1">Cho thuê</option>
+                            <option value="2">Mua bán</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="select-2" class="form-label">Tỉnh/Thành phố</label>
+                        <label class="form-label">Tỉnh/Thành phố</label>
                         <!--Select 2-->
-                        <select id="select-2" data-minimum-results-for-search="Infinity" class="form-control select-filter">
-                            <option value="Any" selected="selected">Any</option>
-                            <option value="Vacant land">Vacant land</option>
-                            <option value="Commercial">Commercial</option>
-                            <option value="Residential">Residential</option>
-                            <option value="Homes">Homes</option>
-                            <option value="Condos">Condos</option>
-                            <option value="Townhouses">Townhouses</option>
-                            <option value="Foreclosures">Foreclosures</option>
+                        <select id="Province" onchange="LoadDistrictsSearch();" type="text" class="form-control">
+                            <option value="0">-- Tỉnh/thành phố --</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="select-3" class="form-label">Quận/Huyện</label>
                         <!--Select 2-->
-                        <select id="select-3" data-minimum-results-for-search="Infinity" class="form-control select-filter">
-                            <option value="Any" selected="selected">Any</option>
-                            <option value="Under Construction">Under Construction</option>
-                            <option value="Ready to Move">Ready to Move</option>
+                        <select id="District" class="form-control">
+                            <option value="0">-- Quận/huyện --</option>
                         </select>
                     </div>
-                    @*<div class="form-inline-flex-xs">
-                            <div class="form-group">
-                                <label for="select-4" class="form-label">Min Beds</label>
-                                <!--Select 2-->
-                                <select id="select-4" data-minimum-results-for-search="Infinity" class="form-control select-filter">
-                                    <option value="Any" selected="selected">Any</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="select-5" class="form-label">Min Baths</label>
-                                <!--Select 2-->
-                                <select id="select-5" data-minimum-results-for-search="Infinity" class="form-control select-filter">
-                                    <option value="Any" selected="selected">Any</option>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                </select>
-                            </div>
-                        </div>*@
                     <div class="form-group">
                         <label for="price" class="form-label">Mức giá</label>
                         <div class="form-inline-flex-xs">
-                            <input id="price" type="text" name="min-price" placeholder="100" class="form-control">
+                            <input id="price" type="text" name="min-price" placeholder="100" class="form-control price">
                             <span class="text-abbey dash">–</span>
-                            <input id="max-price" type="text" name="max-price" placeholder="10000" class="form-control">
+                            <input id="max-price" type="text" name="max-price" placeholder="10000" class="form-control price">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="area" class="form-label">Diện tích</label>
                         <div class="form-inline-flex-xs">
-                            <input id="area" type="text" name="min-area" placeholder="1500" class="form-control">
+                            <input id="area" type="text" name="min-area" placeholder="1500" class="form-control price">
                             <span class="text-abbey dash">–</span>
-                            <input id="max-area" type="text" name="max-area" placeholder="22000" class="form-control">
+                            <input id="max-area" type="text" name="max-area" placeholder="22000" class="form-control price">
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-sushi btn-sm btn-min-width-mod-3">apply filter</button>
+                    <button type="submit" class="btn btn-sushi btn-sm btn-min-width-mod-3">Tìm kiếm</button>
                 </form>
             </div>
         </div>
@@ -752,81 +729,22 @@
                 </div>
             </div>
         </div>
-        <a href="property-catalog-grid.html" class="btn btn-sm btn-sushi offset-11">view all properties</a>
+        <a href="property-catalog-grid.html" class="btn btn-sm btn-sushi offset-11">Xem tất cả</a>
     </div>
 </section>
 
-<section class="section-md text-center text-sm-left bg-clients">
-    <div class="container">
-        <h2 class="text-white">Testimonials</h2>
-        <hr>
-        <!-- Owl Carousel-->
-        <div class="row flow-offset-1 clearleft-custom-2">
-            <div class="col-xs-12 col-sm-6">
-                <blockquote class="quote">
-                    <div class="img-wrap">
-                        <img src="images/index-16.jpg" alt="" width="50" height="50">
-                    </div>
-                    <cite class="text-left">
-                        <span class="h6 text-primary text-ubold">Laura Russell</span>
-                        <span class="text-lightest">Journalist, San Diego</span>
-                    </cite>
-                    <p>
-                        <q class="text-white">Thank you for your prompt response and the help that you gave me. You always have a quick solution to any problem. What an excellent level of customer service!</q>
-                    </p>
-                </blockquote>
-            </div>
-            <div class="col-xs-12 col-sm-6">
-                <blockquote class="quote">
-                    <div class="img-wrap">
-                        <img src="images/index-17.jpg" alt="" width="50" height="50">
-                    </div>
-                    <cite class="text-left">
-                        <span class="h6 text-primary text-ubold">Richard Santos</span>
-                        <span class="text-lightest">Web Designer, New York</span>
-                    </cite>
-                    <p>
-                        <q>I just don't know how to describe your services... They are extraordinary! I am quite happy with them! Just keep up going this way!</q>
-                    </p>
-                </blockquote>
-            </div>
-            <div class="col-xs-12 col-sm-6">
-                <blockquote class="quote">
-                    <div class="img-wrap">
-                        <img src="images/index-18.jpg" alt="" width="50" height="50">
-                    </div>
-                    <cite class="text-left">
-                        <span class="h6 text-primary text-ubold">Diana Valdez</span>
-                        <span class="text-lightest">Teacher, San Diego</span>
-                    </cite>
-                    <p>
-                        <q>Thank you very much. I'm impressed with your service. I've already told my friends about your company and your quick response, thanks again!</q>
-                    </p>
-                </blockquote>
-            </div>
-            <div class="col-xs-12 col-sm-6">
-                <blockquote class="quote">
-                    <div class="img-wrap">
-                        <img src="images/client-1.jpg" alt="" width="50" height="50">
-                    </div>
-                    <cite class="text-left">
-                        <span class="h6 text-primary text-ubold">George Ortega</span>
-                        <span class="text-lightest">Manager, New York</span>
-                    </cite>
-                    <p>
-                        <q>Great organization! Your prompt answer became a pleasant surprise for me. You`ve rendered an invaluable service! Thank you very much!</q>
-                    </p>
-                </blockquote>
-            </div>
-            <div class="col-xs-12">
-                <a href="#" class="btn btn-sushi btn-sm">read more testimonials</a>
-            </div>
-        </div>
+<section class="section-md text-center text-sm-left" style="position:relative;background:#000;padding-bottom:0px">
+    <img style="height: 500px;width: 100%;object-fit: cover;opacity: 0.5" src="https://nhadatbacvanphong.vn/wp-content/uploads/2018/11/Ban_do_quy_hoach_bac_van_phong.jpg" class="loading" data-was-processed="true">
+    <div class="position-map">
+        <h3 class="title-map" style="font-size: 46px;font-weight: 700;margin-bottom: 60px;text-transform: uppercase;color: #ffe376;line-height: 50px;">
+            Bản đồ quy hoạch Bắc Vân Phong
+        </h3>
+        <a href="http://maps.vanphong.gov.vn/" class="button-map" title="bản đồ quy hoạch đặc khu kinh tế Bắc Vân Phong">Xem chi tiết</a>
     </div>
 </section>
 
 <!--Section our team-->
-<section class="section-md">
+<section class="section-md" style="padding-top:30px">
     <div class="container">
         <h4 class="font-seogui">Dự án nổi bật</h4>
         <hr>

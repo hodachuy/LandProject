@@ -1,15 +1,12 @@
 ﻿
-    LoadLandType();
-    LoadProvince();
-    LoadDistricts();
-    LoadLandProjectByDistrict();
-    LoadCaptchaCode();
-    initMap();
-
-    getUserInfo();
+LoadLandType();
+LoadProvince();
+LoadDistricts();
+LoadLandProjectByDistrict();
+LoadCaptchaCode();
 
 function LoadCaptchaCode() {
-    var url = _Host + 'PostingNews/CaptchaIndex';
+    var url = _Host + 'PostingNews/CaptchaIndex'; // _Host trong file jquery.js
     $('#imgCaptcha').html("Đang tải Captcha....");
     $.ajax({
         url: url,
@@ -20,97 +17,7 @@ function LoadCaptchaCode() {
         },
     });
 }
-
-// get userSession
-function getUserInfo() {
-    var userName = $("#UserName").val(),
-        userAddress = $("#UserAddress").val(),
-        userMobile = $("#UserMobile").val(),
-        userEmail = $("#UserEmail").val(),
-        userId = $("#UserId").val()
-
-    $("#AgentName").val(userName);
-    $("#AgentAddress").val(userAddress);
-    $("#AgentPhone").val('');
-    $("#AgentMobilePhone").val(userMobile);
-    $("#AgentEmail").val(userEmail);
-    $("#UserId").val(userId);
-}
-
-
-
-//init map
-function initMap() {
-    var posVietNam = { lat: 16.4498, lng: 107.5624 };
-    var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 5,
-        center: posVietNam
-    });
-    var image = {
-        url: "/assets/client/img/gmap_marker.png",
-        anchor: new google.maps.Point(25, 25),
-        scaledSize: new google.maps.Size(25, 25)
-    };
-    marker = new google.maps.Marker({
-        map: map,
-        draggable: true,
-        animation: google.maps.Animation.DROP,
-        position: posVietNam,
-        //icon: image
-    });
-
-
-
-    google.maps.event.addListener(marker, 'dragend', function (event) {
-        document.getElementById("Latitude").value = this.getPosition().lat();
-        document.getElementById("Longitude").value = this.getPosition().lng();
-    });
-    //autocomplete = new google.maps.places.Autocomplete((document.getElementById('address')), {types: ['geocode'] });
-    var input = document.getElementById('Address');
-    autocomplete = new google.maps.places.Autocomplete(input);
-    autocomplete.addListener('place_changed', fillInAddress);
-}
-
-function fillInAddress() {
-    // Get the place details from the autocomplete object.
-    var place = autocomplete.getPlace();
-    document.getElementById("LatiLongTude").value = place.geometry.location.lat() + "," + place.geometry.location.lng();
-    var pos = { lat: place.geometry.location.lat(), lng: place.geometry.location.lng() };
-    var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 18,
-        center: pos
-    }); var image = {
-        url: "/assets/client/img/gmap_marker_active.png",
-        anchor: new google.maps.Point(25, 25),
-        scaledSize: new google.maps.Size(45, 45)
-    };
-    marker = new google.maps.Marker({
-        map: map,
-        draggable: true,
-        animation: google.maps.Animation.DROP,
-        position: pos,
-        //icon: image
-    });
-    google.maps.event.addListener(marker, 'dragend', function (event) {
-        document.getElementById("LatiLongTude").value = this.getPosition().lat() + "," + this.getPosition().lng();
-    });
-}
-
-function getLatitudeLongitude(callback, address) {
-    address = address || 'Ferrol, Galicia, Spain';
-    geocoder = new google.maps.Geocoder();
-    if (geocoder) {
-        geocoder.geocode({
-            'address': address
-        }, function (results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-                callback(results[0]);
-            }
-        });
-    }
-}
-
-var arrImageAsUrl = [];
+var arrImage = [];
 var arrTotalImage = [];
 var indexImg = 0;
 
@@ -118,62 +25,60 @@ $('body').on("click", '#multi-file', function (e) { e.target.value = null; }); /
 
 $('body').on('change', '#multi-file', function (event) {
     var files = event.target.files;
-    var maxSize = 3072; // 3MB
+    var maxSize = parseInt(3 * 1024); // 3MB
     for (var i = 0; i < files.length; i++) {
-        indexImg++;
         var reader = new FileReader();
+        //var file = files[i];
         if (files[i].type.indexOf("image") == 0) {
-            reader.onload = (function (index) {
-                return function (e) {
-                    var fileSize = (e.total / 1024).toFixed(0);
-                    console.log(fileSize)
-                    if (fileSize > maxSize) {
-                        toastr.error('Kích thước ảnh lớn hơn 3MB', null, { timeOut: 5000 });
-                        return;
-                    }
-                    var fileSrc = e.target.result;
-                    var fileName = e.target.fileName;
-                    var temp = '';
-                    temp += '<div class="photo-item" style="width: 50%; border: 2px solid transparent; box-sizing: padding-box; position: relative">';
-                    temp += '<img class="img-responsive" style="height: 115px; width: 100 %" src="' + fileSrc + '" data-index="' + index + '" alt="' + fileName + '"/>';
-                    temp += '<span class="fa fa-remove rmFile" data-index="' + index + '" data-remove-filename="' + fileName + '" style="position: absolute; top: 10px; right: 10px; color: #795548;; cursor: pointer"></span>';
-                    temp += '</div>';
-                    $(".img-preview").append(temp);
-                    var image = {
-                        index: index,// parseInt(i),
-                        file: e
-                    }
-                    arrImageAsUrl.push(image);
-                };
-            })(indexImg);// input index
+            reader.onload = function (e) {
+                if ((e.total / 1024).toFixed(0) > maxSize) {
+                    toastr.error('kich thuoc qua lon', null, { timeOut: 5000 });
+                    return;
+                }
+                indexImg = parseInt(indexImg + i);
+                var fileSrc = e.target.result;
+                var fileName = i;
+                var temp = '';
+                temp += '<div class="photo-item" style="width: 50%; border: 2px solid transparent; box-sizing: padding-box; position: relative">';
+                temp += '<img class="img-responsive" style="height: 115px; width: 100 %" src="' + fileSrc + '" data-index="' + indexImg + '" alt="' + fileName + '"/>';
+                temp += '<span class="fa fa-remove rmFile" data-index="' + indexImg + '" data-remove-filename="' + fileName + '" style="position: absolute; top: 10px; right: 10px; color: #795548;; cursor: pointer"></span>';
+                temp += '</div>';
+                $(".img-preview").append(temp);
+
+                var image = {
+                    index: parseInt(i),
+                    file: e
+                }
+                arrImage.push(image);
+            }
+
         } else {
             toastr.error('Vui lòng chọn ảnh đúng định dạng (*.png | *.gif | *.jpg | *.jpeg)', null, { timeOut: 5000 });
         }
         reader.readAsDataURL(files[i]);
+
         var image = {
-            index: indexImg,// parseInt(i+1),
+            index: parseInt(i + 1),
             file: files[i]
         }
         arrTotalImage.push(image);
         //formData.append('file', files[i] )
-
     };
-    console.log("arrimageAsUrl:" + arrImageAsUrl)
-    console.log("arrimageFile:" + arrTotalImage)
 
 });
 $('body').on('click', '.rmFile', function () {
     var indexImage = $(this).attr('data-index');
-    for (var i = 0; i < arrImageAsUrl.length; i++) {
-        if (arrImageAsUrl[i].index == indexImage) {
-            arrImageAsUrl.splice(i, 1);
+    for (var i = 0; i < arrImage.length; i++) {
+        if (arrImage[i].index == indexImage) {
+            arrImage.splice(i, 1);
             arrTotalImage.splice(i, 1);
             $(this).parent().remove();
             break;
         }
     }
-    console.log("arrimageAsUrl:" + arrImageAsUrl)
-    console.log("arrimageFile:" + arrTotalImage)
+
+
+    console.log(arrImage);
 });
 //});
 
@@ -197,7 +102,7 @@ $('body').on('click', '.rmFile', function () {
 //        else {
 //            getListBase64Image(this)
 //                .then((listData) => {
-//                    loadPreviewImage(listData);
+//                    loadPreviewImage(listData);Address
 //                });
 //        }
 //    } else {
@@ -273,18 +178,18 @@ function LoadLandCategory() {
 };
 function GetLandCategory(lTypeId, callback) {
     if (lTypeId != "" || lTypeId != null) {
-    $.ajax({
-        type: 'GET',
-        data: {},
-        contentType: 'application/json',
-        dataType: "json",
-        url: _Host + "api/landcategory/getall?lTypeID=" + lTypeId,
-        success: function (data) {
-            callback(false, data, null);
-        },
-        error: function (xhr, error) {
-            callback(true, null, error);
-        },
+        $.ajax({
+            type: 'GET',
+            data: {},
+            contentType: 'application/json',
+            dataType: "json",
+            url: _Host + "api/landcategory/getall?lTypeID=" + lTypeId,
+            success: function (data) {
+                callback(false, data, null);
+            },
+            error: function (xhr, error) {
+                callback(true, null, error);
+            },
         });
     }
 };
@@ -308,7 +213,7 @@ function LoadProvince() {
             data: data1
         });
     });
-   
+
 };
 function GetProvince(callback) {
     $.ajax({
@@ -498,32 +403,32 @@ function CalculatePrice() {
     var strFirstTotalPrice = "";
     var totalPrice = 0;
     if (Unit == "0") //thỏa thuận
-    {        
+    {
         var strTotalPrice = "Thỏa thuận";
         var totalPrice = 0;
     }
     else if (Unit == "1") //triệu
     {
-       
-        var totalPrice = area * price*1000000;
+
+        var totalPrice = area * price * 1000000;
         strFirstTotalPrice = replaceCommas(totalPrice.toString());
         var strTotalPrice = strFirstTotalPrice + " VNĐ";
     }
     else if (Unit == "2") //Tỷ
     {
-        var totalPrice = area * price*1000000000;
+        var totalPrice = area * price * 1000000000;
         strFirstTotalPrice = replaceCommas(totalPrice.toString());
         var strTotalPrice = strFirstTotalPrice + " VNĐ";
     }
     else if (Unit == "3") //trăm nghìn/m2
     {
-        var totalPrice = area * price*100000;
+        var totalPrice = area * price * 100000;
         strFirstTotalPrice = replaceCommas(totalPrice.toString());
         var strTotalPrice = strFirstTotalPrice + "VNĐ";
     }
     else if (Unit == "4")//triệu/m2
     {
-        var totalPrice = area * price*1000000;
+        var totalPrice = area * price * 1000000;
         strFirstTotalPrice = replaceCommas(totalPrice.toString());
         var strTotalPrice = strFirstTotalPrice + "VNĐ";
     }
@@ -538,10 +443,14 @@ function CheckValid() {
         $("#Title").focus();
         toastr.error("", "Vui lòng nhập tiêu đề", 30000);
         return false;
+    } else if ($("#Description").val() == "") {
+        $("#Description").focus();
+        toastr.error("", "Vui lòng nhập thông tin mô tả ", 30000);
+        return false;
     }
     else if ($("#LandTypeID").val() == 0) {
         $("#LandTypeID").focus();
-        toastr.error("","Vui lòng chọn hình thức",30000);
+        toastr.error("", "Vui lòng chọn hình thức", 30000);
         return false;
     } else if ($("#LandCategoryID").val() == 0) {
         $("#LandTypeID").focus();
@@ -559,14 +468,6 @@ function CheckValid() {
         $("#Address").focus();
         toastr.error("", "Vui lòng nhập địa chỉ", 30000);
         return false;
-    } else if ($("#LatiLongTude").val() == "") {
-        $("#Address").focus();
-        toastr.error("", "Vui lòng chọn vị trí trên bản đồ", 30000);
-        return false;
-    } else if ($("#Description").val() == "") {
-        $("#Description").focus();
-        toastr.error("", "Vui lòng nhập thông tin mô tả ", 30000);
-        return false;
     } else if ($("#AgentMobilePhone").val() == "") {
         $("#AgentMobilePhone").focus();
         toastr.error("", "Vui lòng nhập số điện thoại liên hệ ", 30000);
@@ -575,53 +476,45 @@ function CheckValid() {
         $("#Captcha").focus();
         toastr.error("", "Vui lòng nhập mã captcha ", 30000);
         return false;
-    }else {
+    } else {
         return true;
-    } 
-    
-}
-
-function hideErrorMessage(e) {
-    if ($(e).val() != "" || $(e).val() != 0) {
-        $(e).parent().find(".errorMessage").hide();
     }
-    
-}
 
+}
 
 //Lưu thông tin bán dự án
-function SubmitSalePlan() {
+function SubmitBuyPlan() {
     if (CheckValid() == true) {
-     
+
         var landnews = {
-            "ID":0,
+            "ID": 0,
             "Title": $("#Title").val(),
             "Alias": stringToSlug($("#Title").val()),
             "Description": $("#Description").val(),
             "Image": "",
             "Code": "",
             "Address": $("#Address").val(),
-            "LandTypeID": $("#LandTypeID").val() != "" ?parseInt($("#LandTypeID").val()):0,
+            "LandTypeID": $("#LandTypeID").val() != "" ? parseInt($("#LandTypeID").val()) : 0,
             "LandCategoryID": $("#LandCategoryID").val() != "" ? parseInt($("#LandCategoryID").val()) : 0,
             "ProvinceID": $("#ProvinceID").val() != "" ? parseInt($("#ProvinceID").val()) : 0,
             "DistrictID": $("#DistrictID").val() != "" ? parseInt($("#DistrictID").val()) : 0,
             "UserID": $("#UserId").val() != "" ? $("#UserId").val() : "",
             "LandNewsScheduleID": 1,
-            "AgentID":0,
+            "AgentID": 0,
             "WardID": $("#WardID").val() != "" ? parseInt($("#WardID").val()) : 0,
             "LProjectID": $("#LProjectID").val() != "" ? parseInt($("#LProjectID").val()) : 0,
-            "Area": $("#Area").val()!=""?parseInt($("#Area").val()):0,
-            "Price": $("#Price").val()!=""?parseFloat($("#Price").val()):0,
+            "Area": $("#Area").val() != "" ? parseInt($("#Area").val()) : 0,
+            "Price": $("#Price").val() != "" ? parseFloat($("#Price").val()) : 0,
             "TotalPrice": $("#TotalPrice").val(),
-            "DecimalTotalPrice": $("#DecimalTotalPrice").val()!=""?parseFloat($("#DecimalTotalPrice").val()):0,
+            "DecimalTotalPrice": $("#DecimalTotalPrice").val() != "" ? parseFloat($("#DecimalTotalPrice").val()) : 0,
             "Unit": $("#Unit option:selected").text(),//$("#Unit").val(),
-            "Facade": $("#Facade").val()!=""?parseInt($("#Facade").val()):0,
-            "Entry": $("#Entry").val() != "" ?parseInt($("#Entry").val()):0,
+            "Facade": $("#Facade").val() != "" ? parseInt($("#Facade").val()) : 0,
+            "Entry": $("#Entry").val() != "" ? parseInt($("#Entry").val()) : 0,
             "HouseDirection": $("#HouseDirection").val(),
             "BalconyDirection": $("#BalconyDirection").val(),
             "NumberFloor": $("#NumberFloor").val() != "" ? parseInt($("#NumberFloor").val()) : 0,
-            "NumberBedroom": $("#NumberBedroom").val() != "" ? parseInt($("#NumberBedroom").val()) : 0, 
-            "NumberWC": $("#NumberWC").val() != "" ? parseInt($("#NumberWC").val()) : 0, 
+            "NumberBedroom": $("#NumberBedroom").val() != "" ? parseInt($("#NumberBedroom").val()) : 0,
+            "NumberWC": $("#NumberWC").val() != "" ? parseInt($("#NumberWC").val()) : 0,
             "Furniture": $("#Furniture").val(),
             "LatiLongTude": $("#LatiLongTude").val(),
             "IsDelete": false,
@@ -630,24 +523,26 @@ function SubmitSalePlan() {
             "Status": false,
         };
         var agent = {
-            "ID": 0,
-            "Name":  $("#AgentName").val(),
+            "ID": 1,
+            "Name": $("#AgentName").val(),
             "Address": $("#AgentAddress").val(),
             "Phone": $("#AgentPhone").val(),
             "Mobile": $("#AgentMobilePhone").val(),
             "Email": $("#AgentEmail").val(),
-            "UserId":  $("#UserId").val()
+            "UserId": $("#UserId").val()
         };
-            //File hình ảnh
+        //File hình ảnh
         var formData = new FormData();
 
         $.each(arrTotalImage, function (index, value) {
+            debugger
+            console.log(value.file)
             formData.append('file' + index, value.file);
         });
         formData.append('captcha', JSON.stringify($("#Captcha").val()));
-        formData.append('landnews', JSON.stringify(landnews)); 
-        formData.append('agent', JSON.stringify(agent));     
-        
+        formData.append('landnews', JSON.stringify(landnews));
+        formData.append('agent', JSON.stringify(agent));
+
         $.ajax({
             url: _Host + "PostingNews/Create",
             type: 'POST',
@@ -669,7 +564,7 @@ function SubmitSalePlan() {
                     //    },
                     //    callback: function () { }
                     //});
-                    $("#btnSalePlan").attr('disabled', 'disabled');
+                    $("#btnBuyPlan").attr('disabled', 'disabled');
                     toastr.info("", "Đăng tin thành công", 3000);
                 } else {
                     toastr.info("", "Đăng tin thất bại công", 3000);
@@ -678,6 +573,6 @@ function SubmitSalePlan() {
             error: function (e) {
                 toastr.info("", "Đăng tin thất bại công", 3000);
             }
-            });
+        });
     }
 }

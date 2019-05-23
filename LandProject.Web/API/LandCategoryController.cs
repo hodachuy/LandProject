@@ -24,7 +24,7 @@ namespace LandProject.Web.API
         }
 
 		[Route("getall")]
-		[HttpPost]
+		[HttpGet]
 		public HttpResponseMessage GetAll(HttpRequestMessage request, int lTypeID)
 		{
 			return CreateHttpResponse(request, () =>

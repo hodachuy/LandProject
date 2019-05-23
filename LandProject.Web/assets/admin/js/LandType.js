@@ -3,7 +3,8 @@ var LandTypeModel = {
     ID:'',
     Name: '',
     Alias:'',
-    IsDelete:false
+    IsDelete:false,
+    SortOrder:'',
 }
 var TypeActionAdd = true;
 $(document).ready(function () {
@@ -12,6 +13,7 @@ $(document).ready(function () {
         $('#form').validationEngine('hide');
         TypeActionAdd = true;
         $('#txtLandTypeName').val('');
+        $('#txtLandTypeSortOrder').val('0');
         $("#LandTypeModel").modal({
             backdrop: 'static',
             keyboard: true,
@@ -23,6 +25,7 @@ $(document).ready(function () {
             LandTypeModel.Name = $('#txtLandTypeName').val();
             LandTypeModel.Alias = new commonService().getSeoTitle($('#txtLandTypeName').val());
             LandTypeModel.IsDelete = false;
+            LandTypeModel.SortOrder = $('#txtLandTypeSortOrder').val();
             if (TypeActionAdd) {//add          
                 var svr = new AjaxCall("api/landtype/create", JSON.stringify(LandTypeModel));
                 svr.callServicePOST(function (data) {
@@ -170,6 +173,11 @@ var Columns = [
             title: "Mô tả",
             filterable: false,
         },
+        {
+            template: '#=data.SortOrder#',
+            field: "SortOrder",
+            title: "Thứ tự",
+        },
 
 ];
 LoadGrid = function () {
@@ -225,6 +233,7 @@ ForumCatg = function (id) {
             console.log(data)
             if (data != undefined) {
                 $('#txtLandTypeName').val(data.Name);
+                $('#txtLandTypeSortOrder').val(data.SortOrder);
                 LandTypeModel.ID = data.ID;
             }
         });

@@ -19,6 +19,7 @@ namespace LandProject.Web.Infrastructure.Extensions
 			landType.Description = landTypeVm.Description;
 			landType.Alias = landTypeVm.Alias;
 			landType.IsDelete = landTypeVm.IsDelete;
+            landType.SortOrder = landTypeVm.SortOrder;
 		}
 
 		public static void UpdateLandCategory(this LandCategory landCategory, LandCategoryViewModel landCategoryVm)

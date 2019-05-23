@@ -31,7 +31,8 @@ $(document).ready(function () {
             MenuGroupModel.DisplayOrder = $('#txtMenuGroupDisplayOrder').val();
             MenuGroupModel.Target = $('#txtMenuGroupTarget').val();
             MenuGroupModel.URL = $('#txtMenuGroupURL').val();
-            if (TypeActionAdd) {//add          
+            if (TypeActionAdd) {//add      
+                MenuGroupModel.ID = 0;
                 var svr = new AjaxCall("api/menugroup/create", JSON.stringify(MenuGroupModel));
                 svr.callServicePOST(function (data) {
                     console.log(data)

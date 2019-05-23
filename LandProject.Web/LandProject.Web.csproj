@@ -340,9 +340,14 @@
     <Content Include="assets\client\img\gmap_marker.png" />
     <Content Include="assets\client\img\gmap_marker_active.png" />
     <Content Include="assets\client\img\icon-dang-tin.png" />
+    <Content Include="assets\client\img\tourdisan3.jpg" />
+    <Content Include="assets\client\img\vietnam.jpg" />
+    <Content Include="assets\client\img\vietnamtravelmark.jpg" />
     <Content Include="assets\client\js\commont.js" />
     <Content Include="assets\client\js\countIPv4AccessPage.js" />
     <Content Include="assets\client\js\jquery.js" />
+    <Content Include="assets\client\js\loginFacebook.js" />
+    <Content Include="assets\client\js\need-buy-and-need-rent.js" />
     <Content Include="assets\client\js\need-sale-and-for-rent.js" />
     <Content Include="assets\client\js\upload-file.js" />
     <Content Include="assets\client\libs\core.min.js" />

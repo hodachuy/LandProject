@@ -96,35 +96,9 @@ namespace LandProject.Web.Controllers
                 }
                 var agentVm = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue, RecursionLimit = 100 }.Deserialize<AgentViewModel>(agentJson);
 
-                // save agent
-                Agent agentDb = new Agent();
-                agentDb.UpdateAgent(agentVm);
-                _agentService.Add(agentDb);
-                _agentService.Save();
-
-                // save landnews
-                LandNews landNewsDb = new LandNews();
-                landNewsDb.AgentID = agentDb.ID;
-                landNewsDb.Code = DateTime.Now.ToString() + agentDb.ID;
-                landNewsDb.UpdateLandNews(landNewsVm);
-
-                // image avatar
-                var files = System.Web.HttpContext.Current.Request.Files;
-                if (files.Count != 0)
-                {
-                    var file = files[0];
-                    Guid id = Guid.NewGuid();
-                    string extentsion = new FileInfo(file.FileName).Extension.ToLower();
-                    string fileName = id + "-" + new FileInfo(file.FileName).Name;
-                    file.SaveAs(Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/fileman/Uploads/")
-                    + CommonConstants.FolderLandNews + "/" + fileName));
-                    landNewsDb.Image = fileName;
-                }
-
-                _landNewsService.Add(landNewsDb);
-                _landNewsService.Save();
-
                 // save landfile
+                var files = System.Web.HttpContext.Current.Request.Files;
+                List<LandFile> lstLandFile = new List<LandFile>();
                 if (files.Count != 0)
                 {
                     for (int i = 0; i < files.Count; i++)
@@ -140,12 +114,41 @@ namespace LandProject.Web.Controllers
                         {
                             FileName = fileName,
                             Extension = extentsion,
-                            LandNewsID = landNewsDb.ID
+                            LandNewsID = 0,
                         };
-                        _landFileService.Add(fileImage);
+                        lstLandFile.Add(fileImage);
+                    }
+                }
+
+
+                // save agent
+                Agent agentDb = new Agent();
+                agentDb.UpdateAgent(agentVm);
+                _agentService.Add(agentDb);
+                _agentService.Save();
+
+                // save landnews
+                LandNews landNewsDb = new LandNews();
+                landNewsDb.AgentID = agentDb.ID;
+                landNewsDb.Code = DateTime.Now.ToString("ddMMyyyy") + agentDb.ID;
+                landNewsDb.UpdateLandNews(landNewsVm);
+                if(lstLandFile.Count() != 0)
+                {
+                    landNewsDb.Image = lstLandFile[0].FileName;
+                }
+                _landNewsService.Add(landNewsDb);
+                _landNewsService.Save();
+
+                if (lstLandFile.Count() != 0)
+                {
+                    foreach(var item in lstLandFile)
+                    {
+                        item.LandNewsID = landNewsDb.ID;
+                        _landFileService.Add(item);
                     }
                     _landFileService.Save();
                 }
+
                 return Json(new
                 {
                     code = landNewsDb.Code,// return mã tin nhắn của bạn
