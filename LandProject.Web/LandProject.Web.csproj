@@ -350,7 +350,11 @@
     <Content Include="assets\client\js\need-buy-and-need-rent.js" />
     <Content Include="assets\client\js\need-sale-and-for-rent.js" />
     <Content Include="assets\client\js\upload-file.js" />
+    <Content Include="assets\client\libs\appsBody.js" />
     <Content Include="assets\client\libs\core.min.js" />
+    <Content Include="assets\client\libs\JNM.js" />
+    <Content Include="assets\client\libs\pointer-events.min.js" />
+    <Content Include="assets\client\libs\smoothscroll.min.js" />
     <Content Include="assets\library\helper\CallServiceHelper.js" />
     <Content Include="assets\library\helper\common.js" />
     <Content Include="assets\library\KendoUI\custom-kendo.js" />
@@ -1277,11 +1281,6 @@
     <Content Include="assets\vendors\tinymce\tinymce.min.js" />
     <Content Include="assets\vendors\toastr\toastr.min.css" />
     <Content Include="assets\vendors\toastr\toastr.min.js" />
-    <Content Include="assets\vendors\transitionize\dist\transitionize.js" />
-    <Content Include="assets\vendors\transitionize\dist\transitionize.min.js" />
-    <Content Include="assets\vendors\transitionize\examples\browserify.js" />
-    <Content Include="assets\vendors\transitionize\examples\example.html" />
-    <Content Include="assets\vendors\transitionize\transitionize.js" />
     <Content Include="assets\vendors\validation\css\validationEngine.jquery.css" />
     <Content Include="assets\vendors\validation\js\jquery.validationEngine-en.js" />
     <Content Include="assets\vendors\validation\js\jquery.validationEngine-vi.js" />
@@ -1903,9 +1902,6 @@
     <Content Include="assets\vendors\switchery\bower.json" />
     <Content Include="assets\vendors\switchery\CHANGELOG.md" />
     <Content Include="assets\vendors\switchery\package.json" />
-    <Content Include="assets\vendors\transitionize\.bower.json" />
-    <Content Include="assets\vendors\transitionize\bower.json" />
-    <Content Include="assets\vendors\transitionize\package.json" />
     <Content Include="assets\vendors\validator\.bower.json" />
     <Content Include="assets\vendors\validator\.gitattributes" />
     <Content Include="assets\vendors\validator\.gitignore" />
@@ -2059,6 +2055,7 @@
     <Content Include="Areas\Admin\Views\Menu\MenuChildren.cshtml" />
     <Content Include="assets\client\fonts\MaterialIcons-Regular.woff" />
     <Content Include="assets\client\fonts\MaterialIcons-Regular.woff2" />
+    <None Include="Properties\PublishProfiles\LAND.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -2072,7 +2069,9 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

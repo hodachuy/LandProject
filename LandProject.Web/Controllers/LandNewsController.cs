@@ -1,4 +1,9 @@
-﻿using System;
+﻿using AutoMapper;
+using LandProject.Common;
+using LandProject.Model.Models;
+using LandProject.Service;
+using LandProject.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +13,17 @@ namespace LandProject.Web.Controllers
 {
     public class LandNewsController : Controller
     {
+        private ILandNewsService _landNewsService;
+        private ILandFileService _landFileService;
+        private IAgentService _agentService;
+        public LandNewsController(ILandNewsService landNewsService,
+            ILandFileService landFileService,
+            IAgentService agentService)
+        {
+            _landNewsService = landNewsService;
+            _landFileService = landFileService;
+            _agentService = agentService;
+        }
         // GET: LandNews
         public ActionResult Index()
         {
@@ -16,7 +32,18 @@ namespace LandProject.Web.Controllers
 
         public ActionResult Detail(int id)
         {
-            return View();
+            var landNews = _landNewsService.GetByID(id);
+            var landNewsVm = Mapper.Map<LandNewsFilterViewModel, LandNewsViewModel>(landNews);
+
+            var lstLandFile = _landFileService.GetByLandNewsID(id);
+            var lstLandFileVm = Mapper.Map<IEnumerable<LandFile>, IEnumerable<LandFileViewModel>>(lstLandFile);
+            landNewsVm.LandFiles = lstLandFileVm;
+
+            var agent = _agentService.GetByID(landNewsVm.AgentID);
+            var agentDb = Mapper.Map<Agent, AgentViewModel>(agent);
+            landNewsVm.Agent = agentDb;
+
+            return View(landNewsVm);
         }
 
 		public ActionResult LandNewsByLandType(int landTypeID)
