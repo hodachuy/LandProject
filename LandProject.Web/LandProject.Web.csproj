@@ -294,6 +294,7 @@
     <Compile Include="Models\CommonLoginRegisterViewModel.cs" />
     <Compile Include="Models\DistrictViewModel.cs" />
     <Compile Include="Models\ExternalLoginListViewModel.cs" />
+    <Compile Include="Models\HomeViewModel.cs" />
     <Compile Include="Models\LandCategoryViewModel.cs" />
     <Compile Include="Models\LandFileViewModel.cs" />
     <Compile Include="Models\LandNewsScheduleViewModel.cs" />
@@ -349,6 +350,7 @@
     <Content Include="assets\client\js\loginFacebook.js" />
     <Content Include="assets\client\js\need-buy-and-need-rent.js" />
     <Content Include="assets\client\js\need-sale-and-for-rent.js" />
+    <Content Include="assets\client\js\search.js" />
     <Content Include="assets\client\js\upload-file.js" />
     <Content Include="assets\client\libs\appsBody.js" />
     <Content Include="assets\client\libs\core.min.js" />

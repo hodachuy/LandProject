@@ -16,18 +16,26 @@ namespace LandProject.Web.Controllers
 	{
 		IMenuGroupService _menugroupService;
 		IMenuService _menuService;
+        IAddressCommonService _addressCommonService;
+        ILandNewsService _landNewsService;
 
-		public HomeController(IMenuGroupService menugroupService, IMenuService menuService)
+		public HomeController(IMenuGroupService menugroupService,
+            IMenuService menuService,
+            IAddressCommonService addressCommonService,
+            ILandNewsService landNewsService)
 		{
 			_menugroupService = menugroupService;
 			_menuService = menuService;
-		}
+            _addressCommonService = addressCommonService;
+            _landNewsService = landNewsService;
+        }
 
 		public ActionResult Index()
 		{
-			ViewBag.Title = "Home Page";
-
-			return View();
+            var homeViewModel = new HomeViewModel();
+            var categoryWard = _addressCommonService.GetTotalLandNewsOfWards(571).ToList();
+            homeViewModel.CategoryWard = categoryWard;
+            return View(homeViewModel);
 		}
 
         [ChildActionOnly]

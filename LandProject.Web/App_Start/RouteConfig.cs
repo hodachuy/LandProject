@@ -80,13 +80,19 @@ namespace LandProject.Web
 			);
 
 			routes.MapRoute(
-				name: "LandNewsByDetail",
-				url: "{alias}.l-{id}.html",
+				name: "LandNewsByDetailWithType",
+				url: "{landtype}/{alias}.l-{id}.html",
 				defaults: new { controller = "LandNews", action = "Detail", id = UrlParameter.Optional },
 				  namespaces: new string[] { "LandProject.Web.Controllers" }
 			);
+            routes.MapRoute(
+                name: "LandNewsByDetail",
+                url: "{alias}.l-{id}.html",
+                defaults: new { controller = "LandNews", action = "Detail", id = UrlParameter.Optional },
+                  namespaces: new string[] { "LandProject.Web.Controllers" }
+            );
 
-			routes.MapRoute(
+            routes.MapRoute(
 				name: "Default",
 				url: "{controller}/{action}/{id}",
 				defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
