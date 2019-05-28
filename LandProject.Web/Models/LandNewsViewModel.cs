@@ -56,6 +56,7 @@ namespace LandProject.Web.Models
         public int AgentID { set; get; }
 
         public int? WardID { set; get; }
+        public string WardName { set; get; }
 
         public int? LProjectID { set; get; }
         public string LProjectName { set; get; }

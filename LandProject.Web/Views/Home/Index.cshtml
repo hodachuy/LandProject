@@ -403,7 +403,7 @@ hr + .btn-group-mod-1, hr + .icon-group, hr + .row {
                             {
                                 foreach (var item in Model.CategoryWard)
                                 {
-                                    var url = "/nha-dat/" + item.Name + ".w-" + item.ID + ".html";
+                                    var url = "/nha-dat/" + HttpUtility.HtmlDecode(item.Name) + ".w-" + item.ID + ".html";
                                     <li>
                                         <a href="@url" class="text-sushi">@item.Name (@item.TotalLandNews)</a>
                                     </li>

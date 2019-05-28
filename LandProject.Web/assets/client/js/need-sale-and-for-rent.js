@@ -505,19 +505,19 @@ function CalculatePrice() {
     else if (Unit == "1") //triệu
     {
        
-        var totalPrice = area * price*1000000;
+        var totalPrice = price*1000000;
         strFirstTotalPrice = replaceCommas(totalPrice.toString());
         var strTotalPrice = strFirstTotalPrice + " VNĐ";
     }
     else if (Unit == "2") //Tỷ
     {
-        var totalPrice = area * price*1000000000;
+        var totalPrice = price*1000000000;
         strFirstTotalPrice = replaceCommas(totalPrice.toString());
         var strTotalPrice = strFirstTotalPrice + " VNĐ";
     }
     else if (Unit == "3") //trăm nghìn/m2
     {
-        var totalPrice = area * price*100000;
+        var totalPrice = area * price * 100000;
         strFirstTotalPrice = replaceCommas(totalPrice.toString());
         var strTotalPrice = strFirstTotalPrice + "VNĐ";
     }

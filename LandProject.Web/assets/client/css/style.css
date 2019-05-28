@@ -1,7 +1,7 @@
 ﻿@charset "UTF-8"; /*!normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css*/
 
 html {
-    font-family: 'Segoe UI';
+    font-family: Tahoma;
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
 }
@@ -23,6 +23,11 @@ audio, canvas, progress, video {
         display: none;
         height: 0;
     }
+
+    .pagination > li {
+    display: inline;
+    cursor:pointer;
+}
 
 [hidden], template {
     display: none;
@@ -275,7 +280,7 @@ html {
 }
 
 body {
-    font-family: lato,sans-serif;
+    font-family: Tahoma;
     font-size: 14px;
     line-height: 1.57143;
     color: #8f8f8f;
@@ -372,7 +377,7 @@ hr {
 }
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-    font-family: lato,sans-serif;
+    font-family: Tahoma;
     font-weight: 900;
     line-height: 1.1;
     color: #46474a;

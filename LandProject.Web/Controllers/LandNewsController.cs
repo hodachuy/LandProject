@@ -16,14 +16,23 @@ namespace LandProject.Web.Controllers
     {
         private ILandNewsService _landNewsService;
         private ILandFileService _landFileService;
+        private IAddressCommonService _addressCommonService;
+        private ILandTypeService _landTypeService;
+        private ILandCategoryService _landCategoryService;
         private IAgentService _agentService;
         public LandNewsController(ILandNewsService landNewsService,
             ILandFileService landFileService,
-            IAgentService agentService)
+            IAgentService agentService,
+            IAddressCommonService addressCommonService,
+            ILandTypeService landTypeService,
+            ILandCategoryService landCategoryService)
         {
             _landNewsService = landNewsService;
             _landFileService = landFileService;
             _agentService = agentService;
+            _addressCommonService = addressCommonService;
+            _landTypeService = landTypeService;
+            _landCategoryService = landCategoryService;
         }
         // GET: LandNews
         public ActionResult Index()
@@ -47,120 +56,145 @@ namespace LandProject.Web.Controllers
             return View(landNewsVm);
         }
 
-		public ActionResult LandNewsByLandType(int landTypeID, int page = 1, string sort = "")
-		{
-            string filter = "ln.LandTypeID = " + landTypeID;
+		public ActionResult LandNewsByLandType(int id, int page = 1, string sort = "")//landTypeID
+        {
+            var landTypeDetail = _landTypeService.GetByID(id);
+            ViewBag.LandTypeName = landTypeDetail.Name;
+
+            var categoryWard = _addressCommonService.GetTotalLandNewsOfWards(571).ToList();
+            ViewBag.CategoryWard = categoryWard;
+            string filter = "ln.LandTypeID = " + id;
             int pageSize = int.Parse(ConfigHelper.GetByKey("PageSize"));
             int totalRow = 0;
             var lstLandNews = _landNewsService.GetAllByFilter(filter,sort, page, pageSize).ToList();
-            if(lstLandNews!= null && lstLandNews.Count() != 0)
+            var lstLandNewsVm = Mapper.Map<IEnumerable<LandNewsFilterViewModel>, IEnumerable<LandNewsViewModel>>(lstLandNews);
+            if (lstLandNewsVm != null && lstLandNewsVm.Count() != 0)
             {
-                totalRow = lstLandNews[0].Total;
+                totalRow = lstLandNewsVm.Count();
             }
 
             int totalPage = (int)Math.Ceiling((double)totalRow / pageSize);
 
-            var paginationSet = new PaginationSet<LandNewsFilterViewModel>()
+            var paginationSet = new PaginationSet<LandNewsViewModel>()
             {
-                Items = lstLandNews,
+                Items = lstLandNewsVm,
                 MaxPage = int.Parse(ConfigHelper.GetByKey("MaxPage")),
                 Page = page,
                 TotalCount = totalRow,
                 TotalPages = totalPage
             };
-            return View();
+            return View(paginationSet);
 		}
-		public ActionResult LandNewsByLandCategory(int landCategoryID, int page = 1, string sort = "")
-		{
-            string filter = "ln.LandCategoryID = " + landCategoryID;
+		public ActionResult LandNewsByLandCategory(int id, int page = 1, string sort = "")//landCategoryID
+        {
+            var landCategoryDetail = _landCategoryService.GetByID(id);
+            ViewBag.LandTypeName = landCategoryDetail.LandType.Name;
+            ViewBag.LandCategoryName = landCategoryDetail.Name;
+            var categoryWard = _addressCommonService.GetTotalLandNewsOfWards(571).ToList();
+            ViewBag.CategoryWard = categoryWard;
+            string filter = "ln.LandCategoryID = " + id + " and ln.IsDelete = 0 and ln.IsPublished = 1";
             int pageSize = int.Parse(ConfigHelper.GetByKey("PageSize"));
             int totalRow = 0;
             var lstLandNews = _landNewsService.GetAllByFilter(filter, sort, page, pageSize).ToList();
-            if (lstLandNews != null && lstLandNews.Count() != 0)
+            var lstLandNewsVm = Mapper.Map<IEnumerable<LandNewsFilterViewModel>, IEnumerable<LandNewsViewModel>>(lstLandNews);
+            if (lstLandNewsVm != null && lstLandNewsVm.Count() != 0)
             {
-                totalRow = lstLandNews[0].Total;
+                totalRow = lstLandNewsVm.Count();
             }
-
             int totalPage = (int)Math.Ceiling((double)totalRow / pageSize);
 
-            var paginationSet = new PaginationSet<LandNewsFilterViewModel>()
+            var paginationSet = new PaginationSet<LandNewsViewModel>()
             {
-                Items = lstLandNews,
+                Items = lstLandNewsVm,
                 MaxPage = int.Parse(ConfigHelper.GetByKey("MaxPage")),
                 Page = page,
                 TotalCount = totalRow,
                 TotalPages = totalPage
             };
-            return View();
+            return View(paginationSet);
         }
-		public ActionResult LandNewsByWard(int wardID, int page = 1, string sort = "")
-		{
-            string filter = "ln.WardID = " + wardID;
+		public ActionResult LandNewsByWard(int id, int page = 1, string sort = "")//wardID
+        {
+            var wardDetail = _addressCommonService.GetDetailWardByID(id);
+            ViewBag.WardName = wardDetail.Name;
+            var categoryWard = _addressCommonService.GetTotalLandNewsOfWards(571).ToList();
+            ViewBag.CategoryWard = categoryWard;
+            string filter = "ln.WardID = " + id + " and ln.IsDelete = 0 and ln.IsPublished = 1";
             int pageSize = int.Parse(ConfigHelper.GetByKey("PageSize"));
             int totalRow = 0;
-            var lstLandNews = _landNewsService.GetAllByFilter(filter, sort, page, pageSize).ToList();
-            if (lstLandNews != null && lstLandNews.Count() != 0)
+            var lstLandNews = _landNewsService.GetAllByFilter(filter, sort, page, pageSize);
+            var lstLandNewsVm = Mapper.Map<IEnumerable<LandNewsFilterViewModel>, IEnumerable<LandNewsViewModel>>(lstLandNews);
+            if (lstLandNewsVm != null && lstLandNewsVm.Count() != 0)
             {
-                totalRow = lstLandNews[0].Total;
+                totalRow = lstLandNewsVm.Count();
             }
 
             int totalPage = (int)Math.Ceiling((double)totalRow / pageSize);
 
-            var paginationSet = new PaginationSet<LandNewsFilterViewModel>()
+            var paginationSet = new PaginationSet<LandNewsViewModel>()
             {
-                Items = lstLandNews,
+                Items = lstLandNewsVm,
                 MaxPage = int.Parse(ConfigHelper.GetByKey("MaxPage")),
                 Page = page,
                 TotalCount = totalRow,
                 TotalPages = totalPage
             };
-            return View();
+            return View(paginationSet);
         }
-		public ActionResult LandNewsByDistrict(int districtID, int page = 1, string sort = "")
-		{
-            string filter = "ln.DistrictID = " + districtID;
+		public ActionResult LandNewsByDistrict(int id, int page = 1, string sort = "")//districtID
+        {
+            var districtDetail = _addressCommonService.GetDetailDistrictByID(id);
+            ViewBag.DistrictName = districtDetail.Name;
+            var categoryWard = _addressCommonService.GetTotalLandNewsOfWards(571).ToList();
+            ViewBag.CategoryWard = categoryWard;
+            string filter = "ln.DistrictID = " + id + " and ln.IsDelete = 0 and ln.IsPublished = 1";
             int pageSize = int.Parse(ConfigHelper.GetByKey("PageSize"));
             int totalRow = 0;
-            var lstLandNews = _landNewsService.GetAllByFilter(filter, sort, page, pageSize).ToList();
-            if (lstLandNews != null && lstLandNews.Count() != 0)
+            var lstLandNews = _landNewsService.GetAllByFilter(filter, sort, page, pageSize);
+            var lstLandNewsVm = Mapper.Map<IEnumerable<LandNewsFilterViewModel>, IEnumerable<LandNewsViewModel>>(lstLandNews);
+            if (lstLandNewsVm != null && lstLandNewsVm.Count() != 0)
             {
-                totalRow = lstLandNews[0].Total;
+                totalRow = lstLandNewsVm.Count();
             }
 
             int totalPage = (int)Math.Ceiling((double)totalRow / pageSize);
 
-            var paginationSet = new PaginationSet<LandNewsFilterViewModel>()
+            var paginationSet = new PaginationSet<LandNewsViewModel>()
             {
-                Items = lstLandNews,
+                Items = lstLandNewsVm,
                 MaxPage = int.Parse(ConfigHelper.GetByKey("MaxPage")),
                 Page = page,
                 TotalCount = totalRow,
                 TotalPages = totalPage
             };
-            return View();
+            return View(paginationSet);
         }
-		public ActionResult LandNewsByProvince(int provinceID, int page = 1, string sort = "")
-		{
-            string filter = "ln.ProvinceID = " + provinceID;
+		public ActionResult LandNewsByProvince(int id, int page = 1, string sort = "")//provinceID
+        {
+            var provinceDetail = _addressCommonService.GetDetailProvinceByID(id);
+            ViewBag.ProvinceName = provinceDetail.Name;
+            var categoryWard = _addressCommonService.GetTotalLandNewsOfWards(571).ToList();
+            ViewBag.CategoryWard = categoryWard;
+            string filter = "ln.ProvinceID = " + id + " and ln.IsDelete = 0 and ln.IsPublished = 1";
             int pageSize = int.Parse(ConfigHelper.GetByKey("PageSize"));
             int totalRow = 0;
             var lstLandNews = _landNewsService.GetAllByFilter(filter, sort, page, pageSize).ToList();
-            if (lstLandNews != null && lstLandNews.Count() != 0)
+            var lstLandNewsVm = Mapper.Map<IEnumerable<LandNewsFilterViewModel>, IEnumerable<LandNewsViewModel>>(lstLandNews);
+            if (lstLandNewsVm != null && lstLandNewsVm.Count() != 0)
             {
-                totalRow = lstLandNews[0].Total;
+                totalRow = lstLandNewsVm.Count();
             }
-
             int totalPage = (int)Math.Ceiling((double)totalRow / pageSize);
 
-            var paginationSet = new PaginationSet<LandNewsFilterViewModel>()
+            var paginationSet = new PaginationSet<LandNewsViewModel>()
             {
-                Items = lstLandNews,
+                Items = lstLandNewsVm,
                 MaxPage = int.Parse(ConfigHelper.GetByKey("MaxPage")),
                 Page = page,
                 TotalCount = totalRow,
                 TotalPages = totalPage
             };
-            return View();
+            return View(paginationSet);
         }
 
 		public ActionResult SearchLandNews()

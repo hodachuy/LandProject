@@ -270,6 +270,7 @@
     <Compile Include="Areas\Admin\Controllers\LProjectCategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\LProjectController.cs" />
     <Compile Include="Areas\Admin\Controllers\MenuController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PostController.cs" />
     <Compile Include="Areas\Admin\Controllers\VisitorController.cs" />
     <Compile Include="Areas\Admin\Infrastructure\Core\BaseController.cs" />
     <Compile Include="Controllers\AccountController.cs" />

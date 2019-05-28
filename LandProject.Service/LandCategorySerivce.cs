@@ -63,7 +63,7 @@ namespace LandProject.Service
 
 		public LandCategory GetByID(int landCategoryID)
 		{
-			return _landCategoryRepository.GetSingleById(landCategoryID);
+            return _landCategoryRepository.GetSingleByCondition(x => x.ID == landCategoryID, new string[] { "LandType" });
 		}
 
 		public IEnumerable<LandCategory> GetByLandTypeID(int lTypeID)

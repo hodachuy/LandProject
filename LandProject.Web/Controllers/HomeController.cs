@@ -34,7 +34,17 @@ namespace LandProject.Web.Controllers
 		{
             var homeViewModel = new HomeViewModel();
             var categoryWard = _addressCommonService.GetTotalLandNewsOfWards(571).ToList();
+            string filterSaleRent = "ln.LandTypeID < 3";
+            var lstLandNewsSaleRent = _landNewsService.GetAllByFilter(filterSaleRent, "", 1, 20).ToList();
+            var lstLandNewsSaleRentVm = Mapper.Map<IEnumerable<LandNewsFilterViewModel>, IEnumerable<LandNewsViewModel>>(lstLandNewsSaleRent);
+
+            string filterBuyRent = "ln.LandTypeID > 2";
+            var lstLandNewsBuyRent = _landNewsService.GetAllByFilter(filterBuyRent, "", 1, 20).ToList();
+            var lstLandNewsBuyRentVm = Mapper.Map<IEnumerable<LandNewsFilterViewModel>, IEnumerable<LandNewsViewModel>>(lstLandNewsBuyRent);
+
             homeViewModel.CategoryWard = categoryWard;
+            homeViewModel.LandNewsSaleAndRent = lstLandNewsSaleRentVm;
+            homeViewModel.LandNewsBuyAndRent = lstLandNewsBuyRentVm;
             return View(homeViewModel);
 		}
 

@@ -17,6 +17,28 @@
     <!--[if lt IE 10]><div style="background: #212121; padding: 10px 0; box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3); clear: both; text-align:center; position: relative; z-index:1;"><a href="https://windows.microsoft.com/en-US/internet-explorer/"><img src="images/ie8-panel/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div><script src="js/html5shiv.min.js"></script><![endif]-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     @RenderSection("css", required: false)
+    <link href="~/assets/vendors/select2/dist/css/select2.min.css" rel="stylesheet" />
+    <style>
+        /*Combobox*/
+        .select2-container--default .select2-selection--single {
+            height: 50px;
+            border: 1px solid #e7e7e7;
+            padding: 11px 20px 13px;
+        }
+
+        .select2-container .select2-selection--single {
+            height: 50px;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow {
+            height: 50px;
+        }
+
+        .select2-container {
+            float: left;
+            width: 100%;
+        }
+    </style>
 </head>
 
 <body>
@@ -77,10 +99,12 @@
     <!-- domain -->
     <script> var _Host = "@Url.Content("~")";</script>
     <script src="~/assets/client/js/jquery.js"></script>
+    <script src="~/assets/vendors/select2/dist/js/select2.full.js"></script>
     <!-- ajax helper -->
     <script src="~/assets/library/helper/CallServiceHelper.js"></script>
     <!-- count ipv4 -->
     <script src="~/assets/client/js/countIPv4AccessPage.js"></script>
+    <script src="~/assets/client/js/search.js"></script>
 
     @RenderSection("footerJS", required: false)
 </body>
