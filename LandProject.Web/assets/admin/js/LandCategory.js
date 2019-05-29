@@ -24,6 +24,7 @@ $(document).ready(function () {
     })
     $('body').on('click', '#saveLandCategory', function () {
         if (checkValid()) {
+            LandCategoryModel.ID = 0;
             LandCategoryModel.Name = $('#txtLandCategoryName').val();
             LandCategoryModel.Alias = new commonService().getSeoTitle($('#txtLandCategoryName').val());
             LandCategoryModel.IsDelete = false;
@@ -173,6 +174,11 @@ var Columns = [
             title: "Tiện ích",
             attributes: { style: "text-align: center; overflow : visible; cursor: pointer", },
             headerAttributes: { style: "text-align: center" },
+        },
+                {
+            template: '#=data.ID#',
+            field: "ID",
+            title: "ID",
         },
         {
             template: '#=data.Name#',

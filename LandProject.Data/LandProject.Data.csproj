@@ -114,6 +114,10 @@
     <Compile Include="Migrations\201905230202244_UpdateLType.Designer.cs">
       <DependentUpon>201905230202244_UpdateLType.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201905281511479_UpdateLandNews123.cs" />
+    <Compile Include="Migrations\201905281511479_UpdateLandNews123.Designer.cs">
+      <DependentUpon>201905281511479_UpdateLandNews123.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AgentRepository.cs" />
@@ -194,6 +198,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201905230202244_UpdateLType.resx">
       <DependentUpon>201905230202244_UpdateLType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201905281511479_UpdateLandNews123.resx">
+      <DependentUpon>201905281511479_UpdateLandNews123.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

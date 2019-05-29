@@ -178,6 +178,11 @@ var Columns = [
             attributes: { style: "text-align: center; overflow : visible; cursor: pointer", },
             headerAttributes: { style: "text-align: center" },
         },
+         {
+            template: '#=data.ID#',
+            field: "ID",
+            title: "ID",
+        },
         {
             template: '#=data.Name#',
             field: "Name",

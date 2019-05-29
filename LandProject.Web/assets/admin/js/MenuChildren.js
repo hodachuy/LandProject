@@ -26,9 +26,9 @@ $(document).ready(function () {
         LoadComboBoxWithServices(element, urlMenuGroup, null, "ID", "Name", null, "Chọn danh mục đa cấp", false, null, function () { }, null);
 
         $('#txtMenuChildName').val('');
-        $('#txtMenuChildDisplayOrder').val();
-        $('#txtMenuChildTarget').val();
-        $('#txtMenuChildURL').val();
+        $('#txtMenuChildDisplayOrder').val('');
+        $('#txtMenuChildTarget').val('');
+        $('#txtMenuChildURL').val('');
         $("#MenuChildModel").modal({
             backdrop: 'static',
             keyboard: true,
@@ -209,7 +209,7 @@ var Columns = [
             filterable: false,
         },
         {
-            template: '#=data.MenuGroupName#',
+            template: '#=data.NameMenuGroup#',
             field: "MenuGroupID",
             title: "Thuộc danh mục cha",
             filterable: {

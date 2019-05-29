@@ -25,12 +25,12 @@
                     </ul>
                 </li>
 
-                <li role="presentation" class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                <li role="presentation" class="dropdown" id="readNotify">
+                    <a href="javascript:void(0)" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-bell-o"></i>
-                        <span class="badge bg-green"></span>
+                        <span class="badge bg-green" id="numberNotify"></span>
                     </a>
-                    <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                    <ul id="lst-notify" class="dropdown-menu list-unstyled msg_list" role="menu">
                         @*<li>
                             <a>
                                 <span class="image"><img src="~/assets/vendors/images/img.jpg" alt="Profile Image" /></span>
@@ -43,14 +43,7 @@
                                 </span>
                             </a>
                         </li>*@
-                        <li>
-                            <div class="text-center">
-                                <a>
-                                    <strong>Xem tất cả</strong>
-                                    <i class="fa fa-angle-right"></i>
-                                </a>
-                            </div>
-                        </li>
+                        
                     </ul>
                 </li>
             </ul>
@@ -64,6 +57,8 @@
             $('#frmLogout').submit();
         });
     </script>
+
+ 
 }
 
 

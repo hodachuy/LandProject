@@ -130,9 +130,19 @@
                             <dt>
                                 <span class="mdi mdi-login icon-xxs-mod-2"></span>
                             </dt>
-                            <dd>
-                                <a href="/dang-nhap.html" class="text-sushi">Đăng ký/Đăng nhập</a>
-                            </dd>
+                            @if (userInfo != null)
+                            {
+                                <dd>
+                                    <span>@userInfo.UserName</span><a href="#" id="btnLogout"> / đăng xuất</a>
+                                </dd>
+                            }
+                            else
+                            {
+                                <dd>
+                                    <a href="/dang-nhap.html" class="text-sushi">Đăng ký/Đăng nhập</a>
+                                </dd>
+                            }
+
                         </dl>
                         <div class="top-panel-inner">
                             <dl class="dl-horizontal-mod-1">

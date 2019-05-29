@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Rao vặt nhà đất | Quảng cáo nhà đất miễn phí";
     Layout = "~/Views/Shared/_LayoutLand.cshtml";
+    var categoryWard = (IEnumerable<LandProject.Common.CountLandNewsDistrictViewModel>)ViewBag.CategoryWard;
 }
 
 @section css{
@@ -163,7 +164,7 @@
                                     </div>
 
                                     <div class="col-xs-12 col-md-6 col-lg-6 form-group">
-                                        <label for="name" class="form-label rd-input-label">Tổng tiền: (diện tích x giá x đơn vị)</label>
+                                        <label for="name" class="form-label rd-input-label">Tổng tiền</label>
                                         <input type="text" name="TotalPrice" id="TotalPrice" class="form-control" disabled="disabled" style="background-color: white;">
                                         <input type="text" name="DecimalTotalPrice" id="DecimalTotalPrice" class="form-control hidden">
                                     </div>
@@ -346,27 +347,16 @@
                     <div class="sidebar-module">
                         <h4 class="font-seogui">Vị trí bất động sản</h4>
                         <ul class="list-marked">
-                            <li>
-                                <a href="#" class="text-sushi">Vạn </a>
-                            </li>
-                            <li>
-                                <a href="#" class="text-sushi">Market Report</a>
-                            </li>
-                            <li>
-                                <a href="#" class="text-sushi">Buying a Foreclosure</a>
-                            </li>
-                            <li>
-                                <a href="#" class="text-sushi">Pricing Your Home to Sell</a>
-                            </li>
-                            <li>
-                                <a href="#" class="text-sushi">Your Strategic Sales Plan</a>
-                            </li>
-                            <li>
-                                <a href="#" class="text-sushi">Find Your Home's Value</a>
-                            </li>
-                            <li>
-                                <a href="#" class="text-sushi">Short Sale Selling</a>
-                            </li>
+                            @if (categoryWard.Count() != 0)
+                            {
+                                foreach (var item in categoryWard)
+                                {
+                                    var url = "/nha-dat/" + HttpUtility.HtmlDecode(item.Name) + ".w-" + item.ID + ".html";
+                                    <li>
+                                        <a href="@url" class="text-sushi">@item.Name (@item.TotalLandNews)</a>
+                                    </li>
+}
+                            }
                         </ul>
                     </div>
 
@@ -383,44 +373,48 @@
             <div class="col-xs-12 col-sm-12 col-md-4 inset-7 text-center text-md-left search">
                 <h5 class="border-bottom font-seogui" style="margin-bottom: 15px;">Tìm kiếm</h5>
                 <div class="post-news">
-                    <div class="form-group">
-                        <label for="select-1" class="form-label">Loại nhà đất</label>
-                        <!--Select 2-->
-                        <select id="TypePlan" class="form-control">
-                            <option value="0">-- Hình thức --</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Tỉnh/Thành phố</label>
-                        <!--Select 2-->
-                        <select id="Province" onchange="LoadDistrictsSearch();" type="text" class="form-control">
-                            <option value="0">-- Tỉnh/thành phố --</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="select-3" class="form-label">Quận/Huyện</label>
-                        <!--Select 2-->
-                        <select id="District" class="form-control">
-                            <option value="0">-- Quận/huyện --</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="price" class="form-label">Mức giá</label>
-                        <div class="form-inline-flex-xs">
-                            <input id="price" type="text" name="min-price" placeholder="100" class="form-control price">
-                            <span class="text-abbey dash">–</span>
-                            <input id="max-price" type="text" name="max-price" placeholder="10000" class="form-control price">
+                    <form action="@Url.Content("~/tim-kiem/tin-nha-dat.html")">
+                        <div class="form-group">
+                            <label for="select-1" class="form-label">Loại nhà đất</label>
+                            <!--Select 2-->
+                            <select id="TypePlan" class="form-control" name="landtype">
+                                <option value="0">-- Hình thức --</option>
+                            </select>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="area" class="form-label">Diện tích</label>
-                        <div class="form-inline-flex-xs">
-                            <input id="area" type="text" name="min-area" placeholder="1500" class="form-control price">
-                            <span class="text-abbey dash">–</span>
-                            <input id="max-area" type="text" name="max-area" placeholder="22000" class="form-control price">
+                        <div class="form-group">
+                            <label class="form-label">Tỉnh/Thành phố</label>
+                            <!--Select 2-->
+                            <select id="Province" onchange="LoadDistrictsSearch();" type="text" class="form-control" name="province">
+                                <option value="0">-- Tỉnh/thành phố --</option>
+                            </select>
                         </div>
-                    </div>
-                    <button type="submit" class="btn btn-sushi btn-sm btn-min-width-mod-3">TÌM KIẾM</button>
+                        <div class="form-group">
+                            <label for="select-3" class="form-label">Quận/Huyện</label>
+                            <!--Select 2-->
+                            <select id="District" class="form-control" name="district">
+                                <option value="0">-- Quận/huyện --</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="price" class="form-label">Mức giá</label>
+                            <div class="form-inline-flex-xs">
+                                <input id="price" type="text" name="minprice" placeholder="0" class="form-control price">
+                                <span class="text-abbey dash">–</span>
+                                <input id="max-price" type="text" name="maxprice" placeholder="0" class="form-control price">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="area" class="form-label">Diện tích</label>
+                            <div class="form-inline-flex-xs">
+                                <input id="area" type="text" name="minarea" placeholder="0" class="form-control">
+                                <span class="text-abbey dash">–</span>
+                                <input id="max-area" type="text" name="maxarea" placeholder="0" class="form-control">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-sushi btn-sm btn-min-width-mod-3">TÌM KIẾM</button>
+
+                    </form>
+                    
                 </div>
             </div>
         </div>
@@ -435,5 +429,6 @@
     <script src="~/assets/client/js/commont.js"></script>
     <script src="~/assets/client/js/upload-file.js"></script>
     <script src="~/assets/client/js/need-sale-and-for-rent.js"></script>
+    
 
 }

@@ -90,5 +90,7 @@ namespace LandProject.Model.Models
 
 		public bool IsSale { set; get; }
 
+		public DateTime? PublishedDate { set; get; }
+
 	}
 }

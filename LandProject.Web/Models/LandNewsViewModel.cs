@@ -111,7 +111,11 @@ namespace LandProject.Web.Models
 
         public bool IsSale { set; get; }
 
-        public virtual IEnumerable<LandFileViewModel> LandFiles { set; get; }
+		public int LandTypeSortOrder { set; get; }
+
+		public DateTime? PublishedDate { set; get; }
+
+		public virtual IEnumerable<LandFileViewModel> LandFiles { set; get; }
         public virtual AgentViewModel Agent  { set; get; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using LandProject.Common;
 using LandProject.Model.Models;
 using LandProject.Service;
+using LandProject.Web.Hubs;
 using LandProject.Web.Infrastructure.Extensions;
 using LandProject.Web.Models;
 using System;
@@ -19,14 +20,22 @@ namespace LandProject.Web.Controllers
         private ILandNewsService _landNewsService;
         private IAgentService _agentService;
         private ILandFileService _landFileService;
-        public PostingNewsController(ILandNewsService landNewsService,
+		private INotifyService _notifyService;
+		private IAddressCommonService _addressCommonService;
+
+		public PostingNewsController(ILandNewsService landNewsService,
                                      IAgentService agentService,
-                                     ILandFileService landFileService)
+                                     ILandFileService landFileService,
+									 INotifyService notifyService,
+									 IAddressCommonService addressCommonService)
         {
             _landNewsService = landNewsService;
             _agentService = agentService;
             _landFileService = landFileService;
-        }
+			_notifyService = notifyService;
+			_addressCommonService = addressCommonService;
+
+		}
         // GET: News
         public ActionResult Index()
         {
@@ -34,11 +43,15 @@ namespace LandProject.Web.Controllers
         }
         public ActionResult NeedSaleAndForRent()
         {
-            return View();
+			var categoryWard = _addressCommonService.GetTotalLandNewsOfWards(571).ToList();
+			ViewBag.CategoryWard = categoryWard;
+			return View();
         }
         public ActionResult NeedBuyAndNeedRent()
         {
-            return View();
+			var categoryWard = _addressCommonService.GetTotalLandNewsOfWards(571).ToList();
+			ViewBag.CategoryWard = categoryWard;
+			return View();
         }
 
         [HttpPost]
@@ -54,108 +67,125 @@ namespace LandProject.Web.Controllers
                 });
             }
             var captchaCode = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue, RecursionLimit = 100 }.Deserialize<string>(formCatpcha);
-            if (Session["Captcha"].ToString() != captchaCode)
-            {
-                return Json(new
-                {
-                    message = "Mã captcha không đúng.",
-                    status = false
-                });
-            }
-            else
-            {
-                // thông tin đất
-                var landNewsJson = System.Web.HttpContext.Current.Request.Unvalidated.Form["landnews"];
-                if (landNewsJson == null)
-                {
-                    return Json(new
-                    {
-                        message = "Vui lòng cung cấp dữ liệu.",
-                        status = false
-                    });
-                }
-                var landNewsVm = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue, RecursionLimit = 100 }.Deserialize<LandNewsViewModel>(landNewsJson);
-                if (!ModelState.IsValid)
-                {
-                    return Json(new
-                    {
-                        message = ModelState,
-                        status = false
-                    });
-                }
+			//if (Session["Captcha"].ToString() != captchaCode)
+			//{
+			//    return Json(new
+			//    {
+			//        message = "Mã captcha không đúng.",
+			//        status = false
+			//    });
+			//}
+			//else
+			//{
 
-                // thông tin liên hệ
-                var agentJson = System.Web.HttpContext.Current.Request.Unvalidated.Form["agent"];
-                if (agentJson == null)
-                {
-                    return Json(new
-                    {
-                        message = "Vui lòng cung cấp dữ liệu.",
-                        status = false
-                    });
-                }
-                var agentVm = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue, RecursionLimit = 100 }.Deserialize<AgentViewModel>(agentJson);
+			//}
+			// thông tin đất
+			var landNewsJson = System.Web.HttpContext.Current.Request.Unvalidated.Form["landnews"];
+			if (landNewsJson == null)
+			{
+				return Json(new
+				{
+					message = "Vui lòng cung cấp dữ liệu.",
+					status = false
+				});
+			}
+			var landNewsVm = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue, RecursionLimit = 100 }.Deserialize<LandNewsViewModel>(landNewsJson);
+			if (!ModelState.IsValid)
+			{
+				return Json(new
+				{
+					message = ModelState,
+					status = false
+				});
+			}
 
-                // save landfile
-                var files = System.Web.HttpContext.Current.Request.Files;
-                List<LandFile> lstLandFile = new List<LandFile>();
-                if (files.Count != 0)
-                {
-                    for (int i = 0; i < files.Count; i++)
-                    {
-                        var file = files[i];
-                        Guid id = Guid.NewGuid();
-                        string extentsion = new FileInfo(file.FileName).Extension.ToLower();
-                        string fileName = id + "-" + new FileInfo(file.FileName).Name;
-                        file.SaveAs(Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/fileman/Uploads/")
-                        + CommonConstants.FolderLandNews + "/" + fileName));
+			// thông tin liên hệ
+			var agentJson = System.Web.HttpContext.Current.Request.Unvalidated.Form["agent"];
+			if (agentJson == null)
+			{
+				return Json(new
+				{
+					message = "Vui lòng cung cấp dữ liệu.",
+					status = false
+				});
+			}
+			var agentVm = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue, RecursionLimit = 100 }.Deserialize<AgentViewModel>(agentJson);
 
-                        var fileImage = new LandFile()
-                        {
-                            FileName = fileName,
-                            Extension = extentsion,
-                            LandNewsID = 0,
-                        };
-                        lstLandFile.Add(fileImage);
-                    }
-                }
+			// save landfile
+			var files = System.Web.HttpContext.Current.Request.Files;
+			List<LandFile> lstLandFile = new List<LandFile>();
+			if (files.Count != 0)
+			{
+				for (int i = 0; i < files.Count; i++)
+				{
+					var file = files[i];
+					Guid id = Guid.NewGuid();
+					string extentsion = new FileInfo(file.FileName).Extension.ToLower();
+					string fileName = id + "-" + new FileInfo(file.FileName).Name;
+					file.SaveAs(Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/fileman/Uploads/")
+					+ CommonConstants.FolderLandNews + "/" + fileName));
+
+					var fileImage = new LandFile()
+					{
+						FileName = fileName,
+						Extension = extentsion,
+						LandNewsID = 0,
+					};
+					lstLandFile.Add(fileImage);
+				}
+			}
 
 
-                // save agent
-                Agent agentDb = new Agent();
-                agentDb.UpdateAgent(agentVm);
-                _agentService.Add(agentDb);
-                _agentService.Save();
+			// save agent
+			Agent agentDb = new Agent();
+			agentDb.UpdateAgent(agentVm);
+			_agentService.Add(agentDb);
+			_agentService.Save();
 
-                // save landnews
-                LandNews landNewsDb = new LandNews();
-                landNewsDb.AgentID = agentDb.ID;
-                landNewsDb.Code = DateTime.Now.ToString("ddMMyyyy") + agentDb.ID;
-                landNewsDb.UpdateLandNews(landNewsVm);
-                if(lstLandFile.Count() != 0)
-                {
-                    landNewsDb.Image = lstLandFile[0].FileName;
-                }
-                _landNewsService.Add(landNewsDb);
-                _landNewsService.Save();
+			// save landnews
+			LandNews landNewsDb = new LandNews();
+			landNewsDb.AgentID = agentDb.ID;
+			landNewsDb.Code = DateTime.Now.ToString("ddMMyyyy") + agentDb.ID;
+			landNewsDb.UpdateLandNews(landNewsVm);
+			if (lstLandFile.Count() != 0)
+			{
+				landNewsDb.Image = lstLandFile[0].FileName;
+			}
+			_landNewsService.Add(landNewsDb);
+			_landNewsService.Save();
 
-                if (lstLandFile.Count() != 0)
-                {
-                    foreach(var item in lstLandFile)
-                    {
-                        item.LandNewsID = landNewsDb.ID;
-                        _landFileService.Add(item);
-                    }
-                    _landFileService.Save();
-                }
+			if (lstLandFile.Count() != 0)
+			{
+				foreach (var item in lstLandFile)
+				{
+					item.LandNewsID = landNewsDb.ID;
+					_landFileService.Add(item);
+				}
+				_landFileService.Save();
+			}
 
-                return Json(new
-                {
-                    code = landNewsDb.Code,// return mã tin nhắn của bạn
-                    status = true
-                });
-            }
-        }
+
+			Notify notify = new Notify();
+			notify.TableName = "LandNews";
+			notify.TableItemID = landNewsDb.ID;
+			notify.CreatedDate = DateTime.Now;
+			notify.Message = "Hệ thống vừa nhận được tin nhà đất mới. Mã tin " + landNewsDb.Code + " - Thuộc tin " + landNewsVm.LandTypeName;
+			notify.URL = "/Admin/LandNews/Form?lTypeID=" + landNewsVm.LandTypeID + "&amp;lTypeName=" + landNewsVm.LandTypeName + "";
+			notify.IsRead = false;
+			_notifyService.Add(notify);
+			_notifyService.Save();
+
+			Notification.GetNotifys();
+
+
+
+			return Json(new
+			{
+				code = landNewsDb.Code,// return mã tin nhắn của bạn
+				status = true
+			});
+
+		}
 
 
         /// <summary>

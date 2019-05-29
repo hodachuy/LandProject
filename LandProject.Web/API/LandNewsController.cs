@@ -115,6 +115,7 @@ namespace LandProject.Web.API
                 }
                 var landNews = _landNewsService.GetLandNewsDbModelByID(landNewsID);
                 landNews.IsPublished = true;
+				landNews.PublishedDate = DateTime.Now;
                 _landNewsService.PublishedLandNews(landNews);
                 _landNewsService.Save();
                 //var landNewsVm = Mapper.Map<LandNewsFilterViewModel, LandNewsViewModel>(landNews);

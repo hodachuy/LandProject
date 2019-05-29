@@ -252,6 +252,7 @@
     <Compile Include="API\LProjectController.cs" />
     <Compile Include="API\MenuController.cs" />
     <Compile Include="API\MenuGroupController.cs" />
+    <Compile Include="API\NotifyController.cs" />
     <Compile Include="API\VisitorController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -280,6 +281,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Hubs\Notification.cs" />
     <Compile Include="Infrastructure\Core\ApiControllerBase.cs" />
     <Compile Include="Infrastructure\Core\BaseController.cs" />
     <Compile Include="Infrastructure\Core\PaginationSet.cs" />
@@ -298,6 +300,7 @@
     <Compile Include="Models\HomeViewModel.cs" />
     <Compile Include="Models\LandCategoryViewModel.cs" />
     <Compile Include="Models\LandFileViewModel.cs" />
+    <Compile Include="Models\LandNewsDetailViewModel.cs" />
     <Compile Include="Models\LandNewsScheduleViewModel.cs" />
     <Compile Include="Models\LandNewsViewModel.cs" />
     <Compile Include="Models\LandTypeViewModel.cs" />
@@ -306,6 +309,8 @@
     <Compile Include="Models\LProjectViewModel.cs" />
     <Compile Include="Models\MenuGroupViewModel.cs" />
     <Compile Include="Models\MenuViewModel.cs" />
+    <Compile Include="Models\NotifyViewModel.cs" />
+    <Compile Include="Models\PostViewModel.cs" />
     <Compile Include="Models\ProvinceViewModel.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Models\WardViewModel.cs" />
@@ -337,7 +342,11 @@
     <Content Include="assets\client\css\font-awesome-4.6.3\fonts\fontawesome-webfont.svg" />
     <Content Include="assets\client\css\font-awesome-4.6.3\HELP-US-OUT.txt" />
     <Content Include="assets\client\css\need-buy-and-need-rent.css" />
+    <Content Include="assets\client\css\select2\select2.min.css" />
+    <Content Include="assets\client\css\select2\select2.min.js" />
     <Content Include="assets\client\css\style.css" />
+    <Content Include="assets\client\img\20190521083015-57ca.jpg" />
+    <Content Include="assets\client\img\20190522155946-e1fc.jpg" />
     <Content Include="assets\client\img\Ban_do_quy_hoach_bac_van_phong.jpg" />
     <Content Include="assets\client\img\gmap_marker.png" />
     <Content Include="assets\client\img\gmap_marker_active.png" />
@@ -2108,7 +2117,6 @@
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="assets\admin\img\" />
     <Folder Include="assets\admin\libs\" />
-    <Folder Include="assets\client\css\select2\" />
     <Folder Include="fileman\aspnet_client\system_web\2_0_50727\" />
     <Folder Include="fileman\aspnet_client\system_web\4_0_30319\" />
     <Folder Include="fileman\tmp\" />

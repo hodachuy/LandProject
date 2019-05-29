@@ -68,7 +68,9 @@ namespace LandProject.Common
 
         public DateTime? CreatedDate { set; get; }
 
-        public string CreatedBy { set; get; }
+		public DateTime? PublishedDate { set; get; }
+
+		public string CreatedBy { set; get; }
 
         public DateTime? UpdatedDate { set; get; }
 
@@ -95,6 +97,8 @@ namespace LandProject.Common
         public bool IsPublished { set; get; }
 
         public bool IsSale { set; get; }
+
+		public int LandTypeSortOrder { set; get; }
 
         public int Total { set; get; }
 

@@ -37,7 +37,21 @@ namespace LandProject.Web.API
             });
         }
 
-        [Route("getalltable")]
+		[Route("getallbuyrent")]
+		[HttpGet]
+		public HttpResponseMessage GetAllLandTypeBuyRent(HttpRequestMessage request)
+		{
+			return CreateHttpResponse(request, () =>
+			{
+				HttpResponseMessage response;
+				var lstLandType = _landTypeService.GetAll().Where(x =>x.SortOrder > 2);
+				var lstLandTypeVm = Mapper.Map<IEnumerable<LandType>, IEnumerable<LandTypeViewModel>>(lstLandType);
+				response = request.CreateResponse(HttpStatusCode.OK, lstLandTypeVm);
+				return response;
+			});
+		}
+
+		[Route("getalltable")]
         [HttpPost]
         public HttpResponseMessage GetAllToTable(HttpRequestMessage request, Request rqFilter)
         {

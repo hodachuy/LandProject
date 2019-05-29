@@ -15,9 +15,9 @@ $(document).ready(function () {
         $('#form').validationEngine('hide');
         TypeActionAdd = true;
         $('#txtMenuGroupName').val('');
-        $('#txtMenuGroupDisplayOrder').val();
-        $('#txtMenuGroupTarget').val();
-        $('#txtMenuGroupURL').val();
+        $('#txtMenuGroupDisplayOrder').val('');
+        $('#txtMenuGroupTarget').val('');
+        $('#txtMenuGroupURL').val('');
         $("#MenuGroupModel").modal({
             backdrop: 'static',
             keyboard: true,

@@ -1,8 +1,245 @@
-﻿
+﻿@model LandProject.Web.Infrastructure.Core.PaginationSet<LandProject.Web.Models.LandNewsViewModel>
 @{
-    ViewBag.Title = "LandNewsByLandCategory";
+    var pageIndex = Model.Page;
+    ViewBag.Title = pageIndex == 1 ? ViewBag.LandCategoryName : ViewBag.LandCategoryName + " - Trang " + pageIndex;
+    var categoryWard = (IEnumerable<LandProject.Common.CountLandNewsDistrictViewModel>)ViewBag.CategoryWard;
     Layout = "~/Views/Shared/_LayoutLand.cshtml";
 }
+<style>
+    @@media (min-width: 1200px) {
+        .section-sm {
+            padding-top: 0px;
+            padding-bottom: 0px;
+        }
+    }
 
-<h2>LandNewsByLandCategory</h2>
+    @@media (min-width: 1200px) {
+        .position-margin-top {
+            margin-top: 0px;
+            position: relative;
+            z-index: 1;
+        }
+    }
+
+    @@media (min-width: 768px) {
+        .thumbnail.media.media-mod-2 img {
+            width: 270px;
+            height: 180px;
+        }
+    }
+
+    @@media (min-width: 1200px) {
+        * + .row {
+            margin-top: 30px;
+        }
+    }
+</style>
+<section class="section-full text-left">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1>Tin nhà đất</h1>
+                <p></p>
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="/">Trang chủ</a>
+                    </li>
+                    <li>
+                        <a href="/">@ViewBag.LandTypeName</a>
+                    </li>
+                    <li class="active">@ViewBag.LandCategoryName</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section-sm section-bottom-0 undefined text-left">
+    <div class="container position-margin-top position-margin-top-mod-1">
+        <div class="search-form-wrap bg-white container-shadow">
+            <form name="search-form" class="form-variant-1" action="@Url.Content("~/tim-kiem/tin-nha-dat.html")">
+                <div class="form-group">
+                    <label for="select-1" class="form-label">Loại nhà đất</label>
+                    <!--Select 2-->
+                    <select id="TypePlan" class="form-control" name="landtype">
+                        <option value="0">-- Hình thức --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Tỉnh/Thành phố</label>
+                    <!--Select 2-->
+                    <select id="Province" onchange="LoadDistrictsSearch();" type="text" class="form-control" name="province">
+                        <option value="0">-- Tỉnh/thành phố --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="select-3" class="form-label">Quận/Huyện</label>
+                    <!--Select 2-->
+                    <select id="District" class="form-control" name="district">
+                        <option value="0">-- Quận/huyện --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="price" class="form-label">Mức giá</label>
+                    <div class="form-inline-flex-xs">
+                        <input id="price" type="text" name="minprice" placeholder="0" class="form-control price">
+                        <span class="text-abbey dash">–</span>
+                        <input id="max-price" type="text" name="maxprice" placeholder="0" class="form-control price">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="area" class="form-label">Diện tích</label>
+                    <div class="form-inline-flex-xs">
+                        <input id="area" type="text" name="minarea" placeholder="0" class="form-control">
+                        <span class="text-abbey dash">–</span>
+                        <input id="max-area" type="text" name="maxarea" placeholder="0" class="form-control">
+                    </div>
+                </div>
+                <button class="btn btn-sm btn-sushi btn-min-width-sm">Tìm kiếm</button>
+            </form>
+        </div>
+    </div>
+</section>
+<section class="section-md section-mod-1 text-left">
+    <div class="container">
+        <div class="row p-t-10 p-b-20">
+            <div class="col-xs-12 col-lg-8">
+                <div class="sidebar sidebar-mod-2" style="padding-left:0px">
+                    <div class="sidebar-module">
+                        <h4>@ViewBag.LandCategoryName</h4>
+                        <span> Có <span class="text-sushi">@Model.TotalCount</span> bất động sản</span>
+                    </div>
+                </div>
+                <div class="row">
+                    @if (Model != null && Model.Items.Count() > 0)
+                    {
+                        foreach (var item in Model.Items)
+                        {
+                            var urlDetail = "/" + item.Alias + ".l-" + item.ID + ".html";
+                            <div class="col-xs-12 col-sm-12">
+                                <div class="media thumbnail thumbnail-3 media-mod-2">
+                                    <div class="media-left">
+                                        <a href="@urlDetail" class="img-link">
+                                            <img src="~/fileman/Uploads/LandNews/@item.Image" alt="" width="270" height="180">
+                                        </a>
+                                    </div>
+                                    <div class="media-body caption">
+                                        <h5>
+                                            <a href="@urlDetail" class="text-sushi">@item.Title.ToUpper()</a>
+                                        </h5>
+                                        <span class="thumbnail-price h5">
+                                            @item.TotalPrice
+                                            @*<span class="mon text-regular">month</span>*@
+                                        </span>
+                                        <ul class="describe-1">
+                                            <li>
+                                                <span>
+                                                    Diện tích:
+                                                </span>@item.Area m²
+                                            </li>
+                                            <li>
+                                                <span>Quận/Huyện: </span>@item.ProvinceName,@item.DistrictName,@item.WardName
+                                            </li>
+                                        </ul>
+                                        @*<ul class="describe-2">
+                                                <li>
+                                                    <span class="icon icon-sm icon-primary hotel-icon-05"></span>4 bedrooms
+                                                </li>
+                                                <li>
+                                                    <span class="icon icon-sm icon-primary hotel-icon-26"></span>2 garages
+                                                </li>
+                                            </ul>*@
+                                        @if (!String.IsNullOrEmpty(item.Description))
+                                        {
+                                            if (item.Description.Length > 250)
+                                            {
+                                                <p>@item.Description.Substring(0, 250)<span>...</span></p>
+}
+                                            else
+                                            {
+                                                <p>@item.Description</p>
+}
+                                        }
+
+                                    </div>
+                                </div>
+                            </div>
+}
+                        if (Model.TotalPages > 1)
+                        {
+                            // Create numeric links
+                            var startPageIndex = Math.Max(1, Model.Page - Model.MaxPage / 2);
+                            var endPageIndex = Math.Min(Model.TotalPages, Model.Page + Model.MaxPage / 2);
+
+                            <div class="col-xs-12 text-center text-sm-left offset-11">
+                                <ul class="pagination">
+                                    @if (Model.Page > 1)
+                                    {
+                                        <li>
+                                            <a href="?page=1" aria-label="First">
+                                                <i class="fa fa-angle-double-left"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="?page=@(Model.Page-1)" aria-label="Previous">
+                                                <i class="fa fa-angle-double-left"></i>
+                                            </a>
+                                        </li>
+}
+                                    @for (int i = startPageIndex; i <= endPageIndex; i++)
+                                    {
+                                        if (Model.Page == i)
+                                        {
+                                            <li class="active"><a href="?page=@i" title="Trang @i">@i</a></li>
+}
+                                        else
+                                        {
+                                            <li><a href="?page=@i" title="Trang @i">@i</a></li>
+}
+                                    }
+                                    @if (Model.Page < Model.TotalPages)
+                                    {
+                                        <li>
+                                            <a href="?page=@(Model.Page+1)" aria-label="Next">
+                                                <i class="fa fa-angle-double-right"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="?page=@Model.TotalPages" aria-label="Last">
+                                                <i class="fa fa-angle-double-right"></i>
+                                            </a>
+                                        </li>
+}
+                                </ul>
+                            </div>
+}
+                    }
+                    else
+                    {
+                        @*<span>Không có dữ liệu</span>*@}
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4 inset-7 text-center text-md-left">
+                <div class="sidebar sidebar-mod-2">
+                    <div class="sidebar-module">
+                        <h4 class="font-seogui">Vị trí bất động sản</h4>
+                        <ul class="list-marked">
+                            @if (categoryWard.Count() != 0)
+                            {
+                                foreach (var item in categoryWard)
+                                {
+                                    var url = "/nha-dat/" + HttpUtility.HtmlDecode(item.Name) + ".w-" + item.ID + ".html";
+                                    <li>
+                                        <a href="@url" class="text-sushi">@item.Name (@item.TotalLandNews)</a>
+                                    </li>
+}
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 

@@ -76,7 +76,8 @@ namespace LandProject.Data.Repositories
         public void PublishLandNews(LandNews lnews)
         {
             DbContext.LandNewss.Attach(lnews);
-            DbContext.Entry(lnews).Property(x => x.IsPublished).IsModified = true;
+			DbContext.Entry(lnews).Property(x => x.PublishedDate).IsModified = true;
+			DbContext.Entry(lnews).Property(x => x.IsPublished).IsModified = true;
         }
 
         public void DeleteLandNews(LandNews lnews)

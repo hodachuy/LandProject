@@ -163,6 +163,11 @@ var Columns = [
             headerAttributes: { style: "text-align: center" },
         },
         {
+            template: '#=data.ID#',
+            field: "ID",
+            title: "ID",
+        },
+        {
             template: '#=data.Name#',
             field: "Name",
             title: "Thể loại",

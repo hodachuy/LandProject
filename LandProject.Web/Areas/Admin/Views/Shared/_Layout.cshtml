@@ -71,6 +71,101 @@
 
     <!-- jQuery -->
     <script src="~/assets/vendors/jquery/dist/jquery.min.js"></script>
+
+    <!--signalR-->
+    <script src="~/Scripts/jquery.signalR-2.4.1.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script>
+    var fl = null
+        $(document).ready(function () {
+            CountNotifyNotRead();
+            GetMessageNotify();
+            $("body").on('click', '#readNotify', function () {
+                $.ajax({
+                    url: _Host + 'api/notify/updateall',
+                    dataType: 'json',
+                    cache: false,
+                    type: 'get',
+                    success: function (data) {
+                        console.log(data)
+                        $("#numberNotify").empty();
+                    }
+                });
+            })
+        })
+        var notifications = $.connection.notification;
+        $.connection.hub.logging = true;
+        //{ transport: ['websockets', 'longPolling'], xdomain: true }
+        $.connection.hub.start({ transport: ['longPolling', 'webSockets'] });
+        notifications.client.notify = function (message) {
+            if (message == "AddLandNews") {
+                GetMessageNotify();
+                CountNotifyNotRead();
+            }
+        };
+
+        function CountNotifyNotRead() {
+            $.ajax({
+                url: _Host + 'api/notify/getnoread',
+                dataType: 'json',
+                cache: false,
+                type: 'get',
+                success: function (data) {
+                    console.log(data)
+                    var count = data.TotalCount;
+                    if (count != 0) {
+                        $("#numberNotify").html(count);
+                        flash(1);
+                    } else {
+                        $("#numberNotify").empty();
+                        flash(-1);
+                    }
+                }
+            });
+        }
+        function GetMessageNotify() {
+            $("#lst-notify").empty();
+            $.ajax({
+                url: _Host+'api/notify/getall?page=0&pageSize=10',
+                dataType: 'json',
+                cache: false,
+                type: 'get',
+                success: function (data) {
+                    console.log(data)
+                    var result = data.Items;
+                    var html = '';
+                    $.each(result, function (index, value) {
+                        html += '<li>';
+                        html +=     '<a href="' + value.URL + '">';
+                        html +=         '<span class="message">'+value.Message+'</span>';
+                        html +=         '<span><span class="time">' + value.CreatedDate + '</span></span>'
+                        html +=      '</a>';
+                        html += '</li>';
+                    })
+                    html += '<li>';
+                    html +=        '<div class="text-center">';
+                    html +=            '<a>';
+                    html +=                '<strong>Xem tất cả</strong>';
+                    html +=                '<i class="fa fa-angle-right"></i>';
+                    html +=            '</a>';
+                    html +=        '</div>';
+                    html += '</li>';
+                    $("#lst-notify").append(html);
+                }
+            });
+        }
+
+        function flash(key) {
+            if (key == 1) {
+                fl = setInterval(function () { $('#numberNotify').fadeTo(1200, 0.1).fadeTo(300, 1.0); }, 1500);
+            }
+            else {
+                clearInterval(fl);
+            }
+        }
+    </script>
+
+
     <!-- Bootstrap -->
     <script src="~/assets/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- Kendo -->

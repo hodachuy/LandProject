@@ -223,9 +223,9 @@ function LoadLandType() {
         $("#LandTypeID").select2({
             data: data1
         });
-        $("#TypePlan").select2({
-            data: data1
-        });
+        //$("#TypePlan").select2({
+        //    data: data1
+        //});
     });
 
 };
@@ -304,9 +304,9 @@ function LoadProvince() {
         $("#ProvinceID").select2({
             data: data1
         });
-        $("#Province").select2({
-            data: data1
-        });
+        //$("#Province").select2({
+        //    data: data1
+        //});
     });
    
 };
@@ -346,24 +346,24 @@ function LoadDistricts() {
         }
     });
 }
-function LoadDistrictsSearch() {
-    GetDistricts($("#Province").val(), function (err, result, msg) {
-        $('#District').empty().trigger('change');
-        var data1 = $.map(result, function (obj) {
-            var newObje = {};
-            newObje.id = obj.ID;
-            newObje.text = obj.Name;
-            return newObje;
-        });
-        data1.unshift({
-            id: 0,
-            text: '-- Quận/Huyện --',
-        });
-        $("#District").select2({
-            data: data1
-        });
-    });
-}
+//function LoadDistrictsSearch() {
+//    GetDistricts($("#Province").val(), function (err, result, msg) {
+//        $('#District').empty().trigger('change');
+//        var data1 = $.map(result, function (obj) {
+//            var newObje = {};
+//            newObje.id = obj.ID;
+//            newObje.text = obj.Name;
+//            return newObje;
+//        });
+//        data1.unshift({
+//            id: 0,
+//            text: '-- Quận/Huyện --',
+//        });
+//        $("#District").select2({
+//            data: data1
+//        });
+//    });
+//}
 function GetDistricts(provinceId, callback) {
     $.ajax({
         type: 'GET',
@@ -601,12 +601,13 @@ function SubmitSalePlan() {
             "Image": "",
             "Code": "",
             "Address": $("#Address").val(),
-            "LandTypeID": $("#LandTypeID").val() != "" ?parseInt($("#LandTypeID").val()):0,
+            "LandTypeID": $("#LandTypeID").val() != "" ? parseInt($("#LandTypeID").val()) : 0,
+            "LandTypeName": $("#LandTypeID option:selected").text(),
             "LandCategoryID": $("#LandCategoryID").val() != "" ? parseInt($("#LandCategoryID").val()) : 0,
             "ProvinceID": $("#ProvinceID").val() != "" ? parseInt($("#ProvinceID").val()) : 0,
             "DistrictID": $("#DistrictID").val() != "" ? parseInt($("#DistrictID").val()) : 0,
             "UserID": $("#UserId").val() != "" ? $("#UserId").val() : "",
-            "LandNewsScheduleID": 1,
+            "LandNewsScheduleID": 2,
             "AgentID":0,
             "WardID": $("#WardID").val() != "" ? parseInt($("#WardID").val()) : 0,
             "LProjectID": $("#LProjectID").val() != "" ? parseInt($("#LProjectID").val()) : 0,
@@ -657,26 +658,37 @@ function SubmitSalePlan() {
             dataType: "json",
             success: function (result) {
                 if (result.status == true) {
-                    alert(result.code);
-                    //bootbox.alert({
-                    //    title: "Thông báo",
-                    //    message: "<span style='padding: 10px'>" + result.code+ "</span>",
-                    //    buttons: {
-                    //        ok: {
-                    //            label: 'OK',
-                    //            className: 'btn-success'
-                    //        }
-                    //    },
-                    //    callback: function () { }
-                    //});
+                    //alert(result.code);
+                    bootbox.confirm({
+                        title: "Thông báo",
+                        message: "Mã xác nhận đăng tin của bạn là: " + result.code,
+                        buttons: {
+                            cancel: {
+                                label: 'Đóng',
+                                className: 'btn-primary'
+                            },
+                            confirm: {
+                                label: 'Tiếp tục đăng tin',
+                                className: 'btn-success'
+                            }
+                        },
+                        callback: function (result) {
+                            if (result) {
+                                location.reload();
+                            }else{
+                                location.reload();
+                            }
+                        }
+                    });
                     $("#btnSalePlan").attr('disabled', 'disabled');
                     toastr.info("", "Đăng tin thành công", 3000);
                 } else {
-                    toastr.info("", "Đăng tin thất bại công", 3000);
+                    toastr.info("", "Đăng tin thất bại", 3000);
                 }
             },
             error: function (e) {
-                toastr.info("", "Đăng tin thất bại công", 3000);
+                console.log(e)
+                toastr.info("", "Đăng tin thất bại", 3000);
             }
             });
     }

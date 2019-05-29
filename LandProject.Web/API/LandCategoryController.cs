@@ -135,12 +135,17 @@ namespace LandProject.Web.API
 					response = request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
 					return response;
 				}
-				LandCategory landCategoryDb = new LandCategory();
-				landCategoryDb.UpdateLandCategory(lCategoryVm);
-				_landCategoryService.Update(landCategoryDb);
+				var db = _landCategoryService.GetByID(lCategoryVm.ID);
+				db.Name = lCategoryVm.Name;
+				db.LandTypeID = lCategoryVm.LandTypeID;
+				db.Alias = lCategoryVm.Alias;
+
+				//LandCategory landCategoryDb = new LandCategory();
+				//landCategoryDb.UpdateLandCategory(lCategoryVm);
+				_landCategoryService.Update(db);
 				_landCategoryService.Save();
 
-                var landCategoryVm = Mapper.Map<LandCategory, LandCategoryViewModel>(landCategoryDb);
+                var landCategoryVm = Mapper.Map<LandCategory, LandCategoryViewModel>(db);
                 response = request.CreateResponse(HttpStatusCode.OK, landCategoryVm);
 				return response;
 			});

@@ -1,389 +1,236 @@
-﻿
+﻿@model LandProject.Web.Infrastructure.Core.PaginationSet<LandProject.Web.Models.LandNewsViewModel>
 @{
-    ViewBag.Title = "LandNewsCategory";
+    var pageIndex = Model.Page;
+    ViewBag.Title = pageIndex == 1 ? ViewBag.LandTypeName : ViewBag.LandTypeName + " - Trang " + pageIndex;
+    var categoryWard = (IEnumerable<LandProject.Common.CountLandNewsDistrictViewModel>)ViewBag.CategoryWard;
     Layout = "~/Views/Shared/_LayoutLand.cshtml";
 }
+<style>
+    @@media (min-width: 1200px) {
+        .section-sm {
+            padding-top: 0px;
+            padding-bottom: 0px;
+        }
+    }
 
-<section class="section-full section-full-mod-1 text-left">
+    @@media (min-width: 1200px) {
+        .position-margin-top {
+            margin-top: 0px;
+            position: relative;
+            z-index: 1;
+        }
+    }
+
+    @@media (min-width: 768px) {
+        .thumbnail.media.media-mod-2 img {
+            width: 270px;
+            height: 180px;
+        }
+    }
+
+    @@media (min-width: 1200px) {
+        * + .row {
+            margin-top: 30px;
+        }
+    }
+</style>
+<section class="section-full text-left">
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <h1>Property Catalog</h1>
+                <h1>Tin nhà đất</h1>
                 <p></p>
                 <ol class="breadcrumb">
                     <li>
-                        <a href="index.html">Home</a>
+                        <a href="/">Trang chủ</a>
                     </li>
-                    <li>
-                        <a href="#">Property Catalog</a>
-                    </li>
-                    <li class="active">Property Catalog</li>
+                    <li class="active">@ViewBag.LandTypeName</li>
                 </ol>
             </div>
         </div>
     </div>
 </section>
+
+<section class="section-sm section-bottom-0 undefined text-left">
+    <div class="container position-margin-top position-margin-top-mod-1">
+        <div class="search-form-wrap bg-white container-shadow">
+            <form name="search-form" class="form-variant-1" action="@Url.Content("~/tim-kiem/tin-nha-dat.html")">
+                <div class="form-group">
+                    <label for="select-1" class="form-label">Loại nhà đất</label>
+                    <!--Select 2-->
+                    <select id="TypePlan" class="form-control" name="landtype">
+                        <option value="0">-- Hình thức --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Tỉnh/Thành phố</label>
+                    <!--Select 2-->
+                    <select id="Province" onchange="LoadDistrictsSearch();" type="text" class="form-control" name="province">
+                        <option value="0">-- Tỉnh/thành phố --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="select-3" class="form-label">Quận/Huyện</label>
+                    <!--Select 2-->
+                    <select id="District" class="form-control" name="district">
+                        <option value="0">-- Quận/huyện --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="price" class="form-label">Mức giá</label>
+                    <div class="form-inline-flex-xs">
+                        <input id="price" type="text" name="minprice" placeholder="0" class="form-control price">
+                        <span class="text-abbey dash">–</span>
+                        <input id="max-price" type="text" name="maxprice" placeholder="0" class="form-control price">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="area" class="form-label">Diện tích</label>
+                    <div class="form-inline-flex-xs">
+                        <input id="area" type="text" name="minarea" placeholder="0" class="form-control">
+                        <span class="text-abbey dash">–</span>
+                        <input id="max-area" type="text" name="maxarea" placeholder="0" class="form-control">
+                    </div>
+                </div>
+                <button class="btn btn-sm btn-sushi btn-min-width-sm">Tìm kiếm</button>
+            </form>
+        </div>
+    </div>
+</section>
 <section class="section-md section-mod-1 text-left">
     <div class="container">
-        <div class="row">
-            <div class="col-xs-12 col-sm-3 pull-xs-left text-center text-sm-left">
-                <!-- RD SelectMenu-->
-                <div class="sort-input">
-                    <div class="form-group form-group-mod-1">
-                        <label for="sort-1" class="form-label">Sorting</label>
-                        <!--Select 2-->
-                        <select id="sort-1" data-minimum-results-for-search="Infinity" class="form-control select-filter">
-                            <option value="By Price" selected="selected">By Price</option>
-                            <option value="By Date">By Date</option>
-                            <option value="By Square">By Square</option>
-                            <option value="By Location">By Location</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-4 pull-xs-right text-center text-sm-right">
-                <div class="btn-group-mod-3 sorting">
-                    <a href="property-catalog-list.html" class="btn btn-primary-transparent btn-sm active">List</a>
-                    <a href="property-catalog-grid.html" class="btn btn-primary-transparent btn-sm">Grid</a>
-                </div>
-            </div>
-        </div>
-        <div class="row">
+        <div class="row p-t-10 p-b-20">
             <div class="col-xs-12 col-lg-8">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12">
-                        <div class="media thumbnail thumbnail-3 media-mod-2">
-                            <div class="media-left">
-                                <a href="single-property-page.html" class="img-link">
-                                    <img src="images/index-6.jpg" alt="" width="270" height="180">
-                                </a>
-                            </div>
-                            <div class="media-body caption">
-                                <h4>
-                                    <a href="single-property-page.html" class="text-sushi">Building: 123 on the Park</a>
-                                </h4>
-                                <span class="thumbnail-price h5">
-                                    $4,339.00/
-                                    <span class="mon text-regular">month</span>
-                                </span>
-                                <ul class="describe-1">
-                                    <li>
-                                        <span class="icon-square icon-sm">
-                                            <svg x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve">
-                                            <g>
-                                            <path d="M3.6,75.7h3.6V7.3l85.7-0.1v85.3l-16.7-0.1l0-16.7c0-0.9-0.4-1.9-1-2.5c-0.7-0.7-1.6-1-2.5-1h-69V75.7h3.6                            H3.6v3.6H69L69,96c0,2,1.6,3.6,3.6,3.6l23.8,0.1c1,0,1.9-0.4,2.5-1c0.7-0.7,1-1.6,1-2.5V3.6c0-1-0.4-1.9-1-2.5                            c-0.7-0.7-1.6-1-2.5-1L3.6,0.1C1.6,0.2,0,1.7,0,3.7v72c0,0.9,0.4,1.9,1,2.5c0.7,0.7,1.6,1,2.5,1V75.7z"></path>
-                                            <path d="M38.1,76.9v-9.5c0-1.3-1.1-2.4-2.4-2.4c-1.3,0-2.4,1.1-2.4,2.4v9.5c0,1.3,1.1,2.4,2.4,2.4                            C37,79.3,38.1,78.2,38.1,76.9"></path>
-                                            <path d="M38.1,50.7V15c0-1.3-1.1-2.4-2.4-2.4c-1.3,0-2.4,1.1-2.4,2.4v35.7c0,1.3,1.1,2.4,2.4,2.4                            C37,53.1,38.1,52.1,38.1,50.7"></path>
-                                            <path d="M2.4,38.8h33.3c1.3,0,2.4-1.1,2.4-2.4c0-1.3-1.1-2.4-2.4-2.4H2.4c-1.3,0-2.4,1.1-2.4,2.4                            C0,37.8,1.1,38.8,2.4,38.8"></path>
-                                            <path d="M35.7,46h31c1.3,0,2.4-1.1,2.4-2.4c0-1.3-1.1-2.4-2.4-2.4h-31c-1.3,0-2.4,1.1-2.4,2.4                            C33.3,44.9,34.4,46,35.7,46"></path>
-                                            <path d="M78.6,46h16.7c1.3,0,2.4-1.1,2.4-2.4c0-1.3-1.1-2.4-2.4-2.4H78.6c-1.3,0-2.4,1.1-2.4,2.4                            C76.2,44.9,77.3,46,78.6,46"></path>
-                                            <path d="M78.6,46h16.7c1.3,0,2.4-1.1,2.4-2.4c0-1.3-1.1-2.4-2.4-2.4H78.6c-1.3,0-2.4,1.1-2.4,2.4                            C76.2,44.9,77.3,46,78.6,46"></path>
-                                            <path d="M81,43.6v-7.1c0-1.3-1.1-2.4-2.4-2.4c-1.3,0-2.4,1.1-2.4,2.4v7.1c0,1.3,1.1,2.4,2.4,2.4                            C79.9,46,81,44.9,81,43.6"></path>
-                                            <path d="M81,43.6v-7.1c0-1.3-1.1-2.4-2.4-2.4c-1.3,0-2.4,1.1-2.4,2.4v7.1c0,1.3,1.1,2.4,2.4,2.4                            C79.9,46,81,44.9,81,43.6"></path>
-                            </g>
-                          </svg>
-                                        </span>1200 sq ft
-                                    </li>
-                                    <li>
-                                        <span class="icon icon-sm icon-primary hotel-icon-10"></span>2 bathrooms
-                                    </li>
-                                </ul>
-                                <ul class="describe-2">
-                                    <li>
-                                        <span class="icon icon-sm icon-primary hotel-icon-05"></span>4 bedrooms
-                                    </li>
-                                    <li>
-                                        <span class="icon icon-sm icon-primary hotel-icon-26"></span>2 garages
-                                    </li>
-                                </ul>
-                                <p>Introducing Brooklyn's most unique and genteel address: 123 on the Park. A stately, one-of-a-kind rental residence directly overlooking Brooklyn's famed Prospect Park.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-12">
-                        <div class="media thumbnail thumbnail-3 media-mod-2">
-                            <div class="media-left">
-                                <a href="single-property-page.html" class="img-link">
-                                    <img src="images/index-7.jpg" alt="" width="270" height="180">
-                                </a>
-                            </div>
-                            <div class="media-body caption">
-                                <h4>
-                                    <a href="single-property-page.html" class="text-sushi">225 Maywood Dr, San Francisco, CA 94127</a>
-                                </h4>
-                                <span class="thumbnail-price h5">
-                                    $2,229.00/
-                                    <span class="mon text-regular">month</span>
-                                </span>
-                                <ul class="describe-1">
-                                    <li>
-                                        <span class="icon-square icon-sm">
-                                            <svg x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve">
-                                            <g>
-                                            <path d="M3.6,75.7h3.6V7.3l85.7-0.1v85.3l-16.7-0.1l0-16.7c0-0.9-0.4-1.9-1-2.5c-0.7-0.7-1.6-1-2.5-1h-69V75.7h3.6                            H3.6v3.6H69L69,96c0,2,1.6,3.6,3.6,3.6l23.8,0.1c1,0,1.9-0.4,2.5-1c0.7-0.7,1-1.6,1-2.5V3.6c0-1-0.4-1.9-1-2.5                            c-0.7-0.7-1.6-1-2.5-1L3.6,0.1C1.6,0.2,0,1.7,0,3.7v72c0,0.9,0.4,1.9,1,2.5c0.7,0.7,1.6,1,2.5,1V75.7z"></path>
-                                            <path d="M38.1,76.9v-9.5c0-1.3-1.1-2.4-2.4-2.4c-1.3,0-2.4,1.1-2.4,2.4v9.5c0,1.3,1.1,2.4,2.4,2.4                            C37,79.3,38.1,78.2,38.1,76.9"></path>
-                                            <path d="M38.1,50.7V15c0-1.3-1.1-2.4-2.4-2.4c-1.3,0-2.4,1.1-2.4,2.4v35.7c0,1.3,1.1,2.4,2.4,2.4                            C37,53.1,38.1,52.1,38.1,50.7"></path>
-                                            <path d="M2.4,38.8h33.3c1.3,0,2.4-1.1,2.4-2.4c0-1.3-1.1-2.4-2.4-2.4H2.4c-1.3,0-2.4,1.1-2.4,2.4                            C0,37.8,1.1,38.8,2.4,38.8"></path>
-                                            <path d="M35.7,46h31c1.3,0,2.4-1.1,2.4-2.4c0-1.3-1.1-2.4-2.4-2.4h-31c-1.3,0-2.4,1.1-2.4,2.4                            C33.3,44.9,34.4,46,35.7,46"></path>
-                                            <path d="M78.6,46h16.7c1.3,0,2.4-1.1,2.4-2.4c0-1.3-1.1-2.4-2.4-2.4H78.6c-1.3,0-2.4,1.1-2.4,2.4                            C76.2,44.9,77.3,46,78.6,46"></path>
-                                            <path d="M78.6,46h16.7c1.3,0,2.4-1.1,2.4-2.4c0-1.3-1.1-2.4-2.4-2.4H78.6c-1.3,0-2.4,1.1-2.4,2.4                            C76.2,44.9,77.3,46,78.6,46"></path>
-                                            <path d="M81,43.6v-7.1c0-1.3-1.1-2.4-2.4-2.4c-1.3,0-2.4,1.1-2.4,2.4v7.1c0,1.3,1.1,2.4,2.4,2.4                            C79.9,46,81,44.9,81,43.6"></path>
-                                            <path d="M81,43.6v-7.1c0-1.3-1.1-2.4-2.4-2.4c-1.3,0-2.4,1.1-2.4,2.4v7.1c0,1.3,1.1,2.4,2.4,2.4                            C79.9,46,81,44.9,81,43.6"></path>
-                            </g>
-                          </svg>
-                                        </span>1200 sq ft
-                                    </li>
-                                    <li>
-                                        <span class="icon icon-sm icon-primary hotel-icon-10"></span>2 bathrooms
-                                    </li>
-                                </ul>
-                                <ul class="describe-2">
-                                    <li>
-                                        <span class="icon icon-sm icon-primary hotel-icon-05"></span>4 bedrooms
-                                    </li>
-                                    <li>
-                                        <span class="icon icon-sm icon-primary hotel-icon-26"></span>2 garages
-                                    </li>
-                                </ul>
-                                <p>One of the original homes built at Ocean Beach.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-12">
-                        <div class="media thumbnail thumbnail-3 media-mod-2">
-                            <div class="media-left">
-                                <a href="single-property-page.html" class="img-link">
-                                    <img src="images/index-8.jpg" alt="" width="270" height="180">
-                                </a>
-                            </div>
-                            <div class="media-body caption">
-                                <h4>
-                                    <a href="single-property-page.html" class="text-sushi">2266 48th Ave</a>
-                                </h4>
-                                <span class="thumbnail-price h5">
-                                    $1,339.00/
-                                    <span class="mon text-regular">month</span>
-                                </span>
-                                <ul class="describe-1">
-                                    <li>
-                                        <span class="icon-square icon-sm">
-                                            <svg x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve">
-                                            <g>
-                                            <path d="M3.6,75.7h3.6V7.3l85.7-0.1v85.3l-16.7-0.1l0-16.7c0-0.9-0.4-1.9-1-2.5c-0.7-0.7-1.6-1-2.5-1h-69V75.7h3.6                            H3.6v3.6H69L69,96c0,2,1.6,3.6,3.6,3.6l23.8,0.1c1,0,1.9-0.4,2.5-1c0.7-0.7,1-1.6,1-2.5V3.6c0-1-0.4-1.9-1-2.5                            c-0.7-0.7-1.6-1-2.5-1L3.6,0.1C1.6,0.2,0,1.7,0,3.7v72c0,0.9,0.4,1.9,1,2.5c0.7,0.7,1.6,1,2.5,1V75.7z"></path>
-                                            <path d="M38.1,76.9v-9.5c0-1.3-1.1-2.4-2.4-2.4c-1.3,0-2.4,1.1-2.4,2.4v9.5c0,1.3,1.1,2.4,2.4,2.4                            C37,79.3,38.1,78.2,38.1,76.9"></path>
-                                            <path d="M38.1,50.7V15c0-1.3-1.1-2.4-2.4-2.4c-1.3,0-2.4,1.1-2.4,2.4v35.7c0,1.3,1.1,2.4,2.4,2.4                            C37,53.1,38.1,52.1,38.1,50.7"></path>
-                                            <path d="M2.4,38.8h33.3c1.3,0,2.4-1.1,2.4-2.4c0-1.3-1.1-2.4-2.4-2.4H2.4c-1.3,0-2.4,1.1-2.4,2.4                            C0,37.8,1.1,38.8,2.4,38.8"></path>
-                                            <path d="M35.7,46h31c1.3,0,2.4-1.1,2.4-2.4c0-1.3-1.1-2.4-2.4-2.4h-31c-1.3,0-2.4,1.1-2.4,2.4                            C33.3,44.9,34.4,46,35.7,46"></path>
-                                            <path d="M78.6,46h16.7c1.3,0,2.4-1.1,2.4-2.4c0-1.3-1.1-2.4-2.4-2.4H78.6c-1.3,0-2.4,1.1-2.4,2.4                            C76.2,44.9,77.3,46,78.6,46"></path>
-                                            <path d="M78.6,46h16.7c1.3,0,2.4-1.1,2.4-2.4c0-1.3-1.1-2.4-2.4-2.4H78.6c-1.3,0-2.4,1.1-2.4,2.4                            C76.2,44.9,77.3,46,78.6,46"></path>
-                                            <path d="M81,43.6v-7.1c0-1.3-1.1-2.4-2.4-2.4c-1.3,0-2.4,1.1-2.4,2.4v7.1c0,1.3,1.1,2.4,2.4,2.4                            C79.9,46,81,44.9,81,43.6"></path>
-                                            <path d="M81,43.6v-7.1c0-1.3-1.1-2.4-2.4-2.4c-1.3,0-2.4,1.1-2.4,2.4v7.1c0,1.3,1.1,2.4,2.4,2.4                            C79.9,46,81,44.9,81,43.6"></path>
-                            </g>
-                          </svg>
-                                        </span>1200 sq ft
-                                    </li>
-                                    <li>
-                                        <span class="icon icon-sm icon-primary hotel-icon-10"></span>2 bathrooms
-                                    </li>
-                                </ul>
-                                <ul class="describe-2">
-                                    <li>
-                                        <span class="icon icon-sm icon-primary hotel-icon-05"></span>4 bedrooms
-                                    </li>
-                                    <li>
-                                        <span class="icon icon-sm icon-primary hotel-icon-26"></span>2 garages
-                                    </li>
-                                </ul>
-                                <p>Classic architectural detail, truly superb floor plan &amp; strong upside potential for the next steward to restore this forever home to greatness.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-12">
-                        <div class="media thumbnail thumbnail-3 media-mod-2">
-                            <div class="media-left">
-                                <a href="single-property-page.html" class="img-link">
-                                    <img src="images/index-9.jpg" alt="" width="270" height="180">
-                                </a>
-                            </div>
-                            <div class="media-body caption">
-                                <h4>
-                                    <a href="single-property-page.html" class="text-sushi">1336 N Occidental Blvd</a>
-                                </h4>
-                                <span class="thumbnail-price h5">
-                                    $4,339.00/
-                                    <span class="mon text-regular">month</span>
-                                </span>
-                                <ul class="describe-1">
-                                    <li>
-                                        <span class="icon-square icon-sm">
-                                            <svg x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve">
-                                            <g>
-                                            <path d="M3.6,75.7h3.6V7.3l85.7-0.1v85.3l-16.7-0.1l0-16.7c0-0.9-0.4-1.9-1-2.5c-0.7-0.7-1.6-1-2.5-1h-69V75.7h3.6                            H3.6v3.6H69L69,96c0,2,1.6,3.6,3.6,3.6l23.8,0.1c1,0,1.9-0.4,2.5-1c0.7-0.7,1-1.6,1-2.5V3.6c0-1-0.4-1.9-1-2.5                            c-0.7-0.7-1.6-1-2.5-1L3.6,0.1C1.6,0.2,0,1.7,0,3.7v72c0,0.9,0.4,1.9,1,2.5c0.7,0.7,1.6,1,2.5,1V75.7z"></path>
-                                            <path d="M38.1,76.9v-9.5c0-1.3-1.1-2.4-2.4-2.4c-1.3,0-2.4,1.1-2.4,2.4v9.5c0,1.3,1.1,2.4,2.4,2.4                            C37,79.3,38.1,78.2,38.1,76.9"></path>
-                                            <path d="M38.1,50.7V15c0-1.3-1.1-2.4-2.4-2.4c-1.3,0-2.4,1.1-2.4,2.4v35.7c0,1.3,1.1,2.4,2.4,2.4                            C37,53.1,38.1,52.1,38.1,50.7"></path>
-                                            <path d="M2.4,38.8h33.3c1.3,0,2.4-1.1,2.4-2.4c0-1.3-1.1-2.4-2.4-2.4H2.4c-1.3,0-2.4,1.1-2.4,2.4                            C0,37.8,1.1,38.8,2.4,38.8"></path>
-                                            <path d="M35.7,46h31c1.3,0,2.4-1.1,2.4-2.4c0-1.3-1.1-2.4-2.4-2.4h-31c-1.3,0-2.4,1.1-2.4,2.4                            C33.3,44.9,34.4,46,35.7,46"></path>
-                                            <path d="M78.6,46h16.7c1.3,0,2.4-1.1,2.4-2.4c0-1.3-1.1-2.4-2.4-2.4H78.6c-1.3,0-2.4,1.1-2.4,2.4                            C76.2,44.9,77.3,46,78.6,46"></path>
-                                            <path d="M78.6,46h16.7c1.3,0,2.4-1.1,2.4-2.4c0-1.3-1.1-2.4-2.4-2.4H78.6c-1.3,0-2.4,1.1-2.4,2.4                            C76.2,44.9,77.3,46,78.6,46"></path>
-                                            <path d="M81,43.6v-7.1c0-1.3-1.1-2.4-2.4-2.4c-1.3,0-2.4,1.1-2.4,2.4v7.1c0,1.3,1.1,2.4,2.4,2.4                            C79.9,46,81,44.9,81,43.6"></path>
-                                            <path d="M81,43.6v-7.1c0-1.3-1.1-2.4-2.4-2.4c-1.3,0-2.4,1.1-2.4,2.4v7.1c0,1.3,1.1,2.4,2.4,2.4                            C79.9,46,81,44.9,81,43.6"></path>
-                            </g>
-                          </svg>
-                                        </span>1200 sq ft
-                                    </li>
-                                    <li>
-                                        <span class="icon icon-sm icon-primary hotel-icon-10"></span>2 bathrooms
-                                    </li>
-                                </ul>
-                                <ul class="describe-2">
-                                    <li>
-                                        <span class="icon icon-sm icon-primary hotel-icon-05"></span>4 bedrooms
-                                    </li>
-                                    <li>
-                                        <span class="icon icon-sm icon-primary hotel-icon-26"></span>2 garages
-                                    </li>
-                                </ul>
-                                <p>Located in the heart of Silver Lake, this magnificently re-imagined Spanish bungalow is not to be missed.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-12">
-                        <div class="media thumbnail thumbnail-3 media-mod-2">
-                            <div class="media-left">
-                                <a href="single-property-page.html" class="img-link">
-                                    <img src="images/index-10.jpg" alt="" width="270" height="180">
-                                </a>
-                            </div>
-                            <div class="media-body caption">
-                                <h4>
-                                    <a href="single-property-page.html" class="text-sushi">650 Kelton Ave #201</a>
-                                </h4>
-                                <span class="thumbnail-price h5">
-                                    $2,229.00/
-                                    <span class="mon text-regular">month</span>
-                                </span>
-                                <ul class="describe-1">
-                                    <li>
-                                        <span class="icon-square icon-sm">
-                                            <svg x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve">
-                                            <g>
-                                            <path d="M3.6,75.7h3.6V7.3l85.7-0.1v85.3l-16.7-0.1l0-16.7c0-0.9-0.4-1.9-1-2.5c-0.7-0.7-1.6-1-2.5-1h-69V75.7h3.6                            H3.6v3.6H69L69,96c0,2,1.6,3.6,3.6,3.6l23.8,0.1c1,0,1.9-0.4,2.5-1c0.7-0.7,1-1.6,1-2.5V3.6c0-1-0.4-1.9-1-2.5                            c-0.7-0.7-1.6-1-2.5-1L3.6,0.1C1.6,0.2,0,1.7,0,3.7v72c0,0.9,0.4,1.9,1,2.5c0.7,0.7,1.6,1,2.5,1V75.7z"></path>
-                                            <path d="M38.1,76.9v-9.5c0-1.3-1.1-2.4-2.4-2.4c-1.3,0-2.4,1.1-2.4,2.4v9.5c0,1.3,1.1,2.4,2.4,2.4                            C37,79.3,38.1,78.2,38.1,76.9"></path>
-                                            <path d="M38.1,50.7V15c0-1.3-1.1-2.4-2.4-2.4c-1.3,0-2.4,1.1-2.4,2.4v35.7c0,1.3,1.1,2.4,2.4,2.4                            C37,53.1,38.1,52.1,38.1,50.7"></path>
-                                            <path d="M2.4,38.8h33.3c1.3,0,2.4-1.1,2.4-2.4c0-1.3-1.1-2.4-2.4-2.4H2.4c-1.3,0-2.4,1.1-2.4,2.4                            C0,37.8,1.1,38.8,2.4,38.8"></path>
-                                            <path d="M35.7,46h31c1.3,0,2.4-1.1,2.4-2.4c0-1.3-1.1-2.4-2.4-2.4h-31c-1.3,0-2.4,1.1-2.4,2.4                            C33.3,44.9,34.4,46,35.7,46"></path>
-                                            <path d="M78.6,46h16.7c1.3,0,2.4-1.1,2.4-2.4c0-1.3-1.1-2.4-2.4-2.4H78.6c-1.3,0-2.4,1.1-2.4,2.4                            C76.2,44.9,77.3,46,78.6,46"></path>
-                                            <path d="M78.6,46h16.7c1.3,0,2.4-1.1,2.4-2.4c0-1.3-1.1-2.4-2.4-2.4H78.6c-1.3,0-2.4,1.1-2.4,2.4                            C76.2,44.9,77.3,46,78.6,46"></path>
-                                            <path d="M81,43.6v-7.1c0-1.3-1.1-2.4-2.4-2.4c-1.3,0-2.4,1.1-2.4,2.4v7.1c0,1.3,1.1,2.4,2.4,2.4                            C79.9,46,81,44.9,81,43.6"></path>
-                                            <path d="M81,43.6v-7.1c0-1.3-1.1-2.4-2.4-2.4c-1.3,0-2.4,1.1-2.4,2.4v7.1c0,1.3,1.1,2.4,2.4,2.4                            C79.9,46,81,44.9,81,43.6"></path>
-                            </g>
-                          </svg>
-                                        </span>1200 sq ft
-                                    </li>
-                                    <li>
-                                        <span class="icon icon-sm icon-primary hotel-icon-10"></span>2 bathrooms
-                                    </li>
-                                </ul>
-                                <ul class="describe-2">
-                                    <li>
-                                        <span class="icon icon-sm icon-primary hotel-icon-05"></span>4 bedrooms
-                                    </li>
-                                    <li>
-                                        <span class="icon icon-sm icon-primary hotel-icon-26"></span>2 garages
-                                    </li>
-                                </ul>
-                                <p>Front-facing, single level, well-designed floor plan. Secure building in a highly DESIRABLE location!</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-12">
-                        <div class="media thumbnail thumbnail-3 media-mod-2">
-                            <div class="media-left">
-                                <a href="single-property-page.html" class="img-link">
-                                    <img src="images/index-11.jpg" alt="" width="270" height="180">
-                                </a>
-                            </div>
-                            <div class="media-body caption">
-                                <h4>
-                                    <a href="single-property-page.html" class="text-sushi">1735 N Fuller Ave #124</a>
-                                </h4>
-                                <span class="thumbnail-price h5">
-                                    $1,339.00/
-                                    <span class="mon text-regular">month</span>
-                                </span>
-                                <ul class="describe-1">
-                                    <li>
-                                        <span class="icon-square icon-sm">
-                                            <svg x="0px" y="0px" viewBox="0 0 100 100" style="enable-background:new 0 0 100 100" xml:space="preserve">
-                                            <g>
-                                            <path d="M3.6,75.7h3.6V7.3l85.7-0.1v85.3l-16.7-0.1l0-16.7c0-0.9-0.4-1.9-1-2.5c-0.7-0.7-1.6-1-2.5-1h-69V75.7h3.6                            H3.6v3.6H69L69,96c0,2,1.6,3.6,3.6,3.6l23.8,0.1c1,0,1.9-0.4,2.5-1c0.7-0.7,1-1.6,1-2.5V3.6c0-1-0.4-1.9-1-2.5                            c-0.7-0.7-1.6-1-2.5-1L3.6,0.1C1.6,0.2,0,1.7,0,3.7v72c0,0.9,0.4,1.9,1,2.5c0.7,0.7,1.6,1,2.5,1V75.7z"></path>
-                                            <path d="M38.1,76.9v-9.5c0-1.3-1.1-2.4-2.4-2.4c-1.3,0-2.4,1.1-2.4,2.4v9.5c0,1.3,1.1,2.4,2.4,2.4                            C37,79.3,38.1,78.2,38.1,76.9"></path>
-                                            <path d="M38.1,50.7V15c0-1.3-1.1-2.4-2.4-2.4c-1.3,0-2.4,1.1-2.4,2.4v35.7c0,1.3,1.1,2.4,2.4,2.4                            C37,53.1,38.1,52.1,38.1,50.7"></path>
-                                            <path d="M2.4,38.8h33.3c1.3,0,2.4-1.1,2.4-2.4c0-1.3-1.1-2.4-2.4-2.4H2.4c-1.3,0-2.4,1.1-2.4,2.4                            C0,37.8,1.1,38.8,2.4,38.8"></path>
-                                            <path d="M35.7,46h31c1.3,0,2.4-1.1,2.4-2.4c0-1.3-1.1-2.4-2.4-2.4h-31c-1.3,0-2.4,1.1-2.4,2.4                            C33.3,44.9,34.4,46,35.7,46"></path>
-                                            <path d="M78.6,46h16.7c1.3,0,2.4-1.1,2.4-2.4c0-1.3-1.1-2.4-2.4-2.4H78.6c-1.3,0-2.4,1.1-2.4,2.4                            C76.2,44.9,77.3,46,78.6,46"></path>
-                                            <path d="M78.6,46h16.7c1.3,0,2.4-1.1,2.4-2.4c0-1.3-1.1-2.4-2.4-2.4H78.6c-1.3,0-2.4,1.1-2.4,2.4                            C76.2,44.9,77.3,46,78.6,46"></path>
-                                            <path d="M81,43.6v-7.1c0-1.3-1.1-2.4-2.4-2.4c-1.3,0-2.4,1.1-2.4,2.4v7.1c0,1.3,1.1,2.4,2.4,2.4                            C79.9,46,81,44.9,81,43.6"></path>
-                                            <path d="M81,43.6v-7.1c0-1.3-1.1-2.4-2.4-2.4c-1.3,0-2.4,1.1-2.4,2.4v7.1c0,1.3,1.1,2.4,2.4,2.4                            C79.9,46,81,44.9,81,43.6"></path>
-                            </g>
-                          </svg>
-                                        </span>1200 sq ft
-                                    </li>
-                                    <li>
-                                        <span class="icon icon-sm icon-primary hotel-icon-10"></span>2 bathrooms
-                                    </li>
-                                </ul>
-                                <ul class="describe-2">
-                                    <li>
-                                        <span class="icon icon-sm icon-primary hotel-icon-05"></span>4 bedrooms
-                                    </li>
-                                    <li>
-                                        <span class="icon icon-sm icon-primary hotel-icon-26"></span>2 garages
-                                    </li>
-                                </ul>
-                                <p>This charming 2 bed and 2 bath townhome has been beautifully renovated and ready for its next owners.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 text-center text-sm-left offset-11">
-                        <ul class="pagination">
-                            <li class="disabled">
-                                <span class="fa-chevron-left"></span>
-                            </li>
-                            <li class="active">
-                                <span>1</span>
-                            </li>
-                            <li>
-                                <a href="#">2</a>
-                            </li>
-                            <li>
-                                <a href="#">3</a>
-                            </li>
-                            <li>
-                                <a href="#">4</a>
-                            </li>
-                            <li>
-                                <a href="#" class="fa-chevron-right"></a>
-                            </li>
-                        </ul>
+                <div class="sidebar sidebar-mod-2" style="padding-left:0px">
+                    <div class="sidebar-module">
+                        <h4>@ViewBag.LandTypeName</h4>
+                        <span> Có <span class="text-sushi">@Model.TotalCount</span> bất động sản</span>
                     </div>
                 </div>
+                <div class="row">
+                    @if (Model != null && Model.Items.Count() > 0)
+                    {
+                        foreach (var item in Model.Items)
+                        {
+                            var urlDetail = "/" + item.Alias + ".l-" + item.ID + ".html";
+                            <div class="col-xs-12 col-sm-12">
+                                <div class="media thumbnail thumbnail-3 media-mod-2">
+                                    <div class="media-left">
+                                        <a href="@urlDetail" class="img-link">
+                                            <img src="~/fileman/Uploads/LandNews/@item.Image" alt="" width="270" height="180">
+                                        </a>
+                                    </div>
+                                    <div class="media-body caption">
+                                        <h5>
+                                            <a href="@urlDetail" class="text-sushi">@item.Title.ToUpper()</a>
+                                        </h5>
+                                        <span class="thumbnail-price h5">
+                                            @item.TotalPrice
+                                            @*<span class="mon text-regular">month</span>*@
+                                        </span>
+                                        <ul class="describe-1">
+                                            <li>
+                                                <span>
+                                                    Diện tích:
+                                                </span>@item.Area m²
+                                            </li>
+                                            <li>
+                                                <span>Quận/Huyện: </span>@item.ProvinceName,@item.DistrictName,@item.WardName
+                                            </li>
+                                        </ul>
+                                        @*<ul class="describe-2">
+                                                <li>
+                                                    <span class="icon icon-sm icon-primary hotel-icon-05"></span>4 bedrooms
+                                                </li>
+                                                <li>
+                                                    <span class="icon icon-sm icon-primary hotel-icon-26"></span>2 garages
+                                                </li>
+                                            </ul>*@
+                                        @if (!String.IsNullOrEmpty(item.Description))
+                                        {
+                                            if (item.Description.Length > 250)
+                                            {
+                                                <p>@item.Description.Substring(0, 250)<span>...</span></p>
+}
+                                            else
+                                            {
+                                                <p>@item.Description</p>
+}
+                                        }
+
+                                    </div>
+                                </div>
+                            </div>
+}
+                        if (Model.TotalPages > 1)
+                        {
+                            // Create numeric links
+                            var startPageIndex = Math.Max(1, Model.Page - Model.MaxPage / 2);
+                            var endPageIndex = Math.Min(Model.TotalPages, Model.Page + Model.MaxPage / 2);
+
+                            <div class="col-xs-12 text-center text-sm-left offset-11">
+                                <ul class="pagination">
+                                    @if (Model.Page > 1)
+                                    {
+                                        <li>
+                                            <a href="?page=1" aria-label="First">
+                                                <i class="fa fa-angle-double-left"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="?page=@(Model.Page-1)" aria-label="Previous">
+                                                <i class="fa fa-angle-double-left"></i>
+                                            </a>
+                                        </li>
+}
+                                    @for (int i = startPageIndex; i <= endPageIndex; i++)
+                                    {
+                                        if (Model.Page == i)
+                                        {
+                                            <li class="active"><a href="?page=@i" title="Trang @i">@i</a></li>
+}
+                                        else
+                                        {
+                                            <li><a href="?page=@i" title="Trang @i">@i</a></li>
+}
+                                    }
+                                    @if (Model.Page < Model.TotalPages)
+                                    {
+                                        <li>
+                                            <a href="?page=@(Model.Page+1)" aria-label="Next">
+                                                <i class="fa fa-angle-double-right"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="?page=@Model.TotalPages" aria-label="Last">
+                                                <i class="fa fa-angle-double-right"></i>
+                                            </a>
+                                        </li>
+}
+                                </ul>
+                            </div>
+}
+                    }
+                    else
+                    {
+                        @*<span>Không có dữ liệu</span>*@}
+                </div>
             </div>
-            <div class="col-xs-12 col-sm-12 col-lg-4 offset-4 inset-10 offset-14">
-                <!-- RD Google Map-->
-                <div class="rd-google-map">
-                    <div id="rd-google-map" data-zoom="15" data-x="-73.9874068" data-y="40.643180" data-styles="[{&quot;featureType&quot;:&quot;administrative&quot;,&quot;elementType&quot;:&quot;labels.text.fill&quot;,&quot;stylers&quot;:[{&quot;color&quot;:&quot;#444444&quot;}]},{&quot;featureType&quot;:&quot;landscape&quot;,&quot;elementType&quot;:&quot;all&quot;,&quot;stylers&quot;:[{&quot;color&quot;:&quot;#f2f2f2&quot;}]},{&quot;featureType&quot;:&quot;poi&quot;,&quot;elementType&quot;:&quot;all&quot;,&quot;stylers&quot;:[{&quot;visibility&quot;:&quot;off&quot;}]},{&quot;featureType&quot;:&quot;poi.business&quot;,&quot;elementType&quot;:&quot;geometry.fill&quot;,&quot;stylers&quot;:[{&quot;visibility&quot;:&quot;on&quot;}]},{&quot;featureType&quot;:&quot;road&quot;,&quot;elementType&quot;:&quot;all&quot;,&quot;stylers&quot;:[{&quot;saturation&quot;:-100},{&quot;lightness&quot;:45}]},{&quot;featureType&quot;:&quot;road.highway&quot;,&quot;elementType&quot;:&quot;all&quot;,&quot;stylers&quot;:[{&quot;visibility&quot;:&quot;simplified&quot;}]},{&quot;featureType&quot;:&quot;road.arterial&quot;,&quot;elementType&quot;:&quot;labels.icon&quot;,&quot;stylers&quot;:[{&quot;visibility&quot;:&quot;off&quot;}]},{&quot;featureType&quot;:&quot;transit&quot;,&quot;elementType&quot;:&quot;all&quot;,&quot;stylers&quot;:[{&quot;visibility&quot;:&quot;off&quot;}]},{&quot;featureType&quot;:&quot;water&quot;,&quot;elementType&quot;:&quot;all&quot;,&quot;stylers&quot;:[{&quot;color&quot;:&quot;#b4d4e1&quot;},{&quot;visibility&quot;:&quot;on&quot;}]}]"
-                         class="rd-google-map__model-3">
-                        <ul class="map_locations">
-                            <li data-x="-73.9874068" data-y="40.643180">
-                                <p>9870 St Vincent Place, Glasgow, DC 45 Fr 45.</p>
-                            </li>
-                            <li data-x="-73.990172" data-y="40.644285">
-                                <p>9870 St Vincent Place, Glasgow, DC 45 Fr 45.</p>
-                            </li>
-                            <li data-x="-73.980172" data-y="40.646285">
-                                <p>9870 St Vincent Place, Glasgow, DC 45 Fr 45.</p>
-                            </li>
+            <div class="col-xs-12 col-sm-12 col-md-4 inset-7 text-center text-md-left">
+                <div class="sidebar sidebar-mod-2">
+                    <div class="sidebar-module">
+                        <h4 class="font-seogui">Vị trí bất động sản</h4>
+                        <ul class="list-marked">
+                            @if (categoryWard.Count() != 0)
+                            {
+                                foreach (var item in categoryWard)
+                                {
+                                    var url = "/nha-dat/" + HttpUtility.HtmlDecode(item.Name) + ".w-" + item.ID + ".html";
+                                    <li>
+                                        <a href="@url" class="text-sushi">@item.Name (@item.TotalLandNews)</a>
+                                    </li>
+}
+                            }
                         </ul>
                     </div>
                 </div>
@@ -391,4 +238,5 @@
         </div>
     </div>
 </section>
+
 

@@ -12,7 +12,8 @@ namespace LandProject.Web.Models
         public IEnumerable<LandNewsViewModel> LandNewsSaleAndRent { set; get; }
         public IEnumerable<LandNewsViewModel> LandNewsBuyAndRent { set; get; }
         public IEnumerable<LProjectViewModel> ListProject { set; get; }
-        public string Title { set; get; }
+		public IEnumerable<PostViewModel> ListPostViewModel { set; get; }
+		public string Title { set; get; }
         public string MetaKeyword { set; get; }
         public string MetaDescription { set; get; }
     }
