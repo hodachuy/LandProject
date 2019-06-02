@@ -1,5 +1,5 @@
 ﻿var _idgrid = "#grid";
-var LProjectCategoryModel = {
+var LProjectModel = {
     ID:'',
     Name: '',
     Alias:'',
@@ -8,38 +8,38 @@ var LProjectCategoryModel = {
 var TypeActionAdd = true;
 $(document).ready(function () {
     LoadGrid();
-    $('body').on('click', '#form-create-lProjectCategory', function () {
+    $('body').on('click', '#form-create-lproject', function () {
         $('#form').validationEngine('hide');
         TypeActionAdd = true;
-        $('#txtLProjectCategoryName').val('');
-        $("#LProjectCategoryModel").modal({
+        $('#txtLProjectName').val('');
+        $("#LProjectModel").modal({
             backdrop: 'static',
             keyboard: true,
             show: true
         });
     })
-    $('body').on('click', '#saveLProjectCategory', function () {
+    $('body').on('click', '#saveLProject', function () {
         if (checkValid()) {
-            LProjectCategoryModel.Name = $('#txtLProjectCategoryName').val();
-            LProjectCategoryModel.Alias = new commonService().getSeoTitle($('#txtLProjectCategoryName').val());
-            LProjectCategoryModel.IsDelete = false;
+            LProjectModel.Name = $('#txtLProjectName').val();
+            LProjectModel.Alias = new commonService().getSeoTitle($('#txtLProjectName').val());
+            LProjectModel.IsDelete = false;
             if (TypeActionAdd) {//add          
-                LProjectCategoryModel.ID = 0;
-                var svr = new AjaxCall("api/lprojectcategory/create", JSON.stringify(LProjectCategoryModel));
+                LProjectModel.ID = 0;
+                var svr = new AjaxCall("api/lproject/create", JSON.stringify(LProjectModel));
                 svr.callServicePOST(function (data) {
                     console.log(data)
                     if (data != null) {
-                        $("#LProjectCategoryModel").modal('hide');
+                        $("#LProjectModel").modal('hide');
                         $('#grid').data('kendoGrid').dataSource.read();
                         $('#grid').data('kendoGrid').refresh();
                     }
                 });
             } else {//update
-                var svr = new AjaxCall("api/lprojectcategory/update", JSON.stringify(LProjectCategoryModel));
+                var svr = new AjaxCall("api/lproject/update", JSON.stringify(LProjectModel));
                 svr.callServicePOST(function (data) {
                     console.log(data)
                     if (data != null) {
-                        $("#LProjectCategoryModel").modal('hide');
+                        $("#LProjectModel").modal('hide');
                         $('#grid').data('kendoGrid').dataSource.read();
                         $('#grid').data('kendoGrid').refresh();
                     }
@@ -47,8 +47,8 @@ $(document).ready(function () {
             }
         }
     })
-    $('body').on('click', '#closeLProjectCategory', function () {
-        $("#LProjectCategoryModel").modal('hide');
+    $('body').on('click', '#closeLProject', function () {
+        $("#LProjectModel").modal('hide');
     })
 })
 
@@ -57,12 +57,12 @@ checkValid = function () {
     setTimeout(function () {
         $('#form').validationEngine('hide');
     }, 10000);
-    var lProjectCategoryName = $('#txtLProjectCategoryName').val();
-    if (lProjectCategoryName.trim() == "") {
-        $('#txtLProjectCategoryName').validationEngine('showPrompt', '* Trường này bắt buộc', 'red', 'topRight', true);
+    var lProjectName = $('#txtLProjectName').val();
+    if (lProjectName.trim() == "") {
+        $('#txtLProjectName').validationEngine('showPrompt', '* Trường này bắt buộc', 'red', 'topRight', true);
         res = false;
     } else {
-        $("#txtLProjectCategoryName").validationEngine('hide');
+        $("#txtLProjectName").validationEngine('hide');
     }
     return res;
 }
@@ -174,7 +174,7 @@ var Columns = [
 
 ];
 LoadGrid = function () {
-    InitKendoGrid(_idgrid, Columns, new DataSource().MasterDatasource("" + _Host + "api/lprojectcategory/getalltable"), null, false, '')
+    InitKendoGrid(_idgrid, Columns, new DataSource().MasterDatasource("" + _Host + "api/lproject/getalltable"), null, false, '')
 }
 function templateForAction(e) {
     var html = '';
@@ -212,21 +212,21 @@ function templateForAction(e) {
 ForumCatg = function (id) {
     this.Edit = function () {
         TypeActionAdd = false;
-        $("#LProjectCategoryModel").modal({
+        $("#LProjectModel").modal({
             backdrop: 'static',
             keyboard: true,
             show: true
         });
 
         var param = {
-            lProjectCategoryID: id
+            lProjectID: id
         }
         var svr = new AjaxCall("api/lprojectcategory/getbyid", param);
         svr.callServiceGET(function (data) {
             console.log(data)
             if (data != undefined) {
-                $('#txtLProjectCategoryName').val(data.Name);
-                LProjectCategoryModel.ID = data.ID;
+                $('#txtLProjectName').val(data.Name);
+                LProjectModel.ID = data.ID;
             }
         });
 

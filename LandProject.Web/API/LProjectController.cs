@@ -36,7 +36,7 @@ namespace LandProject.Web.API
 			});
 		}
 
-		[Route("getbylprojectcategory")]
+		[Route("getbylproject")]
 		[HttpGet]
 		public HttpResponseMessage GetAllByLProjectCategory(HttpRequestMessage request, int lProjectCategoryID)
 		{

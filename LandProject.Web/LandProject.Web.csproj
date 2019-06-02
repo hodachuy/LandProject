@@ -322,6 +322,7 @@
     <Content Include="assets\admin\js\LandNews.js" />
     <Content Include="assets\admin\js\LandNewsSchedule.js" />
     <Content Include="assets\admin\js\LandType.js" />
+    <Content Include="assets\admin\js\LProject.js" />
     <Content Include="assets\admin\js\LProjectCategory.js" />
     <Content Include="assets\admin\js\MenuChildren.js" />
     <Content Include="assets\admin\js\MenuParent.js" />
@@ -2110,6 +2111,7 @@
     <Content Include="Views\LandNews\LandNewsByDistrict.cshtml" />
     <Content Include="Views\LandNews\LandNewsByProvince.cshtml" />
     <Content Include="Views\LandNews\SearchLandNews.cshtml" />
+    <Content Include="Views\Shared\_Layoutv2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="API Client\" />

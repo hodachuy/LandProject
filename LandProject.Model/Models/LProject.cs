@@ -30,8 +30,9 @@ namespace LandProject.Model.Models
 
         public string Image { set; get; }
 
-		[MaxLength(250)]
 		public string Description { set; get; }
+
+		public string Detail { set; get; }
 
 		public string Investors { set; get; }
 

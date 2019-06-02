@@ -102,7 +102,14 @@ namespace LandProject.Web.Models
         public int? NumberWC { set; get; }
         public string Furniture { set; get; }
 
-        [MaxLength(50)]
+		// phap ly
+		public string LegalStatus { set; get; }
+		// tiện nghi
+		public string Convenient { set; get; }
+		// môi trường
+		public string Environment { set; get; }
+
+		[MaxLength(50)]
         public string LatiLongTude { set; get; }
 
         public bool IsDelete { set; get; }

@@ -64,7 +64,6 @@ namespace LandProject.Model.Models
         public decimal? DecimalTotalPrice { set; get; }
         public string Unit { set; get; }
 
-        //Thông tin khác
         // Mặt tiền m
         public int? Facade { set; get; }
 
@@ -80,8 +79,14 @@ namespace LandProject.Model.Models
         public int? NumberWC { set; get; }
         // nooi that
         public string Furniture { set; get; }
+		// pháp lý
+		public string LegalStatus { set; get; }
+		// tiện nghi
+		public string Convenient { set; get; }
+		// môi trường
+		public string Environment { set; get; }
 
-        [MaxLength(50)]
+		[MaxLength(50)]
 		public string LatiLongTude { set; get; }
 
 		public bool IsDelete { set; get; }

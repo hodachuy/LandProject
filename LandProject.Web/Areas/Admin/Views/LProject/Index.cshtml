@@ -3,6 +3,63 @@
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
+<div class="">
+    <div class="page-title">
+        <div class="title_left">
+            <h3>Danh sách dự án</h3>
+        </div>
+        <div class="title_right">
+            <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                <div class="input-group" style="float:right">
+                    <a class="btn btn-primary" id="form-create-lproject">
+                        Thêm
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="x_panel">
+        <div class="x_title">
+            <small>Trang chủ</small> / <small>Danh sách dự án</small>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            <br />
+            @*<h4>Horizontal labels</h4>
+                <p class="font-gray-dark">
+                    Using the grid system you can control the position of the labels. The form example below has the <b>col-md-10</b> which sets the width to 10/12 and <b>center-margin</b> which centers it.
+                </p>*@
+            <div id="grid"></div>
+        </div>
+    </div>
+</div>
 
-<h2>Index</h2>
+<div class="modal fade" id="LProjectModel" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Thêm dự án</h4>
+            </div>
+            <div class="modal-body">
+                <form id="form">
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Name</label>
+                        <input type="text" class="form-control" id="txtLProjectName" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="saveLProject">Lưu</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="closeLProject">Đóng</button>
+            </div>
+        </div>
 
+    </div>
+</div>
+
+@section footerJS{
+    <script src="~/assets/admin/js/LProject.js"></script>
+}
