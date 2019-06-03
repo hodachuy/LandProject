@@ -25,7 +25,6 @@ namespace LandProject.Model.Models
 		[Column(TypeName = "varchar")]
 		public string Alias { set; get; }
 
-		[StringLength(256)]
 		public string Address { set; get; }
 
         public string Image { set; get; }
@@ -54,10 +53,7 @@ namespace LandProject.Model.Models
 
 		public string Size { set; get; }
 
-		[Required]
 		public int ProvinceID { set; get; }
-
-		[Required]
 
 		public int DistrictID { set; get; }
 

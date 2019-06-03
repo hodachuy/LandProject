@@ -245,6 +245,7 @@
   <ItemGroup>
     <Compile Include="API\AddressCommonController.cs" />
     <Compile Include="API\LandCategoryController.cs" />
+    <Compile Include="API\LandFileController.cs" />
     <Compile Include="API\LandNewsController.cs" />
     <Compile Include="API\LandNewsScheduleController.cs" />
     <Compile Include="API\LandTypeController.cs" />
@@ -253,6 +254,8 @@
     <Compile Include="API\MenuController.cs" />
     <Compile Include="API\MenuGroupController.cs" />
     <Compile Include="API\NotifyController.cs" />
+    <Compile Include="API\PostCategoryController.cs" />
+    <Compile Include="API\PostController.cs" />
     <Compile Include="API\VisitorController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -326,6 +329,8 @@
     <Content Include="assets\admin\js\LProjectCategory.js" />
     <Content Include="assets\admin\js\MenuChildren.js" />
     <Content Include="assets\admin\js\MenuParent.js" />
+    <Content Include="assets\admin\js\Post.js" />
+    <Content Include="assets\admin\js\PostCategory.js" />
     <Content Include="assets\admin\js\VisitorStatistic.js" />
     <Content Include="assets\build\css\custom.css" />
     <Content Include="assets\build\css\custom.min.css" />
@@ -2068,6 +2073,8 @@
     <Content Include="Areas\Admin\Views\Menu\MenuChildren.cshtml" />
     <Content Include="assets\client\fonts\MaterialIcons-Regular.woff" />
     <Content Include="assets\client\fonts\MaterialIcons-Regular.woff2" />
+    <Content Include="Areas\Admin\Views\Post\Post.cshtml" />
+    <Content Include="Areas\Admin\Views\Post\PostCategory.cshtml" />
     <None Include="Properties\PublishProfiles\LAND.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

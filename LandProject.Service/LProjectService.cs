@@ -16,6 +16,7 @@ namespace LandProject.Service
 		IEnumerable<LProject> GetByLProjectCategoryID(int lProjectCategoryID);
         IEnumerable<LProject> GetByDistrictID(int districtID);
         LProject Add(LProject LProject);
+        LProject GetByID(int lprojectID);
         LProject Delete(int id);
         void Update(LProject LProject);
         void Save();
@@ -57,6 +58,11 @@ namespace LandProject.Service
         public IEnumerable<LProject> GetByDistrictID(int districtID)
         {
             return _lProjectRepository.GetMulti(x => x.DistrictID == districtID, new string[] { "LProjectCategory" });
+        }
+
+        public LProject GetByID(int lprojectID)
+        {
+            return _lProjectRepository.GetSingleById(lprojectID);
         }
 
         public IEnumerable<LProject> GetByLProjectCategoryID(int lProjectCategoryID)

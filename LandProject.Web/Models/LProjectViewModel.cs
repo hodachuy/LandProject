@@ -20,13 +20,15 @@ namespace LandProject.Web.Models
 		[Column(TypeName = "varchar")]
 		public string Alias { set; get; }
 
-		[StringLength(256)]
 		public string Address { set; get; }
 
-		[MaxLength(250)]
 		public string Description { set; get; }
 
-		public string Investors { set; get; }
+        public string Detail { set; get; }
+
+        public string Image { set; get; }
+
+        public string Investors { set; get; }
 
 		[Required]
 		public int LProjectCaregoryID { set; get; }
@@ -45,10 +47,7 @@ namespace LandProject.Web.Models
 
 		public string Size { set; get; }
 
-		[Required]
 		public int ProvinceID { set; get; }
-
-		[Required]
 
 		public int DistrictID { set; get; }
 

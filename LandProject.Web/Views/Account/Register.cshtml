@@ -48,8 +48,8 @@
                     </ul>
                     <div class="tab-content">
                         <div id="tab2" class="tab-pane fade in active">
-                            @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { role = "form" }))
-                            {
+                           @using (Html.BeginForm("Register", "Account", new { returnUrl = @ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+                           {
                                 @Html.AntiForgeryToken();
                                 <div class="form-group">
                                     @Html.ValidationMessageFor(model => Model.FullName, "", new { @class = "error" })
@@ -88,7 +88,8 @@
                                     <div class="icon-group">
                                         <a href="javascript:void(0)" onclick="checkLoginFbDialog();" class="icon icon-sm icon-social fa-facebook"></a>
                                     </div>
-                                </div>}
+                                </div>
+                           }
                         </div>
                     </div>
                 </div>

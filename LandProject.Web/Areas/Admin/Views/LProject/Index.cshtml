@@ -3,6 +3,43 @@
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
+<style>
+     @@media (min-width: 768px) {
+        .modal-dialog.as-container {
+            width: 750px;
+        }
+    }
+
+    @@media (min-width: 992px) {
+        .modal-dialog.as-container {
+            width: 970px;
+        }
+    }
+
+    @@media (min-width: 1200px) {
+        .modal-dialog.as-container {
+            width: 1250px;
+        }
+    }
+
+    .modal-dialog.as-container .modal-content {
+        float: none;
+        margin: auto;
+    }
+    .panel_toolbox > li {
+        float: right;
+        cursor: pointer;
+    }
+
+    @@media (min-width: 768px){
+        .form-horizontal .control-label {
+            padding-top: 7px;
+            margin-bottom: 0;
+            text-align: -webkit-center;
+        }
+    }
+
+</style>
 <div class="">
     <div class="page-title">
         <div class="title_left">
@@ -36,7 +73,7 @@
 </div>
 
 <div class="modal fade" id="LProjectModel" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog as-container">
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -44,12 +81,113 @@
                 <h4 class="modal-title">Thêm dự án</h4>
             </div>
             <div class="modal-body">
-                <form id="form">
-                    <div class="form-group">
-                        <label for="exampleFormControlTextarea1">Name</label>
-                        <input type="text" class="form-control" id="txtLProjectName" />
+                <div class="row">
+                    <div class="col-md-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>Thông tin dự án</h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li>
+                                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <br />
+                                <form class="form-horizontal form-label-left input_mask">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                            Tên dự án: <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <textarea id="txtLProjectName" class="form-control" rows="3" placeholder="Tiêu đề"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Loại dự án: <span class="required">*</span></label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <div class="w100 form-control" id="cboLProjectCategory"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                            Nhà đầu tư:
+                                        </label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input id="txtInvestors" class="form-control" rows="3" placeholder="Nhà đầu tư"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                            Khu vực:
+                                        </label>
+                                        <div class="col-md-3 col-sm-12 col-xs-12 form-group">
+                                            <div class="w100 form-control" id="cboProvince"></div>
+                                        </div>
+                                        <div class="col-md-3 col-sm-12 col-xs-12 form-group">
+                                            <div class="w100 form-control" id="cboDistrict"></div>
+                                        </div>
+                                        <div class="col-md-3 col-sm-12 col-xs-12 form-group">
+                                            <div class="w100 form-control" id="cboWard"></div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
-                </form>
+                    <div class="col-md-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>MÔ TẢ</h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li>
+                                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <textarea id="txtDescription" class="editorTinyMce" style="width:100%;height:200px"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>THÔNG TIN CHI TIẾT </h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li>
+                                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <textarea id="txtDetail" class="editorTinyMce" style="width:100%;height:200px"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>HÌNH ẢNH</h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li>
+                                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <input type="file" id="multi-file" multiple/>
+                                <div class="row" id="lst-file-image">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" id="saveLProject">Lưu</button>

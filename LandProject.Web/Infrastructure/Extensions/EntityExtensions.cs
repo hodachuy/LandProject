@@ -41,6 +41,30 @@ namespace LandProject.Web.Infrastructure.Extensions
 			lProjectCategory.IsDelete = lProjectCategoryVm.IsDelete;
 		}
 
+        public static void UpdateLProject(this LProject lProject, LProjectViewModel lProjectVm)
+        {
+            lProject.ID = lProjectVm.ID;
+            lProject.Name = lProjectVm.Name;
+            lProject.Alias = lProjectVm.Alias;
+            lProject.Address = lProjectVm.Address;
+            lProject.Image = lProjectVm.Image;
+            lProject.Description = lProjectVm.Description;
+            lProject.Detail = lProjectVm.Detail;
+            lProject.Investors = lProjectVm.Investors;
+            lProject.LProjectCaregoryID = lProjectVm.LProjectCaregoryID;
+            lProject.Price = lProjectVm.Price;
+            lProject.TotalPrice = lProjectVm.TotalPrice;
+            lProject.DecimalTotalPrice = lProjectVm.DecimalTotalPrice;
+            lProject.Unit = lProjectVm.Unit;
+            lProject.Area = lProjectVm.Area;
+            lProject.Size = lProjectVm.Size;
+            lProject.ProvinceID = lProjectVm.ProvinceID;
+            lProject.DistrictID = lProjectVm.DistrictID;
+            lProject.WardID = lProjectVm.WardID;
+            lProject.IsDelete = lProjectVm.IsDelete;
+            lProject.IsPublished = lProjectVm.IsPublished;
+    }
+
         public static void UpdateLandNews(this LandNews landNews, LandNewsViewModel landNewsVm)
         {
             landNews.ID = landNewsVm.ID;

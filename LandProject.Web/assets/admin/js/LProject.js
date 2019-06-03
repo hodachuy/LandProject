@@ -1,17 +1,77 @@
 ﻿var _idgrid = "#grid";
 var LProjectModel = {
-    ID:'',
+    ID: '',
     Name: '',
-    Alias:'',
-    IsDelete:false
+    Alias: '',
+    LProjectCaregoryID: '',
+    Description: '',
+    Detail: '',
+    Investors: '',
+    ProvinceID: '',
+    DistrictID: '',
+    WardID: '',
+    IsDelete: false,
+    IsPublished: false
 }
 var TypeActionAdd = true;
+
+var url5 = "api/address/getward";
+var element5 = "#cboWard";
+
+var url4 = "api/address/getdistrict";
+var element4 = "#cboDistrict";
+
+
+var arrImageAsUrl = [];
+var arrTotalImage = [];
+var indexImg = 0;
+
 $(document).ready(function () {
     LoadGrid();
     $('body').on('click', '#form-create-lproject', function () {
+        arrImageAsUrl = [];
+        arrTotalImage = [];
+        indexImg = 0;
+
         $('#form').validationEngine('hide');
         TypeActionAdd = true;
+        var urlLProjectCategory = "api/lprojectcategory/getall";
+        var element = "#cboLProjectCategory";
+        LoadComboBoxWithServices(element, urlLProjectCategory, null, "ID", "Name", null, "Loại dự án", false, null, function () {
+        }, null);
+        var url3 = "api/address/getprovince";
+        var element = "#cboProvince";
+        LoadComboBoxWithServices(element, url3, null, "ID", "Name", null, "Chọn Tỉnh/Thành phố", false, null, function (e) {
+            console.log(e.sender._old);
+            $("#cboWard").data("kendoComboBox").value(null);
+            var provinceID = e.sender._old;
+            if (provinceID == '') {
+                provinceID = 0;
+                $("#cboDistrict").val('');
+                var param5 = {
+                    districtID: 0
+                }
+                LoadComboBoxWithServices(element5, url5, param5, "ID", "Name", null, "Chọn Phường/Xã", false, null, function () { }, null);
+            }
+            var param4 = {
+                provinceID: provinceID
+            }
+            LoadComboBoxWithServices(element4, url4, param4, "ID", "Name", null, "Chọn Quận/Huyện", false, null, function (e) {
+                console.log(e.sender._old);
+                $("#cboWard").data("kendoComboBox").value(null);
+                var districtID = e.sender._old;
+                if (districtID == '') {
+                    districtID = 0;
+                    $("#cboWard").val('');
+                }
+                var param5 = {
+                    districtID: districtID
+                }
+                LoadComboBoxWithServices(element5, url5, param5, "ID", "Name", null, "Chọn Phường/Xã", false, null, function () { }, null);
+            }, null);
+        }, null);
         $('#txtLProjectName').val('');
+        $("#txtInvestors").val('');
         $("#LProjectModel").modal({
             backdrop: 'static',
             keyboard: true,
@@ -20,28 +80,64 @@ $(document).ready(function () {
     })
     $('body').on('click', '#saveLProject', function () {
         if (checkValid()) {
+            var formData = new FormData();
             LProjectModel.Name = $('#txtLProjectName').val();
+            LProjectModel.LProjectCaregoryID = $("#cboLProjectCategory").val();
             LProjectModel.Alias = new commonService().getSeoTitle($('#txtLProjectName').val());
-            LProjectModel.IsDelete = false;
+            LProjectModel.ProvinceID = $("#cboProvince").val();
+            LProjectModel.DistrictID = $("#cboDistrict").val();
+            LProjectModel.WardID = $("#cboWard").val();
+            LProjectModel.Investors = $("#txtInvestors").val();
+            LProjectModel.Description = tinymce.get("txtDescription").getContent();
+            LProjectModel.Detail = tinymce.get("txtDetail").getContent();
             if (TypeActionAdd) {//add          
                 LProjectModel.ID = 0;
-                var svr = new AjaxCall("api/lproject/create", JSON.stringify(LProjectModel));
-                svr.callServicePOST(function (data) {
-                    console.log(data)
-                    if (data != null) {
-                        $("#LProjectModel").modal('hide');
-                        $('#grid').data('kendoGrid').dataSource.read();
-                        $('#grid').data('kendoGrid').refresh();
+                LProjectModel.IsDelete = false;
+                $.each(arrTotalImage, function (index, value) {
+                    formData.append('file' + index, value.file);
+                });
+                formData.append('lproject', JSON.stringify(LProjectModel));
+
+                $.ajax({
+                    url: _Host + "api/lproject/create",
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    dataType: "json",
+                    success: function (result) {
+                        if (result) {
+                            $("#LProjectModel").modal('hide');
+                            $('#grid').data('kendoGrid').dataSource.read();
+                            $('#grid').data('kendoGrid').refresh();
+                        }
+                    },
+                    error: function (e) {
+                        console.log(e)
                     }
                 });
             } else {//update
-                var svr = new AjaxCall("api/lproject/update", JSON.stringify(LProjectModel));
-                svr.callServicePOST(function (data) {
-                    console.log(data)
-                    if (data != null) {
-                        $("#LProjectModel").modal('hide');
-                        $('#grid').data('kendoGrid').dataSource.read();
-                        $('#grid').data('kendoGrid').refresh();
+                $.each(arrTotalImage, function (index, value) {
+                    formData.append('file' + index, value.file);
+                });
+                formData.append('lproject', JSON.stringify(LProjectModel));
+
+                $.ajax({
+                    url: _Host + "api/lproject/update",
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    dataType: "json",
+                    success: function (result) {
+                        if (result) {
+                            $("#LProjectModel").modal('hide');
+                            $('#grid').data('kendoGrid').dataSource.read();
+                            $('#grid').data('kendoGrid').refresh();
+                        }
+                    },
+                    error: function (e) {
+                        console.log(e)
                     }
                 });
             }
@@ -49,6 +145,116 @@ $(document).ready(function () {
     })
     $('body').on('click', '#closeLProject', function () {
         $("#LProjectModel").modal('hide');
+    })
+
+    //event file file src
+    $('body').on("click", '#multi-file', function (e) { e.target.value = null; }); // sự kiện reset input file
+    $('body').on('change', '#multi-file', function (event) {
+        var files = event.target.files;
+        var maxSize = 3072; // 3MB
+        for (var i = 0; i < files.length; i++) {
+            indexImg++;
+            var reader = new FileReader();
+            if (files[i].type.indexOf("image") == 0) {
+                reader.onload = (function (index) {
+                    return function (e) {
+                        var fileSize = (e.total / 1024).toFixed(0);
+                        console.log(fileSize)
+                        if (fileSize > maxSize) {
+                            alert('Kích thước ảnh lớn hơn 3MB');
+                            return;
+                        }
+                        var fileSrc = e.target.result;
+                        var fileName = e.target.fileName;
+                        var html = '<div class="col-md-55"><div class="thumbnail"><div class="image view view-first"  data-id="0" data-index="' + index + '"><img style="width: 100%; display: block;" src="' + fileSrc + '" alt="image"><div class="mask"><div class="tools tools-bottom"><a href="#"  data-id="0" data-index="' + index + '"  class="rmFileImage"><i class="fa fa-times"></i></a></div></div></div></div></div>';
+
+                        //var temp = '';
+                        //temp += '<div class="photo-item" style="width: 50%; border: 2px solid transparent; box-sizing: padding-box; position: relative">';
+                        //temp += '<img class="img-responsive" style="height: 115px; width: 100 %" src="' + fileSrc + '" data-index="' + index + '" alt="' + fileName + '"/>';
+                        //temp += '<span class="fa fa-remove rmFile" data-index="' + index + '" data-remove-filename="' + fileName + '" style="position: absolute; top: 10px; right: 10px; color: #795548;; cursor: pointer"></span>';
+                        //temp += '</div>';
+                        $("#lst-file-image").append(html);
+                        var image = {
+                            index: index,// parseInt(i),
+                            file: e
+                        }
+                        arrImageAsUrl.push(image);
+                    };
+                })(indexImg);// input index
+            } else {
+                toastr.error('Vui lòng chọn ảnh đúng định dạng (*.png | *.gif | *.jpg | *.jpeg)', null, { timeOut: 5000 });
+            }
+            reader.readAsDataURL(files[i]);
+            var image = {
+                index: indexImg,// parseInt(i+1),
+                file: files[i]
+            }
+            arrTotalImage.push(image);
+            //formData.append('file', files[i] )
+
+        };
+        console.log("arrimageAsUrl:" + arrImageAsUrl)
+        console.log("arrimageFile:" + arrTotalImage)
+
+    });
+    $('body').on('click', '.rmFileImage', function () {
+        var indexImage = $(this).attr('data-index');
+        var idImage = $(this).attr('data-id');
+        if (idImage != 0) {
+            var param = {
+                fileID: idImage
+            }
+            param = JSON.stringify(param);
+            var svr1 = new AjaxCall("api/file/delete", param);
+            svr1.callServicePOST(function (data) {
+                console.log(data)
+                if (data) {
+                    $(this).closest('.col-md-55').remove();
+                }
+            });
+        } else {
+            for (var i = 0; i < arrImageAsUrl.length; i++) {
+                if (arrImageAsUrl[i].index == indexImage) {
+                    arrImageAsUrl.splice(i, 1);
+                    arrTotalImage.splice(i, 1);
+                    $(this).closest('.col-md-55').remove();
+                    break;
+                }
+            }
+            console.log("arrimageAsUrl:" + arrImageAsUrl)
+            console.log("arrimageFile:" + arrTotalImage)
+        }
+    });
+
+    //tinymce
+    tinymce.init({
+        selector: '.editorTinyMce',
+        cleanup: true,
+        verify_html: false,
+        entity_encoding: "raw",
+        cleanup_on_startup: true,
+        // ket thuc performance
+        height: '200px',
+        inline: false,
+        plugins: 'advlist autolink link image lists print preview code media table textcolor hr searchreplace wordcount ',
+        //toolbar: "forecolor backcolor table image autolink preview charmap link searchreplace fontsizeselect fontselect ",
+        toolbar: "fontselect | bold italic underline | forecolor | fontsizeselect | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | image searchreplace ",
+        fontsize_formats: "8pt 10pt 12pt 13pt 14pt 18pt 24pt 36pt",
+        skin: 'lightgray',
+        theme: 'modern',
+        languague: 'vi',
+        valid_elements: '+*[*]',
+        file_browser_callback: RoxyFileBrowser,
+
+        media_url_resolver: function (data, resolve/*, reject*/) {
+            if (data.url.indexOf('YOUR_SPECIAL_VIDEO_URL') !== -1) {
+                var embedHtml = '<iframe src="' + data.url +
+                '" width="400" height="400" ></iframe>';
+                resolve({ html: embedHtml });
+            } else {
+                resolve({ html: '' });
+            }
+        }
     })
 })
 
@@ -122,7 +328,7 @@ DataSource = function () {
             schema: {
                 data: function (data) {
                     if (data != null) {
-                        if(data.Items != null)
+                        if (data.Items != null)
                             return data.Items;
                     }
                     return [];
@@ -163,13 +369,15 @@ var Columns = [
         {
             template: '#=data.Name#',
             field: "Name",
-            title: "Thể loại",
+            title: "Tên dự án",
         },
         {
-            template: '#if(data.Description != null){##=data.Description##}#',
-            field: "data.Description",
-            title: "Mô tả",
-            filterable: false,
+            template: '#=data.LProjectCategory.Name#',
+            field: "LProjectCategoryID",
+            title: "Loại dự án",
+            filterable: {
+                ui: lProjectCategoryFilter
+            }
         },
 
 ];
@@ -212,6 +420,18 @@ function templateForAction(e) {
 ForumCatg = function (id) {
     this.Edit = function () {
         TypeActionAdd = false;
+        arrImageAsUrl = [];
+        arrTotalImage = [];
+        indexImg = 0;
+
+        $('#lst-file-image').empty();
+
+        $('#txtLProjectName').val('');
+        $("#txtInvestors").val('');
+        $("#cboLProjectCategory").val('');
+        $("#cboProvince").val('');
+        $("#cboDistrict").val('');
+        $("#cboWard").val('');
         $("#LProjectModel").modal({
             backdrop: 'static',
             keyboard: true,
@@ -221,12 +441,90 @@ ForumCatg = function (id) {
         var param = {
             lProjectID: id
         }
-        var svr = new AjaxCall("api/lprojectcategory/getbyid", param);
+        var svr = new AjaxCall("api/lproject/getbyid", param);
         svr.callServiceGET(function (data) {
             console.log(data)
             if (data != undefined) {
                 $('#txtLProjectName').val(data.Name);
+
+                var urlLProjectCategory = "api/lprojectcategory/getall";
+                var element = "#cboLProjectCategory";
+                LoadComboBoxWithServices(element, urlLProjectCategory, null, "ID", "Name", data.LProjectCaregoryID, "Loại dự án", false, null, function () {
+                }, null);
+
+                $("#cboLProjectCategory").val(data.LProjectCategoryID);
+                tinymce.get("txtDescription").getBody().innerHTML = data.Description;
+                tinymce.get("txtDetail").getBody().innerHTML = data.Detail;
+                $("#txtInvestors").val(data.Investors);
                 LProjectModel.ID = data.ID;
+                LProjectModel.IsDelete = data.IsDelete;
+                LProjectModel.IsPublished = data.IsPublished;
+
+
+                var url3 = "api/address/getprovince";
+                var element = "#cboProvince";
+
+                LoadComboBoxWithServices(element, url3, null, "ID", "Name", data.ProvinceID, "Chọn Tỉnh/Thành phố", false, null, function (e) {
+                    console.log(e.sender._old);
+                    var provinceID = e.sender._old;
+                    $("#cboWard").data("kendoComboBox").value(null);
+                    if (provinceID == '') {
+                        provinceID = 0;
+                        $("#cboDistrict").val('');
+                        var param5 = {
+                            districtID: 0
+                        }
+                        LoadComboBoxWithServices(element5, url5, param5, "ID", "Name", null, "Chọn Phường/Xã", false, null, function () { }, null);
+                    }
+                    var param4 = {
+                        provinceID: provinceID
+                    }
+                    LoadComboBoxWithServices(element4, url4, param4, "ID", "Name", null, "Chọn Quận/Huyện", false, null, function (e) {
+                        console.log(e.sender._old);
+                        $("#cboWard").data("kendoComboBox").value(null);
+                        var districtID = e.sender._old;
+                        if (districtID == '') {
+                            districtID = 0;
+                            $("#cboWard").data("kendoComboBox").value(null);
+                        }
+                        var param5 = {
+                            districtID: districtID
+                        }
+                        LoadComboBoxWithServices(element5, url5, param5, "ID", "Name", null, "Chọn Phường/Xã", false, null, function () { }, null);
+                    }, null);
+                }, null);
+
+                //LoadComboBoxWithServices(element, url3, null, "ID", "Name", data.ProvinceID, "Chọn Tỉnh/Thành phố", false, null, function () { }, null);
+
+                var param4 = {
+                    provinceID: data.ProvinceID
+                }
+                var url4 = "api/address/getdistrict";
+                var element = "#cboDistrict";
+                LoadComboBoxWithServices(element, url4, param4, "ID", "Name", data.DistrictID, "Chọn Quận/Huyện", false, null, function () { }, null);
+                var param5 = {
+                    districtID: data.DistrictID
+                }
+                var url5 = "api/address/getward";
+                var element = "#cboWard";
+                LoadComboBoxWithServices(element, url5, param5, "ID", "Name", data.WardID, "Chọn Phường/Xã", false, null, function () { }, null);
+
+
+
+                var param1 = {
+                    lProjectID: id
+                }
+                var svr1 = new AjaxCall("api/lproject/getfilelproject", param1);
+                svr1.callServiceGET(function (data) {
+                    if (data.length != 0) {
+                        var html = '';
+                        $.each(data, function (index, value) {
+                            html += '<div class="col-md-55"><div class="thumbnail"><div class="image view view-first" data-id="' + value.ID + '" data-index="' + index + '"><img style="width: 100%; display: block;" src="' + _Host + 'fileman/Uploads/LProject/' + value.FileName + '" alt="image"><div class="mask"><div class="tools tools-bottom"><a href="#" data-index="' + index + '"   data-id="' + value.ID + '" class="rmFileImage"><i class="fa fa-times"></i></a></div></div></div></div></div>';
+                        })
+                        $('#lst-file-image').append(html);
+                    }
+                });
+
             }
         });
 
@@ -267,3 +565,36 @@ ForumCatg = function (id) {
         });
     }
 }
+
+
+function lProjectCategoryFilter(element) {
+    element.kendoDropDownList({
+        dataSource: lstLProjectCategory,
+        dataTextField: "Name",
+        dataValueField: "ID",
+        optionLabel: "--Chọn thể loại--"
+    });
+}
+var lstLProjectCategory = new kendo.data.DataSource({
+    transport: {
+        read: function (options) {
+            $.ajax({
+                url: _Host + "api/lprojectcategory/getall",
+                type: "GET",
+                dataType: "json",
+                success: function (result) {
+                    //console.log(result)
+                    if (result != "" && result != null) {
+                        options.success(result);
+                    }
+                    else {
+                        options.success([]);
+                    }
+                },
+                error: function (result) {
+                    options.success([]);
+                }
+            })
+        }
+    }
+});
