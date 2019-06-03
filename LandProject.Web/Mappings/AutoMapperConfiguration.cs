@@ -16,7 +16,9 @@ namespace LandProject.Web.Mappings
                 cfg.CreateMap<ApplicationUser, ApplicationUserViewModel>();
                 cfg.CreateMap<LandType, LandTypeViewModel>();
                 cfg.CreateMap<LandCategory, LandCategoryViewModel>();
-                cfg.CreateMap<LProject, LProjectViewModel>();
+				cfg.CreateMap<Post, PostViewModel>();
+				cfg.CreateMap<PostCategory, PostCategoryViewModel>();
+				cfg.CreateMap<LProject, LProjectViewModel>();
                 cfg.CreateMap<LProjectCategory, LProjectCategoryViewModel>();
                 cfg.CreateMap<Province, ProvinceViewModel>();
                 cfg.CreateMap<District, DistrictViewModel>();

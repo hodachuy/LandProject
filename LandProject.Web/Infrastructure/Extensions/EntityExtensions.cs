@@ -149,6 +149,18 @@ namespace LandProject.Web.Infrastructure.Extensions
 			menu.Status = menuVm.Status;
 		}
 
+		public static void UpdatePostCategory(this PostCategory postCategoryDb, PostCategoryViewModel postCategoryVm)
+		{
+			postCategoryDb.ID = postCategoryVm.ID;
+			postCategoryDb.Alias = postCategoryVm.Alias;
+			postCategoryDb.Name = postCategoryVm.Name;
+			postCategoryDb.Description = postCategoryVm.Description;
+			postCategoryDb.DisplayOrder = postCategoryVm.DisplayOrder;
+			postCategoryDb.Alias = postCategoryVm.Alias;
+			postCategoryDb.MetaKeyword = postCategoryVm.MetaKeyword;
+			postCategoryDb.MetaDescription = postCategoryVm.MetaDescription;
+			postCategoryDb.Status = postCategoryVm.Status;
 
+		}
 	}
 }

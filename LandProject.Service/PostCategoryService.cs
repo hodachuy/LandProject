@@ -17,8 +17,9 @@ namespace LandProject.Service
         IEnumerable<PostCategory> GetAll();
 
         IEnumerable<PostCategory> GetAllByParentId(int parentId);
+		IEnumerable<PostCategory> GetAllByCondition(string condition);
 
-        PostCategory GetById(int id);
+		PostCategory GetById(int id);
 
         void Save();
     }
@@ -49,7 +50,12 @@ namespace LandProject.Service
             return _postCategoryRepository.GetAll();
         }
 
-        public IEnumerable<PostCategory> GetAllByParentId(int parentId)
+		public IEnumerable<PostCategory> GetAllByCondition(string condition)
+		{
+			return _postCategoryRepository.GetMulti(x => x.Name.Contains(condition));
+		}
+
+		public IEnumerable<PostCategory> GetAllByParentId(int parentId)
         {
             return _postCategoryRepository.GetMulti(x => x.Status && x.ParentID == parentId);
         }

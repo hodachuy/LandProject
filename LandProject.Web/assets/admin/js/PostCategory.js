@@ -4,12 +4,13 @@ var PostCategoryModel = {
     Name: '',
     Alias: '',
     IsDelete: false,
-    SortOrder: '',
+    DisplayOrder: '',
 }
 var TypeActionAdd = true;
 $(document).ready(function () {
     LoadGrid();
-    $('body').on('click', '#form-create-landType', function () {
+
+    $('body').on('click', '#form-create-postcategory', function () {
         $('#form').validationEngine('hide');
         TypeActionAdd = true;
         $('#txtPostCategoryName').val('');
@@ -25,9 +26,10 @@ $(document).ready(function () {
             PostCategoryModel.Name = $('#txtPostCategoryName').val();
             PostCategoryModel.Alias = new commonService().getSeoTitle($('#txtPostCategoryName').val());
             PostCategoryModel.IsDelete = false;
-            PostCategoryModel.SortOrder = $('#txtPostCategorySortOrder').val();
-            if (TypeActionAdd) {//add          
-                var svr = new AjaxCall("api/landtype/create", JSON.stringify(PostCategoryModel));
+            PostCategoryModel.DisplayOrder = $('#txtPostCategorySortOrder').val();
+            if (TypeActionAdd) {//add      
+                PostCategoryModel.ID = 0;
+                var svr = new AjaxCall("api/postcategory/create", JSON.stringify(PostCategoryModel));
                 svr.callServicePOST(function (data) {
                     console.log(data)
                     if (data != null) {
@@ -37,7 +39,7 @@ $(document).ready(function () {
                     }
                 });
             } else {//update
-                var svr = new AjaxCall("api/landtype/update", JSON.stringify(PostCategoryModel));
+                var svr = new AjaxCall("api/postcategory/update", JSON.stringify(PostCategoryModel));
                 svr.callServicePOST(function (data) {
                     console.log(data)
                     if (data != null) {
@@ -173,20 +175,14 @@ var Columns = [
             title: "Thể loại",
         },
         {
-            template: '#if(data.Description != null){##=data.Description##}#',
-            field: "Description",
-            title: "Mô tả",
-            filterable: false,
-        },
-        {
-            template: '#=data.SortOrder#',
-            field: "SortOrder",
+            template: '#=data.DisplayOrder#',
+            field: "DisplayOrder",
             title: "Thứ tự",
         },
 
 ];
 LoadGrid = function () {
-    InitKendoGrid(_idgrid, Columns, new DataSource().MasterDatasource("" + _Host + "api/landtype/getalltable"), null, false, '')
+    InitKendoGrid(_idgrid, Columns, new DataSource().MasterDatasource("" + _Host + "api/postcategory/getalltable"), null, false, '')
 }
 function templateForAction(e) {
     var html = '';
@@ -231,14 +227,14 @@ ForumCatg = function (id) {
         });
 
         var param = {
-            lTypeId: id
+            postCategoryID: id
         }
-        var svr = new AjaxCall("api/landtype/getbyid", param);
+        var svr = new AjaxCall("api/postcategory/getbyid", param);
         svr.callServiceGET(function (data) {
             console.log(data)
             if (data != undefined) {
                 $('#txtPostCategoryName').val(data.Name);
-                $('#txtLandTypeSortOrder').val(data.SortOrder);
+                $('#txtPostCategorySortOrder').val(data.DisplayOrder);
                 PostCategoryModel.ID = data.ID;
             }
         });
