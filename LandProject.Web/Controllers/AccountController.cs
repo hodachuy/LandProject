@@ -249,6 +249,14 @@ namespace LandProject.Web.Controllers
 					ModelState.AddModelError("UserName", "Tài khoản đã tồn tại");
 					return View(model);
 				}
+
+				var userByEmail = await _userManager.FindByEmailAsync(model.Email);
+				if (userByEmail != null)
+				{
+					ModelState.AddModelError("Email", "Email này đã được đăng ký");
+					return View(model);
+				}
+
 				var user = new ApplicationUser()
 				{
 					UserName = model.UserName,
@@ -264,10 +272,28 @@ namespace LandProject.Web.Controllers
 				await _userManager.CreateAsync(user, model.Password);
 
 
-				var adminUser = await _userManager.FindByEmailAsync(model.Email);
-				if (adminUser != null)
-				    await _userManager.AddToRolesAsync(adminUser.Id, new string[] { "User" });
+				var newUser = await _userManager.FindByEmailAsync(model.Email);
+				if (newUser != null)
+				    await _userManager.AddToRolesAsync(newUser.Id, new string[] { "User" });
 
+				string content = System.IO.File.ReadAllText(Server.MapPath("/assets/client_v2/template/newuser.html"));
+				content = content.Replace("{{UserName}}", newUser.FullName);
+				content = content.Replace("{{Link}}", ConfigHelper.GetByKey("CurrentLink") + "confirm.html?email="+newUser.Email);
+
+				MailHelper.SendMail(newUser.Email, "Kích hoạt tài khoản tại Datdackhu", content);
+
+				return RedirectToAction("RegisterSuccess", "Account",new { name= user.FullName, mail = user.Email });
+
+			}
+
+			return View();
+		}
+
+		public ActionResult Confirm(string email)
+		{
+			var user = _userManager.FindByEmail(email);
+			if(user != null)
+			{
 				var applicationUserViewModel = Mapper.Map<ApplicationUser, ApplicationUserViewModel>(user);
 				Session[CommonConstants.SessionUser] = applicationUserViewModel;
 				IAuthenticationManager authenticationManager = HttpContext.GetOwinContext().Authentication;
@@ -277,28 +303,20 @@ namespace LandProject.Web.Controllers
 				props.IsPersistent = true;// model.RememberMe;
 				authenticationManager.SignIn(props, identity);
 
-				//string content = System.IO.File.ReadAllText(Server.MapPath("/assets/client/template/newuser.html"));
-				//content = content.Replace("{{UserName}}", adminUser.FullName);
-				//content = content.Replace("{{Link}}", ConfigHelper.GetByKey("CurrentLink") + "dang-nhap.html");
-
-				//MailHelper.SendMail(adminUser.Email, "Đăng ký thành công", content);
-
-				//ViewData["SuccessMsg"] = "Đăng ký thành công";
-
-				return RedirectToAction("RegisterSuccess", "Account",new { name= user.FullName, mail = user.Email });
-
-				//ModelState["FullName"].Value = new ValueProviderResult("", "", CultureInfo.CurrentCulture);
-				//ModelState["Email"].Value = new ValueProviderResult("", "", CultureInfo.CurrentCulture);
-				//ModelState["Address"].Value = new ValueProviderResult("", "", CultureInfo.CurrentCulture);
-				//ModelState["PhoneNumber"].Value = new ValueProviderResult("", "", CultureInfo.CurrentCulture);
-				//ModelState["UserName"].Value = new ValueProviderResult("", "", CultureInfo.CurrentCulture);
-				//ModelState["Password"].Value = new ValueProviderResult("", "", CultureInfo.CurrentCulture);
+				if (user.EmailConfirmed)
+				{
+					return RedirectToAction("Index", "Home2");
+				}else
+				{
+					user.EmailConfirmed = true;
+					_userManager.Update(user);
+				}
 			}
-
 			return View();
 		}
 
-        public ActionResult RegisterSuccess(string name, string mail)
+
+		public ActionResult RegisterSuccess(string name, string mail)
         {
             ViewBag.Name = name;
             ViewBag.Email = mail;

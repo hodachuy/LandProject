@@ -280,6 +280,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Home2Controller.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LandNews2Controller.cs" />
     <Compile Include="Controllers\LandNewsController.cs" />
     <Compile Include="Controllers\MemberController.cs" />
     <Compile Include="Controllers\PostingNews2Controller.cs" />
@@ -384,6 +385,7 @@
     <Content Include="assets\client_v2\img\closeBtn.png" />
     <Content Include="assets\client_v2\img\ic-arrow-active.png" />
     <Content Include="assets\client_v2\img\ic-arrow-right-active.png" />
+    <Content Include="assets\client_v2\img\ic-backtotop.png" />
     <Content Include="assets\client_v2\img\ic-pencil.svg" />
     <Content Include="assets\client_v2\img\icons.png" />
     <Content Include="assets\client_v2\img\icon_close2.png" />
@@ -391,6 +393,7 @@
     <Content Include="assets\client_v2\img\social.png" />
     <Content Include="assets\client_v2\js\common_ddk.min.js" />
     <Content Include="assets\client_v2\js\postnews.js" />
+    <Content Include="assets\client_v2\template\newuser.html" />
     <Content Include="assets\library\helper\CallServiceHelper.js" />
     <Content Include="assets\library\helper\common.js" />
     <Content Include="assets\library\KendoUI\custom-kendo.js" />
@@ -2162,6 +2165,10 @@
     <Content Include="Views\PostingNews2\Index.cshtml" />
     <Content Include="Views\Account\RegisterSuccess.cshtml" />
     <Content Include="Views\Member\Index.cshtml" />
+    <Content Include="Views\Account\Confirm.cshtml" />
+    <Content Include="Views\LandNews2\Detail.cshtml" />
+    <Content Include="Views\LandNews2\LandNewsByLandType.cshtml" />
+    <Content Include="Views\LandNews2\LandNewsByLandCategory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="API Client\" />

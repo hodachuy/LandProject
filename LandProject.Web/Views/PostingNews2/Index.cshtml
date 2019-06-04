@@ -2,6 +2,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutLand_v2.cshtml";
 }
+<link href="~/assets/vendors/select2/dist/css/select2.min.css" rel="stylesheet" />
 <div class="container" id="createAdContainer">
     <div class="row ClassUiNew">
         <div class="col-lg-12">
@@ -236,14 +237,14 @@
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <select class="slCategory form-control form-control-thh dropdown" id="ddlCategory" name="cateId">
+                                            <select class="slCategory form-control form-control-thh dropdown" name="LandTypeID" id="LandTypeID" onchange="LoadLandCategory();">
                                                 <option value="0">Chọn danh mục</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <select class="form-control form-control-thh dropdown" name="subcate" id="ddlSubCategory">
+                                            <select class="form-control form-control-thh dropdown" name="LandCategoryID" id="LandCategoryID">
                                                 <option value="0">Chọn danh mục</option>
                                             </select>
                                         </div>
@@ -271,28 +272,21 @@
                                 <div class="row">
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <select class="form-control form-control-thh dropdown" name="stateId" id="ddlGeoState">
-                                                <option value="0">Chọn thành phố/Tỉnh thành</option>
-                                                <option value="59">TP.Hồ Chí Minh</option>
-                                                <option value="28">TP.Hà Nội</option>
-                                                <option value="17">TP.Hải phòng</option>
-                                                <option value="50">Cần thơ</option>
-                                                <option value="31">TP.Đà nẵng</option>
-                                                <option value="41">Đồng nai</option>
+                                            <select class="form-control form-control-thh dropdown" name="ProvinceID" onchange="LoadDistricts();" id="ProvinceID">                                             
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
-                                            <select class="form-control form-control-thh dropdown" name="districtid" id="ddlGeoDistrict">
+                                            <select class="form-control form-control-thh dropdown" onchange="LoadWards();" name="DistrictID" id="DistrictID">
                                                 <option value="0">Chọn Quận/Huyện</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-lg-4 ">
                                         <div class="form-group">
-                                            <select class="form-control form-control-thh dropdown" name="wardId" id="ddlGeoWard">
-                                                <option value="0">Chọn Phường</option>
+                                            <select class="form-control form-control-thh dropdown" name="WardID" id="WardID" >
+                                                <option value="0">Chọn Phường/Xã</option>
                                             </select>
                                         </div>
                                     </div>
@@ -307,12 +301,12 @@
                         <div class="row">
                             <div class="col-lg-3">
                                 <label class="cuslable">
-                                    Địa chỉ
+                                    Địa chỉ <span class="star">*</span>
                                 </label>
                             </div>
                             <div class="col-lg-9">
                                 <div class="form-group">
-                                    <input id="pac-input" name="StreetNo" class="form-control controls" type="text" placeholder="Địa chỉ" maxlength="100" />
+                                    <input  name="Address" id="Address" class="form-control controls" type="text" placeholder="Địa chỉ" maxlength="100" />
                                 </div>
                             </div>
                         </div>
@@ -328,8 +322,7 @@
                                 <label class="cuslable">
                                     Bản đồ
                                 </label>
-                                <input type="hidden" name="lat" id="lat" />
-                                <input type="hidden" name="lng" id="lng" />
+                                <input name="LatiLongTude" id="LatiLongTude" class="hidden" />
                             </div>
                             <div class="col-lg-9 cussmap">
 
@@ -359,7 +352,7 @@
                             <div class="col-lg-9">
                                 <div class="form-group">
                                     <div class="cuscount" style="float: right; font-size: 10px; margin-right: 0;" id="divcountTitle">( 0/99 Kí tự )</div>
-                                    <input type="text" id="txtTitle" onkeyup="countCharTitle(this)" maxlength="99" name="title" class="form-control" />
+                                    <input type="text" name="Title" id="Title" maxlength="99" class="form-control" />
                                 </div>
                             </div>
                         </div>
@@ -369,33 +362,7 @@
                             Dùng tiếng Việt có dấu, không viết hoa toàn bộ. Không nhập số điện thoại
                         </label>
                     </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-lg-8 NewUifonfamly">
-                        <div class="row">
-                            <div class="col-lg-3">
-                                <label class="cuslable">
-                                    Mô tả ngắn
-                                    <span class="star">*</span>
-                                </label>
-                            </div>
-                            <div class="col-lg-9">
-
-                                <div class="form-group">
-                                    <div class="cuscount" style="float: right; font-size: 10px; margin-right: 0;" id="divcountShortdescription">( 0/160 Kí tự )</div>
-                                    <textarea id="txtShortDescription" name="shortDescription" class="form-control auto-size" onkeyup="countCharShortdescription(this)"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 hidden-xs hidden-md">
-                        <label class="NewUifonfamly CusNoteNewUi">
-                            Tối đa 160 ký tự, dùng tiếng Việt có dấu, không viết hoa toàn bộ. Trong trường hợp để trống, chúng tôi sẽ tự động truy xuất nội dung trong phần mô tả chi tiết của bạn để hiển thị trong Mô tả ngắn. Rule: Loại bất động sản + Giá + Diện tích + Quận/Huyện + Tiện nghi (nếu có) + CTA (Mua Ngay! Xem Thêm! Tìm Hiểu Ngay! Liên Hệ! Nhận Tư Vấn! Nhận Ưu Đãi!)
-
-                        </label>
-                    </div>
-                </div>
+                </div>           
 
                 <div class="row">
                     <div class="col-lg-8 NewUifonfamly">
@@ -410,7 +377,7 @@
                                 <div class="form-group">
 
                                     <div class="cuscount" style="float: right; font-size: 10px; margin-right: 0;" id="divcountdescription">( 0/4000 Kí tự )</div>
-                                    <textarea id="txtDescription" onkeyup="countChardescription(this)" data-autosize-on="true" name="Description" class="form-control auto-size custxtDescription" placeholder="Nh&#224; mặt tiền đường Quang Trung, Quận G&#242; Vấp
+                                    <textarea  name="Description" id="Description" data-autosize-on="true"  class="form-control auto-size custxtDescription" placeholder="Nh&#224; mặt tiền đường Quang Trung, Quận G&#242; Vấp
 Tiện &#237;ch khu vực: Gần si&#234;u thị Big C, Trường Đại Học C&#244;ng Nghiệp, Vin-hem-pich, Chợ Hạnh Th&#244;ng T&#226;y, chợ G&#242; Vấp, Bệnh viện 175,...
 Diện t&#237;ch: 5 x 10. DTSD: 450m2. Mới x&#226;y, đ&#250;c 4 tầng ki&#234;n cố. Hướng Đ&#244;ng Nam. Sổ hồng Ch&#237;nh chủ.
 Cấu tr&#250;c: 1 ph&#242;ng kh&#225;ch rộng, 5ph&#242;ng ngủ, 5WC, s&#226;n trước đậu oto, tiện l&#224;m văn ph&#242;ng hoặc kinh doanh
@@ -522,7 +489,7 @@ Tặng k&#232;m to&#224;n bộ nội thất cao cấp"></textarea>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group input-group">
-                                            <input type="text" placeholder="0" class="form-control form-control-thh inputnumber" maxlength="10" min="0" max="1000000" step="100" id="grp_1" value="">
+                                            <input type="text" placeholder="0" class="form-control form-control-thh inputnumber" maxlength="10" min="0" max="1000000" step="100" name="Price" id="Price" value="">
                                             <span class="input-group-addon cuslabefont" style="border: 0 solid #ed1c24!important;">Triệu VND</span>
                                             <div class="col-lg-offset-3 col-lg-8 money-text">
 
@@ -540,7 +507,7 @@ Tặng k&#232;m to&#224;n bộ nội thất cao cấp"></textarea>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group input-group">
-                                            <input type="number" placeholder="0" class="form-control form-control-thh inputnumber" min="1" max="100000" step="0" name="grp_176" id="grp_176" value="">
+                                            <input type="number" placeholder="0" class="form-control form-control-thh inputnumber" min="1" max="100000" step="0" name="Area" id="Area" value="">
                                             <span class="input-group-addon cuslabefont" style="border: 0 solid #ed1c24!important;">m²</span>
                                         </div>
                                     </div>
@@ -562,16 +529,39 @@ Tặng k&#232;m to&#224;n bộ nội thất cao cấp"></textarea>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>                
+                </div>
+
+                <hr class="NewUiHr">
+
+                <div class="row">
+                    <div class="col-lg-8 NewUifonfamly">
+                        <div class="row taka">
                             <div class="col-lg-6">
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label class="cuslable">Đường trước nhà </label>
+                                            <label class="cuslable">Mặt tiền </label>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group input-group">
-                                            <input type="number" placeholder="0" class="form-control form-control-thh inputnumber" min="1" max="36" step="0.5" name="grp_179" id="grp_179" value=""><span class="input-group-addon cuslabefont" style="border: 0 solid #ed1c24!important;">m</span>
+                                            <input type="number" placeholder="0" class="form-control form-control-thh inputnumber" min="1" max="36" step="0.5" name="Facade" id="Facade" value=""><span class="input-group-addon cuslabefont" style="border: 0 solid #ed1c24!important;">m</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="cuslable">Mặt đường </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group ">
+                                            <input type="number" placeholder="0" class="form-control inputnumber" min="1" max="50" step="1" name="Entry" id="Entry"value=""><span class="input-group-addon cuslabefont" style="border: 0 solid #ed1c24!important;">m</span>
                                         </div>
                                     </div>
                                 </div>
@@ -585,17 +575,40 @@ Tặng k&#232;m to&#224;n bộ nội thất cao cấp"></textarea>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group ">
-                                            <select class="form-control form-control-thh dropdown" name="grp_182">
-                                                <option value="0">Chọn</option>
-                                                <option value="13863">Đông</option>
-                                                <option value="13864">Tây</option>
-                                                <option value="13865">Nam</option>
-                                                <option value="13866"> Bắc</option>
-                                                <option value="13867">Đông Bắc</option>
-                                                <option value="13868">Tây Bắc</option>
-                                                <option value="13869">Đông Nam</option>
-                                                <option value="13870"> Tây Nam</option>
-                                                <option value="13871">Không xác định</option>
+                                            <select class="form-control form-control-thh dropdown" name="HouseDirection" id="HouseDirection">
+                                                <option value="Không xác định">Không xác định</option>
+                                                <option value="Đông">Đông</option>
+                                                <option value="Tây">Tây</option>
+                                                <option value="Nam">Nam</option>
+                                                <option value="Bắc">Bắc</option>
+                                                <option value="Đông-Bắc">Đông-Bắc</option>
+                                                <option value="Tây-Bắc">Tây-Bắc</option>
+                                                <option value="Tây-Nam">Tây-Nam</option>
+                                                <option value="Đông-Nam">Đông-Nam</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="cuslable">Hướng ban công</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group ">
+                                            <select class="form-control form-control-thh dropdown" name="BalconyDirection" id="BalconyDirection">
+                                                <option value="Không xác định">Không xác định</option>
+                                                <option value="Đông">Đông</option>
+                                                <option value="Tây">Tây</option>
+                                                <option value="Nam">Nam</option>
+                                                <option value="Bắc">Bắc</option>
+                                                <option value="Đông-Bắc">Đông-Bắc</option>
+                                                <option value="Tây-Bắc">Tây-Bắc</option>
+                                                <option value="Tây-Nam">Tây-Nam</option>
+                                                <option value="Đông-Nam">Đông-Nam</option>
                                             </select>
                                         </div>
                                     </div>
@@ -610,11 +623,55 @@ Tặng k&#232;m to&#224;n bộ nội thất cao cấp"></textarea>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group ">
-                                            <input type="number" placeholder="0" class="form-control inputnumber" min="1" max="50" step="1" name="grp_192" value="">
+                                            <input type="number" placeholder="0" class="form-control inputnumber" min="1" max="50" step="1" name="NumberFloor" id="NumberFloor" value="">
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-lg-6">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="cuslable">Số phòng ngủ </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group ">
+                                            <input type="number" placeholder="0" class="form-control inputnumber" min="1" max="50" step="1" name="NumberBedroom" id="NumberBedroom" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="cuslable">Số toilet </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group ">
+                                            <input type="number" placeholder="0" class="form-control inputnumber" min="1" max="50" step="1" name="NumberWC" id="NumberWC" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12" style="display:none">
+                                <div class="row">
+                                    <div class="col-lg-2">
+                                        <div class="form-group">
+                                            <label class="cuslable">Nội thất </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-10">
+                                        <div class="form-group ">
+                                            <textarea name="Furniture" id="Furniture" data-autosize-on="true" class="form-control auto-size custxtDescription" placeholder=""></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
                             <div class="col-lg-12">
                                 <div class="row">
                                     <div class="col-lg-3">
@@ -906,13 +963,12 @@ Tặng k&#232;m to&#224;n bộ nội thất cao cấp"></textarea>
                     <div class="col-lg-12 NewUifonfamly">
                         <div class="row">
                             <div class="col-lg-3 ">
-                                <button type="button" class="pull-left btnNewUi  btn-secondary-outline savedra savestep1">Lưu tin nháp</button>
+                                
                             </div>
                             <div class="col-lg-9">
                                 <input type="hidden" name="type" id="action_type" value="InsertAdvert" />
-                                <button type="button" class="btnNewUi btn-success-outline pull-right btnNextNewUi" style="border-color: #38b775 !important" onclick="InsertAdvert();">Bước tiếp theo <i class="glyphicon glyphicon-arrow-right"></i></button>
-                                <button type="button" class="btn btn-success-outline pull-right hidden" id="btnextstep" onclick="UploadImg();">Chọn hình</button>
-                                <span id="MainContent_hidAdvertIdNewui" class="hidAdvertIdNewui hidden"></span>
+                                <button type="button" class="btnNewUi btn-success-outline pull-right btnNextNewUi" id="btnSalePlan" style="border-color: #38b775 !important" onclick="SubmitSalePlan()">Đăng tin </button>
+
                             </div>
                         </div>
                     </div>
@@ -948,7 +1004,7 @@ Tặng k&#232;m to&#224;n bộ nội thất cao cấp"></textarea>
         }
 
         #back-top span {
-            background-image: url('/img/ic-backtotop.png');
+            background-image: url('../../assets/client_v2/img/ic-backtotop.png');
             bottom: 40px;
             height: 44px;
             position: fixed;
@@ -957,7 +1013,8 @@ Tặng k&#232;m to&#224;n bộ nội thất cao cấp"></textarea>
         }
 
         #back-top a:hover span {
-            background-image: url('/img/ic-backtotop.png');
+         background-image: url('../../assets/client_v2/img/ic-backtotop.png');
+
         }
 
     .selectpicker {
@@ -1008,5 +1065,10 @@ Tặng k&#232;m to&#224;n bộ nội thất cao cấp"></textarea>
 
 
 @section footerJS{
-    <script src="http://www.muabannhadat.vn/Scripts/mbnd-create-listing.js?v=201903012" type="text/javascript"></script>
+<script type="text/javascript" src="//maps.google.com/maps/api/js?sensor=false&key=AIzaSyAfx5a8yx5MqeGoTS3ierzoe35TXoX0ZOY&libraries=places&callback=initMap"></script>
+<script src="~/assets/vendors/select2/dist/js/select2.full.js"></script>
+<script src="~/assets/vendors/toastr/toastr.min.js"></script>
+<script src="~/assets/vendors/bootbox/bootbox.min.js"></script>
+    <script src="~/assets/client_v2/js/postnews.js"></script>
+
 }

@@ -21,7 +21,7 @@ $(document).ready(function () {
             show: true
         });
     })
-    $('body').on('click', '#savePostCategory', function () {
+    $('body').on('click', '#savePostCategory', function () { 
         if (checkValid()) {
             PostCategoryModel.Name = $('#txtPostCategoryName').val();
             PostCategoryModel.Alias = new commonService().getSeoTitle($('#txtPostCategoryName').val());
@@ -40,7 +40,8 @@ $(document).ready(function () {
                 });
             } else {//update
                 var svr = new AjaxCall("api/postcategory/update", JSON.stringify(PostCategoryModel));
-                svr.callServicePOST(function (data) {
+                svr.callServicePOST(fu
+                    nction (data) {
                     console.log(data)
                     if (data != null) {
                         $("#PostCategoryModel").modal('hide');
