@@ -23,6 +23,7 @@ namespace LandProject.Common
 
         public int LandTypeID { set; get; }
         public string LandTypeName { set; get; }
+        public int TypeExchange { set; get; }
 
         public int LandCategoryID { set; get; }
         public string LandCategoryName { set; get; }
@@ -99,6 +100,14 @@ namespace LandProject.Common
         public bool IsSale { set; get; }
 
 		public int LandTypeSortOrder { set; get; }
+
+        // pháp lý
+        public string LegalStatus { set; get; }
+        // tiện nghi
+        public string Convenient { set; get; }
+        // môi trường
+        public string Environment { set; get; }
+
 
         public int Total { set; get; }
 

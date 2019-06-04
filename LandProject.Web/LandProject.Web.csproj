@@ -278,8 +278,11 @@
     <Compile Include="Areas\Admin\Controllers\VisitorController.cs" />
     <Compile Include="Areas\Admin\Infrastructure\Core\BaseController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Home2Controller.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LandNewsController.cs" />
+    <Compile Include="Controllers\MemberController.cs" />
+    <Compile Include="Controllers\PostingNews2Controller.cs" />
     <Compile Include="Controllers\PostingNewsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -374,6 +377,20 @@
     <Content Include="assets\client\libs\JNM.js" />
     <Content Include="assets\client\libs\pointer-events.min.js" />
     <Content Include="assets\client\libs\smoothscroll.min.js" />
+    <Content Include="assets\client_v2\css\style.css" />
+    <Content Include="assets\client_v2\img\button_menu_mobile.svg" />
+    <Content Include="assets\client_v2\img\check-mobile.png" />
+    <Content Include="assets\client_v2\img\check.png" />
+    <Content Include="assets\client_v2\img\closeBtn.png" />
+    <Content Include="assets\client_v2\img\ic-arrow-active.png" />
+    <Content Include="assets\client_v2\img\ic-arrow-right-active.png" />
+    <Content Include="assets\client_v2\img\ic-pencil.svg" />
+    <Content Include="assets\client_v2\img\icons.png" />
+    <Content Include="assets\client_v2\img\icon_close2.png" />
+    <Content Include="assets\client_v2\img\price-tag.png" />
+    <Content Include="assets\client_v2\img\social.png" />
+    <Content Include="assets\client_v2\js\common_ddk.min.js" />
+    <Content Include="assets\client_v2\js\postnews.js" />
     <Content Include="assets\library\helper\CallServiceHelper.js" />
     <Content Include="assets\library\helper\common.js" />
     <Content Include="assets\library\KendoUI\custom-kendo.js" />
@@ -1310,6 +1327,7 @@
     <Content Include="assets\vendors\validator\validator.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\glyphicons-halflings-regular.svg" />
     <Content Include="favicon.ico" />
     <Content Include="fileman\css\images\animated-overlay.gif" />
     <Content Include="fileman\css\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -2076,6 +2094,24 @@
     <Content Include="assets\client\fonts\MaterialIcons-Regular.woff2" />
     <Content Include="Areas\Admin\Views\Post\Post.cshtml" />
     <Content Include="Areas\Admin\Views\Post\PostCategory.cshtml" />
+    <Content Include="assets\client_v2\fonts\Muli-Black.ttf" />
+    <Content Include="assets\client_v2\fonts\Muli-BlackItalic.ttf" />
+    <Content Include="assets\client_v2\fonts\Muli-Bold.ttf" />
+    <Content Include="assets\client_v2\fonts\Muli-BoldItalic.ttf" />
+    <Content Include="assets\client_v2\fonts\Muli-ExtraBold.ttf" />
+    <Content Include="assets\client_v2\fonts\Muli-ExtraBoldItalic.ttf" />
+    <Content Include="assets\client_v2\fonts\Muli-ExtraLight.ttf" />
+    <Content Include="assets\client_v2\fonts\Muli-ExtraLightItalic.ttf" />
+    <Content Include="assets\client_v2\fonts\Muli-Italic.ttf" />
+    <Content Include="assets\client_v2\fonts\Muli-Light.ttf" />
+    <Content Include="assets\client_v2\fonts\Muli-LightItalic.ttf" />
+    <Content Include="assets\client_v2\fonts\Muli-Regular.ttf" />
+    <Content Include="assets\client_v2\fonts\Muli-SemiBold.ttf" />
+    <Content Include="assets\client_v2\fonts\Muli-SemiBoldItalic.ttf" />
+    <Content Include="Content\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\glyphicons-halflings-regular.woff2" />
     <None Include="Properties\PublishProfiles\LAND.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -2119,7 +2155,13 @@
     <Content Include="Views\LandNews\LandNewsByDistrict.cshtml" />
     <Content Include="Views\LandNews\LandNewsByProvince.cshtml" />
     <Content Include="Views\LandNews\SearchLandNews.cshtml" />
-    <Content Include="Views\Shared\_Layoutv2.cshtml" />
+    <Content Include="Views\Shared\_LayoutLand_v2.cshtml" />
+    <Content Include="Views\Home2\Index.cshtml" />
+    <Content Include="Views\Shared\Header2.cshtml" />
+    <Content Include="Views\Shared\Footer2.cshtml" />
+    <Content Include="Views\PostingNews2\Index.cshtml" />
+    <Content Include="Views\Account\RegisterSuccess.cshtml" />
+    <Content Include="Views\Member\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="API Client\" />
@@ -2134,6 +2176,7 @@
     <Folder Include="fileman\Uploads\FLV\" />
     <Folder Include="fileman\Uploads\LandNews\" />
     <Folder Include="fileman\Uploads\LProject\" />
+    <Folder Include="fileman\Uploads\Post\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

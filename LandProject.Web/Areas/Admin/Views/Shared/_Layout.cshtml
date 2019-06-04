@@ -223,7 +223,31 @@
             return false;
         }
     </script>
+    <script>
+         function gettoken() {
+            var token = '@Html.AntiForgeryToken()';
+            token = $(token).val();
+            return token;
+          }
 
+        $('body').on('click', '#logout', function (e) {
+            $.ajax({
+                type: "POST",
+                url: _Host + "Admin/Account/LogOut",
+                data: {
+                    __RequestVerificationToken: gettoken(),
+                },
+                dataType: 'json',
+                contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+                success: function (response) {
+                    console.log(response)
+                    if (response.status) {
+                        window.location.href = _Host +"Admin";
+                    }
+                },
+            });
+        });
+    </script>
     @RenderSection("footerJS", required: false)
 </body>
 </html>

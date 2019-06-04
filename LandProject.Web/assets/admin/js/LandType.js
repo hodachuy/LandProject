@@ -2,7 +2,8 @@
 var LandTypeModel = {
     ID:'',
     Name: '',
-    Alias:'',
+    Alias: '',
+    TypeExchange:'',
     IsDelete:false,
     SortOrder:'',
 }
@@ -13,6 +14,7 @@ $(document).ready(function () {
         $('#form').validationEngine('hide');
         TypeActionAdd = true;
         $('#txtLandTypeName').val('');
+        $('#typeExchange').val('');
         $('#txtLandTypeSortOrder').val('0');
         $("#LandTypeModel").modal({
             backdrop: 'static',
@@ -25,8 +27,10 @@ $(document).ready(function () {
             LandTypeModel.Name = $('#txtLandTypeName').val();
             LandTypeModel.Alias = new commonService().getSeoTitle($('#txtLandTypeName').val());
             LandTypeModel.IsDelete = false;
+            LandTypeModel.TypeExchange = $('#typeExchange').val();
             LandTypeModel.SortOrder = $('#txtLandTypeSortOrder').val();
-            if (TypeActionAdd) {//add          
+            if (TypeActionAdd) {//add     
+                LandTypeModel.ID = 0;
                 var svr = new AjaxCall("api/landtype/create", JSON.stringify(LandTypeModel));
                 svr.callServicePOST(function (data) {
                     console.log(data)
@@ -65,6 +69,13 @@ checkValid = function () {
         res = false;
     } else {
         $("#txtLandTypeName").validationEngine('hide');
+    }
+
+    if ($('#typeExchange').val() != "") {
+        $("#typeExchange").validationEngine('hide');
+    } else {
+        $('#typeExchange').validationEngine('showPrompt', '* Trường này bắt buộc', 'red', 'topRight', true);
+        res = false;
     }
     return res;
 }
@@ -171,6 +182,7 @@ var Columns = [
             template: '#=data.Name#',
             field: "Name",
             title: "Thể loại",
+            filterable: false,
         },
         {
             template: '#if(data.Description != null){##=data.Description##}#',
@@ -179,9 +191,16 @@ var Columns = [
             filterable: false,
         },
         {
+            template: '#if(data.TypeExchange == 1){#Bán#} else if(data.TypeExchange == 2){#Cho thuê#}#',
+            field: "TypeExchange",
+            title: "Loại hình",
+            filterable: false,
+        },
+        {
             template: '#=data.SortOrder#',
             field: "SortOrder",
             title: "Thứ tự",
+            filterable: false,
         },
 
 ];
@@ -238,6 +257,7 @@ ForumCatg = function (id) {
             console.log(data)
             if (data != undefined) {
                 $('#txtLandTypeName').val(data.Name);
+                $('#typeExchange').val(data.TypeExchange)
                 $('#txtLandTypeSortOrder').val(data.SortOrder);
                 LandTypeModel.ID = data.ID;
             }

@@ -122,6 +122,14 @@
     <Compile Include="Migrations\201906030756138_UpdateLproject.Designer.cs">
       <DependentUpon>201906030756138_UpdateLproject.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906040245454_UpdateLandFile.cs" />
+    <Compile Include="Migrations\201906040245454_UpdateLandFile.Designer.cs">
+      <DependentUpon>201906040245454_UpdateLandFile.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906040707130_UpdateLandTypeExchange.cs" />
+    <Compile Include="Migrations\201906040707130_UpdateLandTypeExchange.Designer.cs">
+      <DependentUpon>201906040707130_UpdateLandTypeExchange.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AgentRepository.cs" />
@@ -208,6 +216,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906030756138_UpdateLproject.resx">
       <DependentUpon>201906030756138_UpdateLproject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906040245454_UpdateLandFile.resx">
+      <DependentUpon>201906040245454_UpdateLandFile.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906040707130_UpdateLandTypeExchange.resx">
+      <DependentUpon>201906040707130_UpdateLandTypeExchange.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

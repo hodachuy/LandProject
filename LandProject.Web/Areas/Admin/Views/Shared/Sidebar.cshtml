@@ -12,13 +12,8 @@
             <li>
                 <a><i class="fa fa-envelope"></i> Quản lý tin nhà đất <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
-                    @if (Model != null && Model.Count() != 0)
-                    {
-                        foreach (var item in Model)
-                        {
-                            <li><a href="@Url.Action("Form","LandNews",new { lTypeID = item.ID , lTypeName = item.Name })"> Tin @item.Name</a></li>
-                        }
-                    }
+                    <li><a href="@Url.Action("Form","LandNews",new { typeExchange = 1 , lTypeName = "bán" })"> Tin bán</a></li>
+                    <li><a href="@Url.Action("Form","LandNews",new { typeExchange = 2 , lTypeName = "cho thuê" })"> Tin cho thuê</a></li>
                 </ul>
             </li>
             <li>

@@ -1,0 +1,665 @@
+﻿@{
+    ViewBag.Title = "Kênh thông tin rao bán bất động sản | Datdackhu";
+    Layout = "~/Views/Shared/_LayoutLand_v2.cshtml";
+}
+<div class="jumbotron head">
+    <div class="container head">
+        <div class="row">
+            <div class="col-lg-10 col-md-8 hidden-md hidden-sm hidden-xs">
+
+                <h1 id="headingSlogan" style="font-size: 15px; margin: 0; padding: 0; font-weight: normal">
+                    <span id="lblSlogan" class="slogan">Ch&#224;o mừng bạn đến với Datdackhu!</span>
+                </h1>
+            </div>
+            <div class="col-lg-2 col-md-12 col-xs-12">
+                <a id="lnkCreateAd" class="pull-right btn mbnd-btn-red" href="/dang-tin-mua-ban-nha-dat.html">
+                    <img src="~/assets/client_v2/img/ic-pencil.svg" /> Đăng tin miễn phí
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container margin-section">
+    <div class="row">
+        <div class="col-sm-12 col-top-left">
+            <div class="searchbox">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="text-center searchbox-title">
+                            <h2 class="home-search-total">Tìm ngay 234.887 bất động sản</h2>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <input name="ctl00$SearchContent$ctl00$txtLocation$txtText" type="text" id="SearchContent_ctl00_txtLocation_txtText" data-ta-field-district="SearchContent_ctl00_txtLocation_hdfDistrict" data-ta-type="location" data-ta-title-district="Chọn quận" data-ta-field-location="SearchContent_ctl00_txtLocation_hdfLocation" data-ta-field-project="SearchContent_ctl00_txtLocation_hdfProject" data-ta-title-state="Chọn Tỉnh / Thành phố" data-ta-title-listing="Tin đăng với ti&amp;#234;u đề" data-ta-field-state="SearchContent_ctl00_txtLocation_hdfState" class="ta-control form-control" data-ta-field-listing="SearchContent_ctl00_txtLocation_hdfListing" placeholder="Nhập địa điểm, tên dự án" data-ta-limit="10" autocomplete="off" data-ta-title-project="Tin đăng thuộc dự &amp;#225;n" data-ta-title-location="Chọn vị tr&amp;#237;" />
+                        <input type="hidden" name="ctl00$SearchContent$ctl00$txtLocation$hdfState" id="SearchContent_ctl00_txtLocation_hdfState" />
+                        <input type="hidden" name="ctl00$SearchContent$ctl00$txtLocation$hdfDistrict" id="SearchContent_ctl00_txtLocation_hdfDistrict" />
+                        <input type="hidden" name="ctl00$SearchContent$ctl00$txtLocation$hdfLocation" id="SearchContent_ctl00_txtLocation_hdfLocation" />
+                        <input type="hidden" name="ctl00$SearchContent$ctl00$txtLocation$hdfProject" id="SearchContent_ctl00_txtLocation_hdfProject" />
+                        <input type="hidden" name="ctl00$SearchContent$ctl00$txtLocation$hdfListing" id="SearchContent_ctl00_txtLocation_hdfListing" />
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="search-or"></div>
+                        <div class="search-or-text">hoặc</div>
+                    </div>
+                    <div class="col-lg-12">
+                        <select name="ctl00$SearchContent$ctl00$ddlCategory" id="SearchContent_ctl00_ddlCategory" class="btn btn-light col-xs-12 ddl-category">
+                            <option selected="selected" value="0">Chọn danh mục</option>
+                            <option value="" class="seperator" disabled="disabled">-----</option>
+                            <option value="3513">Nh&#224; b&#225;n (126.861)</option>
+                            <option value="3514">Căn hộ b&#225;n (16.665)</option>
+                            <option value="3515">Đất b&#225;n (55.501)</option>
+                            <option value="3516">Mặt bằng b&#225;n (1.961)</option>
+                            <option value="3517">Kho xưởng b&#225;n (506)</option>
+                            <option value="3518">Nh&#224; cho thu&#234; (15.966)</option>
+                            <option value="3519">Căn hộ cho thu&#234; (9.875)</option>
+                            <option value="3520">Đất cho thu&#234; (797)</option>
+                            <option value="3521">Mặt bằng cho thu&#234; (3.497)</option>
+                            <option value="3522">Kho xưởng cho thu&#234; (3.435)</option>
+
+                        </select>
+                        <div class="col-xs-12">
+                            <div class="spacer"></div>
+                        </div>
+
+                        <select class="btn btn-light col-xs-12 ddl-subcategory" disabled="disabled" data-title="Chọn loại" data-hdf="SearchContent_ctl00_hdfSubCat">
+                            <option value="0">Chọn loại</option>
+                        </select>
+                        <input type="hidden" name="ctl00$SearchContent$ctl00$hdfSubCat" id="SearchContent_ctl00_hdfSubCat" />
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="col-xs-12">
+                            <div class="spacer"></div>
+                        </div>
+
+                        <select class="btn btn-light col-xs-12 ddl-price" disabled="disabled" data-title="Giá cao nhất" data-hdf="SearchContent_ctl00_hdfPrice">
+                            <option value="0">Giá cao nhất</option>
+                        </select>
+                        <input type="hidden" name="ctl00$SearchContent$ctl00$hdfPrice" id="SearchContent_ctl00_hdfPrice" />
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-lg-12 margin-section">
+                        <button value="submit" id="SearchContent_ctl00_btnSearch" onclick="WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions('ctl00$SearchContent$ctl00$btnSearch', '', true, '', '', false, true))" class="btn btn-primary col-xs-12 cusbts"><span>Tìm kiếm</span></button>
+                    </div>
+                    <div class="col-lg-12">
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-sm-12 col-top-center">
+            <div class="homead">
+                <div id="carousel-home" class="carousel slide" data-ride="carousel" data-interval="15000" data-pause="" style="display:none;"> <ol class="carousel-indicators"> <li data-target="#carousel-home" data-slide-to="0"></li><li data-target="#carousel-home" data-slide-to="1"></li><li data-target="#carousel-home" data-slide-to="2"></li><li data-target="#carousel-home" data-slide-to="3"></li><li data-target="#carousel-home" data-slide-to="4"></li></ol> <div class="carousel-inner" role="listbox"> <div class="item"><ins data-revive-zoneid="64" data-revive-id="aa4a0ec382d9f0c0afc420b398a552a3"></ins> </div><div class="item"><ins data-revive-zoneid="69" data-revive-id="aa4a0ec382d9f0c0afc420b398a552a3"></ins> </div><div class="item"><ins data-revive-zoneid="70" data-revive-id="aa4a0ec382d9f0c0afc420b398a552a3"></ins> </div><div class="item"><ins data-revive-zoneid="71" data-revive-id="aa4a0ec382d9f0c0afc420b398a552a3"></ins> </div><div class="item"><ins data-revive-zoneid="72" data-revive-id="aa4a0ec382d9f0c0afc420b398a552a3"></ins> </div></div><a class="left carousel-control" href="#carousel-home" role="button" data-slide="prev"> <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> <span class="sr-only">Previous</span> </a> <a class="right carousel-control" href="#carousel-home" role="button" data-slide="next"> <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> <span class="sr-only">Next</span> </a></div>
+            </div>
+        </div>
+        <div class="col-lg-4 visible-lg col-top-right">
+            <div class="nothing">
+                <div style="height:25px"></div>
+                <ins data-revive-zoneid="65" data-revive-id="aa4a0ec382d9f0c0afc420b398a552a3"></ins>
+                <script async src="//adserver.muabannhadat.vn/www/delivery/asyncjs.php"></script>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clearfix"></div>
+<div class="container main bs-docs-container">
+    <div class="row" role="main">
+        <div class="col-md-12">         
+            <!--Ad:Leaderboard-->
+            <div class="visible-lg text-center">
+                <center>
+                    <ins data-revive-zoneid="1" data-revive-id="aa4a0ec382d9f0c0afc420b398a552a3"></ins>
+                    <script async src="//adserver.muabannhadat.vn/www/delivery/asyncjs.php"></script>
+                </center>
+            </div>
+            <div class="panel mbnd-panel-feature">
+                <div class="panel-heading">
+                    <h2 class="title-h2 text-uppercase">
+                        Bất động sản nổi bật
+                        <a class="btn-showmore pull-right" href='http://www.muabannhadat.vn/nha-dat-3490' onclick="setCookieFeaturedObject();">Xem thêm</a>
+                    </h2>
+                </div>
+                <div class="panel-body">
+                    <div id="featureObjectNormal" class="row cussrow"></div>
+                    <div class="hidden">
+                        <div id="objectAdItemFirst">
+                            <div class="col-xs-12 col-sm-6 col-lg-3">
+                                <div class="listing-zone-ad">
+                                    <a class="listing-tag-ad listing-tag-a listing-tag-a-first" href="/lien-he-tro-giup">
+                                        <div class="feature-ad-line-1">Liên hệ quảng cáo</div>
+                                        <div class="feature-ad-line-2">18001207</div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="objectAdItem">
+                            <div class="col-xs-12 col-sm-6 col-lg-3">
+                                <div class="listing-zone-ad">
+                                    <a class="listing-tag-ad listing-tag-a" href="/lien-he-tro-giup">
+                                        <div class="feature-ad-line-1">Liên hệ quảng cáo</div>
+                                        <div class="feature-ad-line-2">18001207</div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="objectItem_2_2">
+                            <div class="col-xs-12 col-sm-6 col-lg-3 listing-zone">
+                                <div class="mbnd-card  listing-tag-a-first">
+                                    <div class="listing-tag">
+                                        <div class="imgListing">
+                                            <a href="/nha-ban-biet-thu-villa-3525/ban-biet-thu-doi-2-lo-lien-ke-duong-vo-thi-sau-vi-8447590">
+                                                <img class="img-responsive imageFeaturedBox" src="http://www.muabannhadat.vn/uploads/images/008/447/590/JtbRMG1qP0qT68atk7xbjQ_3.jpg" alt=" Bán Biệt Thự Đôi 2 lô liền kề Đường Võ Thị Sáu, vị trí đẹ ...">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <h3 class="card-title">
+                                            <a href="/nha-ban-biet-thu-villa-3525/ban-biet-thu-doi-2-lo-lien-ke-duong-vo-thi-sau-vi-8447590">
+                                                Bán Biệt Thự Đôi 2 lô liền kề Đường Võ Thị Sáu, vị trí đẹ ...
+                                            </a>
+                                        </h3>
+                                        <p class="card-text">Thành phố Biên Hòa, Đồng Nai</p>
+                                        <p class="card-price">85 Tỷ VNĐ</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="objectItem_2_3">
+                            <div class="col-xs-12 col-sm-6 col-lg-3 listing-zone">
+                                <div class="mbnd-card ">
+                                    <div class="listing-tag">
+                                        <div class="imgListing">
+                                            <a href="/nha-ban-nha-pho-3535/dragon-smart-city-chuoi-shophoue-hang-sang-ven-bie-8507176">
+                                                <img class="img-responsive imageFeaturedBox" src="http://www.muabannhadat.vn/uploads/images/008/507/176/39Se5rrHZ0CmnlAdO_IrQQ_3.jpg" alt=" Dragon Smart City – Chuỗi shophoue hạng sang ven biển, trên đại ...">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <h3 class="card-title">
+                                            <a href="/nha-ban-nha-pho-3535/dragon-smart-city-chuoi-shophoue-hang-sang-ven-bie-8507176">
+                                                Dragon Smart City – Chuỗi shophoue hạng sang ven biển, trên đại  ...
+                                            </a>
+                                        </h3>
+                                        <p class="card-text">Quận Liên Chiểu, TP.Đà Nẵng</p>
+                                        <p class="card-price">9,7 Tỷ VNĐ</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="objectItem_1_4">
+                            <div class="col-xs-12 col-sm-6 col-lg-3 listing-zone">
+                                <div class="mbnd-card ">
+                                    <div class="listing-tag">
+                                        <div class="imgListing">
+                                            <a href="/dat-ban-dat-tho-cu-3532/can-tien-tra-ngan-hang-thanh-ly-gap-lo-dat-tho-cu-8325083">
+                                                <img class="img-responsive imageFeaturedBox" src="http://www.muabannhadat.vn/uploads/images/008/325/083/ijiCAPe5FEeLW_Q2hWf78w_3.jpg" alt=" Cần Tiền Trả Ngân Hàng, Thanh Lý Gấp Lô Đất Thổ Cư Trong Kdc 7x3 ...">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <h3 class="card-title">
+                                            <a href="/dat-ban-dat-tho-cu-3532/can-tien-tra-ngan-hang-thanh-ly-gap-lo-dat-tho-cu-8325083">
+                                                Cần Tiền Trả Ngân Hàng, Thanh Lý Gấp Lô Đất Thổ Cư Trong Kdc 7x3 ...
+                                            </a>
+                                        </h3>
+                                        <p class="card-text">Huyện Củ Chi, TP.Hồ Chí Minh</p>
+                                        <p class="card-price">980 Triệu VNĐ</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="objectItem_1_1">
+                            <div class="col-xs-12 col-sm-6 col-lg-3 listing-zone">
+                                <div class="mbnd-card ">
+                                    <div class="listing-tag">
+                                        <div class="imgListing">
+                                            <a href="/nha-ban-nha-pho-3535/ban-nha-mt-18a-18a1-truong-quoc-dung-phuong-8-q-ph-8512922">
+                                                <img class="img-responsive imageFeaturedBox" src="http://www.muabannhadat.vn/uploads/images/008/512/922/w_itwosRbkq6bFM5u5nonA_3.jpg" alt=" Bán nhà MT 18A-18A1 Trương Quốc Dung, phường 8, Q Phú Nhuậ ...">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <h3 class="card-title">
+                                            <a href="/nha-ban-nha-pho-3535/ban-nha-mt-18a-18a1-truong-quoc-dung-phuong-8-q-ph-8512922">
+                                                Bán nhà MT 18A-18A1 Trương Quốc Dung, phường 8, Q Phú Nhuậ ...
+                                            </a>
+                                        </h3>
+                                        <p class="card-text">Quận Phú Nhuận, TP.Hồ Chí Minh</p>
+                                        <p class="card-price">17,9 Tỷ VNĐ</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <div id="objectItem_3_4">
+                            <div class="col-xs-12 col-sm-6 col-lg-3 listing-zone">
+                                <div class="mbnd-card ">
+                                    <div class="listing-tag">
+                                        <div class="imgListing">
+                                            <a href="/dat-ban-dat-tho-cu-3532/can-ban-dat-mat-tien-duong-kha-van-can-p-linh-trun-8545894">
+                                                <img class="img-responsive imageFeaturedBox" src="http://www.muabannhadat.vn/uploads/images/008/545/894/6eLqmXxF20SaGle2gDi4rQ_3.jpg" alt=" Cần bán đất mặt tiền đường Kha Vạn Cân, P.Linh Trung, Q.Thủ Đức, ...">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <h3 class="card-title">
+                                            <a href="/dat-ban-dat-tho-cu-3532/can-ban-dat-mat-tien-duong-kha-van-can-p-linh-trun-8545894">
+                                                Cần bán đất mặt tiền đường Kha Vạn Cân, P.Linh Trung, Q.Thủ Đức, ...
+                                            </a>
+                                        </h3>
+                                        <p class="card-text">Quận Thủ Đức, TP.Hồ Chí Minh</p>
+                                        <p class="card-price">150 Tỷ VNĐ</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <div id="objectItem_1_2">
+                            <div class="col-xs-12 col-sm-6 col-lg-3 listing-zone">
+                                <div class="mbnd-card ">
+                                    <div class="listing-tag">
+                                        <div class="imgListing">
+                                            <a href="/nha-ban-biet-thu-villa-3525/chuyen-ban-biet-thu-an-khang-nam-cuong-nhung-vi-tr-8550654">
+                                                <img class="img-responsive imageFeaturedBox" src="http://www.muabannhadat.vn/uploads/images/008/550/654/5AlH22qiDU2lzrClpNFn0w_3.jpg" alt=" Chuyên bán biệt thự An Khang Nam Cường, những vị trí đẹp nhất, g ...">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <h3 class="card-title">
+                                            <a href="/nha-ban-biet-thu-villa-3525/chuyen-ban-biet-thu-an-khang-nam-cuong-nhung-vi-tr-8550654">
+                                                Chuyên bán biệt thự An Khang Nam Cường, những vị trí đẹp nhất, g ...
+                                            </a>
+                                        </h3>
+                                        <p class="card-text">Quận Hà Đông, TP.Hà Nội</p>
+                                        <p class="card-price">15,189 Tỷ VNĐ</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <div id="objectItem_3_3">
+                            <div class="col-xs-12 col-sm-6 col-lg-3 listing-zone">
+                                <div class="mbnd-card ">
+                                    <div class="listing-tag">
+                                        <div class="imgListing">
+                                            <a href="/nha-ban-nha-pho-3535/ban-nha-lo-goc-2-mat-duong-xay-de-o-duong-15m-via-8343455">
+                                                <img class="img-responsive imageFeaturedBox" src="http://www.muabannhadat.vn/uploads/images/008/343/455/kLcdmzsINEW4NUuiUdN3rg_3.jpg" alt=" Bán nhà lô góc 2 mặt đường xây để ở, đường 15m, vỉa hè 3m, 4 tầ ...">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <h3 class="card-title">
+                                            <a href="/nha-ban-nha-pho-3535/ban-nha-lo-goc-2-mat-duong-xay-de-o-duong-15m-via-8343455">
+                                                Bán nhà lô góc  2 mặt đường xây để ở, đường 15m, vỉa hè 3m, 4 tầ ...
+                                            </a>
+                                        </h3>
+                                        <p class="card-text">Quận Bắc Từ Liêm, TP.Hà Nội</p>
+                                        <p class="card-price">4,69 Tỷ VNĐ</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+
+            <!--Tin dang BDS MOI NHAT-->
+
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="panel mbnd-panel-feature">
+                        <div class="panel-heading">
+                            <h2 class="title-h2 text-uppercase">
+                                <a id="MainContent_ctl03_HyperLinkHeader" title="Bất động sản mới nhất" href="/nha-dat-3490">Tin đăng BĐS mới nhất </a>
+                            </h2>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="mbnd-card mbnd-objectLastest">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-3">
+                                                    <a href="/dat-ban-dat-tho-cu-3532/chi-700-trieu-co-nen-giai-doan-f1-cach-san-bay-tan-8524848">
+                                                        <img class="img-responsive cusimg-responsive" src="http://www.muabannhadat.vn/uploads/images/008/524/848/zWqHEYW3vkGh2YTEAagYjw_3.jpg" alt="Chỉ: 700 Triệu Có Nền -  " Giai Đoạn F1 " - Cách Sân Bay Tân Sơn Nhất 15 Phút." />
+                                                    </a>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-9">
+                                                    <h3 class="card-title title row-fluid latest-title"><a href="/dat-ban-dat-tho-cu-3532/chi-700-trieu-co-nen-giai-doan-f1-cach-san-bay-tan-8524848">Chỉ: 700 Triệu Có Nền -  " Giai Đoạn F1 " - Cách Sân Bay Tân Sơn Nhất 15  Phút.</a></h3>
+                                                    <p class="card-price">700 Triệu VNĐ</p>
+                                                    <p class="card-text">Quận Gò Vấp</p>
+                                                    <!--<p class="card-text">Công bố mở bán giai đoạn F1 - KDC Thống Nhất.</p>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mbnd-card mbnd-objectLastest">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-3">
+                                                    <a href="/nha-ban-khac-3592/chinh-chu-phong-tro-12p-2-kiot-gia-550tr-le-loi-ho-8571695">
+                                                        <img class="img-responsive cusimg-responsive" src="http://www.muabannhadat.vn/uploads/images/008/571/695/KXH0zVMiDUO0t2_J_6AGiA_3.jpg" alt="Chính Chủ !!!  Phòng Trọ 12p + 2 Kiot, Giá 550tr, Lê Lợi, Hóc Môn " />
+                                                    </a>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-9">
+                                                    <h3 class="card-title title row-fluid latest-title"><a href="/nha-ban-khac-3592/chinh-chu-phong-tro-12p-2-kiot-gia-550tr-le-loi-ho-8571695">Chính Chủ !!!  Phòng Trọ 12p + 2 Kiot, Giá 550tr, Lê Lợi, Hóc Môn </a></h3>
+                                                    <p class="card-price">550 Triệu VNĐ</p>
+                                                    <p class="card-text">Huyện Hóc Môn</p>
+                                                    <!--<p class="card-text">Tôi Cần Bán Gấp Phòng Trọ Giá 550tr, Thu Nhập >= 14tr/ Tháng. Đang Cho Thuê Kín, Gần Chợ Khu Dân Cư Đông .....</p>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mbnd-card mbnd-objectLastest">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-3">
+                                                    <a href="/nha-ban-nha-pho-3535/ban-nha-rieng-quan-go-vap-gia-3-18-ty-thuong-luong-8571383">
+                                                        <img class="img-responsive cusimg-responsive" src="http://www.muabannhadat.vn/uploads/images/008/571/383/UJyvn0eKg0KY_DR8p4kN5A_3.jpg" alt="Bán nhà riêng quận Gò Vấp Giá 3.18 tỷ (thương lượng) đường Quang Trung, phường 8, Đúc 1 tấm- 2PN" />
+                                                    </a>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-9">
+                                                    <h3 class="card-title title row-fluid latest-title"><a href="/nha-ban-nha-pho-3535/ban-nha-rieng-quan-go-vap-gia-3-18-ty-thuong-luong-8571383">Bán nhà riêng quận Gò Vấp Giá 3.18 tỷ (thương lượng) đường Quang Trung, phường 8, Đúc 1 tấm- 2PN</a></h3>
+                                                    <p class="card-price">3,8 Tỷ VNĐ</p>
+                                                    <p class="card-text">Quận Gò Vấp</p>
+                                                    <!--<p class="card-text">Bán nhà riêng quận Gò Vấp Giá 3.18 tỷ (thương lượng) đường Quang Trung, phường 8, Đúc 1 tấm- 2PN, Pháp lý rõ ràng.</p>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mbnd-card mbnd-objectLastest">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-3">
+                                                    <a href="/nha-ban-nha-pho-3535/nha-go-vap-can-ban-gia-3-45-ty-thuong-luong-duong-8571340">
+                                                        <img class="img-responsive cusimg-responsive" src="http://www.muabannhadat.vn/uploads/images/008/571/340/CZlxcST-vEyjGKbDg2w0pQ_3.jpg" alt="Nhà Gò Vấp cần bán Giá 3.45 tỷ (thương lượng) đường Phạm Văn Chiêu, phường 14." />
+                                                    </a>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-9">
+                                                    <h3 class="card-title title row-fluid latest-title"><a href="/nha-ban-nha-pho-3535/nha-go-vap-can-ban-gia-3-45-ty-thuong-luong-duong-8571340">Nhà Gò Vấp cần bán Giá 3.45 tỷ (thương lượng) đường Phạm Văn Chiêu, phường 14.</a></h3>
+                                                    <p class="card-price">3,45 Tỷ VNĐ</p>
+                                                    <p class="card-text">Quận Gò Vấp</p>
+                                                    <!--<p class="card-text">Nhà Gò Vấp cần bán Giá 3.45 tỷ (thương lượng) đường Phạm Văn Chiêu, phường 14.</p>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mbnd-card mbnd-objectLastest">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-3">
+                                                    <a href="/kho-xuong-cho-thue-nha-xuong-3564/cho-thue-kho-xuong-kcn-que-vo-bac-ninh-dien-tich-7-8128709">
+                                                        <img class="img-responsive cusimg-responsive" src="http://www.muabannhadat.vn/uploads/images/008/128/709/P6uTQ6zMtUCiIcvtb1Jw3Q_3.jpg" alt="Cho thuê kho xưởng KCN Quế Võ-Bắc Ninh. Diện Tích: 750m2 đến 6750m2 " />
+                                                    </a>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-9">
+                                                    <h3 class="card-title title row-fluid latest-title"><a href="/kho-xuong-cho-thue-nha-xuong-3564/cho-thue-kho-xuong-kcn-que-vo-bac-ninh-dien-tich-7-8128709">Cho thuê kho xưởng KCN Quế Võ-Bắc Ninh. Diện Tích: 750m2 đến 6750m2 </a></h3>
+                                                    <p class="card-price">38 Triệu VNĐ</p>
+                                                    <p class="card-text">Huyện Quế Võ</p>
+                                                    <!--<p class="card-text">Nhà Văn Phòng, Trong Tổng Khuôn Viên 7.000m2 Đất, Xưởng Mới Đạt Tiêu Chuẩn Công Nghiệp, Nằm Trong Khuôn Viên Độc Lập,cột Cao 7,5m, Không Dột Nước, Xe Container </p>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mbnd-card mbnd-objectLastest">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-3">
+                                                    <a href="/kho-xuong-cho-thue-nha-xuong-3564/chung-toi-cho-thue-kho-xuong-dt-650m2-den-3650m2-k-8128704">
+                                                        <img class="img-responsive cusimg-responsive" src="http://www.muabannhadat.vn/uploads/images/008/128/704/qZzDQp3ZE0Ouim2nB6qLSQ_3.jpg" alt="Chúng tôi cho thuê kho xưởng dt 650m2 đến 3650m2 KCN Quế Võ 1, Phương Liễu, Bắc Ninh. " />
+                                                    </a>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-9">
+                                                    <h3 class="card-title title row-fluid latest-title"><a href="/kho-xuong-cho-thue-nha-xuong-3564/chung-toi-cho-thue-kho-xuong-dt-650m2-den-3650m2-k-8128704">Chúng tôi cho thuê kho xưởng dt 650m2 đến 3650m2 KCN Quế Võ 1, Phương Liễu, Bắc Ninh. </a></h3>
+                                                    <p class="card-price">34 Triệu VNĐ</p>
+                                                    <p class="card-text">Huyện Quế Võ</p>
+                                                    <!--<p class="card-text">Chúng tôi cho thuê kho xưởng dt 3500m2 KCN Quế Võ 1, Phương Liễu, Bắc Ninh.
+                                                    Nhà xưởng theo tiêu chuẩn cn trong khuôn viên 4ha xây mới, mái chống nóng, </p>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mbnd-card mbnd-objectLastest">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-3">
+                                                    <a href="/kho-xuong-cho-thue-nha-xuong-3564/cong-ty-chung-toi-cho-thue-kho-xuong-dt-1000m2-150-8128698">
+                                                        <img class="img-responsive cusimg-responsive" src="http://www.muabannhadat.vn/uploads/images/008/128/698/N-qHZ8QZO0WlfXPPuFzymg_3.jpg" alt="Công ty chúng tôi cho thuê kho xưởng DT 1000m2, 1500m2, 3000m2, 4400m2 tại Quế Võ, Bắc Ninh.  " />
+                                                    </a>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-9">
+                                                    <h3 class="card-title title row-fluid latest-title"><a href="/kho-xuong-cho-thue-nha-xuong-3564/cong-ty-chung-toi-cho-thue-kho-xuong-dt-1000m2-150-8128698">Công ty chúng tôi cho thuê kho xưởng DT 1000m2, 1500m2, 3000m2, 4400m2 tại Quế Võ, Bắc Ninh.  </a></h3>
+                                                    <p class="card-price">53 Triệu VNĐ</p>
+                                                    <p class="card-text">Huyện Quế Võ</p>
+                                                    <!--<p class="card-text">Nhà xưởng mới xây dựng theo tiêu chuẩn CN, có chống nóng, cột cao 9m khuôn viên rộng, sân bê tông chung rộng, xe container vào cửa xưởng, bảo vệ 24/24 vòng ngoà</p>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mbnd-card mbnd-objectLastest">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-3">
+                                                    <a href="/kho-xuong-cho-thue-nha-xuong-3564/chinh-chu-co-xuong-cho-thue-tai-tan-hong-tu-son-ba-8127296">
+                                                        <img class="img-responsive cusimg-responsive" src="http://www.muabannhadat.vn/uploads/images/008/127/296/RTaTXNQ6S0i5XxK0hQi2TQ_3.jpg" alt="Chính chủ có xưởng cho thuê tại Tân Hồng, Từ Sơn, Bắc Ninh DT 800m2 đến 3600m2" />
+                                                    </a>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-9">
+                                                    <h3 class="card-title title row-fluid latest-title"><a href="/kho-xuong-cho-thue-nha-xuong-3564/chinh-chu-co-xuong-cho-thue-tai-tan-hong-tu-son-ba-8127296">Chính chủ có xưởng cho thuê tại Tân Hồng, Từ Sơn, Bắc Ninh DT 800m2 đến 3600m2</a></h3>
+                                                    <p class="card-price">40 Triệu VNĐ</p>
+                                                    <p class="card-text">Huyện Từ Sơn</p>
+                                                    <!--<p class="card-text">Vị trí địa lý thuận tiện cho giao thông đi lại
+                                                    Khuôn viên sạch đẹp, có nhà văn phòng, nhà để xe.</p>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mbnd-card mbnd-objectLastest">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-3">
+                                                    <a href="/kho-xuong-cho-thue-nha-xuong-3564/cho-thue-kho-xuong-dt-700m2-den-3700m2-tai-kcn-dai-8128622">
+                                                        <img class="img-responsive cusimg-responsive" src="http://www.muabannhadat.vn/uploads/images/008/128/622/jjRuX3_tsEOKwmp7gTvzlA_3.jpg" alt="Cho thuê kho xưởng DT 700m2 đến 3700m2 tại KCN Đại Đồng, Tiên Du, Bắc Ninh  " />
+                                                    </a>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-9">
+                                                    <h3 class="card-title title row-fluid latest-title"><a href="/kho-xuong-cho-thue-nha-xuong-3564/cho-thue-kho-xuong-dt-700m2-den-3700m2-tai-kcn-dai-8128622">Cho thuê kho xưởng DT 700m2 đến 3700m2 tại KCN Đại Đồng, Tiên Du, Bắc Ninh  </a></h3>
+                                                    <p class="card-price">35 Triệu VNĐ</p>
+                                                    <p class="card-text">Huyện Tiên Du</p>
+                                                    <!--<p class="card-text">Nhà xưởng theo tiêu chuẩn CN, khung thép jamin chắc chắn, cột cao 9m, trạm điện riêng, bảo vệ 24/24, nằm trong khuôn viên rộng 2,2ha, sân bê tông rộng rãi, nền </p>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mbnd-card mbnd-objectLastest">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-3">
+                                                    <a href="/kho-xuong-cho-thue-nha-xuong-3564/cho-thue-kho-xuong-dt-800m2-den-4500m2-trong-kcn-d-8121028">
+                                                        <img class="img-responsive cusimg-responsive" src="http://www.muabannhadat.vn/uploads/images/008/121/028/mmxsaV7M60GbSbh-5uh_4Q_3.jpg" alt="Cho thuê kho xưởng DT 800m2 đến 4500m2 trong KCN Đại Đồng Tiên Du Bắc Ninh " />
+                                                    </a>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-9">
+                                                    <h3 class="card-title title row-fluid latest-title"><a href="/kho-xuong-cho-thue-nha-xuong-3564/cho-thue-kho-xuong-dt-800m2-den-4500m2-trong-kcn-d-8121028">Cho thuê kho xưởng DT 800m2 đến 4500m2 trong KCN Đại Đồng Tiên Du Bắc Ninh </a></h3>
+                                                    <p class="card-price">40 Triệu VNĐ</p>
+                                                    <p class="card-text">Huyện Tiên Du</p>
+                                                    <!--<p class="card-text">Nhà xưởng độc lập trạm điện riêng công suất 200KVA, có 150m2 VP, cột cao 7m, có chống nóng, nền bê tông kiên cố, xe vào tận xưởng, sân bê tông chung rộng rãi.</p>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mbnd-card mbnd-objectLastest">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-3">
+                                                    <a href="/kho-xuong-cho-thue-nha-xuong-3564/chung-toi-can-cho-thue-kho-xuong-1000m2-3300m2-440-8121032">
+                                                        <img class="img-responsive cusimg-responsive" src="http://www.muabannhadat.vn/uploads/images/008/121/032/Xfc3bXeY_kau98BJz8hnRA_3.jpg" alt="Chúng tôi cần cho thuê kho xưởng 1000m2, 3300m2, 4400m2, 10.000m2 ở KCN Đại Đồng, Tiên Du, Bắc Ninh" />
+                                                    </a>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-9">
+                                                    <h3 class="card-title title row-fluid latest-title"><a href="/kho-xuong-cho-thue-nha-xuong-3564/chung-toi-can-cho-thue-kho-xuong-1000m2-3300m2-440-8121032">Chúng tôi cần cho thuê kho xưởng 1000m2, 3300m2, 4400m2, 10.000m2 ở KCN Đại Đồng, Tiên Du, Bắc Ninh</a></h3>
+                                                    <p class="card-price">55 Triệu VNĐ</p>
+                                                    <p class="card-text">Huyện Tiên Du</p>
+                                                    <!--<p class="card-text">Nhà xưởng theo tiêu chuẩn công nghiệp, có chống nóng, cột cao 9m, trạm điện riêng công suất 1000KVA</p>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mbnd-card mbnd-objectLastest">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-3">
+                                                    <a href="/kho-xuong-cho-thue-nha-xuong-3564/cho-thue-kho-xuong-dt-700m2-den-9000m2-kcn-dai-don-8121036">
+                                                        <img class="img-responsive cusimg-responsive" src="http://www.muabannhadat.vn/uploads/images/008/121/036/NF_Np1jND0utx9F1bVOvig_3.jpg" alt="Cho thuê kho xưởng DT 700m2 đến 9000m2 KCN Đại Đồng Tiên Du Bắc Ninh " />
+                                                    </a>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-9">
+                                                    <h3 class="card-title title row-fluid latest-title"><a href="/kho-xuong-cho-thue-nha-xuong-3564/cho-thue-kho-xuong-dt-700m2-den-9000m2-kcn-dai-don-8121036">Cho thuê kho xưởng DT 700m2 đến 9000m2 KCN Đại Đồng Tiên Du Bắc Ninh </a></h3>
+                                                    <p class="card-price">35 Triệu VNĐ</p>
+                                                    <p class="card-text">Huyện Tiên Du</p>
+                                                    <!--<p class="card-text">Cho thuê kho xưởng DT 700m2 đến 9000m2 KCN Đại Đồng Tiên Du Bắc Ninh
+                                                    - Nhà kho, xưởng theo tiêu chuẩn cn, mái tôn chống nóng.
+                                                    - Nhà kho, xưởng cao 9m,</p>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mbnd-card mbnd-objectLastest">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-3">
+                                                    <a href="/kho-xuong-cho-thue-nha-xuong-3564/cho-thue-kho-xuong-dt-1000m2-kcn-tien-son-tu-son-b-8122263">
+                                                        <img class="img-responsive cusimg-responsive" src="http://www.muabannhadat.vn/uploads/images/008/122/263/vCHM14mEo0K3ePOfxBrR3g_3.jpg" alt="Cho thuê kho xưởng dt 1000m2 KCN Tiên Sơn Từ Sơn, Bắc Ninh." />
+                                                    </a>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-9">
+                                                    <h3 class="card-title title row-fluid latest-title"><a href="/kho-xuong-cho-thue-nha-xuong-3564/cho-thue-kho-xuong-dt-1000m2-kcn-tien-son-tu-son-b-8122263">Cho thuê kho xưởng dt 1000m2 KCN Tiên Sơn Từ Sơn, Bắc Ninh.</a></h3>
+                                                    <p class="card-price">50 Triệu VNĐ</p>
+                                                    <p class="card-text">Huyện Từ Sơn</p>
+                                                    <!--<p class="card-text">Cho thuê kho xưởng dt 1000m2 KCN Tiên Sơn Từ Sơn, Bắc Ninh.
+                                                    Nhà xưởng đang còn mới sử dụng tốt, nhà xưởng tiêu chuẩn cn, cao 12m, nền betong đánh bóng, </p>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mbnd-card mbnd-objectLastest">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-3">
+                                                    <a href="/kho-xuong-cho-thue-nha-xuong-3564/chung-toi-cho-thue-kho-xuong-dt-1200m2-tai-kcn-tie-8122264">
+                                                        <img class="img-responsive cusimg-responsive" src="http://www.muabannhadat.vn/uploads/images/008/122/264/jAsbcPx_M02Fvbi0yl58hA_3.jpg" alt="Chúng tôi cho thuê kho xưởng DT 1200m2 tại KCN Tiên Sơn, Từ Sơn, Bắc Ninh.  " />
+                                                    </a>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-9">
+                                                    <h3 class="card-title title row-fluid latest-title"><a href="/kho-xuong-cho-thue-nha-xuong-3564/chung-toi-cho-thue-kho-xuong-dt-1200m2-tai-kcn-tie-8122264">Chúng tôi cho thuê kho xưởng DT 1200m2 tại KCN Tiên Sơn, Từ Sơn, Bắc Ninh.  </a></h3>
+                                                    <p class="card-price">60 Triệu VNĐ</p>
+                                                    <p class="card-text">Huyện Từ Sơn</p>
+                                                    <!--<p class="card-text">Chúng tôi cho thuê kho xưởng DT 1200m2 tại KCN Tiên Sơn, Từ Sơn, Bắc Ninh.
+                                                    Nhà kho theo tiêu chuẩn CN, mái có chống nóng, cột cao 9m, nền bê tông kiên cố </p>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mbnd-card mbnd-objectLastest">
+                                        <div class="card-body">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-3">
+                                                    <a href="/kho-xuong-cho-thue-nha-xuong-3564/chung-toi-cho-thue-kho-xuong-dt-600m2-den-1600m2-t-8121033">
+                                                        <img class="img-responsive cusimg-responsive" src="http://www.muabannhadat.vn/uploads/images/008/121/033/ooKO8bFJF0ekS8eDz-Lefw_3.jpg" alt="Chùng tôi cho thuê kho xưởng dt 600m2 đến 1600m2 tại KCN Đại Đồng Tiên Du, Bắc Ninh. " />
+                                                    </a>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-9">
+                                                    <h3 class="card-title title row-fluid latest-title"><a href="/kho-xuong-cho-thue-nha-xuong-3564/chung-toi-cho-thue-kho-xuong-dt-600m2-den-1600m2-t-8121033">Chùng tôi cho thuê kho xưởng dt 600m2 đến 1600m2 tại KCN Đại Đồng Tiên Du, Bắc Ninh. </a></h3>
+                                                    <p class="card-price">42 Triệu VNĐ</p>
+                                                    <p class="card-text">Huyện Tiên Du</p>
+                                                    <!--<p class="card-text">Nhà xưởng mới xây dựng xong, theo tiêu chuẩn cn, mái chống nóng, cột cao 9m, nền bê tông đánh bóng, sân chung rộng rãi, xe container đỗ cửa xưởng, bảo vệ 24/24 </p>-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="panel mbnd-panel-feature">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12 zone-news-right">
+                                    <div id="mbnd_id_feature_list"></div>
+
+                                    <div class="hidden-xs hidden-sm margin-top-20">
+                                        <div class="nothing">
+                                            <div style="height:25px"></div>
+                                            <ins data-revive-zoneid="3" data-revive-id="aa4a0ec382d9f0c0afc420b398a552a3"></ins>
+                                        </div>
+                                    </div>
+
+                                    <div id="mbnd_id_fengshui"></div>
+
+                                    <div class="hidden-xs hidden-sm margin-top-20">
+                                        <ins data-revive-zoneid="4" data-revive-id="aa4a0ec382d9f0c0afc420b398a552a3"></ins>
+                                    </div>
+
+
+                                    <div class="consultant-home-page margin-top-20">
+                                    </div>
+                                    <div id="mbnd_id_video"></div>
+                                    <br />
+                                    <div id="mbnd_id_calendar_event"></div>
+
+                                    <div id="mbnd_id_calendar_event"></div>
+
+                                    <div class="visible-xs-block visible-sm-block margin-top-20">
+                                        <div>
+                                            <h2 class="home-heading" style="color:#414142;">MuaBanNhaDat.vn - Kênh thông tin BĐS lớn nhất Việt Nam</h2>
+                                        </div>
+                                        Mỗi ngày, MuaBanNhaDat có hơn 4.000 tin đăng mới bán nhà, bán đất, <a href="http://www.muabannhadat.vn/can-ho-ban-3514" title="căn hộ bán" target="_blank">căn hộ bán</a>, dự án chung cư, dự án biệt thự, đất nền… đa dạng về địa điểm, diện tích và mức giá; giúp bạn tìm kiếm căn nhà phù hợp thật nhanh chóng và thuận tiện. MuaBanNhaDat còn mang đến cho bạn những thông tin hữu ích từ các chuyên gia <b>bất động sản</b>, tài chính và pháp lý… giúp việc mua nhà của bạn trở nên dễ dàng hơn.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="visible-md-block visible-lg-block">
+                <div>
+                    <h2 class="home-heading" style="color:#414142;">MuaBanNhaDat.vn - Kênh thông tin BĐS lớn nhất Việt Nam</h2>
+                </div>
+                Mỗi ngày, MuaBanNhaDat có hơn 4.000 tin đăng mới bán nhà, bán đất, <a href="http://www.muabannhadat.vn/can-ho-ban-3514" title="căn hộ bán" target="_blank">căn hộ bán</a>, dự án chung cư, dự án biệt thự, đất nền… đa dạng về địa điểm, diện tích và mức giá; giúp bạn tìm kiếm căn nhà phù hợp thật nhanh chóng và thuận tiện. MuaBanNhaDat còn mang đến cho bạn những thông tin hữu ích từ các chuyên gia <b>bất động sản</b>, tài chính và pháp lý… giúp việc mua nhà của bạn trở nên dễ dàng hơn.
+            </div>
+        </div>
+    </div>
+</div>
+

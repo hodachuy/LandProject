@@ -16,11 +16,12 @@
                     <ul class="dropdown-menu dropdown-usermenu pull-right">
                         <li><a href="javascript:;"> Thông tin cá nhân</a></li>
                         <li style="padding-bottom:10px;">
-                            @using (Html.BeginForm("LogOut", "Account", FormMethod.Post, new { @id = "frmLogout" }))
+                            <a href="javascript:void(0);" id="logout"><i class="fa fa-sign-out pull-right"></i> Đăng xuất</a>
+                            @*@using (Html.BeginForm("LogOut", "Account", FormMethod.Post, new { @id = "frmLogout" }))
                             {
                                 @Html.AntiForgeryToken()
                                 <a href="#" id="btnLogout"><i class="fa fa-sign-out pull-right"></i> Đăng xuất</a>
-                            }
+                            }*@
                         </li>
                     </ul>
                 </li>
@@ -50,15 +51,3 @@
         </nav>
     </div>
 </div>
-@section footerJS{
-    <script>
-        $('#btnLogout').off('click').on('click', function (e) {
-            e.preventDefault();
-            $('#frmLogout').submit();
-        });
-    </script>
-
- 
-}
-
-

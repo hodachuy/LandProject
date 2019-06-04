@@ -122,6 +122,33 @@ $(document).ready(function () {
         console.log(params)
     })
 
+
+    $('body').on('click', '#saveLandNewsSchedule', function () {
+        var landScheduleID = $("#cboLandSchedule").val();
+        var param = {
+            landScheduleID: landScheduleID,
+            landNewsID :$('#landNewsID').val()
+        }
+        param = JSON.stringify(param)
+        var svr = new AjaxCall("api/landnews/publishedlandnewsschedule", param);
+        svr.callServicePOST(function (data) {
+            console.log(data)
+            $("#ActionLandNewsSchedule").modal('hide');
+            swal({
+                title: "Thông báo",
+                text: "thành công",
+                confirmButtonColor: "#EF5350",
+                type: "success"
+            }, function () { $("#model-notify").modal('show'); });
+            $('#grid').data('kendoGrid').dataSource.read();
+            $('#grid').data('kendoGrid').refresh();
+        });
+    })
+
+    $('body').on('click', '#closeLandNewsSchedule', function () {
+        $("#ActionLandNewsSchedule").modal('hide');
+    })
+
 })
 
 checkValid = function () {
@@ -188,7 +215,7 @@ DataSource = function () {
                     //var request = JSON.stringify(options.data);
                     var form = new FormData();
                     form.append('requestFilter', JSON.stringify(options.data))
-                    form.append('lTypeID', JSON.stringify($("#landTypeID").val()))
+                    form.append('typeExchange', JSON.stringify($("#typeExchange").val()))
                     $.ajax({
                         url: url,
                         type: "POST",
@@ -296,12 +323,19 @@ var Columns = [{
                 ui: statusFilter
             }
         },
+                        {
+                            template: '#=data.LandNewsScheduleName#',
+                            field: "ls.Name",
+                            title: "Loại tin",
+                            width: 100,
+                        },
             {
                 template: '#=data.Code#',
                 field: "ln.Code",
                 title: "Mã tin",
                 width: 100,
             },
+
                 {
                     template: '#if(data.CreatedDate != null){#<div>#=kendo.toString(new Date(data.CreatedDate), "dd/MM/yyyy")#</div>#}#',
                     field: "CreatedDate",
@@ -413,6 +447,11 @@ function templateForAction(e) {
         if (permission.IsUpdate) {
             html += '<li>';
             html += '<a href="javascript:new ForumCatg(' + e.ID + ').Edit(\'' + e.LandTypeName + '\')">Xem / Chỉnh sửa</a>';
+            html += '</li>';
+        }
+        if (permission.IsUpdate) {
+            html += '<li>';
+            html += '<a href="javascript:new ForumCatg(' + e.ID + ').PickTypeLandNewsSchedule(\'' + e.LandNewsScheduleID + '\')">Chọn loại tin</a>';
             html += '</li>';
         }
         if (!e.IsPublished) {
@@ -633,6 +672,18 @@ ForumCatg = function (id) {
             $('#grid').data('kendoGrid').refresh();
         });
     }
+    this.PickTypeLandNewsSchedule = function (landNewsScheduleID) {
+        $("#landNewsID").val(id);
+        var url1 = "api/schedule/getall";
+        var element = "#cboLandSchedule";
+        LoadComboBoxWithServices(element, url1, null, "ID", "Name", landNewsScheduleID, "Chọn Loại đăng tin", false, null, function () { }, null);
+        $("#ActionLandNewsSchedule").modal({
+            backdrop: 'static',
+            keyboard: true,
+            show: true
+        });    
+    }
+
     this.Delete = function (title) {
         bootbox.confirm({
             message: "Bạn có chắc muốn xóa tin này",

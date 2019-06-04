@@ -254,14 +254,19 @@ namespace LandProject.Web.Areas.Admin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult LogOut()
+        public JsonResult LogOut()
         {
             IAuthenticationManager authenticationManager = HttpContext.GetOwinContext().Authentication;
             authenticationManager.SignOut();
             Session.Clear();
             Session.Abandon();
             Session.RemoveAll();
-            return RedirectToAction("Login", "Account");
+
+            return Json(new
+            {
+                message = "success.",
+                status = true
+            });
         }
 
         #region Helpers

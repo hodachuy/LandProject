@@ -20,6 +20,7 @@ namespace LandProject.Service
         LandNews Add(LandNews landNews);
         LandNews Delete(int id);
         void PublishedLandNews(LandNews landNews);
+        void PublishedLandnewsSchedule(LandNews landNews);
         void DeleteLandNews(LandNews landNews);
         void Update(LandNews landNews);
         void Save();
@@ -77,6 +78,11 @@ namespace LandProject.Service
         public void PublishedLandNews(LandNews landNews)
         {
             _landNewsRepository.PublishLandNews(landNews);
+        }
+
+        public void PublishedLandnewsSchedule(LandNews landNews)
+        {
+            _landNewsRepository.PublishedLandnewsSchedule(landNews);
         }
 
         public void Save()

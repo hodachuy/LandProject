@@ -23,6 +23,8 @@ namespace LandProject.Data.Repositories
         void PublishLandNews(LandNews lnews);
 
         void DeleteLandNews(LandNews lnews);
+
+        void PublishedLandnewsSchedule(LandNews lnews);
     }
 
     public class LandNewsRepository : RepositoryBase<LandNews>, ILandNewsRepository
@@ -84,6 +86,13 @@ namespace LandProject.Data.Repositories
         {
             DbContext.LandNewss.Attach(lnews);
             DbContext.Entry(lnews).Property(x => x.IsDelete).IsModified = true;
+        }
+
+        public void PublishedLandnewsSchedule(LandNews lnews)
+        {
+            DbContext.LandNewss.Attach(lnews);
+            DbContext.Entry(lnews).Property(x => x.PublishedDate).IsModified = true;
+            DbContext.Entry(lnews).Property(x => x.LandNewsScheduleID).IsModified = true;
         }
     }
 }

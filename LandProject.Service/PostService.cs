@@ -17,6 +17,8 @@ namespace LandProject.Service
 
         IEnumerable<Post> GetAll();
 
+        IEnumerable<Post> GetAllByCondition(string condition);
+
         IEnumerable<Post> GetAllPaging(int page, int pageSize, out int totalRow);
 
         IEnumerable<Post> GetAllByCategoryPaging(int categoryId, int page, int pageSize, out int totalRow);
@@ -57,6 +59,11 @@ namespace LandProject.Service
         public IEnumerable<Post> GetAllByCategoryPaging(int categoryId, int page, int pageSize, out int totalRow)
         {
             return _postRepository.GetMultiPaging(x => x.Status && x.PostCategoryID == categoryId, out totalRow, page, pageSize, new string[] { "PostCategory" });
+        }
+
+        public IEnumerable<Post> GetAllByCondition(string condition)
+        {
+            return _postRepository.GetMulti(x => x.Name.Contains(condition), new string[] { "PostCategory" });
         }
 
         public IEnumerable<Post> GetAllByTagPaging(string tag, int page, int pageSize, out int totalRow)

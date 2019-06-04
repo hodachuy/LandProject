@@ -44,8 +44,8 @@ namespace LandProject.Web.API
 
                 var formRequest= HttpContext.Current.Request.Unvalidated.Form["requestFilter"];
                 var requestFilter = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue, RecursionLimit = 100 }.Deserialize<Request>(formRequest);
-                var formlTypeID = HttpContext.Current.Request.Unvalidated.Form["lTypeID"];
-                var landTypeID = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue, RecursionLimit = 100 }.Deserialize<int>(formlTypeID);
+                var typeExchange = HttpContext.Current.Request.Unvalidated.Form["typeExchange"];
+                var typeExchangeValue = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue, RecursionLimit = 100 }.Deserialize<int>(typeExchange);
 
                 int totalRow = 0;
                 string filter = Common.CommonSer.ConvertFilertToString(requestFilter.filter);
@@ -53,7 +53,7 @@ namespace LandProject.Web.API
                 int page = requestFilter.page;
                 int pageSize = requestFilter.pageSize;
 
-                filter += "ln.LandTypeID = " + landTypeID;
+                filter += "lt.TypeExchange = " + typeExchangeValue;
                 var lstLandNews = _landNewsService.GetAllByFilter(filter, sort, page, pageSize).ToList();
                 if (lstLandNews.Count() != 0)
                 {
@@ -96,6 +96,32 @@ namespace LandProject.Web.API
                 landNewsVm.Agent = agentDb;
 
                 response = request.CreateResponse(HttpStatusCode.OK, landNewsVm);
+                return response;
+            });
+        }
+
+        [Route("publishedlandnewsschedule")]
+        [HttpPost]
+        public HttpResponseMessage PublishedLandnewsSchedule(HttpRequestMessage request, JObject jsonData)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response;
+                dynamic json = jsonData;
+                int landNewsID = json.landNewsID;
+                int landNewsScheduleID = json.landScheduleID;
+                if (landNewsID == 0)
+                {
+                    return request.CreateResponse(HttpStatusCode.NoContent);
+                }
+                var landNews = _landNewsService.GetLandNewsDbModelByID(landNewsID);
+
+                landNews.LandNewsScheduleID = landNewsScheduleID;
+                landNews.PublishedDate = DateTime.Now;
+                _landNewsService.PublishedLandnewsSchedule(landNews);
+                _landNewsService.Save();
+
+                response = request.CreateResponse(HttpStatusCode.OK, true);
                 return response;
             });
         }

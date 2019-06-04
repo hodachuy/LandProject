@@ -14,6 +14,7 @@ namespace LandProject.Service
         void DeleteMutiImageByLProjectID(int lProjectID);
         void DeleteMutiImageByLandNewsID(int lNewsID);
         IEnumerable<LandFile> GetByLandNewsID(int lNewsID);
+        IEnumerable<LandFile> GetByPostID(int postID);
         IEnumerable<LandFile> GetByLProjectID(int lProjectID);
         void Save();
     }
@@ -63,6 +64,11 @@ namespace LandProject.Service
         public void Save()
         {
             _unitOfWork.Commit();
+        }
+
+        public IEnumerable<LandFile> GetByPostID(int postID)
+        {
+            return _landFileRepository.GetMulti(x => x.PostID == postID);
         }
     }
 }

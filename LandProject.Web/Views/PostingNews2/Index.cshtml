@@ -1,0 +1,1012 @@
+﻿@{ 
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_LayoutLand_v2.cshtml";
+}
+<div class="container" id="createAdContainer">
+    <div class="row ClassUiNew">
+        <div class="col-lg-12">
+            @*
+                <div class="row">
+                    <!-- Simple Process Steps - START -->
+                    <div class="container">
+                        <div class="row smpl-step" style="border-bottom: 0;">
+                            <div class="col-xs-4 smpl-step-step cuss-steps-1">
+                                <div class="progress prs1">
+                                    <div class="progress-bar prsb1"></div>
+                                </div>
+                                <a class="smpl-step-icon numberCircle1 numberCircle">
+                                    <label class="" style="font-size: 20px; padding-left: 0; padding-top: 0;">1</label>
+                                </a>
+                                <div class="smpl-step-info text-center" style="color: #38b775; font-size: 15px;">Soạn tin đăng</div>
+                            </div>
+                            <div class="col-xs-4 smpl-step-step cuss-steps-2">
+
+                                <div class="progress prs2">
+                                    <div class="progress-bar prsb2"></div>
+                                </div>
+                                <a class="smpl-step-icon numberCircle2">
+                                    <label class="" style="font-size: 20px; padding-left: 0; padding-top: 0;">2</label>
+                                </a>
+                                <div class="smpl-step-info text-center" style="color: #38b775; font-size: 15px;">Chọn dịch vụ</div>
+                            </div>
+                            <div class="col-xs-4 smpl-step-step cuss-steps-3">
+
+                                <div class="progress prs3">
+                                    <div class="progress-bar prsb3"></div>
+                                </div>
+                                <a class="smpl-step-icon numberCircle3">
+                                    <label class="" style="font-size: 20px; padding-left: 0; padding-top: 0;">3</label>
+                                </a>
+                                <div class="smpl-step-info text-center" style="color: #38b775; font-size: 15px;">Xem lại và thanh toán</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <style>
+                        .cuss-steps-3,
+                        .cuss-steps-1,
+                        .cuss-steps-2 {
+                            padding-left: 0 !important;
+                            padding-right: 0 !important;
+                        }
+
+                        .numberCircle {
+                            background: #fff;
+                            behavior: url(Insertion/PIE.htc);
+                            /* remove if you don't care about IE8 */
+                            border: 2px solid #4cbe83;
+                            border-radius: 50%;
+                            color: #4cbe83;
+                            display: inline-block;
+                            font: 32px Arial, sans-serif;
+                            height: 36px;
+                            padding: 0;
+                            text-align: center;
+                            width: 36px;
+                        }
+
+                        .numberCircleafter {
+                            background: #4cbe83 !important;
+                            behavior: url(Insertion/PIE.htc);
+                            /* remove if you don't care about IE8 */
+                            border: 2px solid #4cbe83;
+                            border-radius: 50%;
+                            color: #ffffff !important;
+                            display: inline-block;
+                            font: 32px Arial, sans-serif;
+                            height: 36px;
+                            padding: 0;
+                            text-align: center;
+                            width: 36px;
+                        }
+
+                        .numberCirclebefor {
+                            background: #c3c3c3;
+                            behavior: url(Insertion/PIE.htc);
+                            /* remove if you don't care about IE8 */
+                            border: 2px solid #c3c3c3;
+                            border-radius: 50%;
+                            color: #ffffff;
+                            display: inline-block;
+                            font: 32px Arial, sans-serif;
+                            height: 36px;
+                            padding: 0;
+                            text-align: center;
+                            width: 36px;
+                        }
+
+                        .smpl-step > .smpl-step-step .smpl-step-num {
+                            font-size: 17px;
+                            margin-left: 47px;
+                            margin-top: -20px;
+                        }
+
+                        .smpl-step > .smpl-step-step .smpl-step-info {
+                            font-size: 14px;
+                            padding-bottom: 10px;
+                            padding-top: 5px;
+                        }
+
+                        .smpl-step > .smpl-step-step > .smpl-step-icon {
+                            border-radius: 50%;
+                            display: block;
+                            height: 45px;
+                            left: 48%;
+                            margin-left: -15px;
+                            margin-top: -35px;
+                            position: absolute;
+                            top: 50px;
+                            width: 45px;
+                        }
+
+                        .smpl-step > .smpl-step-step > .progress {
+                            background-color: #d3d3d3 !important;
+                            border-radius: 0px;
+                            box-shadow: none;
+                            height: 7px;
+                            margin-top: 37px;
+                            position: relative;
+                        }
+
+                        .smpl-step > .smpl-step-step > .progress > .progress-bar {
+                            background: #4cbe83;
+                            box-shadow: none;
+                            width: 0px;
+                        }
+
+                        .smpl-step > .smpl-step-step.complete > .progress > .progress-bar {
+                            width: 50%;
+                        }
+
+                        .smpl-step > .smpl-step-step.active > .progress > .progress-bar {
+                            width: 50%;
+                        }
+
+                        .smpl-step > .smpl-step-step:first-child.active > .progress > .progress-bar {
+                            width: 0%;
+                        }
+
+                        .smpl-step > .smpl-step-step:last-child.active > .progress > .progress-bar {
+                            width: 50%;
+                        }
+
+                        .smpl-step > .smpl-step-step.disabled > .smpl-step-icon {
+                            background-color: #f5f5f5;
+                        }
+
+                        .smpl-step > .smpl-step-step.disabled > .smpl-step-icon:after {
+                            opacity: 0;
+                        }
+
+                        .smpl-step > .smpl-step-step:first-child > .progress {
+                            left: 0;
+                            width: 100%;
+                        }
+
+                        .smpl-step > .smpl-step-step:first-child > .progressafter {
+                            left: 0;
+                            width: 100%;
+                        }
+
+                        .smpl-step > .smpl-step-step.complete > .progress > .progress-barafter {
+                            width: 100%;
+                        }
+
+                        .smpl-step > .smpl-step-step:last-child > .progress {
+                            width: 100%;
+                        }
+
+                        .smpl-step > .smpl-step-step.disabled a.smpl-step-icon {
+                            pointer-events: none;
+                        }
+                    </style>
+
+                    <!-- Simple Process Steps - END -->
+
+                </div>*@
+            <div class="row well well-top cuswell classinput ">
+
+                <div class="row">
+                    <div class="col-lg-8">
+                        <h2 class="NewUifonfamly cusTitleNew">
+                            Nhập thông tin chi tiết
+
+                        </h2>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-8 NewUifonfamly">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <label class="cuslable">
+                                    Loại giao dịch
+                                    <span class="star">*</span>
+                                </label>
+                            </div>
+                            <div class="col-lg-9">
+                                <div class="form-group">
+                                    <label class="radio-inline cuslableItem">
+                                        <input type="radio" style="margin-top: 3px" name="optionsRadiosInline" id="radioBan" value="1" checked="" /> Bán
+                                    </label>
+                                    <label class="radio-inline cuslableItem">
+                                        <input type="radio" style="margin-top: 3px" name="optionsRadiosInline" id="radioChothue" value="2" /> Cho thuê
+                                    </label>
+                                    <input type="hidden" id="hdAdvertID" name="advertId" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 hidden-xs hidden-md">
+                        <label class="NewUifonfamly CusNoteNewUi">
+                            <ins data-revive-zoneid="83" data-revive-id="aa4a0ec382d9f0c0afc420b398a552a3"></ins>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-lg-8 NewUifonfamly">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <label class="cuslable">
+                                    Loại bất động sản<span class="star">*</span>
+                                </label>
+                            </div>
+                            <div class="col-lg-9">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <select class="slCategory form-control form-control-thh dropdown" id="ddlCategory" name="cateId">
+                                                <option value="0">Chọn danh mục</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <select class="form-control form-control-thh dropdown" name="subcate" id="ddlSubCategory">
+                                                <option value="0">Chọn danh mục</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 hidden-xs hidden-md">
+                        <label class="NewUifonfamly CusNoteNewUi">
+                            Lựa chọn loại bất động sản phù hợp với bài đăng của bạn nhất
+                        </label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-8  NewUifonfamly">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <label class="cuslable">
+                                    Vị trí<span class="star">*</span>
+                                </label>
+                            </div>
+                            <div class="col-lg-9">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <select class="form-control form-control-thh dropdown" name="stateId" id="ddlGeoState">
+                                                <option value="0">Chọn thành phố/Tỉnh thành</option>
+                                                <option value="59">TP.Hồ Chí Minh</option>
+                                                <option value="28">TP.Hà Nội</option>
+                                                <option value="17">TP.Hải phòng</option>
+                                                <option value="50">Cần thơ</option>
+                                                <option value="31">TP.Đà nẵng</option>
+                                                <option value="41">Đồng nai</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <select class="form-control form-control-thh dropdown" name="districtid" id="ddlGeoDistrict">
+                                                <option value="0">Chọn Quận/Huyện</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 ">
+                                        <div class="form-group">
+                                            <select class="form-control form-control-thh dropdown" name="wardId" id="ddlGeoWard">
+                                                <option value="0">Chọn Phường</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-8 NewUifonfamly">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <label class="cuslable">
+                                    Địa chỉ
+                                </label>
+                            </div>
+                            <div class="col-lg-9">
+                                <div class="form-group">
+                                    <input id="pac-input" name="StreetNo" class="form-control controls" type="text" placeholder="Địa chỉ" maxlength="100" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-8 NewUifonfamly">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <label class="cuslable">
+                                    Bản đồ
+                                </label>
+                                <input type="hidden" name="lat" id="lat" />
+                                <input type="hidden" name="lng" id="lng" />
+                            </div>
+                            <div class="col-lg-9 cussmap">
+
+                                <div id="map" class="cusMap"></div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 hidden-xs hidden-md">
+                        <label class="NewUifonfamly CusNoteNewUi">
+                            Chọn vị trí bất động sản của bạn trên bản đồ để việc tìm nhà bạn trở nên dễ dàng hơn
+                        </label>
+                    </div>
+                </div>
+
+                <hr class="NewUiHr">
+
+                <div class="row">
+                    <div class="col-lg-8 NewUifonfamly">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <label class="cuslable">
+                                    Tiêu đề
+                                    <span class="star">*</span>
+                                </label>
+                            </div>
+                            <div class="col-lg-9">
+                                <div class="form-group">
+                                    <div class="cuscount" style="float: right; font-size: 10px; margin-right: 0;" id="divcountTitle">( 0/99 Kí tự )</div>
+                                    <input type="text" id="txtTitle" onkeyup="countCharTitle(this)" maxlength="99" name="title" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 hidden-xs hidden-md">
+                        <label class="NewUifonfamly CusNoteNewUi">
+                            Dùng tiếng Việt có dấu, không viết hoa toàn bộ. Không nhập số điện thoại
+                        </label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-8 NewUifonfamly">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <label class="cuslable">
+                                    Mô tả ngắn
+                                    <span class="star">*</span>
+                                </label>
+                            </div>
+                            <div class="col-lg-9">
+
+                                <div class="form-group">
+                                    <div class="cuscount" style="float: right; font-size: 10px; margin-right: 0;" id="divcountShortdescription">( 0/160 Kí tự )</div>
+                                    <textarea id="txtShortDescription" name="shortDescription" class="form-control auto-size" onkeyup="countCharShortdescription(this)"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 hidden-xs hidden-md">
+                        <label class="NewUifonfamly CusNoteNewUi">
+                            Tối đa 160 ký tự, dùng tiếng Việt có dấu, không viết hoa toàn bộ. Trong trường hợp để trống, chúng tôi sẽ tự động truy xuất nội dung trong phần mô tả chi tiết của bạn để hiển thị trong Mô tả ngắn. Rule: Loại bất động sản + Giá + Diện tích + Quận/Huyện + Tiện nghi (nếu có) + CTA (Mua Ngay! Xem Thêm! Tìm Hiểu Ngay! Liên Hệ! Nhận Tư Vấn! Nhận Ưu Đãi!)
+
+                        </label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-8 NewUifonfamly">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <label class="cuslable">
+                                    Mô tả chi tiết
+                                    <span class="star">*</span>
+                                </label>
+                            </div>
+                            <div class="col-lg-9">
+                                <div class="form-group">
+
+                                    <div class="cuscount" style="float: right; font-size: 10px; margin-right: 0;" id="divcountdescription">( 0/4000 Kí tự )</div>
+                                    <textarea id="txtDescription" onkeyup="countChardescription(this)" data-autosize-on="true" name="Description" class="form-control auto-size custxtDescription" placeholder="Nh&#224; mặt tiền đường Quang Trung, Quận G&#242; Vấp
+Tiện &#237;ch khu vực: Gần si&#234;u thị Big C, Trường Đại Học C&#244;ng Nghiệp, Vin-hem-pich, Chợ Hạnh Th&#244;ng T&#226;y, chợ G&#242; Vấp, Bệnh viện 175,...
+Diện t&#237;ch: 5 x 10. DTSD: 450m2. Mới x&#226;y, đ&#250;c 4 tầng ki&#234;n cố. Hướng Đ&#244;ng Nam. Sổ hồng Ch&#237;nh chủ.
+Cấu tr&#250;c: 1 ph&#242;ng kh&#225;ch rộng, 5ph&#242;ng ngủ, 5WC, s&#226;n trước đậu oto, tiện l&#224;m văn ph&#242;ng hoặc kinh doanh
+Gi&#225;: 6,5 tỷ.
+Tặng k&#232;m to&#224;n bộ nội thất cao cấp"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 hidden-xs hidden-md">
+                        <label class="NewUifonfamly CusNoteNewUi">
+                            Mô tả cụ thể bất động sản của bạn, gồm các ưu điểm về vị trí, thiết kế, nội thất, liên kết vùng và các tiện ích xung quanh. Việc mô tả này giúp khách hàng dễ hình dung về BĐS của bạn, nâng cao khả năng cạnh tranh của tin đăng. Lưu ý: Một tin đăng chỉ được mô tả duy nhất 1 BĐS. Không nhập tag, website, số điện thoại vào nội dung. Không viết hoa toàn bộ nội dung. Sử dụng Tiếng Việt có dấu. Tối đa 4000 kí tự.
+                        </label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-8 NewUifonfamly">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="cuslable">
+                                                Điện thoại 1
+                                                <span class="star">*</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <input type="text" id="txtPhone1" name="txtPhone1" maxlength="15" disabled="" class="form-control" />
+                                            <label class="radio-inline cuslable cuslableItem ">
+                                                <input type="radio" id="radioDT1" style="margin-top: 3px" checked="" value="1" name="optradio">Hiển thị
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label class="cuslable">
+                                                Điện thoại 2
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="form-group">
+                                            <input type="text" id="txtPhone2" maxlength="12" name="phone2" class="form-control" />
+                                            <label class="radio-inline cuslable cuslableItem">
+                                                <input type="radio" style="margin-top: 3px" id="radioDT2" maxlength="12" value="2" name="optradio">Hiển thị
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 hidden-xs hidden-md">
+                        <label class="NewUifonfamly CusNoteNewUi">
+                            Chọn số điện thoại mặc định sẽ hiển thị trong tin đăng. Số điện thoại chỉ được hiển thị tại 1 vị trí duy nhất, dễ thấy nhất trên trang tin đăng
+                        </label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-8 NewUifonfamly">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <label class="cuslable">
+                                    Thuộc dự án
+                                </label>
+                            </div>
+                            <div class="col-lg-9">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <select class="form-control form-control-thh dropdown" data-live-search="true" name="inproject" id="ddlProject">
+                                                <option value="0">Chọn dự án</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-4 hidden-xs hidden-md">
+                        <label class="NewUifonfamly CusNoteNewUi">
+                            Vui lòng chọn dự án phù hợp nếu bất động sản của bạn thuộc 1 dự án cụ thể. Việc này giúp tin đăng của bạn được xuất hiện nhiều hơn
+                        </label>
+                    </div>
+                </div>
+
+                <hr class="NewUiHr">
+
+                <div class="row">
+                    <div class="col-lg-8 NewUifonfamly">
+                        <div class="row taka">
+                            <div class="col-lg-6">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="cuslable">Giá <span class="star">*</span> </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group input-group">
+                                            <input type="text" placeholder="0" class="form-control form-control-thh inputnumber" maxlength="10" min="0" max="1000000" step="100" id="grp_1" value="">
+                                            <span class="input-group-addon cuslabefont" style="border: 0 solid #ed1c24!important;">Triệu VND</span>
+                                            <div class="col-lg-offset-3 col-lg-8 money-text">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="cuslable">Diện tích <span class="star">*</span></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group input-group">
+                                            <input type="number" placeholder="0" class="form-control form-control-thh inputnumber" min="1" max="100000" step="0" name="grp_176" id="grp_176" value="">
+                                            <span class="input-group-addon cuslabefont" style="border: 0 solid #ed1c24!important;">m²</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="cuslable">&nbsp;</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="checkbox-inline" style="font-size:13px;">
+                                                <input style="margin-top: 2px;" type="checkbox" id="ck_13845" name="grp_174" value="13845">Hiển thị giá bảo mật
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="cuslable">Đường trước nhà </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group input-group">
+                                            <input type="number" placeholder="0" class="form-control form-control-thh inputnumber" min="1" max="36" step="0.5" name="grp_179" id="grp_179" value=""><span class="input-group-addon cuslabefont" style="border: 0 solid #ed1c24!important;">m</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="cuslable">Hướng </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group ">
+                                            <select class="form-control form-control-thh dropdown" name="grp_182">
+                                                <option value="0">Chọn</option>
+                                                <option value="13863">Đông</option>
+                                                <option value="13864">Tây</option>
+                                                <option value="13865">Nam</option>
+                                                <option value="13866"> Bắc</option>
+                                                <option value="13867">Đông Bắc</option>
+                                                <option value="13868">Tây Bắc</option>
+                                                <option value="13869">Đông Nam</option>
+                                                <option value="13870"> Tây Nam</option>
+                                                <option value="13871">Không xác định</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="cuslable">Số tầng </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="form-group ">
+                                            <input type="number" placeholder="0" class="form-control inputnumber" min="1" max="50" step="1" name="grp_192" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label class="cuslable">Tiện nghi </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <div class="well NewUiWellWhite NewUiBorder">
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" style="margin-top: 2px;" value="13915" name="grp_206" id="13915">Hồ bơi
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" style="margin-top: 2px;" value="13916" name="grp_206" id="13916">Máy giặt
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" style="margin-top: 2px;" value="13920" name="grp_206" id="13920">Wifi
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" style="margin-top: 2px;" value="13923" name="grp_206" id="13923">Sân vườn
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" style="margin-top: 2px;" value="13919" name="grp_206" id="13919">Đầy đủ nội thất
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" style="margin-top: 2px;" value="13914" name="grp_206" id="13914">Điều hòa
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" style="margin-top: 2px;" value="13918" name="grp_206" id="13918">Ban công / Sân thượng
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" style="margin-top: 2px;" value="13924" name="grp_206" id="13924">Phòng tập gym
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" style="margin-top: 2px;" value="13917" name="grp_206" id="13917">Internet cáp quang
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="row">
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label class="cuslable">Môi trường xung quanh </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-9">
+                                        <div class="well NewUiWellWhite NewUiBorder">
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" style="margin-top: 2px;" value="13886" name="grp_190" id="13886">Siêu thị
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" style="margin-top: 2px;" value="13885" name="grp_190" id="13885">Trường học
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" style="margin-top: 2px;" value="13891" name="grp_190" id="13891">Gần biển
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" style="margin-top: 2px;" value="13887" name="grp_190" id="13887">Bệnh viện
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" style="margin-top: 2px;" value="13912" name="grp_190" id="13912">Công viên
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" style="margin-top: 2px;" value="13889" name="grp_190" id="13889">Gần chùa
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" style="margin-top: 2px;" value="13888" name="grp_190" id="13888">Giao thông công cộng
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" style="margin-top: 2px;" value="13913" name="grp_190" id="13913">Khu an ninh
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" style="margin-top: 2px;" value="13890" name="grp_190" id="13890">Gần nhà thờ
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 hidden-xs hidden-md">
+                        <div class="row">
+                            <label class="NewUifonfamly CusNoteNewUi">
+                                Để dễ dàng và tiện lợi, nhà môi giới có thể cung cấp giá để người mua được cụ thể hơn.
+                            </label>
+                        </div>
+
+                        <br />
+                        <div class="row">
+                            <label class="NewUifonfamly CusNoteNewUi">
+                                Để tin đăng được hiệu quả hơn, vui lòng cung cấp giá chính xác Người dùng sẽ có thể tìm thấy bất động sản của bạn dễ dàng hơn từ kết quả tìm kiếm nếu bạn cố gắng điền càng nhiều chi tiết càng tốt. Bảo đảm đánh dấu lựa chọn các tiện nghi hoặc môi trường xung quanh nếu có trong bất động sản, vì như thế sẽ hỗ trợ tin đăng của bạn được tìm thấy dễ dàng hơn.
+                            </label>
+                        </div>
+                        <div class="extra-blank hidden">
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                        </div>
+                        <div class="row">
+                            <label class="NewUifonfamly CusNoteNewUi">
+                                Người dùng sẽ tìm thấy bất động sản của bạn dễ dàng hơn từ kết quả tìm kiếm nếu bạn điền càng nhiều chi tiết càng tốt.
+                                <br />Bảo đảm đánh dấu lựa chọn các tiện nghi hoặc môi trường xung quanh (nếu có) trong bất động sản để tăng tính cạnh tranh của tin đăng so với các tin đăng khác.
+                            </label>
+                        </div>
+                        <input type="hidden" id="hidXPrice" name="grp_1" />
+                        <input type="hidden" value="0" id="hidXPriceTemp" />
+                        <input type="hidden" value="0" id="hidXPriceDisplay" />
+                    </div>
+                </div>
+
+                <hr class="NewUiHr">
+
+                <div class="row">
+                    <div class="col-lg-12 NewUifonfamly">
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <label class="cuslable">
+                                    Hình<span class="star">*</span>
+                                </label>
+                            </div>
+                            <div class="col-lg-10">
+
+                                <div id="demo-upload" class="dropzone needsclick dz-clickable dz-started cusdropzone" style="width: auto;">
+                                    <div class="row">
+                                        <div class="col-lg-4 ">
+                                            <div class="dz-default dz-message cusbuttonmes " style="display: block;">
+                                                <span class="btn btn-action">
+                                                    <img src="/images/btn-upload.png" /> <label style="margin-left: 5px;"> Lựa chọn hình ảnh </label>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <label class="NewUifonfamly CusNoteNewUi">
+                                                Bạn có thể đăng tối đa 20 ảnh với kích thức tối thiểu 560 x 350 px. Đăng hình ảnh bằng cách click vào nút “Chọn Ảnh”. Bạn có thể đăng tải nhiều ảnh cùng lúc. Hình ảnh không đính kèm địa chỉ web.
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="cusEditImg">
+                                        </div>
+                                        <script id="LoadImgUpload" type="text/x-jQuery-tmpl">
+                                            <div class="dz-preview dz-processing dz-image-preview dz-success dz-complete">
+                                                <div class="tools final">
+                                                    <div class="btn cusbtn cbtn-edit hidden" title="Edit" onclick=" Edit(this) "><i class="glyphicon glyphicon-pencil"></i></div>
+                                                    <div class="btn cusbtn cusbtn-del" title="Delete" onclick=" DeleteUpload(this) ">
+                                                        <svg xml:space="preserve" enable-background="new 0 0 15.809 20" viewBox="0 0 15.809 20" height="13px" width="13px" y="0px" x="0px" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" id="Layer_1" version="1.1">
+                                                        <g>
+                                                        <path d="M14.444,2.354h-2.67V0.62c0-0.35-0.281-0.62-0.631-0.62c-0.034,0-0.057,0.012-0.067,0.022C11.064,0.012,11.042,0,11.03,0H4.664c-0.349,0-0.62,0.27-0.62,0.62v1.735H1.364C0.597,2.354,0,2.952,0,3.718V5.95h1.183v12.698C1.183,19.414,1.769,20,2.535,20h10.738c0.767,0,1.362-0.586,1.362-1.353V5.95h1.173V3.718C15.809,2.952,15.211,2.354,14.444,2.354L14.444,2.354z M5.284,1.239h5.239v1.115H5.284V1.239z M13.386,18.647c0,0.079-0.034,0.113-0.112,0.113H2.535c-0.079,0-0.113-0.034-0.113-0.113V5.95h10.963V18.647z M14.558,4.71H1.251V3.718c0-0.079,0.033-0.125,0.113-0.125h13.081c0.079,0,0.113,0.046,0.113,0.125V4.71z M14.558,4.71" fill="#FFFFFF" />
+                                                        <rect height="10.254" width="1.25" fill="#FFFFFF" y="7.402" x="10.175" />
+                                                        <rect height="10.254" width="1.251" fill="#FFFFFF" y="7.402" x="7.29" />
+                                                        <rect height="10.254" width="1.25" fill="#FFFFFF" y="7.402" x="4.406" />
+                                                            </g>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+                                                <div class="containerUpload cusdefault">
+                                                    <input type="radio" data-defalut-enabled="false" class="reset-data cusradio" name="groupimg" checked="checked">Chọn ảnh này làm đại diện
+                                                </div>
+                                                <div id="imgmain" class="dz-image containerUpload">
+                                                    <img data-dz-thumbnail="" class="ghost cussimg" rel="${idimgad}" id="cusimg" alt="" src="${img}" />
+                                                </div>
+                                                <div class="dz-filename cusfilename"><span data-dz-name=""><input type="text" placeholder="Tiêu đề hình ảnh" class="col-xs-12 form-control valid cusinput" id="txtImage" value="${namepicad}" name=""></span> </div>
+                                                <div class="dz-progress"><span data-dz-uploadprogress="" class="dz-upload" style="width: 100%;"></span></div>
+                                                <div class="dz-error-message"><span data-dz-errormessage=""></span></div>
+                                                <div class="dz-success-mark" id="cussucess">
+                                                    <svg xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 54 54" height="54px" width="54px">
+                                                        <title>Check</title>
+                                                        <defs />
+                                                        <g sketch:type="MSPage" fill-rule="evenodd" fill="none" stroke-width="1" stroke="none" id="Page-1">
+                                                            <path sketch:type="MSShapeGroup" fill="#FFFFFF" fill-opacity="0.816519475" stroke="#747474" stroke-opacity="0.198794158" id="Oval-2" d="M23.5,31.8431458 L17.5852419,25.9283877 C16.0248253,24.3679711 13.4910294,24.366835 11.9289322,25.9289322 C10.3700136,27.4878508 10.3665912,30.0234455 11.9283877,31.5852419 L20.4147581,40.0716123 C20.5133999,40.1702541 20.6159315,40.2626649 20.7218615,40.3488435 C22.2835669,41.8725651 24.794234,41.8626202 26.3461564,40.3106978 L43.3106978,23.3461564 C44.8771021,21.7797521 44.8758057,19.2483887 43.3137085,17.6862915 C41.7547899,16.1273729 39.2176035,16.1255422 37.6538436,17.6893022 L23.5,31.8431458 Z M27,53 C41.3594035,53 53,41.3594035 53,27 C53,12.6405965 41.3594035,1 27,1 C12.6405965,1 1,12.6405965 1,27 C1,41.3594035 12.6405965,53 27,53 Z" />
+                                                        </g>
+                                                    </svg>
+                                                </div>
+                                                <div class="dz-error-mark">
+                                                    <svg xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 54 54" height="54px" width="54px">
+                                                        <title>Error</title>
+                                                        <defs />
+                                                        <g sketch:type="MSPage" fill-rule="evenodd" fill="none" stroke-width="1" stroke="none" id="Page-1">
+                                                            <g fill-opacity="0.816519475" fill="#FFFFFF" stroke-opacity="0.198794158" stroke="#747474" sketch:type="MSLayerGroup" id="Check-+-Oval-2">
+                                                                <path sketch:type="MSShapeGroup" id="Oval-2" d="M32.6568542,29 L38.3106978,23.3461564 C39.8771021,21.7797521 39.8758057,19.2483887 38.3137085,17.6862915 C36.7547899,16.1273729 34.2176035,16.1255422 32.6538436,17.6893022 L27,23.3431458 L21.3461564,17.6893022 C19.7823965,16.1255422 17.2452101,16.1273729 15.6862915,17.6862915 C14.1241943,19.2483887 14.1228979,21.7797521 15.6893022,23.3461564 L21.3431458,29 L15.6893022,34.6538436 C14.1228979,36.2202479 14.1241943,38.7516113 15.6862915,40.3137085 C17.2452101,41.8726271 19.7823965,41.8744578 21.3461564,40.3106978 L27,34.6568542 L32.6538436,40.3106978 C34.2176035,41.8744578 36.7547899,41.8726271 38.3137085,40.3137085 C39.8758057,38.7516113 39.8771021,36.2202479 38.3106978,34.6538436 L32.6568542,29 Z M27,53 C41.3594035,53 53,41.3594035 53,27 C53,12.6405965 41.3594035,1 27,1 C12.6405965,1 1,12.6405965 1,27 C1,41.3594035 12.6405965,53 27,53 Z" />
+                                                            </g>
+                                                        </g>
+                                                    </svg> "
+                                                </div>
+                                            </div>
+                                        </script>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 NewUifonfamly">
+                        <div class="row">
+                            <div class="col-lg-3">
+                            </div>
+                            <div class="col-lg-9">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row cusbtnNext p-t-10">
+                    <div class="col-lg-12 NewUifonfamly">
+                        <div class="row">
+                            <div class="col-lg-3 ">
+                                <button type="button" class="pull-left btnNewUi  btn-secondary-outline savedra savestep1">Lưu tin nháp</button>
+                            </div>
+                            <div class="col-lg-9">
+                                <input type="hidden" name="type" id="action_type" value="InsertAdvert" />
+                                <button type="button" class="btnNewUi btn-success-outline pull-right btnNextNewUi" style="border-color: #38b775 !important" onclick="InsertAdvert();">Bước tiếp theo <i class="glyphicon glyphicon-arrow-right"></i></button>
+                                <button type="button" class="btn btn-success-outline pull-right hidden" id="btnextstep" onclick="UploadImg();">Chọn hình</button>
+                                <span id="MainContent_hidAdvertIdNewui" class="hidAdvertIdNewui hidden"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<p class="ic-backtotop hidden-xs" id="back-top">
+    <a href="#top">
+        <span></span>
+    </a>
+</p>
+<style>
+    #back-top {
+        bottom: 30px;
+        margin-left: -150px;
+        position: fixed;
+    }
+
+        #back-top a {
+            -moz-transition: 1s;
+            /* transition */
+            -webkit-transition: 1s;
+            color: #bbb;
+            display: block;
+            font: 11px/100% Arial, Helvetica, sans-serif;
+            text-align: center;
+            text-decoration: none;
+            text-transform: uppercase;
+            transition: 1s;
+            width: 108px;
+        }
+
+        #back-top span {
+            background-image: url('/img/ic-backtotop.png');
+            bottom: 40px;
+            height: 44px;
+            position: fixed;
+            right: 20px;
+            width: 44px;
+        }
+
+        #back-top a:hover span {
+            background-image: url('/img/ic-backtotop.png');
+        }
+
+    .selectpicker {
+        color: #666 !important;
+        font-size: 13px !important;
+    }
+
+    .input-block-level {
+        border: 1px solid #e3e3e3 !important;
+        border-top: 0 !important;
+    }
+
+    .dropdown-menu {
+        border: 1px solid #e3e3e3 !important;
+        border-top: 0 !important;
+        font-size: 14px !important;
+    }
+
+    .input-block-level form-control {
+        border: 1px solid #e3e3e3 !important;
+    }
+
+    .dropdown-menu > li > a,
+    span.twitter-typeahead .tt-suggestion > p {
+        color: #666 !important;
+    }
+
+    .selectpicker > li > a:hover,
+    .selected {
+        color: #fff !important;
+        background-color: #e3e3e3 !important;
+    }
+
+    .selectpicker > li > a:focus,
+    .selected {
+        color: #fff !important;
+        background-color: #e3e3e3 !important;
+    }
+
+    .dropdown-menu > .active > a,
+    .dropdown-menu > .active > a:hover,
+    .dropdown-menu > .active > a:focus,
+    span.twitter-typeahead .tt-suggestion > p:hover,
+    span.twitter-typeahead .tt-suggestion > p:focus {
+        background-color: #e3e3e3 !important;
+    }
+</style>
+
+
+@section footerJS{
+    <script src="http://www.muabannhadat.vn/Scripts/mbnd-create-listing.js?v=201903012" type="text/javascript"></script>
+}

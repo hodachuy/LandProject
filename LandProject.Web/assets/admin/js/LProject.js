@@ -72,6 +72,10 @@ $(document).ready(function () {
         }, null);
         $('#txtLProjectName').val('');
         $("#txtInvestors").val('');
+
+        tinymce.get("txtDescription").getBody().innerHTML = "";
+        tinymce.get("txtDetail").getBody().innerHTML = "";
+
         $("#LProjectModel").modal({
             backdrop: 'static',
             keyboard: true,
@@ -269,6 +273,12 @@ checkValid = function () {
         res = false;
     } else {
         $("#txtLProjectName").validationEngine('hide');
+    }
+    if ($("#cboLProjectCategory").data("kendoComboBox").selectedIndex == -1) {
+        $('#cboLProjectCategory').validationEngine('showPrompt', '* Trường này bắt buộc', 'red', 'topRight', true);
+        res = false;
+    } else {
+        $("#cboLProjectCategory").validationEngine('hide');
     }
     return res;
 }

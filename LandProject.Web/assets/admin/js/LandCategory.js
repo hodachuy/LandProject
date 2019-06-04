@@ -24,12 +24,12 @@ $(document).ready(function () {
     })
     $('body').on('click', '#saveLandCategory', function () {
         if (checkValid()) {
-            LandCategoryModel.ID = 0;
             LandCategoryModel.Name = $('#txtLandCategoryName').val();
             LandCategoryModel.Alias = new commonService().getSeoTitle($('#txtLandCategoryName').val());
             LandCategoryModel.IsDelete = false;
             LandCategoryModel.LandTypeID = $("#cboLandType").val();
-            if (TypeActionAdd) {//add          
+            if (TypeActionAdd) {//add         
+                LandCategoryModel.ID = 0;
                 var svr = new AjaxCall("api/landcategory/create", JSON.stringify(LandCategoryModel));
                 svr.callServicePOST(function (data) {
                     console.log(data)

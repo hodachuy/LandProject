@@ -1,107 +1,117 @@
 ﻿@model LandProject.Web.Models.RegisterViewModel
 @{
     ViewBag.Title = "Register";
-    Layout = "~/Views/Shared/_LayoutLand.cshtml";
+    Layout = "~/Views/Shared/_LayoutLand_v2.cshtml";
 }
 <style>
-    @@media (min-width: 992px) {
-        .section-md {
-            padding-bottom: 90px;
-        }
+    .field-validation-error {
+        color: red;
     }
-    .field-validation-error{
-                color: red;
-    }
-    
 </style>
 
-<section class="section-full undefined text-center text-sm-left">
-    <div class="container">
+<div class="jumbotron head">
+    <div class="container head">
         <div class="row">
-            <div class="col-xs-12 undefined">
-                <p></p>
-                <ol class="breadcrumb">
-                    <li>
-                        <a href="index.html">Trang chủ</a>
-                    </li>
-                    <li class="active">Đăng ký-Đăng nhập</li>
-                </ol>
+            <div class="col-lg-10 col-md-8 hidden-md hidden-sm hidden-xs">
+            </div>
+            <div class="col-lg-2 col-md-12 col-xs-12">
+                <a id="lnkCreateAd" class="pull-right btn mbnd-btn-red" href="/dang-tin-mua-ban-nha-dat.html">
+                    <img src="~/assets/client_v2/img/ic-pencil.svg" /> Đăng tin miễn phí
+                </a>
             </div>
         </div>
     </div>
-</section>
-<!--Section Login-->
-<section class="section-md text-center text-sm-left">
-    <div class="container">
-        <h2>Đăng ký</h2>
-        <hr />
-        <div class="row">
-            <div class="col-xs-12 col-sm-8 col-lg-5">
-                <div class="tabs-custom">
-                    <ul class="nav nav-tabs">
-                        <li>
-                            <a href="/dang-nhap.html">Đăng nhập</a>
-                        </li>
-                        <li class="active">
-                            <a data-toggle="tab" href="#tab2">Tạo tài khoản</a>
-                        </li>
-                    </ul>
-                    <div class="tab-content">
-                        <div id="tab2" class="tab-pane fade in active">
-                           @using (Html.BeginForm("Register", "Account", new { returnUrl = @ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
-                           {
-                                @Html.AntiForgeryToken();
-                                <div class="form-group">
-                                    @Html.ValidationMessageFor(model => Model.FullName, "", new { @class = "error" })
-                                    <label for="name-2" class="form-label">Tài khoản</label>
-                                    @Html.TextBoxFor(model => Model.FullName, new { @class = "form-control", @placeholder = "" })
-                                </div>
-                                <div class="form-group">
-                                    @Html.ValidationMessageFor(model => Model.Email, "", new { @class = "error" })
-                                    <label for="email" class="form-label">E-mail</label>
-                                    @Html.TextBoxFor(model => Model.Email, new { @class = "form-control", @placeholder = "" })
-                                </div>
-                                <div class="form-group">
-                                    @Html.ValidationMessageFor(model => Model.PhoneNumber, "", new { @class = "error" })
-                                    <label for="email" class="form-label">Số điện thoại</label>
-                                    @Html.TextBoxFor(model => Model.PhoneNumber, new { @class = "form-control", @placeholder = "" })
-                                </div>
-                                <div class="form-group">
-                                    @Html.ValidationMessageFor(model => Model.Address, "", new { @class = "error" })
-                                    <label for="email" class="form-label">Địa chỉ</label>
-                                    @Html.TextBoxFor(model => Model.Address, new { @class = "form-control", @placeholder = "" })
+</div>
+<div class="container main bs-docs-container">
+    <div class="row" role="main">
+        <div class="container margin-section">
+            <div class="row">
+                <div class="well">
+                    <div id="divRegister" class="row">
+                        <div class="row">
+                            <div class="col-md-2 col-sm-6 col-xs-12">
+                                <button onclick="checkLoginFbDialog();" class="btn btn-facebook"><span>Đăng kí với Facebook</span></button>
+                            </div>
+                        </div>
+                        <hr />
 
-                                </div>
-                                <div class="form-group">
-                                    @Html.ValidationMessageFor(model => Model.Password, "", new { @class = "error" })
-                                    <label for="password-2" class="form-label">Mật khẩu</label>
-                                    @Html.PasswordFor(model => Model.Password, new { @class = "form-control", @placeholder = "" })
-                                </div>
-                                <div class="form-group">
-                                    @Html.ValidationMessageFor(model => Model.ConfirmPassword, "", new { @class = "error" })
-                                    <label for="password-2" class="form-label">Nhập lại mật khẩu</label>
-                                    @Html.PasswordFor(model => Model.ConfirmPassword, new { @class = "form-control", @placeholder = "" })
-                                </div>
-                                <div class="form-group-btn">
-                                    <button type="submit" class="btn btn-sushi btn-sm btn-min-width-xs">Đăng ký</button>
-                                    <p>or đăng nhập bằng</p>
-                                    <div class="icon-group">
-                                        <a href="javascript:void(0)" onclick="checkLoginFbDialog();" class="icon icon-sm icon-social fa-facebook"></a>
+                        @using (Html.BeginForm("Register", "Account", new { returnUrl = @ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+                        {
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-6">
+                                    <div class="form-group">
+                                        @Html.ValidationMessageFor(model => Model.UserName, "", new { @class = "error" })
+                                        <label for="MainContent_ctl01_txtUser" class="control-label">Tên đăng nhập</label>
+                                        @Html.TextBoxFor(model => Model.UserName, new { @class = "form-control", @placeholder = "Tên đăng nhập" })
                                     </div>
                                 </div>
-                           }
-                        </div>
+                                <div class="col-xs-12 col-sm-6">
+                                    <div class="form-group">
+                                        @Html.ValidationMessageFor(model => Model.Password, "", new { @class = "error" })
+                                        <label for="MainContent_ctl01_txtPassword" class="control-label">Mật khẩu</label>
+                                        @Html.PasswordFor(model => Model.Password, new { @class = "form-control", @placeholder = "Mật khẩu" })
+                                    </div>
+                                    <div class="form-group">
+                                        @Html.ValidationMessageFor(model => Model.ConfirmPassword, "", new { @class = "error" })
+                                        <label for="MainContent_ctl01_txtPassword" id="MainContent_ctl01_errPassword" class="help-block"></label>
+                                        @Html.PasswordFor(model => Model.ConfirmPassword, new { @class = "form-control", @placeholder = "Xác nhận mật khẩu" })
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12">
+                                    <div class="form-group">
+
+                                        <label for="MainContent_ctl01_rdbGenderMale" class="control-label col-xs-12 noSidePadding">Giới tính</label>
+
+                                        <label class="radio-inline rdbuttonMarginLeft">
+                                            <input id="MainContent_ctl01_rdbGenderMale" type="radio" name="ctl00$MainContent$ctl01$gender" value="rdbGenderMale" /><label for="MainContent_ctl01_rdbGenderMale">Nam</label>
+                                        </label>
+
+                                        <label class="radio-inline">
+                                            <input id="MainContent_ctl01_rdbGenderFemale" type="radio" name="ctl00$MainContent$ctl01$gender" value="rdbGenderFemale" /><label for="MainContent_ctl01_rdbGenderFemale">Nữ</label>
+                                        </label>
+
+                                        <label for="MainContent_ctl01_rdbGenderMale" id="MainContent_ctl01_errGender" class="help-block"></label>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 ">
+                                    <div class="form-group">
+                                        @Html.ValidationMessageFor(model => Model.FullName, "", new { @class = "error" })
+                                        <label for="MainContent_ctl01_txtFirstname" class="control-label">Họ và Tên</label>
+                                        @Html.TextBoxFor(model => Model.FullName, new { @class = "form-control", @placeholder = "Họ và Tên" })
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-6">
+                                    <div class="form-group">
+                                        @Html.ValidationMessageFor(model => Model.PhoneNumber, "", new { @class = "error" })
+                                        <label for="MainContent_ctl01_txtPhone" class="control-label">Số điện thoại</label>
+                                        @Html.TextBoxFor(model => Model.PhoneNumber, new { @class = "form-control", @placeholder = "Số điện thoại" })                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-6">
+                                    <div class="form-group">
+                                        @Html.ValidationMessageFor(model => Model.Email, "", new { @class = "error" })
+                                        <label for="MainContent_ctl01_txtEmail" class="control-label">Email</label>
+                                        @Html.TextBoxFor(model => Model.Email, new { @class = "form-control", @placeholder = "Email" })
+                                    </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12">
+                                    <div class="form-group">
+                                        @Html.ValidationMessageFor(model => Model.Address, "", new { @class = "error" })
+                                        <label for="MainContent_ctl01_txtStreet" class="control-label">Địa chỉ</label>
+                                        @Html.TextBoxFor(model => Model.Address, new { @class = "form-control", @placeholder = "Địa chỉ" })
+                                    </div>
+                                </div>
+                            <div class="col-xs-12 col-sm-6">
+                                <button type="submit" class="btn btn-primary pull-right register-button">
+                                    Đăng ký
+                                </button>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</section>
-
-
-
-
-@section footerJS{
-<script src="~/assets/vendors/blockUI/jquery.blockUI.min.js"></script>
-    <script src="~/assets/client/js/loginFacebook.js"></script>
-}
+</div>

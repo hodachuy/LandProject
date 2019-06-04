@@ -28,7 +28,7 @@ $(document).ready(function () {
     })
     $('body').on('click', '#saveLandSchedule', function () {
         if (checkValid()) {
-            LandScheduleModel.ID = 0;
+
             LandScheduleModel.Name = $('#txtLandScheduleName').val();
             LandScheduleModel.Alias = new commonService().getSeoTitle($('#txtLandScheduleName').val());
             LandScheduleModel.Price = $('#txtLandSchedulePrice').val();
@@ -36,6 +36,7 @@ $(document).ready(function () {
             LandScheduleModel.StartDate = $('#txtLandScheduleStartDate').val();
             LandScheduleModel.EndDate = $('#txtLandScheduleEndDate').val();
             if (TypeActionAdd) {//add          
+            LandScheduleModel.ID = 0;
                 var svr = new AjaxCall("api/schedule/create", JSON.stringify(LandScheduleModel));
                 svr.callServicePOST(function (data) {
                     console.log(data)

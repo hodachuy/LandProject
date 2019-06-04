@@ -33,6 +33,7 @@ namespace LandProject.Web.Models
         [Required]
         public int LandTypeID { set; get; }
         public string LandTypeName { set; get; }
+        public int TypeExchange { set; get; }
 
         [Required]
         public int LandCategoryID { set; get; }

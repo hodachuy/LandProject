@@ -32,6 +32,8 @@ namespace LandProject.Web.Models
 
 		public DateTime? UpdatedDate { set; get; }
 
+        public bool Status { set; get; }
+
 		public string UpdatedBy { set; get; }
 
 		public string MetaKeyword { set; get; }

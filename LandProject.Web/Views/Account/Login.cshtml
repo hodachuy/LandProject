@@ -1,83 +1,80 @@
 ﻿@model LandProject.Web.Models.LoginViewModel
 @{
     ViewBag.Title = "Login";
-    Layout = "~/Views/Shared/_LayoutLand.cshtml";
+    Layout = "~/Views/Shared/_LayoutLand_v2.cshtml";
 }
 <style>
-    @@media (min-width: 992px){
-        .section-md {
-     padding-bottom: 90px;
-}
-    }
-    .validation-summary-errors ul li{
+        .validation-summary-errors ul li{
         color:red;
         list-style:circle;
     }
 </style>
-
-<section class="section-full undefined text-center text-sm-left">
-    <div class="container">
+<div class="jumbotron head">
+    <div class="container head">
         <div class="row">
-            <div class="col-xs-12 undefined">
-                <p></p>
-                <ol class="breadcrumb">
-                    <li>
-                        <a href="index.html">Trang chủ</a>
-                    </li>
-                    <li class="active">Đăng ký-Đăng nhập</li>
-                </ol>
+            <div class="col-lg-10 col-md-8 hidden-md hidden-sm hidden-xs">
+            </div>
+            <div class="col-lg-2 col-md-12 col-xs-12">
+                <a id="lnkCreateAd" class="pull-right btn mbnd-btn-red" href="/dang-tin-mua-ban-nha-dat.html">
+                    <img src="~/assets/client_v2/img/ic-pencil.svg" /> Đăng tin miễn phí
+                </a>
             </div>
         </div>
     </div>
-</section>
-<!--Section Login-->
-<section class="section-md text-center text-sm-left">
-    <div class="container">
-        <h2>Đăng nhập</h2>
-        <hr />
-        <div class="row">
-            <div class="col-xs-12 col-sm-8 col-lg-5">
-                <div class="tabs-custom">
-                    <ul class="nav nav-tabs">
-                        <li class="active">
-                            <a data-toggle="tab" href="#tab1">Đăng nhập</a>
-                        </li>
-                        <li>
-                            <a href="/dang-ky.html">Tạo tài khoản</a>
-                        </li>
-                    </ul>
-                    <div class="tab-content">
-                        <div id="tab1" class="tab-pane fade in active">
-                            @using (Html.BeginForm("Login", "Account", new { returnUrl = @ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
-                            {
-                                @Html.ValidationSummary(false, "", new { @class = "error" })
-                                <div class="form-group">
-                                    <label for="name-1" class="form-label">Tài khoản</label>
-                                    @Html.TextBoxFor(model => Model.UserName, new { @class = "form-control", @placeholder = "" })
-                                </div>
-                                <div class="form-group">
-                                    <label for="password-1" class="form-label">Mật khẩu</label>
-                                    @Html.PasswordFor(model => Model.Password, new { @class = "form-control", @placeholder = "" })
-                                </div>
-                               
-                                <div class="form-group-btn">
-                                    <button type="submit" class="btn btn-sushi btn-sm btn-min-width-xs" >Đăng nhập</button>
-                                    <p>hoặc đăng nhập bằng</p>
-                                    <div class="icon-group">
-                                        <a href="javascript:void(0);" onclick="checkLoginFbDialog();" class="icon icon-sm icon-social fa-facebook"></a>
+</div>
+
+<div class="container main bs-docs-container">
+    <div class="row" role="main">
+        <div class="container margin-section">
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    <div class="well">
+                        <div class="row">
+                            <div>
+                                @using (Html.BeginForm("Login", "Account", new { returnUrl = @ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+                                {
+                                    @Html.ValidationSummary(false, "", new { @class = "error" })
+                                    <div class="form-group">
+                                        <label for="MainContent_ctl01_txtLogin" class="control-label">Tên đăng nhập</label>
+                                        @Html.TextBoxFor(model => Model.UserName, new { @class = "form-control", @placeholder = "" })
+                                        <label for="MainContent_ctl01_txtLogin" id="MainContent_ctl01_errLogin" class="help-block"></label>
                                     </div>
+                                    <div class="form-group">
+                                        <label for="MainContent_ctl01_txtPassword" class="control-label">Mật khẩu</label>
+                                        @Html.PasswordFor(model => Model.Password, new { @class = "form-control", @placeholder = "" })
+                                        <label for="MainContent_ctl01_txtPassword" id="MainContent_ctl01_errPassword" class="help-block"></label>
+                                    </div>
+
+                                    <button value="submit" id="MainContent_ctl01_btnLogin" class="btn btn-primary"><span>Đăng nhập</span></button>
+                                    <a href="javascript:void(0);" onclick="checkLoginFbDialog();"  class="btn btn-facebook"><span>Đăng nhập bằng Facebook</span></a>
+                                }                             
+                            </div>
+                            <div class="spacer"></div>
+                            <div>
+
+                                <div class="form-group">
+                                    <label for="MainContent_ctl01_txtEmail" class="control-label">Quên mật khẩu?</label>
+                                    <input name="ctl00$MainContent$ctl01$txtEmail" type="email" id="MainContent_ctl01_txtEmail" class="form-control" placeholder="Nhập địa chỉ email để nhận lại mật khẩu" />
+                                    <label for="MainContent_ctl01_txtEmail" id="MainContent_ctl01_errEmail" class="help-block"></label>
                                 </div>
-                            }
-                           
+                                <button type="button" class="btn btn-primary" onclick="submitForm(this,'ctl00$MainContent$ctl01$btnSendPassword');">
+                                    Gửi
+                                </button>
+                                <button value="submit" id="btnSendPassword" onclick="WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions('ctl00$MainContent$ctl01$btnSendPassword', '', true, '', '', false, true))" class="hider"><span>Gửi</span></button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                    <div class="well">
+                        <div id="divRegister" class="row">
+                            Nếu bạn không có tài khoản&nbsp;
+                            <a id="MainContent_ctl02_lnkRegister" href="/dang-ky.html">Đăng ký</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</section>
-
-@section footerJS{
-<script src="~/assets/vendors/blockUI/jquery.blockUI.min.js"></script>
-<script src="~/assets/client/js/loginFacebook.js"></script>
-}
+</div>

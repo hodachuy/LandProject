@@ -20,9 +20,9 @@ namespace LandProject.Web.Areas.Admin.Controllers
             return View();
         }
 
-        public ActionResult Form(int lTypeID, string lTypeName)
+        public ActionResult Form(int typeExchange, string lTypeName)
         {
-            ViewBag.LandTypeID = lTypeID;
+            ViewBag.TypeExchange = typeExchange;
 			ViewBag.LandTypeName = lTypeName;
 			return View();
         }

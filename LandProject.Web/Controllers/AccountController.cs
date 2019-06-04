@@ -68,7 +68,7 @@ namespace LandProject.Web.Controllers
 						return Redirect(returnUrl);
 				}
 
-				return RedirectToAction("Index", "Home");
+				return RedirectToAction("Index", "Home2");
 			}
 
 			return View();
@@ -80,8 +80,13 @@ namespace LandProject.Web.Controllers
 			if (ModelState.IsValid)
 			{
 				ApplicationUser user = _userManager.Find(model.UserName, model.Password);
-				if (user != null)
-				{
+                if (user != null)
+                {
+                    if (!user.EmailConfirmed)
+                    {
+                        ModelState.AddModelError("", "Tài khoản bạn chưa được kích hoạt, vui lòng vào hợp thư mail "+user.Email+" để kích hoạt tài khoản.");
+                        return View(model);
+                    }
 					var applicationUserViewModel = Mapper.Map<ApplicationUser, ApplicationUserViewModel>(user);
 					Session[CommonConstants.SessionUser] = applicationUserViewModel;
 					IAuthenticationManager authenticationManager = HttpContext.GetOwinContext().Authentication;
@@ -96,7 +101,7 @@ namespace LandProject.Web.Controllers
 					}
 					else
 					{
-						return RedirectToAction("Index", "Home");
+						return RedirectToAction("Index", "Home2");
 					}
 				}
 				else
@@ -148,7 +153,7 @@ namespace LandProject.Web.Controllers
 				authenticationManager.SignIn(props, identity);
 				return Json(new
 				{
-					returnUrl = "Home/Index",
+					returnUrl = "Home2/Index",
 					status = true
 				});
 			}
@@ -248,7 +253,7 @@ namespace LandProject.Web.Controllers
 				{
 					UserName = model.UserName,
 					Email = model.Email,
-					EmailConfirmed = true,
+					EmailConfirmed = false,
 					BirthDay = DateTime.Now,
 					FullName = model.FullName,
 					PhoneNumber = model.PhoneNumber,
@@ -280,7 +285,7 @@ namespace LandProject.Web.Controllers
 
 				//ViewData["SuccessMsg"] = "Đăng ký thành công";
 
-				return RedirectToAction("Index", "Home");
+				return RedirectToAction("RegisterSuccess", "Account",new { name= user.FullName, mail = user.Email });
 
 				//ModelState["FullName"].Value = new ValueProviderResult("", "", CultureInfo.CurrentCulture);
 				//ModelState["Email"].Value = new ValueProviderResult("", "", CultureInfo.CurrentCulture);
@@ -293,21 +298,33 @@ namespace LandProject.Web.Controllers
 			return View();
 		}
 
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public ActionResult LogOut()
-		{
-			IAuthenticationManager authenticationManager = HttpContext.GetOwinContext().Authentication;
-			authenticationManager.SignOut();
-			Session.Clear();
-			Session.Abandon();
-			Session.RemoveAll();
-			return RedirectToAction("Login", "Account");
-		}
+        public ActionResult RegisterSuccess(string name, string mail)
+        {
+            ViewBag.Name = name;
+            ViewBag.Email = mail;
+            return View();
+        }
 
-		#region Helpers
-		// Used for XSRF protection when adding external logins
-		private const string XsrfKey = "XsrfId";
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public JsonResult LogOut()
+        {
+            IAuthenticationManager authenticationManager = HttpContext.GetOwinContext().Authentication;
+            authenticationManager.SignOut();
+            Session.Clear();
+            Session.Abandon();
+            Session.RemoveAll();
+
+            return Json(new
+            {
+                message = "success.",
+                status = true
+            });
+        }
+
+        #region Helpers
+        // Used for XSRF protection when adding external logins
+        private const string XsrfKey = "XsrfId";
 
 		private IAuthenticationManager AuthenticationManager
 		{

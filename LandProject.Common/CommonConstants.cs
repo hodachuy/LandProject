@@ -13,6 +13,7 @@ namespace LandProject.Common
         public const string Administrator = "Admin";
         public const string Visitor = "Visitor";
         public const string FolderLandNews = "LandNews";
+        public const string FolderPost = "Post";
         public const string FolderLProject = "LProject";
 		public const string PathMenu = "Menu";
 		public const string CreateQnA = "Create";

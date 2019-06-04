@@ -20,6 +20,7 @@ namespace LandProject.Web.Infrastructure.Extensions
 			landType.Alias = landTypeVm.Alias;
 			landType.IsDelete = landTypeVm.IsDelete;
             landType.SortOrder = landTypeVm.SortOrder;
+            landType.TypeExchange = landTypeVm.TypeExchange;
 		}
 
 		public static void UpdateLandCategory(this LandCategory landCategory, LandCategoryViewModel landCategoryVm)
@@ -87,7 +88,6 @@ namespace LandProject.Web.Infrastructure.Extensions
 			landNews.DecimalTotalPrice = landNewsVm.DecimalTotalPrice;
             landNews.Facade = landNewsVm.Facade;
             landNews.Entry = landNewsVm.Entry;
-            landNews.CreatedDate = DateTime.Now;
             landNews.MetaKeyword = landNewsVm.MetaKeyword;
             landNews.MetaDescription = landNewsVm.MetaDescription;
             landNews.Status = landNewsVm.Status;
@@ -162,5 +162,20 @@ namespace LandProject.Web.Infrastructure.Extensions
 			postCategoryDb.Status = postCategoryVm.Status;
 
 		}
-	}
+
+        public static void UpdatePost(this Post postDb, PostViewModel postVm)
+        {
+            postDb.ID = postVm.ID;
+            postDb.Alias = postVm.Alias;
+            postDb.Name = postVm.Name;
+            postDb.Description = postVm.Description;
+            postDb.Content = postVm.Content;
+            postDb.PostCategoryID = postVm.PostCategoryID;
+            postDb.Alias = postVm.Alias;
+            postDb.MetaKeyword = postVm.MetaKeyword;
+            postDb.MetaDescription = postVm.MetaDescription;
+            postDb.Status = postVm.Status;
+
+        }
+    }
 }

@@ -25,6 +25,7 @@ namespace LandProject.Model.Models
         public string Url { set; get; }
 
         public int? LProjectID { set; get; }
+        public int? PostID { set; get; }
         public int? LandNewsID { set; get; }
     }
 }

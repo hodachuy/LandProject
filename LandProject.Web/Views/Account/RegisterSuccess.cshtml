@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "RegisterSuccess";
+    Layout = "~/Views/Shared/_LayoutLand_v2.cshtml";
+}
+<div class="jumbotron head">
+    <div class="container head">
+        <div class="row">
+            <div class="col-lg-10 col-md-8 hidden-md hidden-sm hidden-xs">
+            </div>
+            <div class="col-lg-2 col-md-12 col-xs-12">
+                <a id="lnkCreateAd" class="pull-right btn mbnd-btn-red" href="/dang-tin-mua-ban-nha-dat.html">
+                    <img src="~/assets/client_v2/img/ic-pencil.svg" /> Đăng tin miễn phí
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container main bs-docs-container">
+    <div class="row" role="main">
+        <div class="container thankyou">
+            <div class="row">
+                <div class="col-sm-3 hidden-xs"></div>
+                <div class="col-sm-6 text-center">
+                    <h1> Chúc mừng @ViewBag.Name đã trở thành thành viên của Datdackhu.vn</h1>
+                </div>
+                <div class="col-sm-3 hidden-xs"></div>
+            </div>
+            <div class="row">
+                <img class="img-responsive center-block visible-lg hidden-xs hidden-sm " src="~/assets/client_v2/img/check.png" />
+                <img class="img-responsive center-block hidden-md hidden-lg" src="~/assets/client_v2/img/check-mobile.png" />
+            </div>
+            <div class="row">
+                <div class="col-sm-2 hidden-xs"></div>
+                <div class="col-sm-8 content">
+                    <p>Để sử dụng được bạn cần phải kích hoạt tài khoản bằng một trong các cách sau:</p><br />
+                    <p>
+                        <span>Để kích hoạt tài khoản,  @ViewBag.Name vui lòng kiểm tra hộp thư đến tại địa chỉ <a href="mailto:hehe@gmail.com">@ViewBag.Email</a> và làm theo hướng dẫn.</span>
+                        <span>Lưu ý: Thư xác nhận có thể không nằm trong phần hộp thư email, bạn kiểm tra thêm tại Thư rác.</span>
+                    </p><br />
+                    <div class="row btncenter"><button type="button" id="btnGoHome" class="center-block" onclick="window.location = '/';">Trang chủ</button></div>
+                </div>
+                <div class="col-sm-2 hidden-xs"></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+

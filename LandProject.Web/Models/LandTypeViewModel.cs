@@ -25,6 +25,8 @@ namespace LandProject.Web.Models
 
         public int SortOrder { set; get; }
 
+        public int TypeExchange { set; get; }
+
         public bool IsDelete { set; get; }
 
 		public virtual IEnumerable<LandCategoryViewModel> LandCategories { set; get; }

@@ -1,0 +1,111 @@
+﻿@model IEnumerable<LandProject.Web.Models.MenuGroupViewModel>
+@{
+    var userInfo = (LandProject.Web.Models.ApplicationUserViewModel)ViewBag.UserInfo;
+    int index = 0;
+}
+<div class="jumbotron head cus_jumbotron_public">
+    <div class="container head">
+        <div class="row">
+            <div class="col-xs-12 col-md-12 <col-lg-12 text-right custext-right_public">
+                <img src="http://muabannhadat.vn/img/icons/phone-ic.png" />
+                <span class="cus-span-telpublic">Hotline: <b><a href="tel:18001207">0397902222</a></b></span>
+                @*<span class="cus-span-ctpublic">
+                    <a href="ymsgr:sendIM?muabannhadat.comvn" title="Chat qua Yahoo" class="yahoo" rel="nofollow">
+                        <img src="http://muabannhadat.vn/img/icons/yahoo-ic.png" alt="datdackhu.vn">
+                    </a>
+                </span>
+                <span class="cus-span-ctpublic">
+                    <a href="skype:muabannhadat.com.vn?userinfo" title="Chat qua Skype" class="skype" rel="nofollow">
+                        <img src="http://muabannhadat.vn/img/icons/skype-ic.png" alt="datdackhu.vn">
+                    </a>
+                </span>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Menu-->
+<div class="navbar navbar-default mbnd-navbar">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2 visible-lg hidden-xs hidden-sm logo">
+                <a href="/">
+                    <img src="http://muabannhadat.vn/img/svg/logo.svg" height="50" alt="Đất đặc khu">
+                </a>
+            </div>
+            <div class="col-md-3 visible-md hidden-xs hidden-sm logo">
+                <a href="/">
+                    <img src="http://muabannhadat.vn/img/svg/logo.svg" height="50" alt="Đất đặc khu">
+                </a>
+            </div>
+            <div class="navbar-header hidden-md hidden-lg">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainNav"></button>
+                <a class="navbar-brand" href="/">
+                    <img src="http://muabannhadat.vn/img/svg/logo.svg" height="50" alt="Đất đặc khu">
+                </a>
+            </div>
+            <div class="col-md-10">
+                <div class="collapse navbar-collapse big" id="mainNav">
+                    <ul class="nav navbar-nav">
+                        @if (Model.Count() != 0)
+                        {
+                            foreach (var itemMenuGroup in Model)
+                            {
+                                var itemMenuChild = itemMenuGroup.Menus;
+                                int countItemMenuChild = itemMenuGroup.Menus.Count();
+                                <li class="dropdown has-hover">
+                                    <a href="@itemMenuGroup.URL" class="dropdown-toggle" target="@(String.IsNullOrEmpty(itemMenuGroup.Target) == true ? "_self" : itemMenuGroup.Target)">
+                                        @itemMenuGroup.Name
+                                        @if (countItemMenuChild != 0)
+                                        {
+                                            <img class="img-arrow" height="8" src="http://muabannhadat.vn/Content/img/Ico-arrow-down.svg" alt="">
+                                        }
+                                    </a>
+                                    @if (countItemMenuChild != 0)
+                                    {
+                                        <a class="button-dropdown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                            <img height="10" src="http://muabannhadat.vn/Content/img/Ico-arrow-down.svg" alt="">
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            @foreach (var itemChild in itemMenuChild)
+                                            {
+                                                <li><a href="@itemChild.URL">@itemChild.Name</a></li>
+                                            }
+                                        </ul>
+                                    }                                    
+                                </li>
+                            }
+                        }
+                    </ul>
+                    @if (userInfo != null)
+                    {
+                        <ul id="loginStatus" class="nav navbar-right navbar-nav">
+                            <li>
+                                <a href="/member/member-home"> @userInfo.UserName </a>
+                            </li>
+                            <li class="nav-register">
+                                <a href="#" id="btnLogout"> Thoát</a>
+                                <input name="UserId" id="UserId" value="@userInfo.Id" class="hidden" />
+                                <input name="UserId" id="UserName" value="@userInfo.FullName" class="hidden" />
+                                <input name="UserId" id="UserMobile" value="@userInfo.PhoneNumber" class="hidden" />
+                                <input name="UserId" id="UserAddress" value="@userInfo.Address" class="hidden" />
+                                <input name="UserId" id="UserEmail" value="@userInfo.Email" class="hidden" />
+                            </li>
+                        </ul>
+                    }
+                    else
+                    {
+                        <ul id="loginStatus" class="nav navbar-right navbar-nav">
+                            <li>
+                                <a href="/dang-nhap.html">Đăng nhập</a>
+                            </li>
+                            <li class="nav-register">
+                                <a href="/dang-ky.html">Đăng ký</a>
+                            </li>
+                        </ul>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
