@@ -84,8 +84,11 @@ namespace LandProject.Web.API
                 {
                     return request.CreateResponse(HttpStatusCode.NoContent);
                 }
-                var landNews = _landNewsService.GetByID(landNewsID);
-                var landNewsVm = Mapper.Map<LandNewsFilterViewModel, LandNewsViewModel>(landNews);
+
+                string filter = "ln.ID = " + landNewsID;
+
+                var landNewsDetail = _landNewsService.GetAllByFilter(filter,null, 1, 1).ToList()[0];
+                var landNewsVm = Mapper.Map<LandNewsFilterViewModel, LandNewsViewModel>(landNewsDetail);
 
                 var lstLandFile = _landFileService.GetByLandNewsID(landNewsID);
                 var lstLandFileVm = Mapper.Map<IEnumerable<LandFile>,IEnumerable<LandFileViewModel>>(lstLandFile);

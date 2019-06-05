@@ -28,7 +28,7 @@
     <meta name="msapplication-square150x150logo" content="/img/logo-150.png" />
     <meta name="msapplication-wide310x150logo" content="/img/logo-310.png" />
     <meta name="msapplication-square310x310logo" content="/img/logo-310.png" />
-
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link href="~/assets/client_v2/css/style.css" rel="stylesheet" />
     @*<link href="http://muabannhadat.vn/Content/MuaBanNhaDat/mbnd.min.css?v=20190322" rel="stylesheet" type="text/css" />*@
     <link href="http://muabannhadat.vn/Content/MuaBanNhaDat/PuzzleCAPTCHA/puzzleCAPTCHA.css?v=20190307" rel="stylesheet" type="text/css" />
@@ -73,8 +73,12 @@
 
 
     <script src="~/assets/client_v2/js/common_ddk.min.js"></script>
-    <script> var _Host = "@Url.Content("~")";</script>
+    <!-- blockUI -->
+    <script src="~/assets/vendors/blockUI/jquery.blockUI.min.js"></script>
 
+    <script> var _Host = "@Url.Content("~")";</script>
+    <!-- ajax helper -->
+    <script src="~/assets/library/helper/CallServiceHelper.js"></script>
 
     @*<script src="http://muabannhadat.vn/Scripts/mbnd.min.js?v=20190312"></script>*@
     <script type="text/javascript">
@@ -86,207 +90,7 @@
             }
         });
     </script>
-    <script type="application/ld+json">
-        {
-        "@@context": "http://schema.org",
-        "@@type": [
-        "Organization",
-        "LocalBusiness",
-        "Realestateagent"
-        ],
-        "@@id":"http://www.muabannhadat.vn/",
-        "url": "http://www.muabannhadat.vn/",
-        "additionaltype": ["https://en.wikipedia.org/wiki/Real_estate_broker"],
-        "logo": "https://duan.muabannhadat.vn/wp-content/uploads/2017/09/mbnd-logo.png",
-        "image":"https://duan.muabannhadat.vn/wp-content/uploads/2017/09/mbnd-logo.png",
-        "contactPoint" : [{
-        "@@type" : "ContactPoint",
-        "telephone" : "+84 1800 1207",
-        "contactType" : "customer service",
-        "areaServed": "VI"
-        }],
-        "priceRange":"1000$-30000$",
-        "hasMap": "https://www.google.com/maps/place/Muabannhadat.vn/@@10.7623207,106.7059719,17z/data=!3m1!4b1!4m5!3m4!1s0x31752f321799b3ab:0xdc2f6af34c56a549!8m2!3d10.7623207!4d106.7081606?shorturl=1",
-        "email": "mailto:digital.muabannhadat@gmail.com",
-        "founder": "Emre Sigura",
-        "hasOfferCatalog":  {
-        "@@type": "OfferCatalog",
-        "name": "Dịch vụ của MuaBanNhaDat",
-        "itemListElement": [
-        {
-        "@@type": "Offer",
-        "itemOffered": "Service",
-        "name": "dich vu Mua Bán Nhà Đất",
-        "url": "http://www.muabannhadat.vn/bang-gia-dich-vu/"
-        },
-        {
-        "@@type": "Offer",
-        "itemOffered": "Product",
-        "name": "Dịch vụ tin đăng video trên MBND",
-        "url": "http://www.muabannhadat.vn/bang-gia-dich-vu/tin-dang-video/"
-        },
-        {
-        "@@type": "Offer",
-        "itemOffered": "Product",
-        "name": "Dịch vụ Lead Gen 2.0 trên MBND",
-        "url": "http://www.muabannhadat.vn/bang-gia-dich-vu/dich-vu-lead-gen/"
-        },
-        {
-        "@@type": "Offer",
-        "itemOffered": "Product",
-        "name": "Dịch vụ gói sản phẩm ADWORDS",
-        "url": "http://www.muabannhadat.vn/bang-gia-dich-vu/dich-vu-adwords/"
-        }
-        ]
-        },
-        "address": {
-        "@@type": "PostalAddress",
-        "addressLocality": "Hồ Chí Minh",
-        "addressCountry": "VIỆT NAM",
-        "addressRegion": "Hồ Chí Minh",
-        "postalCode":"700000",
-        "streetAddress": "12 Tôn Đản, Phường 13, Quận 4, Hồ Chí Minh 700000, Vietnam"
-        },
-        "description": "MuaBanNhaDat trang web thông tin BĐS hàng đầu VN ✓ Quản lý bởi Ringier ✓ Tập đoàn truyền thông hàng đầu Thụy Sỹ ✓ Cung cấp 5000 tin bán nhà đât mới mỗi ngày. MuaBanNhaDat cung cấp các dịch vụ và giải pháp chuyên biệt, giúp nhà kinh doanh bất động sản tiếp cận gần hơn đến các khách hàng tiềm năng.",
-        "name": "Muabannhadat.vn",
-        "telephone": "+84 1800 1207",
-        "openingHoursSpecification": [
-        {
-        "@@type": "OpeningHoursSpecification",
-        "dayOfWeek": [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday"
-        ],
-        "opens": "08:00",
-        "closes": "17:00"
-        }
-        ],
-        "geo": {
-        "@@type": "GeoCoordinates",
-        "latitude": "10.7623207",
-        "longitude": "106.7059719"
-        },
-        "potentialAction": {
-        "@@type": "ReserveAction",
-        "target": {
-        "@@type": "EntryPoint",
-        "urlTemplate": "http://www.muabannhadat.vn/account/dang-ky",
-        "inLanguage": "vn",
-        "actionPlatform": [
-        "http://schema.org/DesktopWebPlatform",
-        "http://schema.org/IOSPlatform",
-        "http://schema.org/AndroidPlatform"
-        ]
-        },
-        "result": {
-        "@@type": "Reservation",
-        "name": "đăng ký"
-        }},
-        "sameAs":[ "https://www.facebook.com/MuaBanNhaDat/",
-        "https://www.youtube.com/user/muabannhadatvietnam",
-        "https://twitter.com/mbnhadat",
-        "https://www.instagram.com/muabannhadat.vn/",
-        "https://www.pinterest.com/muabannhadatvn/",
-        "https://plus.google.com/u/0/+muabannhadat",
-        "https://www.linkedin.com/company/muabannhadat-agent/"]
-        }
-    </script>
-
-    <script type="application/ld+json">
-        {
-        "@@context": "https://schema.org",
-        "@@graph":
-        [
-        {
-        "@@context": "https://schema.org",
-        "@@type":"SiteNavigationElement",
-        "name": "Nhà Đất",
-        "url": "http://www.muabannhadat.vn/nha-dat-3490"
-        },
-        {
-        "@@context": "https://schema.org",
-        "@@type":"SiteNavigationElement",
-        "name": "Dự án Bất Động Sản",
-        "url": "https://duan.muabannhadat.vn/"
-        },
-        {
-        "@@context": "https://schema.org",
-        "@@type":"SiteNavigationElement",
-        "name": "Tin thị trường BĐS",
-        "url": "http://www.muabannhadat.vn/tin-tuc/"
-        }
-        ]
-        }
-    </script>
-    <script type="application/ld+json">
-        {
-        "@@context":"http://schema.org",
-        "@@type":"ItemList",
-        "itemListElement":[
-        {
-        "@@type":"ListItem",
-        "position":1,
-        "url":"http://www.muabannhadat.vn/nha-dat-3490",
-        "name":"Nhà Đất Việt Nam"
-        },
-        {
-        "@@type":"ListItem",
-        "position":2,
-        "url":"http://www.muabannhadat.vn/nha-dat-3490/tp-ho-chi-minh-s59",
-        "name":"Nhà Đất Hồ Chí Minh"
-        },
-        {
-        "@@type":"ListItem",
-        "position":3,
-        "url":"http://www.muabannhadat.vn/nha-dat-3490/tp-ha-noi-s28",
-        "name":"Nhà Đất Hà Nội"
-        },
-        {
-        "@@type":"ListItem",
-        "position":4,
-        "url":"http://www.muabannhadat.vn/nha-dat-3490/dong-nai-s41",
-        "name":"Bất động sản Đồng Nai"
-        },
-        {
-        "@@type":"ListItem",
-        "position":5,
-        "url":"http://www.muabannhadat.vn/nha-dat-3490/tp-da-nang-s31",
-        "name":"Bất động sản Đà nẵng"
-        },
-        {
-        "@@type":"ListItem",
-        "position":6,
-        "url":"http://www.muabannhadat.vn/nha-dat-3490/khanh-hoa-s38",
-        "name":"Bất động sản Khánh Hòa Nha trang"
-        },
-        {
-        "@@type":"ListItem",
-        "position":7,
-        "url":"http://www.muabannhadat.vn/nha-dat-3490/tp-hai-phong-s17",
-        "name":"Bất động sản Hải Phòng"
-        }]
-        }
-    </script>
-    <script type="application/ld+json">
-        {
-        "@@context": "http://schema.org",
-        "@@type": "Person",
-        "name": "Emre Sigura",
-        "jobTitle": "CEO",
-        "image":"http://www.muabannhadat.vn/tin-tuc/wp-content/uploads/2018/05/emresigura.jpg",
-        "worksFor":"MuaBanNhaDat",
-        "url": "http://www.muabannhadat.vn/",
-        "sameAs":["https://www.linkedin.com/in/emresigura/",
-        "https://www.facebook.com/esigura"],
-        "address": {
-        "@@type": "PostalAddress",
-        "addressLocality": "Ho Chi Minh",
-        "addressRegion": "vietnam"
-        }}
-    </script>
+ 
     <script type="text/javascript" src="http://static.muabannhadat.vn/template/js/mbndapi.js?v=mbnd_new_2222"></script>
     <script type="text/javascript">
         window.onload = function () {

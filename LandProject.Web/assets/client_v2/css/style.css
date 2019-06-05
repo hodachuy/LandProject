@@ -9,6 +9,25 @@ body {
     margin: 0;
 }
 
+.p-t-10{
+    padding-top:10px !important;
+}
+.p-t-20{
+    padding-top:20px !important;
+}
+.p-b-10{
+    padding-bottom:10px;
+}
+.p-b-20{
+    padding-bottom:20px;
+}
+.p-l-10{
+    padding-left:10px !important;
+}
+.p-l-20{
+    padding-left:20px !important;
+}
+
 article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
     display: block;
 }

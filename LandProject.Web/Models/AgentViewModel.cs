@@ -19,12 +19,19 @@ namespace LandProject.Web.Models
 
         [Column(TypeName = "varchar")]
         [StringLength(50)]
-        public string Phone { set; get; }
+        public string Phone1 { set; get; }
 
         [Column(TypeName = "varchar")]
         [StringLength(50)]
-        [Required]
-        public string Mobile { set; get; }
+        public string Phone2 { set; get; }
+
+        [Column(TypeName = "varchar")]
+        [StringLength(50)]
+        public string Phone3 { set; get; }
+
+        [Column(TypeName = "varchar")]
+        [StringLength(50)]
+        public string PhoneShow { set; get; }
 
         [Column(TypeName = "varchar")]
         [StringLength(128)]

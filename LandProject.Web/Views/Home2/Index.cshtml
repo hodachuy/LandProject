@@ -1,4 +1,6 @@
-﻿@{
+﻿@using LandProject.Web.Models
+@model HomeViewModel
+@{
     ViewBag.Title = "Kênh thông tin rao bán bất động sản | Datdackhu";
     Layout = "~/Views/Shared/_LayoutLand_v2.cshtml";
 }
@@ -109,20 +111,22 @@
         <div class="col-md-12">         
             <!--Ad:Leaderboard-->
             <div class="visible-lg text-center">
-                <center>
+                @*<center>
                     <ins data-revive-zoneid="1" data-revive-id="aa4a0ec382d9f0c0afc420b398a552a3"></ins>
                     <script async src="//adserver.muabannhadat.vn/www/delivery/asyncjs.php"></script>
-                </center>
+                </center>*@
             </div>
             <div class="panel mbnd-panel-feature">
                 <div class="panel-heading">
                     <h2 class="title-h2 text-uppercase">
                         Bất động sản nổi bật
-                        <a class="btn-showmore pull-right" href='http://www.muabannhadat.vn/nha-dat-3490' onclick="setCookieFeaturedObject();">Xem thêm</a>
+                        <a class="btn-showmore pull-right" href='#'>Xem thêm</a>
                     </h2>
                 </div>
                 <div class="panel-body">
-                    <div id="featureObjectNormal" class="row cussrow"></div>
+                    <div id="featureObjectNormal" class="row cussrow">
+
+                    </div>
                     <div class="hidden">
                         <div id="objectAdItemFirst">
                             <div class="col-xs-12 col-sm-6 col-lg-3">
@@ -232,10 +236,6 @@
                                 </div>
                             </div>
                         </div>
-
-
-
-
                         <div id="objectItem_3_4">
                             <div class="col-xs-12 col-sm-6 col-lg-3 listing-zone">
                                 <div class="mbnd-card ">
@@ -258,10 +258,6 @@
                                 </div>
                             </div>
                         </div>
-
-
-
-
                         <div id="objectItem_1_2">
                             <div class="col-xs-12 col-sm-6 col-lg-3 listing-zone">
                                 <div class="mbnd-card ">
@@ -284,10 +280,6 @@
                                 </div>
                             </div>
                         </div>
-
-
-
-
                         <div id="objectItem_3_3">
                             <div class="col-xs-12 col-sm-6 col-lg-3 listing-zone">
                                 <div class="mbnd-card ">
@@ -310,9 +302,6 @@
                                 </div>
                             </div>
                         </div>
-
-
-
                     </div>
                 </div>
             </div>
@@ -618,34 +607,7 @@
                                 <div class="col-md-12 zone-news-right">
                                     <div id="mbnd_id_feature_list"></div>
 
-                                    <div class="hidden-xs hidden-sm margin-top-20">
-                                        <div class="nothing">
-                                            <div style="height:25px"></div>
-                                            <ins data-revive-zoneid="3" data-revive-id="aa4a0ec382d9f0c0afc420b398a552a3"></ins>
-                                        </div>
-                                    </div>
-
-                                    <div id="mbnd_id_fengshui"></div>
-
-                                    <div class="hidden-xs hidden-sm margin-top-20">
-                                        <ins data-revive-zoneid="4" data-revive-id="aa4a0ec382d9f0c0afc420b398a552a3"></ins>
-                                    </div>
-
-
-                                    <div class="consultant-home-page margin-top-20">
-                                    </div>
-                                    <div id="mbnd_id_video"></div>
-                                    <br />
-                                    <div id="mbnd_id_calendar_event"></div>
-
-                                    <div id="mbnd_id_calendar_event"></div>
-
-                                    <div class="visible-xs-block visible-sm-block margin-top-20">
-                                        <div>
-                                            <h2 class="home-heading" style="color:#414142;">MuaBanNhaDat.vn - Kênh thông tin BĐS lớn nhất Việt Nam</h2>
-                                        </div>
-                                        Mỗi ngày, MuaBanNhaDat có hơn 4.000 tin đăng mới bán nhà, bán đất, <a href="http://www.muabannhadat.vn/can-ho-ban-3514" title="căn hộ bán" target="_blank">căn hộ bán</a>, dự án chung cư, dự án biệt thự, đất nền… đa dạng về địa điểm, diện tích và mức giá; giúp bạn tìm kiếm căn nhà phù hợp thật nhanh chóng và thuận tiện. MuaBanNhaDat còn mang đến cho bạn những thông tin hữu ích từ các chuyên gia <b>bất động sản</b>, tài chính và pháp lý… giúp việc mua nhà của bạn trở nên dễ dàng hơn.
-                                    </div>
+                                                                   
                                 </div>
                             </div>
                         </div>
@@ -653,12 +615,6 @@
                 </div>
             </div>
 
-            <div class="visible-md-block visible-lg-block">
-                <div>
-                    <h2 class="home-heading" style="color:#414142;">MuaBanNhaDat.vn - Kênh thông tin BĐS lớn nhất Việt Nam</h2>
-                </div>
-                Mỗi ngày, MuaBanNhaDat có hơn 4.000 tin đăng mới bán nhà, bán đất, <a href="http://www.muabannhadat.vn/can-ho-ban-3514" title="căn hộ bán" target="_blank">căn hộ bán</a>, dự án chung cư, dự án biệt thự, đất nền… đa dạng về địa điểm, diện tích và mức giá; giúp bạn tìm kiếm căn nhà phù hợp thật nhanh chóng và thuận tiện. MuaBanNhaDat còn mang đến cho bạn những thông tin hữu ích từ các chuyên gia <b>bất động sản</b>, tài chính và pháp lý… giúp việc mua nhà của bạn trở nên dễ dàng hơn.
-            </div>
         </div>
     </div>
 </div>

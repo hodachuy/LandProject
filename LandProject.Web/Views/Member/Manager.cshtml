@@ -1,0 +1,65 @@
+﻿@model LandProject.Web.Infrastructure.Core.PaginationSet<LandProject.Web.Models.LandNewsViewModel>
+@{
+    ViewBag.Title = "Manager";
+    Layout = "~/Views/Shared/_LayoutLand_v2.cshtml";
+}
+
+<div class="container">
+    <div class="col-xs-12 col-md-3">
+        <div class="list-group sidenav">
+            <a href="/dang-tin-mua-ban-nha-dat.html" class="list-group-item a-action">
+                Tạo tin đăng mới
+            </a>
+            <a href="/thanh-vien/tin-dang.html" class="list-group-item active">
+                <span class="badge">@Model.Items.Count()</span>
+                Tin soạn thảo
+            </a>        
+        </div>
+    </div>
+    <div class="col-xs-12 col-md-9">
+        @if (Model.Items.Count() != 0)
+        {
+            foreach (var item in Model.Items)
+            {
+                <div class="list-group-item member">
+                    <div class="row resultItem">
+                        <div class="col-md-3 col-sm-4 col-xs-12 ">
+                            <img class="img-thumbnail" src="http://www.muabannhadat.vn/uploads/images/008/570/589/S9VKwxaVCkyLMVF_AfouIw_3.jpg">
+                        </div>
+                        <div class="col-md-9 col-sm-8 col-xs-12 ">
+                            <div class="row">
+                                <div class="col-xs-12 col-md-9 title titlebasic">@item.Title</div>
+                                <div class="col-md-3 col-xs-12 text-right">@item.TotalPrice</div>
+                                <address class="col-md-6 col-xs-12">
+                                    <br>
+                                    @item.ProvinceName / @item.DistrictName / @item.WardName<br>
+                                    Ngày cập nhật: @item.CreatedDate.ToString()<br>
+
+                                </address>
+                                <div class="col-md-6 col-xs-12">Diện tích : @item.Area m²&nbsp;</div>
+                                <div class="col-md-6 col-xs-12">ID: @item.Code&nbsp;</div>
+
+                            </div>
+                        </div>
+                        <div class="col-xs-12 member-buttons">
+                            <a class="btn btn-default btnEditNewUi" href="/dang-tin-mua-ban-nha-dat.html?uId=@item.ID">Sửa</a>
+                            <button type="button" class="btn btn-default rmLandNews" data-id="@item.ID">
+                                Xóa
+                            </button>
+                        </div>
+                    </div>
+                 
+                </div>
+            }
+
+        }
+        else
+        {
+            <div class="well">
+                    Không tìm thấy tin đăng nào
+                </div>
+        }
+
+    </div>
+</div>
+

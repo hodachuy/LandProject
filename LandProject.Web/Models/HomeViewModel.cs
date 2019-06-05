@@ -10,6 +10,8 @@ namespace LandProject.Web.Models
     {
         public IEnumerable<CountLandNewsDistrictViewModel> CategoryWard { set; get; }
         public IEnumerable<LandNewsViewModel> LandNewsSaleAndRent { set; get; }
+        public IEnumerable<LandNewsViewModel> LandNewsHot { set; get; }
+        public IEnumerable<LandNewsViewModel> LandNewsAll { set; get; }
         public IEnumerable<LandNewsViewModel> LandNewsBuyAndRent { set; get; }
         public IEnumerable<LProjectViewModel> ListProject { set; get; }
 		public IEnumerable<PostViewModel> ListPostViewModel { set; get; }

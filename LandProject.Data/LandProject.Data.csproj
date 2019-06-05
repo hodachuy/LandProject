@@ -130,6 +130,14 @@
     <Compile Include="Migrations\201906040707130_UpdateLandTypeExchange.Designer.cs">
       <DependentUpon>201906040707130_UpdateLandTypeExchange.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906050332329_UpdateAgentPhone.cs" />
+    <Compile Include="Migrations\201906050332329_UpdateAgentPhone.Designer.cs">
+      <DependentUpon>201906050332329_UpdateAgentPhone.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201906050752315_UpdateAgenPhone2.cs" />
+    <Compile Include="Migrations\201906050752315_UpdateAgenPhone2.Designer.cs">
+      <DependentUpon>201906050752315_UpdateAgenPhone2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AgentRepository.cs" />
@@ -222,6 +230,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906040707130_UpdateLandTypeExchange.resx">
       <DependentUpon>201906040707130_UpdateLandTypeExchange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906050332329_UpdateAgentPhone.resx">
+      <DependentUpon>201906050332329_UpdateAgentPhone.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906050752315_UpdateAgenPhone2.resx">
+      <DependentUpon>201906050752315_UpdateAgenPhone2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

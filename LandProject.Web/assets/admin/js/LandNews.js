@@ -75,10 +75,16 @@ $(document).ready(function () {
             LandNewsModel.NumberBedroom = $('#txtNumberBedroom').val();
             LandNewsModel.NumberWC = $('#txtNumberWC').val();
             LandNewsModel.Furniture = $('#txtFurniture').val();
+            LandNewsModel.Convenient = $('#txtConvenient').val();
+            LandNewsModel.Environment = $('#txtEnvironment').val();
+            LandNewsModel.LegalStatus = $('#txtLegalStatus').val();
             LandNewsModel.Agent.Name = $('#txtAgentName').val();
-            LandNewsModel.Agent.Mobile = $('#txtAgentMobile').val();
+            LandNewsModel.Agent.Phone1 = $('#txtAgentPhone1').val();
+            LandNewsModel.Agent.Phone2 = $('#txtAgentPhone2').val();
+            LandNewsModel.Agent.Phone3 = $('#txtAgentPhone3').val();
+            LandNewsModel.Agent.PhoneShow = $('#txtAgentPhoneShow').val();
             LandNewsModel.Agent.Address = $('#txtAgentAddress').val();
-            LandNewsModel.Agent.Phone = $('#txtAgentPhone').val();
+
             LandNewsModel.Agent.Email = $('#txtAgentEmail').val();
             LandNewsModel.Agent.UserId = $('#txtUserId').val();
 
@@ -157,7 +163,7 @@ checkValid = function () {
         $('#form').validationEngine('hide');
     }, 10000);
     var LandNewsName = $('#txtLandNewsName').val();
-    var AgentPhone = $('#txtAgentPhone').val();
+    var AgentPhone = $('#txtAgentPhone1').val();
     if (LandNewsName.trim() == "") {
         $('#txtLandNewsName').validationEngine('showPrompt', '* Trường này bắt buộc', 'red', 'topRight', true);
         res = false;
@@ -189,10 +195,10 @@ checkValid = function () {
         $("#cboDistrict").validationEngine('hide');
     }
     if (AgentPhone.trim() == "") {
-        $('#txtAgentPhone').validationEngine('showPrompt', '* Trường này bắt buộc', 'red', 'topRight', true);
+        $('#txtAgentPhone1').validationEngine('showPrompt', '* Trường này bắt buộc', 'red', 'topRight', true);
         res = false;
     } else {
-        $("#txtAgentPhone").validationEngine('hide');
+        $("#txtAgentPhone1").validationEngine('hide');
     }
     if ($('#txtAddress').val().trim() == "") {
         $('#txtAddress').validationEngine('showPrompt', '* Trường này bắt buộc', 'red', 'topRight', true);
@@ -497,10 +503,16 @@ ForumCatg = function (id) {
         $('#txtFurniture').val('');
         $('#txtDescription').val('');
 
+        $('#txtConvenient').val('');
+        $('#txtEnvironment').val('');
+        $('#txtLegalStatus').val('');
+
         $('#txtAgentName').val('');
         $('#txtAgentAddress').val('');
-        $('#txtAgentMobile').val('');
-        $('#txtAgentPhone').val('');
+        $('#txtAgentPhone1').val('');
+        $('#txtAgentPhone2').val('');
+        $('#txtAgentPhone3').val('');
+        $('#txtAgentPhoneShow').val('');
         $('#txtAgentEmail').val('');
 
         $("#cboLandType").val('');
@@ -596,13 +608,20 @@ ForumCatg = function (id) {
                 $('#txtNumberWC').val(data.NumberWC);
                 $('#txtFurniture').val(data.Furniture);
                 $('#txtDescription').val(data.Description);
+
+                $('#txtConvenient').val(data.Convenient);
+                $('#txtEnvironment').val(data.Environment);
+                $('#txtLegalStatus').val(data.LegalStatus);
+
                 if (data.Agent != undefined) {
                     LandNewsModel.AgentID = data.Agent.AgentID;
                     LandNewsModel.Agent.AgentID = data.Agent.AgentID;
                     $('#txtAgentName').val(data.Agent.Name);
                     $('#txtAgentAddress').val(data.Agent.Address);
-                    $('#txtAgentMobile').val(data.Agent.Mobile);
-                    $('#txtAgentPhone').val(data.Agent.Phone);
+                    $('#txtAgentPhone1').val(data.Agent.Phone1);
+                    $('#txtAgentPhone2').val(data.Agent.Phone2);
+                    $('#txtAgentPhone3').val(data.Agent.Phone3);
+                    $('#txtAgentPhoneShow').val(data.Agent.PhoneShow);
                     $('#txtAgentEmail').val(data.Agent.Email);
                     $('#txtUserId').val(data.Agent.UserId);
                 }

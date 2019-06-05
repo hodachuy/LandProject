@@ -101,14 +101,20 @@ namespace LandProject.Web.Infrastructure.Extensions
             landNews.IsDelete = landNewsVm.IsDelete;
             landNews.IsPublished = landNewsVm.IsPublished;
             landNews.IsSale = landNewsVm.IsSale;
+            landNews.LegalStatus = landNewsVm.LegalStatus;
+            landNews.Environment = landNewsVm.Environment;
+            landNews.Convenient = landNewsVm.Convenient;
+
         }
 
         public static void UpdateAgent(this Agent agent, AgentViewModel agentVm)
         {
             agent.ID = agentVm.ID;
-            agent.Mobile = agentVm.Mobile;
             agent.Name = agentVm.Name;
-            agent.Phone = agentVm.Phone;
+            agent.Phone1 = agentVm.Phone1;
+            agent.Phone2 = agentVm.Phone2;
+            agent.Phone3 = agentVm.Phone3;
+            agent.PhoneShow = agentVm.PhoneShow;
             agent.Email = agentVm.Email;
             agent.Address = agentVm.Address;
             agent.UserId = agentVm.UserId;
