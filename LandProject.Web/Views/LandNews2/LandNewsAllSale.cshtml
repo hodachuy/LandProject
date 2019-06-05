@@ -1,7 +1,7 @@
 ﻿@model LandProject.Web.Infrastructure.Core.PaginationSet<LandProject.Web.Models.LandNewsViewModel>
 @{
     var pageIndex = Model.Page;
-    ViewBag.Title = pageIndex == 1 ? ViewBag.LandCategoryName : ViewBag.LandCategoryName + " - Trang " + pageIndex;
+    ViewBag.Title = pageIndex == 1 ? "Nhà đất bán" : "Nhà đất bán" + " - Trang " + pageIndex;
     var categoryWard = (IEnumerable<LandProject.Common.CountLandNewsDistrictViewModel>)ViewBag.CategoryWard;
     Layout = "~/Views/Shared/_LayoutLand_v2.cshtml";
 }
@@ -10,16 +10,13 @@
         <div class="row">
             <div class="col-lg-10 col-md-8 hidden-md hidden-sm hidden-xs">
                 <ol class="breadcrumb">
-                    <li>
+                    <li >
                         <a href="/" itemprop="url">
-                            <p class="cusp" itemprop="title">Trang chủ</p> >
+                            <p class="cusp" itemprop="title">Trang chủ</p> > 
                         </a>
                     </li>
-                    <li>
-                        <p itemprop="title">@ViewBag.LandTypeName</p>
-                    </li>
                     <li class="active">
-                        <p itemprop="title">@ViewBag.LandCategoryName</p>
+                        <p itemprop="title">Nhà đất</p>
                     </li>
                 </ol>
             </div>
@@ -35,11 +32,11 @@
     <div class="row" role="main">
         <div class="container">
             <h1 class="headline">
-                Nhà đất tại Việt Nam - @ViewBag.LandTypeName - @ViewBag.LandCategoryName
+                Nhà đất tại Việt Nam
             </h1>
             <div class="row">
                 <div class="col-xs-12 col-md-8 col-lg-9 col-md-push-4 col-lg-push-3 content-list">
-                    <div class="pull-left left-sticky-floating">
+                    <div class="pull-left left-sticky-floating">                      
                         <div class="list-group result-list">
                             <div class="filter-result-sort ">
                                 <div class="row">
@@ -63,7 +60,7 @@
                                 {
                                     var urlDetail = "/" + item.Alias + ".l-" + item.ID + ".html";
                                     <div id="MainContent_ctlList_ctlResults_repList_ctl00_0_divGroupListItem_0" class="mbnd-item Product-TopListing" rel="&lt;%= Model.AdvertId %>">
-                                        @{  var urlImage = Url.Content("~/fileman/Uploads/LandNews/" + item.Image);}
+                                        @{  var urlImage = Url.Content("~/fileman/Uploads/LandNews/"+item.Image);}
                                         <div class="mbnd-item-img" style="background-image: url('@urlImage');">
                                             <div class="mbnd-item-type">
                                                 TOP
@@ -92,7 +89,7 @@
                                             <div class="row">
                                                 <div class="col-lg-12">
                                                     <p class="mbnd-item-text">
-
+                                                        
                                                     </p>
                                                 </div>
                                             </div>
@@ -103,7 +100,7 @@
                                                 <div class="col-xs-4 col-lg-2">
 
                                                     <p class="mbnd-item-text mb-0">
-                                                        <img src="~/assets/client_v2/img/ic-bed.svg" /><br />
+                                                        <img src="~/assets/client_v2/img/ic-bed.svg" /><br />                                                      
                                                         @item.NumberBedroom
                                                     </p>
 
@@ -124,11 +121,12 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>    }
-                                            }
-                                            else
-                                            {
-                                                <p>Không có dữ liệu</p>}
+                                    </div>
+}
+                            }else
+                            {
+                                <p>Không có dữ liệu</p>
+                            }
 
 
                             <div class="list-footer text-center ">
@@ -145,10 +143,10 @@
                                                 <a href="?page=1" aria-label="First">
                                                 </a>
                                             </li>
-                                            <li>
-                                                <a href="?page=@(Model.Page-1)" aria-label="Previous">
-                                                </a>
-                                            </li>
+                                                <li>
+                                                    <a href="?page=@(Model.Page-1)" aria-label="Previous">
+                                                    </a>
+                                                </li>
 }
                                         for (int i = startPageIndex; i <= endPageIndex; i++)
                                         {
@@ -167,15 +165,15 @@
                                                 <a href="?page=@(Model.Page+1)" aria-label="Next">
                                                 </a>
                                             </li>
-                                            <li>
-                                                <a href="?page=@Model.TotalPages" aria-label="Last">
-                                                </a>
-                                            </li>}
-                                    }
+                                                <li>
+                                                    <a href="?page=@Model.TotalPages" aria-label="Last">
+                                                    </a>
+                                                </li>}
+}
                                 </ul>
                             </div>
                         </div>
-
+                                        
                         <div class="clearfix"></div>
 
                     </div>
@@ -273,3 +271,4 @@
         </div>
     </div>
 </div>
+

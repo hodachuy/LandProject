@@ -2570,7 +2570,7 @@ tbody.collapse.in {
     }
 
         .breadcrumb > li + li:before {
-            content: ">Â ";
+            /*content: ">Â ";*/
             padding: 0 5px;
             color: #ed1c24;
         }

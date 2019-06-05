@@ -1,8 +1,363 @@
-﻿
+﻿@model LandProject.Web.Models.LandNewsDetailViewModel
 @{
-    ViewBag.Title = "Detail";
+    ViewBag.Title = Model.LandNewsDetail.Title;
     Layout = "~/Views/Shared/_LayoutLand_v2.cshtml";
+    var urlLandType = "/nha-dat/"+Model.LandNewsDetail.LandTypeName+".lt-"+Model.LandNewsDetail.LandTypeID+".html";
 }
 
-<h2>Detail</h2>
+<link href="~/assets/client_v2/css/ddk-detail.min.css" rel="stylesheet" />
+<input type="hidden" id="LatiLongTude" value="@Model.LandNewsDetail.LatiLongTude" />
+<div class="jumbotron head">
+    <div class="container head">
+        <div class="row">
+            <div class="col-lg-10 col-md-8 hidden-md hidden-sm hidden-xs">
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="/" itemprop="url">
+                            <p class="cusp" itemprop="title">Trang chủ</p> >
+                        </a>
+                    </li>
+                    <li>
+                        <a href="@urlLandType" itemprop="url">
+                            <p class="cusp" itemprop="title">@Model.LandNewsDetail.LandTypeName</p>
+                        </a>
+                    </li>                
+                </ol>
+            </div>
+            <div class="col-lg-2 col-md-12 col-xs-12">
+                <a id="lnkCreateAd" class="pull-right btn mbnd-btn-red" href="/dang-tin-mua-ban-nha-dat.html">
+                    <img src="~/assets/client_v2/img/ic-pencil.svg" /> Đăng tin miễn phí
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container padding-top-custom-devive">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="row">
+                <div class="col-md-10 col-sm-8 col-xs-12 nav-title">
+                    <h1>
+                        @Model.LandNewsDetail.Title
+                    </h1>
+                    @*<span>
+                        ÁN GALAXY HẢI SƠN PHỐ VÀNG CHUYÊN GIA
+                    </span>*@
+                </div>              
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container main bs-docs-container">
+    <div class="row" role="main">
+        <div class="container">          
+            <div class="row">
+                <div class="col-xs-12 padding-top-custom-devive">
+                    <div style="float: left">
+                        <span id="MainContent_ctlDetailBox_lblPrice" class="price">@Model.LandNewsDetail.TotalPrice VNĐ</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8 col-xs-12">
+                    <!-- Address and Sidle pictures -->
+                    <div class="row">
+                        <div class="col-sm-9 col-xs-12 padding-top-custom-devive address-advert">
+                            <span id="MainContent_ctlDetailBox_lblStreet"> </span>|
+                            @{ 
+                                var urlProvince = "/nha-dat/" + Model.LandNewsDetail.ProvinceName + ".p-" + Model.LandNewsDetail.ProvinceID + ".html";
+                                var urlDistrict = "/nha-dat/" + Model.LandNewsDetail.DistrictName + ".p-" + Model.LandNewsDetail.DistrictID + ".html";
+                                var urlWard = "/nha-dat/" + Model.LandNewsDetail.WardName + ".p-" + Model.LandNewsDetail.WardID + ".html";
+                            }
+                            <span id="MainContent_ctlDetailBox_lblWard"><a href="@urlProvince">@Model.LandNewsDetail.ProvinceName</a></span>|
+                            <span id="MainContent_ctlDetailBox_lblDistrict"><a href="@urlDistrict">@Model.LandNewsDetail.DistrictName</a></span>|
+                            <span id="MainContent_ctlDetailBox_lblCity"><a href="@urlWard">@Model.LandNewsDetail.WardName</a></span>
+                        </div>
+                        <div class="col-xs-12 padding-top-custom-devive">
+                            <div class="clearfix property-detail-flexslider">
+                                <div class="flexslider">
+                                    <ul class="slides">
+ 
+                                        @if (Model.LandNewsDetail.LandFiles.Count() != 0)
+                                        {
+                                            foreach (var item in Model.LandNewsDetail.LandFiles)
+                                            {
+                                                <li data-thumb="fileman/Uploads/LandNews/@item.FileName">
+                                                    <a href="fileman/Uploads/LandNews/@item.FileName" class="swipebox" title="@Model.LandNewsDetail.LandCategoryName - @Model.LandNewsDetail.Title" rel="@Model.LandNewsDetail.LandCategoryName - @Model.LandNewsDetail.Title">
+                                                        <img src="fileman/Uploads/LandNews/@item.FileName" title="@Model.LandNewsDetail.LandCategoryName - @Model.LandNewsDetail.Title" alt="@Model.LandNewsDetail.LandCategoryName - @Model.LandNewsDetail.Title" />
+                                                    </a>
+                                                </li>
+                                            }
+                                        }
 
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 id-date">
+                                <div class="row">
+                                    <div class="col-sm-4 col-xs-12">
+                                        Mã tin đăng:
+                                        <span id="MainContent_ctlDetailBox_lblId">@Model.LandNewsDetail.Code</span>
+                                    </div>
+                                    <div class="col-sm-8 col-xs-12 date-listing-detail">
+                                        Ngày đăng:
+                                        <span id="MainContent_ctlDetailBox_lblDateCreated">@(Model.LandNewsDetail.PublishedDate != null ? Model.LandNewsDetail.PublishedDate.Value.ToString("dd/MM/yyyy") : "")</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Main attributes and Description -->
+                    <div class="row padding-top-20 main-attribute-area">
+                        <div class="col-xs-12">
+                            <div class="row">
+                                <div class="col-xs-12 title-detail-page">
+                                    <div class="pull-left">Đặc điểm chính </div>
+                                    <div class="pull-left margin-left-2">
+                                        <h3 class="seo-category-detail-page"></h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row padding-top-10">
+                                <div class="col-sm-6 col-xs-12">
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <th class="col-xs-5">Tình trạng pháp lý</th>
+                                            <td class="col-xs-7">
+                                                <span id="MainContent_ctlDetailBox_lblLegalStatus">@Model.LandNewsDetail.LegalStatus </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Diện tích</th>
+                                            <td>
+                                                <span id="MainContent_ctlDetailBox_lblSurface">@Model.LandNewsDetail.Area m²</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Đường trước nhà</th>
+                                            <td>
+                                                <span id="MainContent_ctlDetailBox_lblFrontRoadWidth">@Model.LandNewsDetail.Entry m</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Hướng</th>
+                                            <td>
+                                                <span id="MainContent_ctlDetailBox_lblFengShuiDirection">@Model.LandNewsDetail.HouseDirection</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Số tầng</th>
+                                            <td>
+                                                <span id="MainContent_ctlDetailBox_lblFloor">@Model.LandNewsDetail.NumberFloor</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Phòng ngủ</th>
+                                            <td>
+                                                <span id="MainContent_ctlDetailBox_lblBedRoom">@Model.LandNewsDetail.NumberBedroom</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Phòng tắm</th>
+                                            <td>
+                                                <span id="MainContent_ctlDetailBox_lblBathRoom">@Model.LandNewsDetail.NumberWC</span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Thuộc dự án</th>
+                                            <td class="project-link">
+                                                <span id="MainContent_ctlDetailBox_lblProject"><a href='/du-an-nha-o-3602/galaxy-hai-son-8547202'>@Model.LandNewsDetail.LProjectName  </a></span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-sm-6 col-xs-12">
+                                    <table class="table table-bordered">
+                                        <tr>
+                                            <th>Tiện ích</th>
+                                            <td>
+                                                <span id="MainContent_ctlDetailBox_lblUtility">
+                                                    @if (!String.IsNullOrEmpty(Model.LandNewsDetail.Convenient))
+                                                    {
+                                                        var arrContient = Model.LandNewsDetail.Convenient.Split(',');
+                                                        foreach(var item in arrContient)
+                                                        {
+                                                            @(item+"<br />");
+                                                        }
+                                                    }
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Môi trường xung quanh</th>
+                                            <td>
+                                                <span id="MainContent_ctlDetailBox_lblEnvironment">
+                                                    @if (!String.IsNullOrEmpty(Model.LandNewsDetail.Environment))
+                                                    {
+                                                        var arrEnvironment = Model.LandNewsDetail.Environment.Split(',');
+                                                        foreach (var item in arrEnvironment)
+                                                        {
+                                                            @(item + "<br />");
+                                                        }
+                                                    }
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Detail Description -->
+                    <div class="row description-area">
+                        <div class="col-xs-12 title-detail-page">
+                            <div class="pull-left">Mô tả chi tiết</div>
+                            <div class="pull-left margin-left-2">
+                                <h3 class="seo-category-detail-page"></h3>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 padding-top-10">
+                            <div class="box-description" id="Description">
+                                @Html.Raw(Model.LandNewsDetail.Description)
+                            </div>
+                        </div>
+                        <div class="col-xs-12 padding-top-10 padding-bottom-10">
+                            <span id="external_link"></span>
+                        </div>
+                    </div>
+
+
+                    <div class="row advertise-area">
+                        <div class="col-xs-12">
+                            <!-- VnExperss URL -->
+                            <span id="vne_external_link"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-xs-12 right-panel">
+                    <div class="clearfix"></div>
+                    <!-- Contact -->
+                    <div class="row contact-area">
+                        <div class="col-xs-12 title-detail-page padding-top-custom-devive">Liên hệ</div>
+                        <div class="col-xs-12 padding-top-custom-devive">
+                            <div class="col-xs-12 box-contact">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                        <div class="row detail-contact">
+                                            <div class="col-xs-12 name-contact">
+
+                                                <a href="/doanh-nghiep/detail/cty-cp-bds-tran-anh-long-an-1250?cid=3532">@Model.LandNewsDetail.Agent.Name</a>
+
+                                            </div>
+                                            <div class="col-xs-12 address-contact">
+                                                <span id="MainContent_ctlDetailBox_lblAddressContact">@Model.LandNewsDetail.Agent.Address</span>
+                                            </div>
+                                            <div class="col-xs-12 phone-contact">
+                                                <span id="MainContent_ctlDetailBox_lblContactPhone">@Model.LandNewsDetail.Agent.PhoneShow</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-xs-12 padding-top-custom-devive">
+                            <div class="col-xs-12 box-fla-con-sha">
+                                <div class="row detail-fla-con-sha">
+                                    <div class="rd-google-map">
+                                        <div id="rd-google-map" data-zoom="15" data-x="-73.9874068" data-y="40.643180" style="height:520px" class="rd-google-map__model-4">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Relation Object -->
+                    <div class="row padding-top-20 relation-listing-area">
+                        <div class="col-xs-12 title relation-title">
+                            <h3>
+                                <a href="/dat-tho-cu-3532/long-an-s51/galaxy-hai-son-p8547202" class="">Tin liên quan - @Model.LandNewsDetail.LandTypeName - @Model.LandNewsDetail.DistrictName</a>
+                            </h3>
+                        </div>
+                        <div class="col-xs-12 padding-top-10">
+                            <div class="list-group result-list">
+                                @if (Model.LandNewsRelated.Count() != 0)
+                                {
+                                    foreach (var item in Model.LandNewsRelated)
+                                    {
+                                        var urlDetail = "/" + item.Alias + ".l-" + item.ID + ".html";
+                                        <div class="list-group-item list-group-item-related">
+                                            <div class="row">
+                                                <div class="resultItem">
+                                                    <div class="col-xs-4 col-sm-3 col-md-4 col-lg-5 picture-area">
+                                                        <img class="img-responsive fix-img-relation" src="~/fileman/Uploads/LandNews/@item.Image" alt="@item.Title" />
+                                                    </div>
+                                                    <div class="col-xs-8 col-sm-9 col-md-8 col-lg-7">
+                                                        <div class="row">
+                                                            <div class="col-xs-12">
+                                                                <a href="@urlDetail" class="main-color">
+                                                                    @item.Title.Length > 150 ? @item.Title.Substring(0, 150) ...:@item.Title
+                                                                </a>
+                                                                <br />
+                                                                <span class="price-relation">@item.TotalPrice VNĐ</span>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>     
+        </div>
+    </div>
+</div>
+
+@section footerJS{
+    <script type="text/javascript" src="//maps.google.com/maps/api/js?sensor=false&key=AIzaSyAfx5a8yx5MqeGoTS3ierzoe35TXoX0ZOY&libraries=places"></script>
+    <script>
+        var latiLongTude = $("#LatiLongTude").val()
+        var arrLatLong = latiLongTude.split(',');
+        initMap(arrLatLong[0], arrLatLong[1]);
+        //init map
+        function initMap(latitude, longitude) {
+            var posVietNam = { lat: 16.4498, lng: 107.5624 };
+            var zoomSize = 5;
+            if (latitude && longitude) {
+                posVietNam = { lat: parseFloat(latitude), lng: parseFloat(longitude) };
+                zoomSize = 18;
+            }
+            var map = new google.maps.Map(document.getElementById('rd-google-map'), {
+                zoom: zoomSize,
+                center: posVietNam
+            });
+            marker = new google.maps.Marker({
+                map: map,
+                draggable: true,
+                animation: google.maps.Animation.DROP,
+                position: posVietNam
+            });
+            google.maps.event.addListener(marker, 'dragend', function (event) {
+                document.getElementById("Latitude").value = this.getPosition().lat();
+                document.getElementById("Longitude").value = this.getPosition().lng();
+            });
+            //autocomplete = new google.maps.places.Autocomplete(
+            //    (document.getElementById('address')), { types: ['geocode'] });
+            //var input = document.getElementById('address');
+            //autocomplete = new google.maps.places.Autocomplete(input);
+            //autocomplete.addListener('place_changed', fillInAddress);
+        }
+    </script>
+<script src="~/assets/client_v2/js/detail-landnews.js"></script>
+}

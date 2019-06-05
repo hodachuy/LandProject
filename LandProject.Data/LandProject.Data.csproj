@@ -138,6 +138,10 @@
     <Compile Include="Migrations\201906050752315_UpdateAgenPhone2.Designer.cs">
       <DependentUpon>201906050752315_UpdateAgenPhone2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906051825186_UpdateSlide.cs" />
+    <Compile Include="Migrations\201906051825186_UpdateSlide.Designer.cs">
+      <DependentUpon>201906051825186_UpdateSlide.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AgentRepository.cs" />
@@ -163,6 +167,7 @@
     <Compile Include="Repositories\PostRepository.cs" />
     <Compile Include="Repositories\PostTagRepository.cs" />
     <Compile Include="Repositories\ProvinceRepository.cs" />
+    <Compile Include="Repositories\SlideRepository.cs" />
     <Compile Include="Repositories\SystemConfigRepository.cs" />
     <Compile Include="Repositories\TagRepository.cs" />
     <Compile Include="Repositories\VisitorStatisticRepository.cs" />
@@ -236,6 +241,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201906050752315_UpdateAgenPhone2.resx">
       <DependentUpon>201906050752315_UpdateAgenPhone2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906051825186_UpdateSlide.resx">
+      <DependentUpon>201906051825186_UpdateSlide.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

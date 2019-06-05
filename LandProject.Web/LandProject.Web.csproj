@@ -283,6 +283,7 @@
     <Compile Include="Controllers\LandNews2Controller.cs" />
     <Compile Include="Controllers\LandNewsController.cs" />
     <Compile Include="Controllers\MemberController.cs" />
+    <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\PostingNews2Controller.cs" />
     <Compile Include="Controllers\PostingNewsController.cs" />
     <Compile Include="Global.asax.cs">
@@ -358,10 +359,13 @@
     <Content Include="assets\client\css\style.css" />
     <Content Include="assets\client\img\20190521083015-57ca.jpg" />
     <Content Include="assets\client\img\20190522155946-e1fc.jpg" />
+    <Content Include="assets\client\img\bai-bien-doc-let-e1502107014517.jpg" />
     <Content Include="assets\client\img\Ban_do_quy_hoach_bac_van_phong.jpg" />
+    <Content Include="assets\client\img\Fotolia_19163061_XS.jpg" />
     <Content Include="assets\client\img\gmap_marker.png" />
     <Content Include="assets\client\img\gmap_marker_active.png" />
     <Content Include="assets\client\img\icon-dang-tin.png" />
+    <Content Include="assets\client\img\logo_new.jpg" />
     <Content Include="assets\client\img\tourdisan3.jpg" />
     <Content Include="assets\client\img\vietnam.jpg" />
     <Content Include="assets\client\img\vietnamtravelmark.jpg" />
@@ -383,15 +387,20 @@
     <Content Include="assets\client_v2\img\check-mobile.png" />
     <Content Include="assets\client_v2\img\check.png" />
     <Content Include="assets\client_v2\img\closeBtn.png" />
+    <Content Include="assets\client_v2\img\ic-acreage.svg" />
     <Content Include="assets\client_v2\img\ic-arrow-active.png" />
     <Content Include="assets\client_v2\img\ic-arrow-right-active.png" />
     <Content Include="assets\client_v2\img\ic-backtotop.png" />
+    <Content Include="assets\client_v2\img\ic-bed.svg" />
     <Content Include="assets\client_v2\img\ic-pencil.svg" />
+    <Content Include="assets\client_v2\img\ic-search-sm.svg" />
     <Content Include="assets\client_v2\img\icons.png" />
     <Content Include="assets\client_v2\img\icon_close2.png" />
     <Content Include="assets\client_v2\img\price-tag.png" />
     <Content Include="assets\client_v2\img\social.png" />
     <Content Include="assets\client_v2\js\common_ddk.min.js" />
+    <Content Include="assets\client_v2\js\ddkapi.js" />
+    <Content Include="assets\client_v2\js\detail-landnews.js" />
     <Content Include="assets\client_v2\js\postnews.js" />
     <Content Include="assets\client_v2\template\newuser.html" />
     <Content Include="assets\library\helper\CallServiceHelper.js" />
@@ -2115,6 +2124,7 @@
     <Content Include="Content\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\glyphicons-halflings-regular.woff" />
     <Content Include="Content\glyphicons-halflings-regular.woff2" />
+    <Content Include="assets\client_v2\css\ddk-detail.min.css" />
     <None Include="Properties\PublishProfiles\LAND.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -2170,6 +2180,12 @@
     <Content Include="Views\LandNews2\LandNewsByLandType.cshtml" />
     <Content Include="Views\LandNews2\LandNewsByLandCategory.cshtml" />
     <Content Include="Views\Member\Manager.cshtml" />
+    <Content Include="Views\LandNews2\LandNewsAllSale.cshtml" />
+    <Content Include="Views\LandNews2\LandNewsByWard.cshtml" />
+    <Content Include="Views\LandNews2\LandNewsByDistrict.cshtml" />
+    <Content Include="Views\LandNews2\LandNewsByProvince.cshtml" />
+    <Content Include="Views\Post\Index.cshtml" />
+    <Content Include="Views\Post\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="API Client\" />
@@ -2185,6 +2201,7 @@
     <Folder Include="fileman\Uploads\LandNews\" />
     <Folder Include="fileman\Uploads\LProject\" />
     <Folder Include="fileman\Uploads\Post\" />
+    <Folder Include="fileman\Uploads\Slide\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

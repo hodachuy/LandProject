@@ -19,7 +19,8 @@ namespace LandProject.Data
         public DbSet<ApplicationRoleGroup> ApplicationRoleGroups { set; get; }
         public DbSet<ApplicationUserGroup> ApplicationUserGroups { set; get; }
         public DbSet<Page> Pages { set; get; }
-        public DbSet<District> Districts { set; get; }
+		public DbSet<Slide> Slides { set; get; }
+		public DbSet<District> Districts { set; get; }
 		public DbSet<Province> Provinces { set; get; }
 		public DbSet<Ward> Wards { set; get; }
         public DbSet<Agent> Agents { set; get; }

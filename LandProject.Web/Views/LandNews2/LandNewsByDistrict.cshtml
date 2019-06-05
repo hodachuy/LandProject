@@ -1,7 +1,7 @@
 ﻿@model LandProject.Web.Infrastructure.Core.PaginationSet<LandProject.Web.Models.LandNewsViewModel>
 @{
     var pageIndex = Model.Page;
-    ViewBag.Title = pageIndex == 1 ? ViewBag.LandCategoryName : ViewBag.LandCategoryName + " - Trang " + pageIndex;
+    ViewBag.Title = pageIndex == 1 ? ViewBag.DistrictName : ViewBag.DistrictName + " - Trang " + pageIndex;
     var categoryWard = (IEnumerable<LandProject.Common.CountLandNewsDistrictViewModel>)ViewBag.CategoryWard;
     Layout = "~/Views/Shared/_LayoutLand_v2.cshtml";
 }
@@ -16,10 +16,10 @@
                         </a>
                     </li>
                     <li>
-                        <p itemprop="title">@ViewBag.LandTypeName</p>
+                        <p itemprop="title">Nhà đất</p>
                     </li>
                     <li class="active">
-                        <p itemprop="title">@ViewBag.LandCategoryName</p>
+                        <p itemprop="title">@ViewBag.DistrictName</p>
                     </li>
                 </ol>
             </div>
@@ -35,7 +35,7 @@
     <div class="row" role="main">
         <div class="container">
             <h1 class="headline">
-                Nhà đất tại Việt Nam - @ViewBag.LandTypeName - @ViewBag.LandCategoryName
+                Nhà đất tại Việt Nam - @ViewBag.DistrictName
             </h1>
             <div class="row">
                 <div class="col-xs-12 col-md-8 col-lg-9 col-md-push-4 col-lg-push-3 content-list">

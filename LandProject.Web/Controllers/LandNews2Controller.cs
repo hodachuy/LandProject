@@ -61,6 +61,38 @@ namespace LandProject.Web.Controllers
 			landDetail.LandNewsRelated = lstLandNewsRelatedVm;
 			return View(landDetail);
 		}
+
+		//lay tat ca TypeExchange = 1 ben ban'
+		public ActionResult LandNewsAllSale(int page = 1, string sort = "")//landTypeID
+		{
+			var categoryWard = _addressCommonService.GetTotalLandNewsOfWards(571).ToList();
+			ViewBag.CategoryWard = categoryWard;
+
+			string filter = "lt.TypeExchange = 1" + " and ln.IsDelete = 0 and ln.IsPublished = 1";
+			int pageSize = int.Parse(ConfigHelper.GetByKey("PageSize"));
+			int totalRow = 0;
+			var lstLandNews = _landNewsService.GetAllByFilter(filter, "PublishedDate desc", page, pageSize).ToList();
+			var lstLandNewsVm = Mapper.Map<IEnumerable<LandNewsFilterViewModel>, IEnumerable<LandNewsViewModel>>(lstLandNews);
+			if (lstLandNewsVm != null && lstLandNewsVm.Count() != 0)
+			{
+				totalRow = lstLandNewsVm.Count();
+			}
+
+			int totalPage = (int)Math.Ceiling((double)totalRow / pageSize);
+
+			var paginationSet = new PaginationSet<LandNewsViewModel>()
+			{
+				Items = lstLandNewsVm,
+				MaxPage = int.Parse(ConfigHelper.GetByKey("MaxPage")),
+				Page = page,
+				TotalCount = totalRow,
+				TotalPages = totalPage
+			};
+			return View(paginationSet);
+		}
+
+
+
 		public ActionResult LandNewsByLandType(int id, int page = 1, string sort = "")//landTypeID
 		{
 			var landTypeDetail = _landTypeService.GetByID(id);

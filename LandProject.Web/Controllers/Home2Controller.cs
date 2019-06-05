@@ -35,22 +35,24 @@ namespace LandProject.Web.Controllers
             var homeViewModel = new HomeViewModel();
             var categoryWard = _addressCommonService.GetTotalLandNewsOfWards(571).ToList();
 
-            int pageSize = int.Parse(ConfigHelper.GetByKey("PageSize"));
-            int keyLandHot = int.Parse(ConfigHelper.GetByKey("LandScheduleID"));
-            //tin noi bat
+            int pageSizeHot = int.Parse(ConfigHelper.GetByKey("PageSizeHot"));
+			int pageSizeSale = int.Parse(ConfigHelper.GetByKey("PageSizeSale"));
+			int pageSizeRent = int.Parse(ConfigHelper.GetByKey("PageSizeRent"));
+			int keyLandHot = int.Parse(ConfigHelper.GetByKey("LandScheduleID"));
 
+            //tin noi bat
             string filterHot = "ln.LandNewsScheduleID = "+ keyLandHot + "" + " and ln.IsDelete = 0 and ln.IsPublished = 1";
-            var lstLandNewsHot = _landNewsService.GetAllByFilter(filterHot, "PublishedDate desc", 1, pageSize).ToList();
+            var lstLandNewsHot = _landNewsService.GetAllByFilter(filterHot, "PublishedDate desc", 1, pageSizeHot).ToList();
             var lstLandNewsHotVm = Mapper.Map<IEnumerable<LandNewsFilterViewModel>, IEnumerable<LandNewsViewModel>>(lstLandNewsHot);
 
 
             string filterSaleRent = "lt.TypeExchange = 1" + " and ln.IsDelete = 0 and ln.IsPublished = 1";
-            var lstLandNewsSaleRent = _landNewsService.GetAllByFilter(filterSaleRent, "PublishedDate desc", 1, pageSize).ToList();
+            var lstLandNewsSaleRent = _landNewsService.GetAllByFilter(filterSaleRent, "PublishedDate desc", 1, pageSizeSale).ToList();
             var lstLandNewsSaleRentVm = Mapper.Map<IEnumerable<LandNewsFilterViewModel>, IEnumerable<LandNewsViewModel>>(lstLandNewsSaleRent);
 
 
             string filterBuyRent = "lt.TypeExchange = 2" + " and ln.IsDelete = 0 and ln.IsPublished = 1";
-            var lstLandNewsBuyRent = _landNewsService.GetAllByFilter(filterBuyRent, "PublishedDate desc", 1, pageSize).ToList();
+            var lstLandNewsBuyRent = _landNewsService.GetAllByFilter(filterBuyRent, "PublishedDate desc", 1, pageSizeRent).ToList();
             var lstLandNewsBuyRentVm = Mapper.Map<IEnumerable<LandNewsFilterViewModel>, IEnumerable<LandNewsViewModel>>(lstLandNewsBuyRent);
 
             homeViewModel.CategoryWard = categoryWard;

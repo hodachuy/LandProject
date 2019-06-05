@@ -84,6 +84,7 @@
     <Compile Include="Models\PostCategory.cs" />
     <Compile Include="Models\PostTag.cs" />
     <Compile Include="Models\Province.cs" />
+    <Compile Include="Models\Slide.cs" />
     <Compile Include="Models\SystemConfig.cs" />
     <Compile Include="Models\Tag.cs" />
     <Compile Include="Models\VisitorStatistic.cs" />
