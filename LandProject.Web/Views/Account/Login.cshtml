@@ -57,10 +57,10 @@
                                     <input name="ctl00$MainContent$ctl01$txtEmail" type="email" id="MainContent_ctl01_txtEmail" class="form-control" placeholder="Nhập địa chỉ email để nhận lại mật khẩu" />
                                     <label for="MainContent_ctl01_txtEmail" id="MainContent_ctl01_errEmail" class="help-block"></label>
                                 </div>
-                                <button type="button" class="btn btn-primary" onclick="submitForm(this,'ctl00$MainContent$ctl01$btnSendPassword');">
+                                <button type="button" class="btn btn-primary">
                                     Gửi
                                 </button>
-                                <button value="submit" id="btnSendPassword" onclick="WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions('ctl00$MainContent$ctl01$btnSendPassword', '', true, '', '', false, true))" class="hider"><span>Gửi</span></button>
+                                <button value="submit" id="btnSendPassword" class="hider"><span>Gửi</span></button>
 
                             </div>
                         </div>
@@ -78,3 +78,6 @@
         </div>
     </div>
 </div>
+@section footerJS{
+<script src="~/assets/client/js/loginFacebook.js"></script>
+}
