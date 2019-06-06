@@ -1,7 +1,7 @@
 ﻿@model LandProject.Web.Infrastructure.Core.PaginationSet<LandProject.Web.Models.LandNewsViewModel>
 @{
     var pageIndex = Model.Page;
-    ViewBag.Title = pageIndex == 1 ? ViewBag.ProvinceName : ViewBag.ProvinceName + " - Trang " + pageIndex;
+    ViewBag.Title = pageIndex == 1 ? ViewBag.LandCategoryName : ViewBag.LandCategoryName + " - Trang " + pageIndex;
     var categoryWard = (IEnumerable<LandProject.Common.CountLandNewsDistrictViewModel>)ViewBag.CategoryWard;
     Layout = "~/Views/Shared/_LayoutLand_v2.cshtml";
 }
@@ -19,7 +19,7 @@
                         <p itemprop="title">Nhà đất</p>
                     </li>
                     <li class="active">
-                        <p itemprop="title">@ViewBag.ProvinceName</p>
+                        <p itemprop="title">@ViewBag.LandCategoryName</p>
                     </li>
                 </ol>
             </div>
@@ -35,7 +35,7 @@
     <div class="row" role="main">
         <div class="container">
             <h1 class="headline">
-                Nhà đất tại Việt Nam - @ViewBag.ProvinceName
+                Nhà đất tại Việt Nam - @ViewBag.LandCategoryName
             </h1>
             <div class="row">
                 <div class="col-xs-12 col-md-8 col-lg-9 col-md-push-4 col-lg-push-3 content-list">
@@ -149,17 +149,17 @@
                                                 <a href="?page=@(Model.Page-1)" aria-label="Previous">
                                                 </a>
                                             </li>
-}
+                                        }
                                         for (int i = startPageIndex; i <= endPageIndex; i++)
                                         {
                                             if (Model.Page == i)
                                             {
                                                 <li class="active"><a href="?page=@i" title="Trang @i">@i</a></li>
-}
+                                            }
                                             else
                                             {
                                                 <li><a href="?page=@i" title="Trang @i">@i</a></li>
-}
+                                            }
                                         }
                                         if (Model.Page < Model.TotalPages)
                                         {
@@ -267,31 +267,32 @@
                                 <input type="image" name="ctl00$MainContent$ctlList$ctlFilters$AttGroups$ctl06$ctl00$btnfilter" id="MainContent_ctlList_ctlFilters_AttGroups_ctl00_6_btnfilter_6" class="btn-filter" src="~/assets/client_v2/img/ic-search-sm.svg" />
                             </div>
                         </div>
-                    </div>
-                    <div class="_mbndUlListViewRight row-pull">
-                        <a rel="next" target="_blank" href="http://www.muabannhadat.vn/nha-dat-3490" title="cho thue nha dat">
-                            <h2 class="mbnd_feature_title_home">
-                                <span title="Tin mới nhất">DANH MỤC NHÀ ĐẤT</span>
-                            </h2>
-                        </a>
-                        <ul>
-                            @if (categoryWard.Count() != 0)
-                            {
-                                foreach (var item in categoryWard)
+                        <div class="_mbndUlListViewRight row-pull">
+                            <a rel="next" target="_blank" href="http://www.muabannhadat.vn/nha-dat-3490" title="cho thue nha dat">
+                                <h2 class="mbnd_feature_title_home">
+                                    <span title="Tin mới nhất">DANH MỤC NHÀ ĐẤT</span>
+                                </h2>
+                            </a>
+                            <ul>
+                                @if (categoryWard.Count() != 0)
                                 {
-                                    var url = "/nha-dat/" + HttpUtility.HtmlDecode(item.Name) + ".w-" + item.ID + ".html";
-                                    <li>
-                                        <a rel="next" target="_blank" href="@url">
-                                            @item.Name (@item.TotalLandNews)
-                                        </a>
-                                        <hr class="mbnd_hr_m_w">
-                                    </li>
+                                    foreach (var item in categoryWard)
+                                    {
+                                        var url = "/nha-dat/" + HttpUtility.HtmlDecode(item.Name) + ".w-" + item.ID + ".html";
+                                        <li>
+                                            <a rel="next" target="_blank" href="@url">
+                                                @item.Name (@item.TotalLandNews)
+                                            </a>
+                                            <hr class="mbnd_hr_m_w">
+                                        </li>
+                                    }
                                 }
-                            }
-                        </ul>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+

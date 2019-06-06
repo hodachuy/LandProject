@@ -135,6 +135,15 @@ namespace LandProject.Web.Controllers
                     landNewsDb.CreatedDate = DateTime.Now;
                     landNewsDb.Code = DateTime.Now.ToString("ddMMyyyy") + agentDb.ID;
                     landNewsDb.UpdateLandNews(landNewsVm);
+
+                    if (landNewsVm.TotalPrice.Contains("Triệu"))
+                    {
+                        landNewsDb.DecimalTotalPrice = landNewsDb.Price * 1000000;
+                    }else if(landNewsVm.TotalPrice.Contains("Tỷ"))
+                    {
+                        landNewsDb.DecimalTotalPrice = landNewsDb.Price * 1000000000;
+                    }
+
                     if (lstLandFile.Count() != 0)
                     {
                         landNewsDb.Image = lstLandFile[0].FileName;
@@ -214,6 +223,14 @@ namespace LandProject.Web.Controllers
                     landNewsDb.Code = landNewsVm.Code;
                     landNewsDb.PublishedDate = DateTime.Now;
                     landNewsDb.UpdateLandNews(landNewsVm);
+                    if (landNewsVm.TotalPrice.Contains("Triệu"))
+                    {
+                        landNewsDb.DecimalTotalPrice = landNewsDb.Price * 1000000;
+                    }
+                    else if (landNewsVm.TotalPrice.Contains("Tỷ"))
+                    {
+                        landNewsDb.DecimalTotalPrice = landNewsDb.Price * 1000000000;
+                    }
 
                     var lstFile = _landFileService.GetByLandNewsID(landNewsVm.ID).ToList();
                     if (lstFile.Count() == 0)

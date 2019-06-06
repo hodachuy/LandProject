@@ -267,6 +267,28 @@
                                 <input type="image" name="ctl00$MainContent$ctlList$ctlFilters$AttGroups$ctl06$ctl00$btnfilter" id="MainContent_ctlList_ctlFilters_AttGroups_ctl00_6_btnfilter_6" class="btn-filter" src="~/assets/client_v2/img/ic-search-sm.svg" />
                             </div>
                         </div>
+                        <div class="_mbndUlListViewRight row-pull">
+                            <a rel="next" target="_blank" href="http://www.muabannhadat.vn/nha-dat-3490" title="cho thue nha dat">
+                                <h2 class="mbnd_feature_title_home">
+                                    <span title="Tin mới nhất">DANH MỤC NHÀ ĐẤT</span>
+                                </h2>
+                            </a>
+                            <ul>
+                                @if (categoryWard.Count() != 0)
+                                {
+                                    foreach (var item in categoryWard)
+                                    {
+                                        var url = "/nha-dat/" + HttpUtility.HtmlDecode(item.Name) + ".w-" + item.ID + ".html";
+                                        <li>
+                                            <a rel="next" target="_blank" href="@url">
+                                                @item.Name (@item.TotalLandNews)
+                                            </a>
+                                            <hr class="mbnd_hr_m_w">
+                                        </li>
+                                    }
+                                }
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>

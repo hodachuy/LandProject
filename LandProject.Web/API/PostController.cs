@@ -207,8 +207,6 @@ namespace LandProject.Web.API
                     response = request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
                     return response;
                 }
-
-
                 var files = System.Web.HttpContext.Current.Request.Files;
                 List<LandFile> lstLProjectFile = new List<LandFile>();
                 if (files.Count != 0)

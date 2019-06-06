@@ -18,6 +18,7 @@ namespace LandProject.Web.API
     public class LandTypeController : ApiControllerBase
     {
         private ILandTypeService _landTypeService;
+        private ILandNewsService _landNewsService;
         public LandTypeController(IErrorService errorService, ILandTypeService landTypeService) : base(errorService)
         {
             _landTypeService = landTypeService;
@@ -33,6 +34,19 @@ namespace LandProject.Web.API
                 var lstLandType = _landTypeService.GetAll();
                 var lstLandTypeVm = Mapper.Map<IEnumerable<LandType>, IEnumerable<LandTypeViewModel>>(lstLandType);
                 response = request.CreateResponse(HttpStatusCode.OK, lstLandTypeVm);
+                return response;
+            });
+        }
+
+        [Route("gettotallandnewsbylandtype")]
+        [HttpGet]
+        public HttpResponseMessage GetTotalLandNewsByLandType(HttpRequestMessage request)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response;
+                var lstLandType = _landNewsService.CountLandNewsInLandType().ToList();
+                response = request.CreateResponse(HttpStatusCode.OK, lstLandType);
                 return response;
             });
         }

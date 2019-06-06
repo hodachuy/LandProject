@@ -4,6 +4,7 @@
     ViewBag.Title = "Kênh thông tin rao bán bất động sản | Datdackhu";
     Layout = "~/Views/Shared/_LayoutLand_v2.cshtml";
 }
+<link href="~/assets/vendors/select2/dist/css/select2.min.css" rel="stylesheet" />
 <style>
     .text-block {
         position: absolute;
@@ -43,65 +44,58 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="text-center searchbox-title">
-                            <h2 class="home-search-total">Tìm ngay 234.887 bất động sản</h2>
+                            <h2 class="home-search-total">Tìm ngay tin bất động sản</h2>
                         </div>
                     </div>
-
-                    <div class="col-lg-12">
-                        <input name="ctl00$SearchContent$ctl00$txtLocation$txtText" type="text" id="SearchContent_ctl00_txtLocation_txtText" data-ta-field-district="SearchContent_ctl00_txtLocation_hdfDistrict" data-ta-type="location" data-ta-title-district="Chọn quận" data-ta-field-location="SearchContent_ctl00_txtLocation_hdfLocation" data-ta-field-project="SearchContent_ctl00_txtLocation_hdfProject" data-ta-title-state="Chọn Tỉnh / Thành phố" data-ta-title-listing="Tin đăng với ti&amp;#234;u đề" data-ta-field-state="SearchContent_ctl00_txtLocation_hdfState" class="ta-control form-control" data-ta-field-listing="SearchContent_ctl00_txtLocation_hdfListing" placeholder="Nhập địa điểm, tên dự án" data-ta-limit="10" autocomplete="off" data-ta-title-project="Tin đăng thuộc dự &amp;#225;n" data-ta-title-location="Chọn vị tr&amp;#237;" />
-                        <input type="hidden" name="ctl00$SearchContent$ctl00$txtLocation$hdfState" id="SearchContent_ctl00_txtLocation_hdfState" />
-                        <input type="hidden" name="ctl00$SearchContent$ctl00$txtLocation$hdfDistrict" id="SearchContent_ctl00_txtLocation_hdfDistrict" />
-                        <input type="hidden" name="ctl00$SearchContent$ctl00$txtLocation$hdfLocation" id="SearchContent_ctl00_txtLocation_hdfLocation" />
-                        <input type="hidden" name="ctl00$SearchContent$ctl00$txtLocation$hdfProject" id="SearchContent_ctl00_txtLocation_hdfProject" />
-                        <input type="hidden" name="ctl00$SearchContent$ctl00$txtLocation$hdfListing" id="SearchContent_ctl00_txtLocation_hdfListing" />
-                    </div>
-                    <div class="col-lg-12">
-                        <div class="search-or"></div>
-                        <div class="search-or-text">hoặc</div>
-                    </div>
-                    <div class="col-lg-12">
-                        <select name="ctl00$SearchContent$ctl00$ddlCategory" id="SearchContent_ctl00_ddlCategory" class="btn btn-light col-xs-12 ddl-category">
-                            <option selected="selected" value="0">Chọn danh mục</option>
-                            <option value="" class="seperator" disabled="disabled">-----</option>
-                            <option value="3513">Nh&#224; b&#225;n (126.861)</option>
-                            <option value="3514">Căn hộ b&#225;n (16.665)</option>
-                            <option value="3515">Đất b&#225;n (55.501)</option>
-                            <option value="3516">Mặt bằng b&#225;n (1.961)</option>
-                            <option value="3517">Kho xưởng b&#225;n (506)</option>
-                            <option value="3518">Nh&#224; cho thu&#234; (15.966)</option>
-                            <option value="3519">Căn hộ cho thu&#234; (9.875)</option>
-                            <option value="3520">Đất cho thu&#234; (797)</option>
-                            <option value="3521">Mặt bằng cho thu&#234; (3.497)</option>
-                            <option value="3522">Kho xưởng cho thu&#234; (3.435)</option>
-
-                        </select>
-                        <div class="col-xs-12">
-                            <div class="spacer"></div>
+                    <form action="@Url.Content("~/tim-kiem/tin-nha-dat.html")">
+                        <div class="col-lg-12">
+                            <input name="address" type="text" class="ta-control form-control" placeholder="Nhập địa điểm, tên dự án" />
                         </div>
-
-                        <select class="btn btn-light col-xs-12 ddl-subcategory" disabled="disabled" data-title="Chọn loại" data-hdf="SearchContent_ctl00_hdfSubCat">
-                            <option value="0">Chọn loại</option>
-                        </select>
-                        <input type="hidden" name="ctl00$SearchContent$ctl00$hdfSubCat" id="SearchContent_ctl00_hdfSubCat" />
-                    </div>
-                    <div class="col-lg-12">
-                        <div class="col-xs-12">
-                            <div class="spacer"></div>
+                        <div class="col-lg-12">
+                            <div class="search-or"></div>
+                            <div class="search-or-text">hoặc</div>
                         </div>
+                        <div class="col-lg-12">
+                            <select id="LandTypeID" name="landType" class="btn btn-light col-xs-12 ddl-category" onchange="LoadLandCategory();">
+                                <option value="0">-- Chọn danh mục --</option>
+                            </select>
+                            <div class="col-xs-12">
+                                <div class="spacer"></div>
+                            </div>
 
-                        <select class="btn btn-light col-xs-12 ddl-price" disabled="disabled" data-title="Giá cao nhất" data-hdf="SearchContent_ctl00_hdfPrice">
-                            <option value="0">Giá cao nhất</option>
-                        </select>
-                        <input type="hidden" name="ctl00$SearchContent$ctl00$hdfPrice" id="SearchContent_ctl00_hdfPrice" />
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="col-lg-12 margin-section">
-                        <button value="submit" id="SearchContent_ctl00_btnSearch" onclick="WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions('ctl00$SearchContent$ctl00$btnSearch', '', true, '', '', false, true))" class="btn btn-primary col-xs-12 cusbts"><span>Tìm kiếm</span></button>
-                    </div>
-                    <div class="col-lg-12">
+                            <select class="btn btn-light col-xs-12 ddl-subcategory" id="LandCategoryID" name="landCategory">
+                                <option value="0">-- Chọn loại --</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="col-xs-12">
+                                <div class="spacer"></div>
+                            </div>
+                            <select class="btn btn-light col-xs-12 ddl-price valid" id="price" name="price">
+                                <option value="0" class="seperator" disabled="disabled">----</option>
+                                <option value="500000000">500 Triệu VNĐ</option>
+                                <option value="750000000">750 Triệu VNĐ</option>
+                                <option value="1000000000">1 Tỷ VNĐ</option>
+                                <option value="2000000000">2 Tỷ VNĐ</option>
+                                <option value="3000000000">3 Tỷ VNĐ</option>
+                                <option value="4000000000">4 Tỷ VNĐ</option>
+                                <option value="5000000000">5 Tỷ VNĐ</option>
+                                <option value="6000000000">6 Tỷ VNĐ</option>
+                                <option value="8000000000">8 Tỷ VNĐ</option>
+                                <option value="10000000000">10 Tỷ VNĐ</option>
+                                <option value="12000000000">12 Tỷ VNĐ</option>
+                            </select>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-lg-12 margin-section">
+                            <button type="submit" class="btn btn-primary col-xs-12 cusbts"><span>Tìm kiếm</span></button>
+                        </div>
+                    </form>
 
-                    </div>
-                </div>
+                        <div class="col-lg-12">
+
+                        </div>
+</div>
             </div>
 
         </div>
@@ -125,7 +119,7 @@
                                 </div>
                             </ins>
                         </div>
-                        <div class="item">
+                        <div class="item active">
                             <ins>
                                 <a href="#"><img src="~/assets/client/img/bai-bien-doc-let-e1502107014517.jpg" width="535" height="300" alt="" title="" border="0"></a>
                                 <div class="text-block">
@@ -187,7 +181,14 @@
                                         <div class="card-body">
                                             <h3 class="card-title">
                                                 <a href="@urlDetail">
-                                                    @item.Title.Length > 150 ? @item.Title.Substring(0,150) ...:@item.Title
+                                                    @if (item.Title.Length > 50)
+                                                    {
+                                                        @item.Title.Substring(0, 50)<span>...</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        @item.Title
+                                                    }
                                                 </a>
                                             </h3>
                                             <p class="card-text">@item.DistrictName , @item.WardName</p>
@@ -195,10 +196,11 @@
                                         </div>
                                     </div>
                                 </div>
-}
+                            }
                             if (Model.LandNewsHot.Count() < 4)
                             {
-                                for (int i = 0; i < Model.LandNewsHot.Count(); i++)
+                                int total = 4 - Model.LandNewsHot.Count();
+                                for (int i = 0; i < total; i++)
                                 {
                                     <div class="col-xs-12 col-sm-6 col-lg-3">
                                         <div class="listing-zone-ad">
@@ -208,7 +210,7 @@
                                             </a>
                                         </div>
                                     </div>
-}
+                                }
                             }
 
                         }
@@ -375,6 +377,29 @@
                                             </div>*@
 
                                     </div>
+
+                                    <div class="_mbndUlListViewRight row-pull">
+                                        <a rel="next" target="_blank" href="http://www.muabannhadat.vn/nha-dat-3490" title="cho thue nha dat">
+                                            <h2 class="mbnd_feature_title_home">
+                                                <span title="Tin mới nhất">DANH MỤC NHÀ ĐẤT</span>
+                                            </h2>
+                                        </a>
+                                        <ul>
+                                            @if (Model.CategoryWard.Count() != 0)
+                                            {
+                                                foreach (var item in Model.CategoryWard)
+                                                {
+                                                    var url = "/nha-dat/" + HttpUtility.HtmlDecode(item.Name) + ".w-" + item.ID + ".html";
+                                                    <li>
+                                                        <a rel="next" target="_blank" href="@url">
+                                                            @item.Name (@item.TotalLandNews)
+                                                        </a>
+                                                        <hr class="mbnd_hr_m_w">
+                                                    </li>
+                                                }
+                                            }
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -388,12 +413,15 @@
 
 @section footerJS{
 
-<script>
+    <script>
         $(document).ready(function () {
             $(".carousel-inner .item").each(function () {
                 $(this).removeClass('active')
             })
             //$('#carousel-example-generic').carousel({ interval: 3000 })
         })
-</script>
+    </script>
+
+<script src="~/assets/vendors/select2/dist/js/select2.full.js"></script>
+<script src="~/assets/client/js/search.js"></script>
 }

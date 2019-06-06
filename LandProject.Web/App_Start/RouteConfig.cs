@@ -129,6 +129,13 @@ namespace LandProject.Web
             );
 
             routes.MapRoute(
+                name: "SearchLandNews",
+                url: "tim-kiem/tin-nha-dat.html",
+                defaults: new { controller = "LandNews2", action = "SearchLandNews", id = UrlParameter.Optional },
+                  namespaces: new string[] { "LandProject.Web.Controllers" }
+            );
+
+            routes.MapRoute(
                 name: "Register",
                 url: "dang-ky.html",
                 defaults: new { controller = "Account", action = "Register", id = UrlParameter.Optional },
@@ -154,8 +161,14 @@ namespace LandProject.Web
 				defaults: new { controller = "LandNews2", action = "LandNewsAllSale", id = UrlParameter.Optional },
 				  namespaces: new string[] { "LandProject.Web.Controllers" }
 			);
+            routes.MapRoute(
+                name: "LandNewsAllRent",
+                url: "nha-dat-cho-thue.html",
+                defaults: new { controller = "LandNews2", action = "LandNewsAllRent", id = UrlParameter.Optional },
+                  namespaces: new string[] { "LandProject.Web.Controllers" }
+            );
 
-			routes.MapRoute(
+            routes.MapRoute(
 				name: "LandNewsByDistrict",
 				url: "nha-dat/{alias}.d-{id}.html",
 				defaults: new { controller = "LandNews2", action = "LandNewsByDistrict", id = UrlParameter.Optional },
@@ -198,15 +211,12 @@ namespace LandProject.Web
 				defaults: new { controller = "LandNews2", action = "Detail", id = UrlParameter.Optional },
 				  namespaces: new string[] { "LandProject.Web.Controllers" }
 			);
-
-
             routes.MapRoute(
                 name: "Manager Member",
                 url: "thanh-vien/tin-dang.html",
                 defaults: new { controller = "Member", action = "Manager", id = UrlParameter.Optional },
                   namespaces: new string[] { "LandProject.Web.Controllers" }
             );
-
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

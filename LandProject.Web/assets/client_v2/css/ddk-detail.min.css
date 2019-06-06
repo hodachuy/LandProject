@@ -418,7 +418,8 @@ html.swipebox-html.swipebox-touch {
 }
 
 #swipebox-close, #swipebox-next, #swipebox-prev {
-    background-image: url(http://muabannhadat.vn/img/icons.png);
+    background-image: url('../img/icons.svg');
+    /*background-image: url(http://muabannhadat.vn/img/icons.png);*/
     background-repeat: no-repeat;
     border: none !important;
     text-decoration: none !important;

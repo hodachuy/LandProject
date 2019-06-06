@@ -14,7 +14,7 @@ function LoadLandTypeSearch() {
             id: 0,
             text: '-- Hình thức --',
         });
-        $("#TypePlan").select2({
+        $("#LandTypeID").select2({
             data: data1
         });
     });
@@ -35,6 +35,49 @@ function GetLandType(callback) {
         },
     });
 };
+
+function LoadLandCategory() {
+    GetLandCategory($("#LandTypeID").val(), function (err, result, msg) {
+        console.log(result)
+        $('#LandCategoryID').empty().trigger('change');
+        // $("#LandCategoryID").select2("val", "");
+        if (result != undefined) {
+            var data1 = $.map(result, function (obj) {
+                var newObje = {};
+                newObje.id = obj.ID;
+                newObje.text = obj.Name;
+                return newObje;
+            });
+            data1.unshift({
+                id: 0,
+                text: '-- Loại --',
+            });
+            $("#LandCategoryID").select2({
+                data: data1
+            });
+        }
+    });
+
+};
+function GetLandCategory(lTypeId, callback) {
+    if (lTypeId != "" || lTypeId != null) {
+        $.ajax({
+            type: 'GET',
+            data: {},
+            contentType: 'application/json',
+            dataType: "json",
+            url: _Host + "api/landcategory/getall?lTypeID=" + lTypeId,
+            success: function (data) {
+                callback(false, data, null);
+            },
+            error: function (xhr, error) {
+                callback(true, null, error);
+            },
+        });
+    }
+};
+
+
 //Load tỉnh thành
 function LoadProvinceSearch() {
     GetProvince(function (err, result, msg) {

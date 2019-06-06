@@ -9,6 +9,33 @@ body {
     margin: 0;
 }
 
+
+._mbndUlListViewRight ul {
+    padding: 0 0 0 15px!important;
+    margin: 0!important;
+}
+._mbndUlListViewRight ul li {
+    display: block;
+    list-style: none;
+    /*padding: 10px 0 0!important;*/
+    margin: 0!important;
+}
+._mbndUlListViewRight ul li a {
+    color: #414141;
+    padding: 0!important;
+    margin: 0!important;
+    opacity: .7;
+}
+hr.mbnd_hr_m_w{
+        margin-top: 0px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid #eee;
+}
+
+
+
+
 .p-t-10{
     padding-top:10px !important;
 }

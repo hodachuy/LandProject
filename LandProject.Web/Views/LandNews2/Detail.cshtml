@@ -36,21 +36,31 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="row">
+
                 <div class="col-md-10 col-sm-8 col-xs-12 nav-title">
                     <h1>
                         @Model.LandNewsDetail.Title
                     </h1>
-                    @*<span>
-                        ÁN GALAXY HẢI SƠN PHỐ VÀNG CHUYÊN GIA
-                    </span>*@
-                </div>              
+                    <span>
+                        
+                    </span>
+                </div><div class="col-md-2 col-sm-4 col-xs-12 nav-page">
+                    <div class="row">
+                        <div class="pull-left">
+
+                        </div>
+                        <div class="pull-right">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 <div class="container main bs-docs-container">
     <div class="row" role="main">
-        <div class="container">          
+        <div class="container">       
+               
             <div class="row">
                 <div class="col-xs-12 padding-top-custom-devive">
                     <div style="float: left">
@@ -66,8 +76,8 @@
                             <span id="MainContent_ctlDetailBox_lblStreet"> </span>|
                             @{ 
                                 var urlProvince = "/nha-dat/" + Model.LandNewsDetail.ProvinceName + ".p-" + Model.LandNewsDetail.ProvinceID + ".html";
-                                var urlDistrict = "/nha-dat/" + Model.LandNewsDetail.DistrictName + ".p-" + Model.LandNewsDetail.DistrictID + ".html";
-                                var urlWard = "/nha-dat/" + Model.LandNewsDetail.WardName + ".p-" + Model.LandNewsDetail.WardID + ".html";
+                                var urlDistrict = "/nha-dat/" + Model.LandNewsDetail.DistrictName + ".d-" + Model.LandNewsDetail.DistrictID + ".html";
+                                var urlWard = "/nha-dat/" + Model.LandNewsDetail.WardName + ".w-" + Model.LandNewsDetail.WardID + ".html";
                             }
                             <span id="MainContent_ctlDetailBox_lblWard"><a href="@urlProvince">@Model.LandNewsDetail.ProvinceName</a></span>|
                             <span id="MainContent_ctlDetailBox_lblDistrict"><a href="@urlDistrict">@Model.LandNewsDetail.DistrictName</a></span>|
@@ -302,7 +312,8 @@
                                                         <div class="row">
                                                             <div class="col-xs-12">
                                                                 <a href="@urlDetail" class="main-color">
-                                                                    @item.Title.Length > 150 ? @item.Title.Substring(0, 150) ...:@item.Title
+                                                                    @item.Title
+                                                                    
                                                                 </a>
                                                                 <br />
                                                                 <span class="price-relation">@item.TotalPrice VNĐ</span>
