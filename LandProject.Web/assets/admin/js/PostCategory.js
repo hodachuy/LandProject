@@ -40,8 +40,7 @@ $(document).ready(function () {
                 });
             } else {//update
                 var svr = new AjaxCall("api/postcategory/update", JSON.stringify(PostCategoryModel));
-                svr.callServicePOST(fu
-                    nction (data) {
+                svr.callServicePOST(function (data) {
                     console.log(data)
                     if (data != null) {
                         $("#PostCategoryModel").modal('hide');

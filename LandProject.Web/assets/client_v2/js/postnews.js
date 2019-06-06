@@ -990,7 +990,7 @@ function SubmitSalePlan() {
             landnews.TypeExchange = typeExchange;
             landnews.Image = "";
             landnews.Code = "";
-            landnews.LandNewsScheduleID = 1;
+            landnews.LandNewsScheduleID = 2;
             landnews.AgentID = 0;
         }
 

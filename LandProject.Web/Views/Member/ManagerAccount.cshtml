@@ -1,0 +1,106 @@
+﻿@{
+    var userInfo = (LandProject.Web.Models.ApplicationUserViewModel)ViewBag.User;
+    ViewBag.Title = "ManagerAccount";
+    Layout = "~/Views/Shared/_LayoutLand_v2.cshtml";
+}
+
+<div class="container">
+    <div class="col-xs-12 col-md-3">
+        <div class="list-group sidenav">
+            <a href="/dang-tin-mua-ban-nha-dat.html" class="list-group-item a-action">
+                Tạo tin đăng mới
+            </a>
+            <a href="/thanh-vien/ho-so.html" class="list-group-item a-action">
+                Quản lý tài khoản
+            </a>
+            <a href="/thanh-vien/tin-dang.html" class="list-group-item active">
+                <span class="badge"></span>
+                Tin soạn thảo
+            </a>
+        </div>
+    </div>
+    <div class="col-xs-12 col-md-9">
+        <div class="well">
+            <div class="row account-type">
+                <div class="spacer"></div>
+                <div class="row account-type-form">
+                    <div class="col-xs-12 col-sm-12">
+                        <div class="form-group">
+                            <label for="BodyContent_MainContent_ctlAccounttypeAddress_txtStreet" class="control-label">Tài khoản</label>
+                            <input type="text" id="FullName" disabled class="form-control valid" placeholder="Họ và tên" value="@userInfo.UserName">
+                            <label for="BodyContent_MainContent_ctlAccounttypeAddress_txtStreet" class="help-block"></label>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12">
+                        <div class="form-group">
+                            <label for="BodyContent_MainContent_ctlAccounttypeAddress_txtStreet" class="control-label">Họ và tên (*)</label>
+                            <input type="text" id="FullName" class="form-control valid" placeholder="Họ và tên" value="@userInfo.FullName">
+                            <label for="BodyContent_MainContent_ctlAccounttypeAddress_txtStreet" class="help-block"></label>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12">
+                        <div class="form-group">
+                            <label for="BodyContent_MainContent_ctlAccounttypeAddress_txtStreet" class="control-label">Địa chỉ (*)</label>
+                            <input type="text" class="form-control valid" id="Address" placeholder="Địa chỉ" value="@userInfo.Address">
+                            <label for="BodyContent_MainContent_ctlAccounttypeAddress_txtStreet" class="help-block"></label>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12">
+                        <div class="form-group">
+                            <label for="BodyContent_MainContent_ctlAccounttypeAddress_txtCompanyPhone" class="control-label">Số điện thoại (*)</label>
+                            <input type="text" id="Phone" class="form-control" placeholder="Số điện thoại" value="@userInfo.PhoneNumber">
+                            <label for="BodyContent_MainContent_ctlAccounttypeAddress_txtCompanyPhone" class="help-block"></label>
+                        </div>
+                    </div>
+                    <input type="hidden" id="Email" value="@userInfo.Email"/>
+                </div>
+                <div class="col-xs-4 col-sm-6">
+                    <button onclick="UpdateAccout();" class="btn btn-primary pull-right"><span>Lưu lại</span></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section footerJS{
+    <script>
+        function UpdateAccout() {
+            if($("#Address").val().trim() == ''){
+                toastr.error("", "Vui lòng nhập địa chỉ", 3000);
+                return false;
+            }
+            if ($("#Phone").val().trim() == '') {
+                toastr.error("", "Vui lòng nhập số điện thoại", 3000);
+                return false;
+            }
+
+            var user = {
+                FullName: $("#FullName").val(),
+                Address: $("#Address").val(),
+                PhoneNumber: $("#Phone").val(),
+                Email: $("#Email").val()
+            }
+            user = JSON.stringify(user);
+            $.ajax({
+                type: 'POST',
+                url: _Host + "Member/UpdateAccount",
+                data: user,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                //async: this._serviceAsync,
+                success: function (response) {
+                    if (response.status) {
+                        toastr.success("", "Chỉnh sửa thành công", 3000);
+                        setTimeout(function () {
+                            window.location.href = "/";
+                        },1500)
+
+                    }
+                },
+                error: function (error) {
+                    console.log(error)
+                }           
+            });
+        }
+    </script>
+}

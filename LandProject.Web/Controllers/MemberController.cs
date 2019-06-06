@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using LandProject.Common;
+using LandProject.Model.Models;
 using LandProject.Service;
 using LandProject.Web.Infrastructure.Core;
 using LandProject.Web.Models;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,17 +16,47 @@ namespace LandProject.Web.Controllers
     public class MemberController : Controller
     {
         ILandNewsService _landNewsService;
+		private ApplicationUserManager _userManager;
 
-        public MemberController(ILandNewsService landNewsService)
+
+		public MemberController(ILandNewsService landNewsService, ApplicationUserManager userManager)
         {
             _landNewsService = landNewsService;
-        }
+			_userManager = userManager;
+
+		}
         // GET: Member
         public ActionResult Index()
         {
             return View();
         }
-        public ActionResult Manager()
+		public ActionResult ManagerAccount()
+		{
+			ViewBag.User = UserInfo;
+			return View();
+		}
+
+		public JsonResult UpdateAccount(ApplicationUserViewModel user)
+		{
+			ViewBag.User = UserInfo;
+			var userDb = _userManager.FindByEmail(user.Email);
+			userDb.Address = user.Address;
+			userDb.PhoneNumber = user.PhoneNumber;
+			userDb.MobilePhone = user.PhoneNumber;
+			userDb.FullName = user.FullName;
+			_userManager.Update(userDb);
+
+			var applicationUserViewModel = Mapper.Map<ApplicationUser, ApplicationUserViewModel>(userDb);
+			Session[CommonConstants.SessionUser] = applicationUserViewModel;
+
+			return Json(new
+			{
+				message = "OK",
+				status = true
+			});
+		}
+
+		public ActionResult Manager()
         {
             string UserId = UserInfo.Id;
             int page = 1;

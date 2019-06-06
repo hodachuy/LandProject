@@ -142,6 +142,7 @@ namespace LandProject.Web
                   namespaces: new string[] { "LandProject.Web.Controllers" }
             );
 
+
             routes.MapRoute(
                 name: "RegisterSuccess",
                 url: "dang-ky/thanh-cong.html",
@@ -217,7 +218,14 @@ namespace LandProject.Web
                 defaults: new { controller = "Member", action = "Manager", id = UrlParameter.Optional },
                   namespaces: new string[] { "LandProject.Web.Controllers" }
             );
-            routes.MapRoute(
+
+			routes.MapRoute(
+				name: "ManagerAccount",
+				url: "thanh-vien/ho-so.html",
+				defaults: new { controller = "Member", action = "ManagerAccount", id = UrlParameter.Optional },
+				  namespaces: new string[] { "LandProject.Web.Controllers" }
+			);
+			routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home2", action = "Index", id = UrlParameter.Optional },

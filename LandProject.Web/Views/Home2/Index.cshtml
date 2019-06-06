@@ -141,14 +141,14 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-4 visible-lg col-top-right">
+        @*<div class="col-lg-4 visible-lg col-top-right">
             <div class="nothing">
                 <div style="height:25px"></div>
                 <ins data-revive-zoneid="65" data-revive-id="aa4a0ec382d9f0c0afc420b398a552a3">
                     <iframe scrolling="No" frameborder="0" hspace="0" vspace="0" width="300" height="250" src="http://www.muabannhadat.vn/uploads/banner/OpalBoulevard/20190406/300x250_1/"></iframe>
                 </ins>
             </div>
-        </div>
+        </div>*@
     </div>
 </div>
 <div class="clearfix"></div>
@@ -295,7 +295,34 @@
                                             </div>
                                         }
                                     }
-
+                                    @if (Model.LandNewsBuyAndRent.Count() != 0)
+                                    {
+                                        foreach (var item in Model.LandNewsBuyAndRent)
+                                        {
+                                            var urlDetail = "/" + item.Alias + ".l-" + item.ID + ".html";
+                                            <div class="mbnd-card mbnd-objectLastest">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-xs-12 col-sm-3">
+                                                            <a href="@urlDetail">
+                                                                <img class="img-responsive cusimg-responsive" src="~/fileman/Uploads/LandNews/@item.Image" alt="@item.Title" />
+                                                            </a>
+                                                        </div>
+                                                        <div class="col-xs-12 col-sm-9">
+                                                            <h3 class="card-title title row-fluid latest-title">
+                                                                <a href="@urlDetail">
+                                                                    @item.Title
+                                                                </a>
+                                                            </h3>
+                                                            <p class="card-price">@item.TotalPrice VNĐ</p>
+                                                            <p class="card-text">@item.DistrictName , @item.WardName</p>
+                                                            <!--<p class="card-text">Công bố mở bán giai đoạn F1 - KDC Thống Nhất.</p>-->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
 
                                 </div>
                             </div>

@@ -101,7 +101,7 @@
                 //async: this._serviceAsync,
                 success: function (response) {
                     if (response.status) {
-                        window.location.href = _Host;
+                        window.location.href = "/thanh-vien/ho-so.html";
                     }
                 },
                 error: function (error) {                  

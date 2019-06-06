@@ -22,19 +22,24 @@ namespace LandProject.Web.Controllers
         private ILandFileService _landFileService;
         private INotifyService _notifyService;
         private IAddressCommonService _addressCommonService;
-        public PostingNews2Controller(ILandNewsService landNewsService,
+		private ILandNewsScheduleService _landNewsScheduleService;
+
+		public PostingNews2Controller(ILandNewsService landNewsService,
                                      IAgentService agentService,
                                      ILandFileService landFileService,
                                      INotifyService notifyService,
-                                     IAddressCommonService addressCommonService)
+                                     IAddressCommonService addressCommonService,
+									 ILandNewsScheduleService landNewsScheduleService)
         {
             _landNewsService = landNewsService;
             _agentService = agentService;
             _landFileService = landFileService;
             _notifyService = notifyService;
             _addressCommonService = addressCommonService;
+			_landNewsScheduleService = landNewsScheduleService;
 
-        }
+
+		}
         // GET: PostingNews2
         public ActionResult Index(string uId)
         {
@@ -136,6 +141,12 @@ namespace LandProject.Web.Controllers
                     landNewsDb.Code = DateTime.Now.ToString("ddMMyyyy") + agentDb.ID;
                     landNewsDb.UpdateLandNews(landNewsVm);
 
+					var scheduleDb = _landNewsScheduleService.GetSingleAlias("tin-thuong");
+					if(scheduleDb != null)
+					{
+						landNewsDb.LandNewsScheduleID = scheduleDb.ID;
+					}
+
                     if (landNewsVm.TotalPrice.Contains("Triệu"))
                     {
                         landNewsDb.DecimalTotalPrice = landNewsDb.Price * 1000000;
@@ -223,6 +234,7 @@ namespace LandProject.Web.Controllers
                     landNewsDb.Code = landNewsVm.Code;
                     landNewsDb.PublishedDate = DateTime.Now;
                     landNewsDb.UpdateLandNews(landNewsVm);
+					landNewsDb.LandNewsScheduleID = landNewsDetail.LandNewsScheduleID;
                     if (landNewsVm.TotalPrice.Contains("Triệu"))
                     {
                         landNewsDb.DecimalTotalPrice = landNewsDb.Price * 1000000;

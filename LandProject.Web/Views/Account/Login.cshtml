@@ -54,13 +54,13 @@
 
                                 <div class="form-group">
                                     <label for="MainContent_ctl01_txtEmail" class="control-label">Quên mật khẩu?</label>
-                                    <input name="ctl00$MainContent$ctl01$txtEmail" type="email" id="MainContent_ctl01_txtEmail" class="form-control" placeholder="Nhập địa chỉ email để nhận lại mật khẩu" />
+                                    <input  type="email" id="txtEmailReset" class="form-control" placeholder="Nhập địa chỉ email để nhận lại mật khẩu" />
                                     <label for="MainContent_ctl01_txtEmail" id="MainContent_ctl01_errEmail" class="help-block"></label>
                                 </div>
-                                <button type="button" class="btn btn-primary">
+                                <button onclick="ResetPassword();" class="btn btn-primary">
                                     Gửi
                                 </button>
-                                <button value="submit" id="btnSendPassword" class="hider"><span>Gửi</span></button>
+                                <button onclick="ResetPassword();" class="hider"><span>Gửi</span></button>
 
                             </div>
                         </div>
@@ -80,4 +80,35 @@
 </div>
 @section footerJS{
 <script src="~/assets/client/js/loginFacebook.js"></script>
+<script>
+        function ResetPassword() {
+            if ($("#txtEmailReset").val().trim() == '') {
+                toastr.error("", "Vui lòng nhập email", 3000);
+                return false;
+            }
+            var param = {
+                email :$("#txtEmailReset").val()
+            }
+            param = JSON.stringify(param);
+            $.ajax({
+                type: 'POST',
+                url: _Host + "Account/ResetPassword",
+                data: param,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                //async: this._serviceAsync,
+                success: function (response) {
+                    if (response.status) {
+                        toastr.success("", "Gửi thành công! Vui lòng kiểm tra hợp thư mail để lấy mật khẩu", 5000);
+                        $("#txtEmailReset").val('')
+                    } else {
+                        toastr.error("", response.message, 5000);
+                    }
+                },
+                error: function (error) {
+                    console.log(error)
+                }
+            });
+        }
+</script>
 }

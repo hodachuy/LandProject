@@ -406,6 +406,7 @@
     <Content Include="assets\client_v2\js\detail-landnews.js" />
     <Content Include="assets\client_v2\js\postnews.js" />
     <Content Include="assets\client_v2\template\newuser.html" />
+    <Content Include="assets\client_v2\template\resetpassword.html" />
     <Content Include="assets\library\helper\CallServiceHelper.js" />
     <Content Include="assets\library\helper\common.js" />
     <Content Include="assets\library\KendoUI\custom-kendo.js" />
@@ -1616,43 +1617,6 @@
     <Content Include="fileman\third-party.txt" />
     <Content Include="fileman\Uploads\Images\DSC_2987.jpg" />
     <Content Include="fileman\Uploads\Images\DSC_5744.jpg" />
-    <Content Include="fileman\Uploads\LandNews\011c7a09-ebd9-425e-9387-ab76ad3840aa-hinh 1.png" />
-    <Content Include="fileman\Uploads\LandNews\0bef8157-e180-48da-84e0-bc6eb7a5fc74-vietnamtour.png" />
-    <Content Include="fileman\Uploads\LandNews\0e382da2-e160-4ac0-aacc-449bfeab500d-vietnam.jpg" />
-    <Content Include="fileman\Uploads\LandNews\1346b8e1-8af3-427d-bf42-43f4366d38dd-BLNDRS_GCMiami_Quarter_900x.jpg" />
-    <Content Include="fileman\Uploads\LandNews\18573d87-5923-4856-9802-60c031902986-tourdisan2.jpg" />
-    <Content Include="fileman\Uploads\LandNews\22ac3908-b784-4ca9-95a3-7eba5ba97d9f-vietnamtravelmark.jpg" />
-    <Content Include="fileman\Uploads\LandNews\25c7bc85-d2b6-4dc5-a31f-43a68c32ea2a-vietnamtour.png" />
-    <Content Include="fileman\Uploads\LandNews\2d7e0b6d-ad71-4081-b0f3-f8d1374d8b25-hinh-3.png" />
-    <Content Include="fileman\Uploads\LandNews\3870747b-c456-4796-bfa2-eadc2ebff325-Unti1231313tled.png" />
-    <Content Include="fileman\Uploads\LandNews\397ba8bd-0cd0-4e13-aba1-d3e31c46ad54-vietnamtour.png" />
-    <Content Include="fileman\Uploads\LandNews\3a295673-ffb6-4e27-b7c1-ec2b1df44323-tourdisan3.jpg" />
-    <Content Include="fileman\Uploads\LandNews\4d5ae3ef-8613-43d5-b8fa-18a90d222713-tourdisan3.jpg" />
-    <Content Include="fileman\Uploads\LandNews\4e041cb0-4148-43e7-89f9-89181e0e237f-vietnam.jpg" />
-    <Content Include="fileman\Uploads\LandNews\55508e51-561d-4d5c-8131-dd591138d923-vietnamtour.png" />
-    <Content Include="fileman\Uploads\LandNews\585c9dc9-13d0-41a3-bcc1-e45af1ccbb4f-tourdisan2.jpg" />
-    <Content Include="fileman\Uploads\LandNews\5950073e-b8b9-48e5-a2dd-d2c2433f93d2-BLNDRS_GCMiami_Front_900x.jpg" />
-    <Content Include="fileman\Uploads\LandNews\6378d6ac-94d2-4496-a961-5055d7de60d6-hinh-4.png" />
-    <Content Include="fileman\Uploads\LandNews\64be4025-5998-4625-98f0-398035b2ece1-hinh-2.png" />
-    <Content Include="fileman\Uploads\LandNews\6a763944-d79c-4e62-b794-06ad7c58a186-vietnamtravelmark.jpg" />
-    <Content Include="fileman\Uploads\LandNews\72d9f90d-8f37-41e1-8511-d93629e88d75-vietnamtravelmark.jpg" />
-    <Content Include="fileman\Uploads\LandNews\795c0ff1-6d02-4abd-98d1-f88f863d1241-BLNDRS_GCMiami_Side_2000x.jpg" />
-    <Content Include="fileman\Uploads\LandNews\8b9dc37d-843c-485d-880e-85f07c195a72-vietnamtour.png" />
-    <Content Include="fileman\Uploads\LandNews\8edb1bdb-fdb1-4316-a80d-83bb3628b5b7-Untitled.png" />
-    <Content Include="fileman\Uploads\LandNews\90000f0a-3991-4467-85bc-21e6648b7447-hinh-2.png" />
-    <Content Include="fileman\Uploads\LandNews\913f1d97-061e-41ee-8086-e8dbd6a557cc-hinh-3.png" />
-    <Content Include="fileman\Uploads\LandNews\93daf387-eff9-4d17-81ca-5b76b2940b23-Untitled.png" />
-    <Content Include="fileman\Uploads\LandNews\944b6fda-d629-49a3-9722-b68c12e6a642-tourdisan2.jpg" />
-    <Content Include="fileman\Uploads\LandNews\a343cab1-a101-4885-9d7d-50b815e0b416-hinh 1.png" />
-    <Content Include="fileman\Uploads\LandNews\b5d18f81-bfde-44f8-8fa6-f67fae956cec-vietnamtour.png" />
-    <Content Include="fileman\Uploads\LandNews\b7aa6722-ec1f-4b66-bf3b-4d2fe92afb5e-vietnamtravelmark.jpg" />
-    <Content Include="fileman\Uploads\LandNews\b8e84282-7c8f-4562-8cd0-bbcc05397b2c-hinh-2.png" />
-    <Content Include="fileman\Uploads\LandNews\c3c0bf5e-adf2-4291-be18-e51a5e91761d-20190522155946-e1fc.jpg" />
-    <Content Include="fileman\Uploads\LandNews\c5170db6-f0be-4705-ba39-f535d07e486f-tourdisan3.jpg" />
-    <Content Include="fileman\Uploads\LandNews\d43407b6-8f82-4ef7-bcad-37147c4471e3-tourdisan3.jpg" />
-    <Content Include="fileman\Uploads\LandNews\dfab65ae-7450-4cbf-96e4-8ed7484e9095-tourdisan2.jpg" />
-    <Content Include="fileman\Uploads\LandNews\e7b3d640-5869-433c-b3e5-24aec4c71aa6-20190529145922-ec21_wm.jpg" />
-    <Content Include="fileman\Uploads\LandNews\fbfeb8d2-a75e-4c39-bea6-a6983a7ee599-hinh-4.png" />
     <Content Include="fileman\Uploads\LICENSE.txt" />
     <Content Include="fileman\Uploads\roxy-fileman-logo.gif" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -2227,6 +2191,7 @@
     <Content Include="Views\Post\Index.cshtml" />
     <Content Include="Views\Post\Detail.cshtml" />
     <Content Include="Views\LandNews2\SearchLandNews.cshtml" />
+    <Content Include="Views\Member\ManagerAccount.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="API Client\" />
@@ -2239,6 +2204,7 @@
     <Folder Include="fileman\tmp\" />
     <Folder Include="fileman\Uploads\Documents\" />
     <Folder Include="fileman\Uploads\FLV\" />
+    <Folder Include="fileman\Uploads\LandNews\" />
     <Folder Include="fileman\Uploads\LProject\" />
     <Folder Include="fileman\Uploads\Post\" />
     <Folder Include="fileman\Uploads\Slide\" />

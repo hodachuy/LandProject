@@ -16,7 +16,10 @@ namespace LandProject.Service
         LandNewsSchedule GetByID(int scheduleId);
         LandNewsSchedule Add(LandNewsSchedule schedule);
         LandNewsSchedule Delete(int id);
-        void Update(LandNewsSchedule schedule);
+
+		LandNewsSchedule GetSingleAlias(string condition);
+
+		void Update(LandNewsSchedule schedule);
         void Save();
     }
     public class LandNewsScheduleService : ILandNewsScheduleService
@@ -48,7 +51,12 @@ namespace LandProject.Service
             return _landNewsRepository.GetMulti(x => x.Name.Contains(condition));
         }
 
-        public LandNewsSchedule GetByID(int scheduleId)
+		public LandNewsSchedule GetSingleAlias(string condition)
+		{
+			return _landNewsRepository.GetSingleByCondition(x => x.Alias.Contains(condition));
+		}
+
+		public LandNewsSchedule GetByID(int scheduleId)
         {
             return _landNewsRepository.GetSingleById(scheduleId);
         }

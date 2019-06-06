@@ -153,7 +153,7 @@ namespace LandProject.Web.Controllers
 				authenticationManager.SignIn(props, identity);
 				return Json(new
 				{
-					returnUrl = "Home2/Index",
+					returnUrl = "/thanh-vien/ho-so.html",
 					status = true
 				});
 			}
@@ -313,6 +313,41 @@ namespace LandProject.Web.Controllers
 				}
 			}
 			return View();
+		}
+
+		[HttpPost]
+		public JsonResult ResetPassword(string email)
+		{
+			var user = _userManager.FindByEmail(email);
+			if(user != null)
+			{
+				string content = System.IO.File.ReadAllText(Server.MapPath("/assets/client_v2/template/resetpassword.html"));
+				content = content.Replace("{{UserName}}", user.FullName);
+				try
+				{
+					MailHelper.SendMail(user.Email, "Cấp lại mật khẩu tài khoản tại Datdackhu", content);
+				}catch(Exception ex)
+				{
+					return Json(new
+					{
+						message = "Hệ thống gửi mail có vấn đề xin vui lòng quay lại sau",
+						status = false
+					});
+				}
+				_userManager.ChangePassword(user.Id, user.PasswordHash, "123@abc");
+			}else
+			{
+				return Json(new
+				{
+					message = "Không tìm thấy tài khoản trong hệ thống!",
+					status = false
+				});
+			}
+			return Json(new
+			{
+				message = "OK",
+				status = true
+			});
 		}
 
 
