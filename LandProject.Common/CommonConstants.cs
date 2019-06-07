@@ -12,12 +12,14 @@ namespace LandProject.Common
         public const string SessionUser = "User";
         public const string Administrator = "Admin";
         public const string Visitor = "Visitor";
+        public const string PathMenu = "Menu";
+		public const string CreateQnA = "Create";
+        public const string UpdateQnA = "Update";
+
         public const string FolderLandNews = "LandNews";
         public const string FolderPost = "Post";
         public const string FolderLProject = "LProject";
-		public const string PathMenu = "Menu";
-		public const string CreateQnA = "Create";
-        public const string UpdateQnA = "Update";
+        public const string FolderSlide = "Slide";
     }
 
     public class PathServer

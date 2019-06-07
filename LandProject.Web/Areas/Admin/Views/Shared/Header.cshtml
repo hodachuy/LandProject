@@ -14,14 +14,10 @@
                         <span class="fa fa-angle-down"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-usermenu pull-right">
-                        <li><a href="javascript:;"> Thông tin cá nhân</a></li>
+                        <li><a href="javascript:void(0);" id="formUserInfo1"> Thông tin cá nhân</a></li>
+                        <li><a href="javascript:void(0);" id="formChangePassword"> Đổi mật khẩu</a></li>
                         <li style="padding-bottom:10px;">
                             <a href="javascript:void(0);" id="logout"><i class="fa fa-sign-out pull-right"></i> Đăng xuất</a>
-                            @*@using (Html.BeginForm("LogOut", "Account", FormMethod.Post, new { @id = "frmLogout" }))
-                            {
-                                @Html.AntiForgeryToken()
-                                <a href="#" id="btnLogout"><i class="fa fa-sign-out pull-right"></i> Đăng xuất</a>
-                            }*@
                         </li>
                     </ul>
                 </li>
@@ -51,3 +47,194 @@
         </nav>
     </div>
 </div>
+<div class="modal fade" id="UserInfoModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Thông tin tài khoản</h4>
+            </div>
+            <div class="modal-body">
+                <form id="form">
+                    <input type="hidden" hidden class="form-control" id="txtUserID" value="@Model.Id"/>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Tài khoản đăng nhập</label>
+                        <input type="text" class="form-control" id="txtUserName" value="@Model.UserName" />
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Họ và tên</label>
+                        <input type="text" class="form-control" id="txtFullName" value="@Model.FullName"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Email</label>
+                        <input type="text" class="form-control" id="txtEmail" value="@Model.Email"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Địa chỉ</label>
+                        <input type="text" class="form-control" id="txtAddress" value="@Model.Address"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Số điện thoại</label>
+                        <input type="text" class="form-control" id="txtPhone" value="@Model.PhoneNumber"/>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="saveUserInfo">Lưu thay đổi</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="closeUserInfo">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ChangePasswordModal" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Thông tin tài khoản</h4>
+            </div>
+            <div class="modal-body">
+                <form id="form">
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Tài khoản</label>
+                        <input type="text" class="form-control" id="UserName" value="@Model.UserName" disabled/>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Mật khẩu hiện tại</label>
+                        <input type="password" class="form-control" id="txtPasswordCurent" />
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Mật khẩu mới</label>
+                        <input type="password" class="form-control" id="txtPasswordNew" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="saveChangePassword">Lưu thay đổi</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="closeChangePassword">Đóng</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $('body').on('click', '#formUserInfo1', function (e) {
+        $("#UserInfoModal").modal({
+            backdrop: 'static',
+            keyboard: true,
+            show: true
+        });
+    });
+    $('body').on('click', '#saveUserInfo', function (e) {
+        var userName = $("#txtUserName").val();
+        var fullName = $("#txtFullName").val();
+        var email = $("#txtEmail").val();
+        var address = $("#txtAddress").val();
+        var phone = $("#txtPhone").val();
+        if (userName.trim() == "") {
+            $('#txtUserName').validationEngine('showPrompt', '* Trường này bắt buộc', 'red', 'topRight', true);
+            return false;
+        }
+        if (fullName.trim() == "") {
+            $('#txtFullName').validationEngine('showPrompt', '* Trường này bắt buộc', 'red', 'topRight', true);
+            return false;
+        }
+        if (email.trim() == "") {
+            $('#txtEmail').validationEngine('showPrompt', '* Trường này bắt buộc', 'red', 'topRight', true);
+            return false;
+        }
+        if (address.trim() == "") {
+            $('#txtAddress').validationEngine('showPrompt', '* Trường này bắt buộc', 'red', 'topRight', true);
+            return false;
+        }
+        if (phone.trim() == "") {
+            $('#txtPhone').validationEngine('showPrompt', '* Trường này bắt buộc', 'red', 'topRight', true);
+            return false;
+        }
+        var user = {
+            Id: $("#userId").val,
+            UserName: $("#txtUserName").val(),
+            FullName: $("#txtFullName").val(),
+            Address: $("#txtAddress").val(),
+            PhoneNumber: $("#txtPhone").val(),
+            Email: $("#txtEmail").val()
+        }
+        user = JSON.stringify(user);
+        $.ajax({
+            type: 'POST',
+            url: _Host + "Admin/Account/UpdateUserInfo",
+            data: user,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            //async: this._serviceAsync,
+            success: function (response) {
+                if (response.status) {
+                    toastr.success("", response.message, 3000);
+                    $("#UserModel1").modal('hide');
+                } else {
+                    toastr.error("", response.message, 3000);
+                }
+            },
+            error: function (error) {
+                console.log(error)
+            }
+        });
+    });
+    $('body').on('click', '#closeUserInfo', function (e) {
+        $("#UserInfoModal").modal('hide');
+    });
+
+
+
+    /* CHANGE PASSWORD*/
+    $('body').on('click', '#formChangePassword', function (e) {
+        $("#ChangePasswordModal").modal({
+            backdrop: 'static',
+            keyboard: true,
+            show: true
+        });
+    });
+    $('body').on('click', '#saveChangePassword', function (e) {
+        var passwordCurrent = $("#txtPasswordCurent").val();
+        var passwordNew = $("#txtPasswordNew").val();
+        if (passwordCurrent.trim() == "") {
+            $('#txtPasswordCurent').validationEngine('showPrompt', '* Trường này bắt buộc', 'red', 'topRight', true);
+            return false;
+        }
+        if (passwordNew.trim() == "") {
+            $('#txtPasswordNew').validationEngine('showPrompt', '* Trường này bắt buộc', 'red', 'topRight', true);
+            return false;
+        }
+        var params = {
+            userId: $("#userId").val(),
+            passwordCurrent: passwordCurrent,
+            passwordNew: passwordNew,
+        }
+        params = JSON.stringify(params);
+        $.ajax({
+            type: 'POST',
+            url: _Host + "Admin/Account/UpdatePassword",
+            data: params,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            //async: this._serviceAsync,
+            success: function (response) {
+                if (response.status) {
+                    toastr.success("", "Đổi mật khẩu thành công", 3000);
+                    $("#ChangePasswordModal").modal('hide');
+                } else {
+                    toastr.error("", response.message, 3000);
+                }
+            },
+            error: function (error) {
+                console.log(error)
+            }
+        });
+    });
+    $('body').on('click', '#closeChangePassword', function (e) {
+        $("#ChangePasswordModal").modal('hide');
+    });
+</script>

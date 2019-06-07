@@ -186,71 +186,70 @@ namespace LandProject.Web.Areas.Admin.Controllers
             ViewBag.ReturnUrl = returnUrl;
             return View(model);
         }
-        //[HttpGet]
-        //public ActionResult Register()
-        //{
-        //    return View();
-        //}
-
-        //[HttpPost]
-        //[CaptchaValidation("CaptchaCode", "Captcha", "Mã xác nhận không đúng")]
-        //public async Task<ActionResult> Register(RegisterViewModel model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        var userByEmail = await _userManager.FindByEmailAsync(model.Email);
-        //        if (userByEmail != null)
-        //        {
-        //            ModelState.AddModelError("Email", "Email đã tồn tại");
-        //         hoặc là nếu email này đã đăng nhập với mạng xã hội trước đó
-        //          ModelState.AddModelError("Email", "Email này đã đăng nhập từ mạng xã hội ");
-        //            return View(model);
-        //        }
-        //        var userByUserName = await _userManager.FindByNameAsync(model.UserName);
-        //        if (userByUserName != null)
-        //        {
-        //            ModelState.AddModelError("UserName", "Tài khoản đã tồn tại");
-        //            return View(model);
-        //        }
-        //        var user = new ApplicationUser()
-        //        {
-        //            UserName = model.UserName,
-        //            Email = model.Email,
-        //            EmailConfirmed = true,
-        //            BirthDay = DateTime.Now,
-        //            FullName = model.FullName,
-        //            PhoneNumber = model.PhoneNumber,
-        //            Address = model.Address
-
-        //        };
-
-        //        await _userManager.CreateAsync(user, model.Password);
 
 
-        //        var adminUser = await _userManager.FindByEmailAsync(model.Email);
-        //        //if (adminUser != null)
-        //        //    await _userManager.AddToRolesAsync(adminUser.Id, new string[] { "User" });
+        [HttpPost]
+        public JsonResult UpdateUserInfo(ApplicationUserViewModel userVm)
+        {
+            var userCheckEmail = _userManager.FindByEmail(userVm.Email);
+            if(userCheckEmail != null)
+            {
+                return Json(new
+                {
+                    message = "Email này đã được đăng ký từ tài khoản khác",
+                    status = false
+                });
+            }
+            var userCheckUserName = _userManager.FindByName(userVm.UserName);
+            if (userCheckEmail != null)
+            {
+                return Json(new
+                {
+                    message = "Tên tài khoản đã được đăng ký từ tài khoản khác",
+                    status = false
+                });
+            }
+            var userDb = _userManager.FindById(userVm.Id);
+            userDb.FullName = userVm.FullName;
+            userDb.UserName = userVm.UserName;
+            userDb.PhoneNumber = userVm.PhoneNumber;
+            userDb.Address = userVm.Address;
+            userDb.Email = userVm.Email;
 
-        //        string content = System.IO.File.ReadAllText(Server.MapPath("/assets/client/template/newuser.html"));
-        //        content = content.Replace("{{UserName}}", adminUser.FullName);
-        //        content = content.Replace("{{Link}}", ConfigHelper.GetByKey("CurrentLink") + "dang-nhap.html");
+            _userManager.Update(userDb);
 
-        //        MailHelper.SendMail(adminUser.Email, "Đăng ký thành công", content);
+            var applicationUserViewModel = Mapper.Map<ApplicationUser, ApplicationUserViewModel>(userDb);
+            Session[CommonConstants.SessionUser] = applicationUserViewModel;
 
-        //        ViewData["SuccessMsg"] = "Đăng ký thành công";
+            return Json(new
+            {
+                message = "Chỉnh sửa thành công",
+                status = true
+            });
+        }
 
-
-
-        //        ModelState["FullName"].Value = new ValueProviderResult("", "", CultureInfo.CurrentCulture);
-        //        ModelState["Email"].Value = new ValueProviderResult("", "", CultureInfo.CurrentCulture);
-        //        ModelState["Address"].Value = new ValueProviderResult("", "", CultureInfo.CurrentCulture);
-        //        ModelState["PhoneNumber"].Value = new ValueProviderResult("", "", CultureInfo.CurrentCulture);
-        //        ModelState["UserName"].Value = new ValueProviderResult("", "", CultureInfo.CurrentCulture);
-        //        ModelState["Password"].Value = new ValueProviderResult("", "", CultureInfo.CurrentCulture);
-        //    }
-
-        //    return View();
-        //}
+        [HttpPost]
+        public JsonResult UpdatePassword(string userId, string passwordCurrent, string passwordNew)
+        {
+            var userDb = _userManager.FindById(userId);
+            var checkUser = _userManager.Find(userDb.UserName, passwordCurrent);
+            if(checkUser != null)
+            {
+                _userManager.ChangePassword(checkUser.Id, passwordCurrent, passwordNew);
+            }else
+            {
+                return Json(new
+                {
+                    message = "Mật khẩu cũ không đúng",
+                    status = false
+                });
+            }          
+            return Json(new
+            {
+                message = "Chỉnh sửa thành công",
+                status = true
+            });
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]

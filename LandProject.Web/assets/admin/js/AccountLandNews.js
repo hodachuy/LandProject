@@ -221,7 +221,7 @@ DataSource = function () {
                     //var request = JSON.stringify(options.data);
                     var form = new FormData();
                     form.append('requestFilter', JSON.stringify(options.data))
-                    form.append('typeExchange', JSON.stringify($("#typeExchange").val()))
+                    form.append('userID', JSON.stringify($("#userID").val()))
                     $.ajax({
                         url: url,
                         type: "POST",
@@ -434,7 +434,7 @@ var Columns = [{
 ];
 LoadGrid = function () {
 
-    InitKendoGrid(_idgrid, Columns, new DataSource().MasterDatasource("" + _Host + "api/landnews/getalltable"), null, false, '')
+    InitKendoGrid(_idgrid, Columns, new DataSource().MasterDatasource("" + _Host + "api/landnews/getalltablebyaccount"), null, false, '')
 }
 
 function templateForAction(e) {

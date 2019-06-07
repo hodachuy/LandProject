@@ -72,6 +72,45 @@ namespace LandProject.Web.API
             });
         }
 
+        [Route("getalltablebyaccount")]
+        [HttpPost]
+        public HttpResponseMessage GetAllToTableByAccount(HttpRequestMessage request)
+        {
+            return CreateHttpResponse(request, () =>
+            {
+                HttpResponseMessage response;
+
+                var formRequest = HttpContext.Current.Request.Unvalidated.Form["requestFilter"];
+                var requestFilter = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue, RecursionLimit = 100 }.Deserialize<Request>(formRequest);
+                var userID = HttpContext.Current.Request.Unvalidated.Form["userID"];
+                var userIDValue = new JavaScriptSerializer { MaxJsonLength = Int32.MaxValue, RecursionLimit = 100 }.Deserialize<string>(userID);
+
+                int totalRow = 0;
+                string filter = Common.CommonSer.ConvertFilertToString(requestFilter.filter);
+                string sort = Common.CommonSer.ConvertSortToString(requestFilter.sort);
+                int page = requestFilter.page;
+                int pageSize = requestFilter.pageSize;
+
+
+                filter += "ln.UserID like '%" + userIDValue + "%'";
+
+                var lstLandNews = _landNewsService.GetAllByFilter(filter, sort, page, pageSize).ToList();
+                if (lstLandNews.Count() != 0)
+                {
+                    totalRow = lstLandNews[0].Total;
+                }
+                var paginationSet = new PaginationSet<LandNewsFilterViewModel>()
+                {
+                    Items = lstLandNews,
+                    Page = page,
+                    TotalCount = totalRow,
+                    MaxPage = pageSize,
+                    TotalPages = (int)Math.Ceiling((decimal)totalRow / pageSize)
+                };
+                response = request.CreateResponse(HttpStatusCode.OK, paginationSet);
+                return response;
+            });
+        }
 
         [Route("getbyid")]
         [HttpGet]

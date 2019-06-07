@@ -25,6 +25,12 @@ namespace LandProject.Web.Models
 
         public string PhoneNumber { set; get; }
 
+        public bool EmailConfirmed { set; get; }
+
+        public int TotalLands { set; get; }
+
+        public string StrGroup { set; get; }
+
         public IEnumerable<ApplicationGroupViewModel> Groups { set; get; }
     }
 }

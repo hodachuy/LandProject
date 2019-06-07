@@ -22,8 +22,19 @@ namespace LandProject.Web.Infrastructure.Extensions
             landType.SortOrder = landTypeVm.SortOrder;
             landType.TypeExchange = landTypeVm.TypeExchange;
 		}
+        public static void UpdateSlide(this Slide slide, SlideViewModel slideVm)
+        {
+            slide.ID = slideVm.ID;
+            slide.Image = slideVm.Image;
+            slide.Name = slideVm.Name;
+            slide.Content = slideVm.Content;
+            slide.Status = slideVm.Status;
+            slide.DisplayOrder = slideVm.DisplayOrder;
+            slide.Description = slideVm.Description;
+            slide.Url = slideVm.Url;
+        }
 
-		public static void UpdateLandCategory(this LandCategory landCategory, LandCategoryViewModel landCategoryVm)
+        public static void UpdateLandCategory(this LandCategory landCategory, LandCategoryViewModel landCategoryVm)
 		{
 			landCategory.ID = landCategoryVm.ID;
 			landCategory.Name = landCategoryVm.Name;
@@ -182,6 +193,38 @@ namespace LandProject.Web.Infrastructure.Extensions
             postDb.MetaDescription = postVm.MetaDescription;
             postDb.Status = postVm.Status;
 
+        }
+
+
+        public static void UpdateApplicationGroup(this ApplicationGroup appGroup, ApplicationGroupViewModel appGroupViewModel)
+        {
+
+            appGroup.ID = appGroupViewModel.ID;
+            appGroup.Name = appGroupViewModel.Name;
+            //foreach (var item in appGroupViewModel.Roles)
+            //{
+            //    appGroup.Description = item.Description;
+            //}
+        }
+
+        public static void UpdateApplicationRole(this ApplicationRole appRole, ApplicationRoleViewModel appRoleViewModel, string action = "add")
+        {
+            if (action == "update")
+                appRole.Id = appRoleViewModel.Id;
+            else
+                appRole.Id = Guid.NewGuid().ToString();
+            appRole.Name = appRoleViewModel.Name;
+            appRole.Description = appRoleViewModel.Description;
+        }
+        public static void UpdateUser(this ApplicationUser appUser, ApplicationUserViewModel appUserViewModel, string action = "add")
+        {
+
+            appUser.Id = appUserViewModel.Id;
+            appUser.FullName = appUserViewModel.FullName;
+            appUser.BirthDay = appUserViewModel.BirthDay;
+            appUser.Email = appUserViewModel.Email;
+            appUser.UserName = appUserViewModel.UserName;
+            appUser.PhoneNumber = appUserViewModel.PhoneNumber;
         }
     }
 }

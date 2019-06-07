@@ -15,6 +15,7 @@
     <link href="~/assets/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- NProgress -->
     <link href="~/assets/vendors/nprogress/nprogress.css" rel="stylesheet">
+    <link href="~/assets/vendors/toastr/toastr.min.css" rel="stylesheet" />
     <!-- Switchery -->
     <link href="~/assets/vendors/switchery/dist/switchery.min.css" rel="stylesheet">
     <!-- Sweetalert -->
@@ -29,6 +30,11 @@
     <link href="~/assets/vendors/validation/css/validationEngine.jquery.css" rel="stylesheet" />
     <!-- Custom Theme Style -->
     <link href="~/assets/build/css/custom.min.css" rel="stylesheet" />
+
+    <!-- jQuery -->
+    <script src="~/assets/vendors/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="~/assets/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <script>
         var _Host = "@Url.Content("~")";
     </script>
@@ -69,8 +75,7 @@
         </div>
     </div>
 
-    <!-- jQuery -->
-    <script src="~/assets/vendors/jquery/dist/jquery.min.js"></script>
+
 
     <!--signalR-->
     <script src="~/Scripts/jquery.signalR-2.4.1.min.js"></script>
@@ -166,8 +171,6 @@
     </script>
 
 
-    <!-- Bootstrap -->
-    <script src="~/assets/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- Kendo -->
     <script src="~/assets/library/KendoUI/js/kendo.all.min1.js"></script>
     <script src="~/assets/library/KendoUI/js/cultures/kendo.culture.vi-VN.min.js"></script>
@@ -188,7 +191,7 @@
     <script src="~/assets/vendors/iCheck/icheck.min.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="~/assets/build/js/custom.min.js"></script>
-
+    <script src="~/assets/vendors/toastr/toastr.min.js"></script>
     <script src="~/assets/library/helper/CallServiceHelper.js"></script>
     <script src="~/assets/library/helper/common.js"></script>
     <!-- Validation -->
@@ -248,6 +251,7 @@
             });
         });
     </script>
+
     @RenderSection("footerJS", required: false)
 </body>
 </html>

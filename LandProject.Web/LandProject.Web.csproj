@@ -244,6 +244,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\AddressCommonController.cs" />
+    <Compile Include="API\ApplicationUserController.cs" />
     <Compile Include="API\LandCategoryController.cs" />
     <Compile Include="API\LandFileController.cs" />
     <Compile Include="API\LandNewsController.cs" />
@@ -256,6 +257,7 @@
     <Compile Include="API\NotifyController.cs" />
     <Compile Include="API\PostCategoryController.cs" />
     <Compile Include="API\PostController.cs" />
+    <Compile Include="API\SlideController.cs" />
     <Compile Include="API\VisitorController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -266,6 +268,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ApplicationUserController.cs" />
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Admin\Controllers\LandCategoryContronler.cs" />
     <Compile Include="Areas\Admin\Controllers\LandNewsController.cs" />
@@ -322,11 +325,14 @@
     <Compile Include="Models\PostViewModel.cs" />
     <Compile Include="Models\ProvinceViewModel.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
+    <Compile Include="Models\SlideViewModel.cs" />
     <Compile Include="Models\WardViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\admin\css\custom.css" />
+    <Content Include="assets\admin\js\Account.js" />
+    <Content Include="assets\admin\js\AccountLandNews.js" />
     <Content Include="assets\admin\js\LandCategory.js" />
     <Content Include="assets\admin\js\LandNews.js" />
     <Content Include="assets\admin\js\LandNewsSchedule.js" />
@@ -2129,6 +2135,8 @@
     <Content Include="Content\glyphicons-halflings-regular.woff" />
     <Content Include="Content\glyphicons-halflings-regular.woff2" />
     <Content Include="assets\client_v2\css\ddk-detail.min.css" />
+    <Content Include="Areas\Admin\Views\ApplicationUser\Account.cshtml" />
+    <Content Include="Areas\Admin\Views\ApplicationUser\AccountLandNews.cshtml" />
     <None Include="Properties\PublishProfiles\LAND.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />

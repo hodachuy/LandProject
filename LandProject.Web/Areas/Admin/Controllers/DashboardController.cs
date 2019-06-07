@@ -32,8 +32,11 @@ namespace LandProject.Web.Areas.Admin.Controllers
 
         [ChildActionOnly]
         public ActionResult Header()
-        {
-            return PartialView(UserInfo);
+        {   if(UserInfo != null)
+            {
+                return PartialView(UserInfo);
+            }
+            return RedirectToAction("Login","Admin");
         }
 
         [ChildActionOnly]

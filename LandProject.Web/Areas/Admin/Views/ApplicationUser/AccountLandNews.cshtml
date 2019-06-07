@@ -1,0 +1,446 @@
+﻿@model LandProject.Web.Models.ApplicationUserViewModel
+@{
+    ViewBag.Title = "AccountLandNews";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .map {
+        height: 260px;
+    }
+
+    @@media (min-width: 768px) {
+        .modal-dialog.as-container {
+            width: 750px;
+        }
+    }
+
+    @@media (min-width: 992px) {
+        .modal-dialog.as-container {
+            width: 970px;
+        }
+    }
+
+    @@media (min-width: 1200px) {
+        .modal-dialog.as-container {
+            width: 1250px;
+        }
+    }
+
+    .modal-dialog.as-container .modal-content {
+        float: none;
+        margin: auto;
+    }
+
+    .panel_toolbox > li {
+        float: right;
+        cursor: pointer;
+    }
+</style>
+<input type="hidden" id="userID" value="@Model.Id" />
+<div class="">
+    <div class="page-title">
+        <div class="title_left">
+            <h3>DANH SÁCH TIN NHÀ ĐẤT - TÀI KHOẢN @Model.UserName</h3>
+        </div>
+        <div class="title_right">
+            <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">Go!</button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="x_panel">
+        <div class="x_title">
+            <small>Trang chủ</small> / <small>Danh sách tin</small>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            <br />
+            <div id="grid"></div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="LandNewsModel" role="dialog">
+    <div class="modal-dialog as-container">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Tin nhà đất - Thể loại tin <span id="lTypeTitle"></span></h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="txtMetaKeyword" />
+                <input type="hidden" id="txtMetaDescription" />
+                <div class="row">
+                    <div class="col-md-6 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>Thông tin chi tiết</h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li>
+                                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <br />
+                                <form class="form-horizontal form-label-left input_mask">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                            Tiêu đề <span class="required">*</span>
+                                        </label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <textarea id="txtTitle" class="form-control" rows="3" placeholder="Tiêu đề"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Hình thức <span class="required">*</span></label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <div class="w100 form-control" id="cboLandType"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Thể loại <span class="required">*</span></label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <div class="w100 form-control" id="cboLandCategory"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Tỉnh <span class="required">*</span></label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <div class="w100 form-control" id="cboProvince"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Quận/Huyện <span class="required">*</span></label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <div class="w100 form-control" id="cboDistrict"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Phường/Xã</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <div class="w100 form-control" id="cboWard"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Dự án</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <div class="w100 form-control" id="cboLProject"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Diện tích/m2</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" class="form-control" disabled id="txtArea">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Đơn vị</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" class="form-control" disabled id="txtUnit">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Giá</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" class="form-control" disabled id="txtPrice">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Tổng tiền</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" class="form-control" disabled id="txtDecimalTotalPrice">
+                                            <input type="text" class="form-control" disabled id="txtTotalPrice">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Địa chỉ <span class="required">*</span></label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" class="form-control" id="txtAddress">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>Thông tin khác</h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li>
+                                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <br />
+                                <form class="form-horizontal form-label-left">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Mặt tiền (m)</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" class="form-control" id="txtFacade">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Đường vào (m)</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" class="form-control" id="txtEntry">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Hướng nhà</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <select class="form-control" id="txtHouseDirection">
+                                                <option>KXD</option>
+                                                <option>Đông</option>
+                                                <option>Tây</option>
+                                                <option>Nam</option>
+                                                <option>Bắc</option>
+                                                <option>Đông-Bắc</option>
+                                                <option>Tây-Bắc</option>
+                                                <option>Tây-Nam</option>
+                                                <option>Đông-Nam</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Hướng ban công</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <select class="form-control" id="txtBalconyDirection">
+                                                <option>KXD</option>
+                                                <option>Đông</option>
+                                                <option>Tây</option>
+                                                <option>Nam</option>
+                                                <option>Bắc</option>
+                                                <option>Đông-Bắc</option>
+                                                <option>Tây-Bắc</option>
+                                                <option>Tây-Nam</option>
+                                                <option>Đông-Nam</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Số tầng</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" class="form-control" id="txtNumberFloor">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Số phòng ngủ</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" class="form-control" id="txtNumberBedroom">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Số toilet</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" class="form-control" id="txtNumberWC">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Nội thất</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" class="form-control" id="txtFurniture">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Tình trạng pháp lý</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" class="form-control" id="txtLegalStatus">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Tiện nghi</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" class="form-control" id="txtConvenient">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Môi trường xung quanh</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" class="form-control" id="txtEnvironment">
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>NGƯỜI CUNG CẤP TIN</h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li>
+                                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <br />
+                                <form class="form-horizontal form-label-left">
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Tên liên hệ</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" class="form-control" id="txtAgentName">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Địa chỉ</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" class="form-control" id="txtAgentAddress">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Số điện thoại 1(*)</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" class="form-control" id="txtAgentPhone1">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Số điện thoại 2</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" class="form-control" id="txtAgentPhone2">
+                                        </div>
+                                    </div>
+                                    <div class="form-group" style="display:none">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Số điện thoại 2</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" class="form-control" id="txtAgentPhone3">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Số điện thoại hiển thị</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" class="form-control" id="txtAgentPhoneShow">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Email</label>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <input type="text" class="form-control" id="txtAgentEmail">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>MÔ TẢ</h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li>
+                                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <textarea id="txtDescription" style="width:100%;height:200px"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>HÌNH ẢNH</h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li>
+                                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <div class="row" id="lst-file-image">
+                                    <div class="col-md-55">
+                                        <div class="thumbnail">
+                                            <div class="image view view-first">
+                                                <img style="width: 100%; display: block;" src="~/assets/client/img/gmap_marker.png" alt="image" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>Bản đồ</h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li>
+                                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Tọa độ</label>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <input name="LatiLongTude" id="LatiLongTude" class="hidden" />
+                                        <input id="Latitude" class="hidden" />
+                                        <input id="Longitude" class="hidden" />
+                                        <div id="map" class="map" style="height:220px"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" disabled id="saveLandNews">Lưu</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="closeLandNews">Đóng</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="ActionLandNewsSchedule" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Chọn lọai tin đăng bài</h4>
+            </div>
+            <div class="modal-body">
+                <form id="form">
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Loại tin đăng bài</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                            <div class="w100 form-control" id="cboLandSchedule"></div>
+                        </div>
+                        <input type="hidden" id="landNewsID" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="saveLandNewsSchedule">Lưu</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="closeLandNewsSchedule">Đóng</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+@section footerJS{
+    <script type="text/javascript" src="//maps.google.com/maps/api/js?sensor=false&key=AIzaSyAfx5a8yx5MqeGoTS3ierzoe35TXoX0ZOY&libraries=places"></script>
+    <script src="~/assets/admin/js/AccountLandNews.js"></script>
+}
+
+
