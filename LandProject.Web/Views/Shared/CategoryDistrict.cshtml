@@ -1,0 +1,22 @@
+﻿@model IEnumerable<LandProject.Common.CountLandNewsDistrictViewModel>
+
+<a rel="next" target="_blank" href="/nha-dat-ban.html" title="cho thue nha dat">
+    <h2 class="mbnd_feature_title_home">
+        <span title="Tin mới nhất">DANH MỤC NHÀ ĐẤT</span>
+    </h2>
+</a>
+<ul>
+    @if (Model.Count() != 0)
+    {
+        foreach (var item in Model)
+        {
+            var url = "/nha-dat/" + HttpUtility.HtmlDecode(item.Name) + ".w-" + item.ID + ".html";
+            <li>
+                <a rel="next" href="@url">
+                    @item.Name (@item.TotalLandNews)
+                </a>
+                <hr class="mbnd_hr_m_w">
+            </li>
+        }
+    }
+</ul>

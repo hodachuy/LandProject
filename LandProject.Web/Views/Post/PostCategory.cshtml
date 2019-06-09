@@ -1,0 +1,113 @@
+﻿@using LandProject.Web.Models
+@model PostCategoryViewModel
+@{
+    ViewBag.Title = Model.Name;
+    Layout = "~/Views/Shared/_LayoutLand_v2.cshtml";
+    var landType = (IEnumerable<LandProject.Model.Models.LandType>)ViewBag.LandType;
+}
+<link href="~/assets/client_v2/css/blog.css" rel="stylesheet" />
+<div class="jumbotron head">
+    <div class="container head">
+        <div class="row">
+            <div class="col-lg-10 col-md-8 hidden-md hidden-sm hidden-xs">
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="/" itemprop="url">
+                            <p class="cusp" itemprop="title">Trang chủ</p> >
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="/tin-tuc.html" itemprop="url">
+                            <p itemprop="title">Tin tức</p> >
+                        </a>
+                    </li>
+                    <li class="active">
+                        <p itemprop="title">@Model.Name</p>
+                    </li>
+                </ol>
+            </div>
+            <div class="col-lg-2 col-md-12 col-xs-12">
+                <a id="lnkCreateAd" class="pull-right btn mbnd-btn-red" href="/dang-tin-mua-ban-nha-dat.html">
+                    <img src="~/assets/client_v2/img/ic-pencil.svg" /> Đăng tin miễn phí
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="mbndBlogContent container">
+    <h1 class="_mbndCateTitle">
+        @Model.Name
+    </h1>
+    <div class="row">
+        <div class="col-lg-9 col-md-9 mbndBlogContentLeft">
+            <div class="_CategoriesListArticle">
+                @if (Model.Posts.Count() != 0)
+                {
+                    foreach (var item in Model.Posts)
+                    {
+                        var url = "/tin-tuc/" + item.Alias + ".t-" + item.ID + ".html";
+
+                        <div class="col-lg-6 col-md-6 _CategoeriesListingItem">
+                            <a href="@url" title="@item.Name">
+                                <img alt="@item.Name" class="img-thumbnail _image" src="~/fileman/Uploads/Post/@item.Image" width=410 height=245>
+                            </a>
+                            <a href="@url" title="@item.Name">
+                                <h3 class="_title" style="font-weight: 900;">
+                                    @item.Name
+                                </h3>
+                            </a>
+                            <span class="_date">
+                                <img class="hidden-sm hidden-xs" src="http://www.muabannhadat.vn/tin-tuc/wp-content/themes/blogmbnd/images/icon_date.png" alt="">
+                                <img class="hidden-lg hidden-md" src="http://www.muabannhadat.vn/tin-tuc/wp-content/themes/blogmbnd/images/clock_mobile.png" alt="">
+                                @item.UpdatedDate.Value.ToString("dd/MM/yyyy")
+                            </span>
+                            <span class="_des">
+                                @item.Description
+                            </span>
+                            <a class="_ViewDetailCategories" href="@url" title="@item.Name">
+                                Xem chi tiết&nbsp;&nbsp;
+                            </a>
+                        </div>
+}
+                }
+
+
+            </div>
+            @*<div class="row _CategoriesPagination">
+                <nav>
+                    <ul class="pagination"><li class="page-item"><a href="?page=1" class="page-link active">1</a></li><li class="page-item"><a href="?page=2" class="page-link">2</a></li><li class="page-item"><a href="?page=3" class="page-link">3</a></li><li class="page-item"><a href="?page=4" class="page-link">4</a></li><li class="page-item"><a href="?page=5" class="page-link">...</a></li><li class="page-item"><a href="?page=3616" class="page-link">&gt;</a></li></ul>
+                </nav>
+            </div>*@
+        </div>
+        <div class="col-lg-3 col-md-3 mbndBlogContentRight">
+            <div class="_mbndUlListViewRight row-pull">
+                <a rel="next" target="_blank" href="http://www.muabannhadat.vn/nha-dat-3490" title="nha dat ban">
+                    <h3 class="_mbndCateTitle">
+                        NHÀ ĐẤT
+                    </h3>
+                </a>
+                <ul>
+                    @if (landType.Count() != 0)
+                    {
+                        foreach (var item in landType)
+                        {
+                            var url = "/nha-dat/" + item.Alias + ".lt-" + item.ID + ".html";
+                            <li>
+                                <a rel="next" target="_blank" href="@url" title="@item.Name">
+                                    @item.Name
+                                </a>
+                                <hr class="mbnd_hr_m_w">
+                            </li>
+}
+                    }
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+</div>
+

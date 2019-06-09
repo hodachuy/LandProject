@@ -1,14 +1,13 @@
 ﻿var _idgrid = "#grid";
-var PostModel = {
+var SlideModel = {
     ID: '',
     Name: '',
-    Alias: '',
+    Description: '',
+    Url: '',
+    DisplayOrder: '',
     Image:'',
-    Descriptipn: '',
-    PostCategoryID:'',
     Content:'',
     Status: false,
-    IsDelete:false
 }
 var TypeActionAdd = true;
 
@@ -19,7 +18,7 @@ var indexImg = 0;
 $(document).ready(function () {
     LoadGrid();
 
-    $('body').on('click', '#form-create-post', function () {
+    $('body').on('click', '#form-create-slide', function () {
         arrImageAsUrl = [];
         arrTotalImage = [];
         indexImg = 0;
@@ -27,41 +26,36 @@ $(document).ready(function () {
         $('#form').validationEngine('hide');
         TypeActionAdd = true;
 
-        var urlPostCategory = "api/postcategory/getall";
-        var element = "#cboPostCategory";
-        LoadComboBoxWithServices(element, urlPostCategory, null, "ID", "Name", null, "Chọn Thể Loại", false, null, function () { }, null);
-
-        $('#txtPostName').val('');
+        $('#txtTitle').val('');
         $('#txtDescription').val('');
-        tinymce.get("txtContent").getBody().innerHTML = "";
+        $('#txtURL').val('');
+        $('#txtDisplayOrder').val('');
 
-        $("#PostModel").modal({
+        $("#SlideModel").modal({
             backdrop: 'static',
             keyboard: true,
             show: true
         });
     })
-    $('body').on('click', '#savePost', function () {
+    $('body').on('click', '#saveSlide', function () {
         if (checkValid()) {
             var formData = new FormData();
 
-            PostModel.Name = $('#txtPostName').val();
-            PostModel.Alias = new commonService().getSeoTitle($('#txtPostName').val());
-            PostModel.Content = tinymce.get("txtContent").getContent();
-            PostModel.Description = $('#txtDescription').val();
-            PostModel.PostCategoryID = $('#cboPostCategory').val();
-            PostModel.IsDelete = false;
+            SlideModel.Name = $('#txtTitle').val();
+            SlideModel.Description = $('#txtDescription').val();
+            SlideModel.Url = $('#txtURL').val();
+            SlideModel.DisplayOrder = $('#txtDisplayOrder').val();
             if (TypeActionAdd) {//add      
-                PostModel.ID = 0;
+                SlideModel.ID = 0;
 
                 $.each(arrTotalImage, function (index, value) {
                     formData.append('file' + index, value.file);
                 });
 
-                formData.append('post', JSON.stringify(PostModel));
+                formData.append('slide', JSON.stringify(SlideModel));
 
                 $.ajax({
-                    url: _Host + "api/post/create",
+                    url: _Host + "api/slide/create",
                     type: 'POST',
                     data: formData,
                     processData: false,
@@ -69,7 +63,7 @@ $(document).ready(function () {
                     dataType: "json",
                     success: function (result) {
                         if (result) {
-                            $("#PostModel").modal('hide');
+                            $("#SlideModel").modal('hide');
                             $('#grid').data('kendoGrid').dataSource.read();
                             $('#grid').data('kendoGrid').refresh();
                         }
@@ -84,10 +78,10 @@ $(document).ready(function () {
                     formData.append('file' + index, value.file);
                 });
 
-                formData.append('post', JSON.stringify(PostModel));
+                formData.append('slide', JSON.stringify(SlideModel));
 
                 $.ajax({
-                    url: _Host + "api/post/update",
+                    url: _Host + "api/slide/edit",
                     type: 'POST',
                     data: formData,
                     processData: false,
@@ -95,7 +89,7 @@ $(document).ready(function () {
                     dataType: "json",
                     success: function (result) {
                         if (result) {
-                            $("#PostModel").modal('hide');
+                            $("#SlideModel").modal('hide');
                             $('#grid').data('kendoGrid').dataSource.read();
                             $('#grid').data('kendoGrid').refresh();
                         }
@@ -107,8 +101,8 @@ $(document).ready(function () {
             }
         }
     })
-    $('body').on('click', '#closePost', function () {
-        $("#PostModel").modal('hide');
+    $('body').on('click', '#closeSlide', function () {
+        $("#SlideModel").modal('hide');
     })
 
 
@@ -132,11 +126,6 @@ $(document).ready(function () {
                         var fileName = e.target.fileName;
                         var html = '<div class="col-md-8"><div class="thumbnail"><div class="image view view-first"  data-id="0" data-index="' + index + '"><img style="width: 100%; display: block;" src="' + fileSrc + '" alt="image"><div class="mask"><div class="tools tools-bottom"><a href="#"  data-id="0" data-index="' + index + '"  class="rmFileImage"><i class="fa fa-times"></i></a></div></div></div></div></div>';
 
-                        //var temp = '';
-                        //temp += '<div class="photo-item" style="width: 50%; border: 2px solid transparent; box-sizing: padding-box; position: relative">';
-                        //temp += '<img class="img-responsive" style="height: 115px; width: 100 %" src="' + fileSrc + '" data-index="' + index + '" alt="' + fileName + '"/>';
-                        //temp += '<span class="fa fa-remove rmFile" data-index="' + index + '" data-remove-filename="' + fileName + '" style="position: absolute; top: 10px; right: 10px; color: #795548;; cursor: pointer"></span>';
-                        //temp += '</div>';
                         $("#lst-file-image").empty().append(html);
                         var image = {
                             index: index,// parseInt(i),
@@ -168,7 +157,7 @@ $(document).ready(function () {
         var idImage = $(this).attr('data-id');
         if (idImage != 0) {
             $(this).closest('.col-md-8').remove();
-            PostModel.Image = '';
+            SlideModel.Image = '';
         } else {
             for (var i = 0; i < arrImageAsUrl.length; i++) {
                 if (arrImageAsUrl[i].index == indexImage) {
@@ -183,36 +172,7 @@ $(document).ready(function () {
         }
     });
 
-    //tinymce
-    tinymce.init({
-        selector: '.editorTinyMce',
-        cleanup: true,
-        verify_html: false,
-        entity_encoding: "raw",
-        cleanup_on_startup: true,
-        // ket thuc performance
-        height: '200px',
-        inline: false,
-        plugins: 'advlist autolink link image lists print preview code media table textcolor hr searchreplace wordcount ',
-        //toolbar: "forecolor backcolor table image autolink preview charmap link searchreplace fontsizeselect fontselect ",
-        toolbar: "fontselect | bold italic underline | forecolor | fontsizeselect | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | image searchreplace ",
-        fontsize_formats: "8pt 10pt 12pt 13pt 14pt 18pt 24pt 36pt",
-        skin: 'lightgray',
-        theme: 'modern',
-        languague: 'vi',
-        valid_elements: '+*[*]',
-        file_browser_callback: RoxyFileBrowser,
-
-        media_url_resolver: function (data, resolve/*, reject*/) {
-            if (data.url.indexOf('YOUR_SPECIAL_VIDEO_URL') !== -1) {
-                var embedHtml = '<iframe src="' + data.url +
-                '" width="400" height="400" ></iframe>';
-                resolve({ html: embedHtml });
-            } else {
-                resolve({ html: '' });
-            }
-        }
-    })
+ 
 })
 
 checkValid = function () {
@@ -220,18 +180,12 @@ checkValid = function () {
     setTimeout(function () {
         $('#form').validationEngine('hide');
     }, 10000);
-    var postName = $('#txtPostName').val();
-    if (postName.trim() == "") {
-        $('#txtPostName').validationEngine('showPrompt', '* Trường này bắt buộc', 'red', 'topRight', true);
+    var Name = $('#txtTitle').val();
+    if (Name.trim() == "") {
+        $('#txtTitle').validationEngine('showPrompt', '* Trường này bắt buộc', 'red', 'topRight', true);
         res = false;
     } else {
-        $("#txtPostName").validationEngine('hide');
-    }
-    if ($("#cboPostCategory").data("kendoComboBox").selectedIndex == -1) {
-        $('#cboPostCategory').validationEngine('showPrompt', '* Trường này bắt buộc', 'red', 'topRight', true);
-        res = false;
-    } else {
-        $("#cboPostCategory").validationEngine('hide');
+        $("#txtTitle").validationEngine('hide');
     }
     return res;
 }
@@ -312,10 +266,6 @@ DataSource = function () {
         return data;
     }
 }
-function getUrl(id,alias) {
-    if (id == null) return "";
-    else return kendo.toString("/tin-tuc/"+alias+".t-"+id+".html");
-}
 var Columns = [
         {
             title: "Stt",
@@ -333,39 +283,30 @@ var Columns = [
             attributes: { style: "text-align: center; overflow : visible; cursor: pointer", },
             headerAttributes: { style: "text-align: center" },
         },
-         {
-             template: '#if(data.IsPublished == true){#<span style="color:green">Đã hiển thị</span>#} else if(data.IsPublished == false){#<span style="color:red">Không hiển thị</span>#}#',
+        {
+            template:'#if(data.Status == true){#<span style="color:green">Đã hiển thị</span>#} else if(data.Status == false){#<span style="color:red">Không hiển thị</span>#}#',
             field: "Status",
             title: "Trạng thái",
             width: 100,
-         },
-         {
-             template: '#if(data.Status == true){#<span>Có</span>#} else if(data.Status == false){#<span>Không</span>#}#',
-             field: "Status",
-             title: "Tin mục đầu trang",
-             width: 100,
-         },
+        },
         {
             template: '#=data.Name#',
             field: "Name",
-            title: "Tên bài tin",
+            title: "Tiêu đề",
         },
         {
-            template: '#:getUrl(data.ID,data.Alias)#',
-            field: "Name",
-            title: "Đường dẫn",
+            template: '#=data.Url#',
+            field: "Url",
+            title: "Liên kết tới đường dẫn",
         },
-         {
-             template: '#=data.PostCategory.Name#',
-             field: "PostCategoryID",
-             title: "Thể loại tin",
-             filterable: {
-                 ui: postCategoryFilter
-             }
-         },
+        {
+            template: '#=data.Description#',
+            field: "Description",
+            title: "Mô tả ngắn",
+        },
 ];
 LoadGrid = function () {
-    InitKendoGrid(_idgrid, Columns, new DataSource().MasterDatasource("" + _Host + "api/post/getalltable"), null, false, '')
+    InitKendoGrid(_idgrid, Columns, new DataSource().MasterDatasource("" + _Host + "api/slide/getalltable"), null, false, '')
 }
 function templateForAction(e) {
     var html = '';
@@ -380,106 +321,73 @@ function templateForAction(e) {
         html += '<div class="btn-group">';
         html += '<i class="ace-icon fa fa-cog icon-only bigger-120 dropdown-toggle" data-toggle="dropdown"></i>';
         html += '<ul class="dropdown-menu dropdown-white dropdown-menu-right">';
+        if (!e.Status) {
+            html += '<li>';
+            html += '<a href="javascript:new ForumCatg(' + e.ID + ').Show()">Hiển thị</a>';
+            html += '</li>';
+        } else {
+            html += '<li>';
+            html += '<a href="javascript:new ForumCatg(' + e.ID + ').UnShow()">Gỡ hiển thị</a>';
+            html += '</li>';
+        }
         html += '<li>';
         html += '<a href="javascript:new ForumCatg(' + e.ID + ').Edit()">Chỉnh sửa</a>';
         html += '</li>';
         html += '<li>';
-        html += '<a href="javascript:new ForumCatg(' + e.ID + ').View(\'' + e.Alias + '\')">Xem trước</a>';
-        html += '</li>';
-        if (!e.IsPublished) {
-            html += '<li>';
-            html += '<a href="javascript:new ForumCatg(' + e.ID + ').Publish()">Hiển thị</a>';
-            html += '</li>';
-        } else {
-            html += '<li>';
-            html += '<a href="javascript:new ForumCatg(' + e.ID + ').UnPublish()">Gỡ hiển thị</a>';
-            html += '</li>';
-        }
-        if (e.Status) {
-            html += '<li>';
-            html += '<a href="javascript:new ForumCatg(' + e.ID + ').UnShowTop()">Hạ hiển thị ở bản tin đầu trang</a>';
-            html += '</li>';
-        } else {
-            html += '<li>';
-            html += '<a href="javascript:new ForumCatg(' + e.ID + ').ShowTop()">Kích hoạt ở bản tin đầu trang</a>';
-            html += '</li>';
-        }
-        html += '<li>';
         html += '<a href="javascript:new ForumCatg(' + e.ID + ').Delete(\'' + e.Name + '\')">Xóa</a>';
         html += '</li>';
-        //if (permission.IsUpdate) {
-        //    html += '<li>';
-        //    html += '<a href="javascript:new ForumCatg(' + e.DocTypeID + ').Edit()">Chỉnh sửa</a>';
-        //    html += '</li>';
-        //}
-        //if (permission.IsDelete && e.IsDelete == "1") {
-        //    html += '<li>';
-        //    html += '<a href="javascript:new ForumCatg(' + e.DocTypeID + ').Delete(\'' + e.DocName + '\')">Xóa</a>';
-        //    html += '</li>';
-        //}
         html += '</ul></div>';
     }
     return html;
 }
 ForumCatg = function (id) {
-    this.View = function (alias) {
-        var url = _Host + "tin-tuc/" + alias + ".t-" + id + ".html";
-        window.open(url, '_blank');
-    }
     this.Edit = function () {
         arrImageAsUrl = [];
         arrTotalImage = [];
         indexImg = 0;
         $('#lst-file-image').empty()
-        var urlPostCategory = "api/postcategory/getall";
-        var element = "#cboPostCategory";
-        LoadComboBoxWithServices(element, urlPostCategory, null, "ID", "Name", null, "Loại bài viết", false, null, function () {
-        }, null);
-        $('#txtPostName').val('');
+        $('#txtTitle').val('');
         $('#txtDescription').val('');
-        tinymce.get("txtContent").getBody().innerHTML = '';
+        $('#txtURL').val('');
+        $('#txtDisplayOrder').val('');
 
         TypeActionAdd = false;
-        $("#PostModel").modal({
+        $("#SlideModel").modal({
             backdrop: 'static',
             keyboard: true,
             show: true
         });
 
         var param = {
-            postID: id
+            slideID: id
         }
-        var svr = new AjaxCall("api/post/getbyid", param);
+        var svr = new AjaxCall("api/slide/getbyid", param);
         svr.callServiceGET(function (data) {
             console.log(data)
             if (data != undefined) {
-                var urlPostCategory = "api/postcategory/getall";
-                var element = "#cboPostCategory";
-                LoadComboBoxWithServices(element, urlPostCategory, null, "ID", "Name", data.PostCategoryID, "Loại bài viết", false, null, function () {
-                }, null);
-                $('#txtPostName').val(data.Name);
+                $('#txtTitle').val(data.Name);
                 $('#txtDescription').val(data.Description);
-                tinymce.get("txtContent").getBody().innerHTML = data.Content;
-                PostModel.ID = data.ID;
-                PostModel.IsDelete = data.IsDelete;
-                PostModel.IsPublished = data.IsPublished;
-                PostModel.PostCategoryID = data.PostCategoryID;
-                PostModel.Image = data.Image;
+                $('#txtURL').val(data.Url);
+                $('#txtDisplayOrder').val(data.DisplayOrder);
+
+                SlideModel.ID = data.ID;
+                SlideModel.Status = data.Status;
+                SlideModel.Image = data.Image;
                 html = '';
-                if (PostModel.Image != '') {
-                    html += '<div class="col-md-8"><div class="thumbnail"><div class="image view view-first" data-id="1" data-index="1"><img style="width: 100%; display: block;" src="' + _Host + 'fileman/Uploads/Post/' + PostModel.Image + '" alt="image"><div class="mask"><div class="tools tools-bottom"><a href="#" data-index="1"   data-id="1" class="rmFileImage"><i class="fa fa-times"></i></a></div></div></div></div></div>';
+                if (SlideModel.Image != '') {
+                    html += '<div class="col-md-8"><div class="thumbnail"><div class="image view view-first" data-id="1" data-index="1"><img style="width: 100%; display: block;" src="' + _Host + 'fileman/Uploads/Slide/' + SlideModel.Image + '" alt="image"><div class="mask"><div class="tools tools-bottom"><a href="#" data-index="1"   data-id="1" class="rmFileImage"><i class="fa fa-times"></i></a></div></div></div></div></div>';
                 }
                 $('#lst-file-image').empty().append(html);
             }
         });
 
     }
-    this.Publish = function () {
+    this.Show = function () {
         var param = {
-            postID: id
+            slideID: id
         }
         param = JSON.stringify(param)
-        var svr = new AjaxCall("api/post/publish", param);
+        var svr = new AjaxCall("api/slide/show", param);
         svr.callServicePOST(function (data) {
             console.log(data)
             $("#model-notify").modal('hide');
@@ -493,12 +401,12 @@ ForumCatg = function (id) {
             $('#grid').data('kendoGrid').refresh();
         });
     }
-    this.UnPublish = function () {
+    this.Unshow = function () {
         var param = {
-            postID: id
+            slideID: id
         }
         param = JSON.stringify(param)
-        var svr = new AjaxCall("api/post/unpublish", param);
+        var svr = new AjaxCall("api/slide/unshow", param);
         svr.callServicePOST(function (data) {
             console.log(data)
             $("#model-notify").modal('hide');
@@ -512,47 +420,10 @@ ForumCatg = function (id) {
             $('#grid').data('kendoGrid').refresh();
         });
     }
-    this.ShowTop = function () {
-        var param = {
-            postID: id
-        }
-        param = JSON.stringify(param)
-        var svr = new AjaxCall("api/post/showtop", param);
-        svr.callServicePOST(function (data) {
-            console.log(data)
-            $("#model-notify").modal('hide');
-            swal({
-                title: "Thông báo",
-                text: "Hiển thị top thành công",
-                confirmButtonColor: "#EF5350",
-                type: "success"
-            }, function () { $("#model-notify").modal('show'); });
-            $('#grid').data('kendoGrid').dataSource.read();
-            $('#grid').data('kendoGrid').refresh();
-        });
-    }
-    this.UnShowTop = function () {
-        var param = {
-            postID: id
-        }
-        param = JSON.stringify(param)
-        var svr = new AjaxCall("api/post/unshowtop", param);
-        svr.callServicePOST(function (data) {
-            console.log(data)
-            $("#model-notify").modal('hide');
-            swal({
-                title: "Thông báo",
-                text: "Hạ hiển thị top thành công",
-                confirmButtonColor: "#EF5350",
-                type: "success"
-            }, function () { $("#model-notify").modal('show'); });
-            $('#grid').data('kendoGrid').dataSource.read();
-            $('#grid').data('kendoGrid').refresh();
-        });
-    }
+
     this.Delete = function (title) {
         bootbox.confirm({
-            message: "Bạn có chắc muốn xóa tin này",
+            message: "Bạn có chắc muốn xóa slide này",
             buttons: {
                 confirm: {
                     label: "Đồng ý",
@@ -566,9 +437,9 @@ ForumCatg = function (id) {
             callback: function (result) {
                 if (result) {
                     var param = {
-                        postID: id
+                        slideID: id
                     }
-                    var svr1 = new AjaxCall("api/post/delete", JSON.stringify(param));
+                    var svr1 = new AjaxCall("api/slide/delete", JSON.stringify(param));
                     svr1.callServicePOST(function (data) {
                         if (data) {
                             $("#model-notify").modal('hide');
@@ -580,42 +451,10 @@ ForumCatg = function (id) {
                             }, function () { $("#model-notify").modal('show'); });
                             $('#grid').data('kendoGrid').dataSource.read();
                             $('#grid').data('kendoGrid').refresh();
-                        } 
+                        }
                     });
                 }
             }
         })
     }
 }
-
-function postCategoryFilter(element) {
-    element.kendoDropDownList({
-        dataSource: lstPostCategory,
-        dataTextField: "Name",
-        dataValueField: "ID",
-        optionLabel: "--Chọn thể loại--"
-    });
-}
-var lstPostCategory = new kendo.data.DataSource({
-    transport: {
-        read: function (options) {
-            $.ajax({
-                url: _Host + "api/postcategory/getall",
-                type: "GET",
-                dataType: "json",
-                success: function (result) {
-                    //console.log(result)
-                    if (result != "" && result != null) {
-                        options.success(result);
-                    }
-                    else {
-                        options.success([]);
-                    }
-                },
-                error: function (result) {
-                    options.success([]);
-                }
-            })
-        }
-    }
-});

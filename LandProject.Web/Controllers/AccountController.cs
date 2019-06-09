@@ -334,7 +334,9 @@ namespace LandProject.Web.Controllers
 						status = false
 					});
 				}
-				_userManager.ChangePassword(user.Id, user.PasswordHash, "123@abc");
+
+				_userManager.RemovePassword(user.Id);
+				_userManager.AddPassword(user.Id, "123@abc");
 			}else
 			{
 				return Json(new

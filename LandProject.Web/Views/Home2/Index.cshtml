@@ -3,6 +3,8 @@
 @{
     ViewBag.Title = "Kênh thông tin rao bán bất động sản | Datdackhu";
     Layout = "~/Views/Shared/_LayoutLand_v2.cshtml";
+    var slide = (IEnumerable<LandProject.Model.Models.Slide>)ViewBag.Slide;
+    int indexSlide = 0;
 }
 <link href="~/assets/vendors/select2/dist/css/select2.min.css" rel="stylesheet" />
 <style>
@@ -103,31 +105,33 @@
         <div class="col-sm-12 col-top-center">
             <div class="homead">
                 <div id="carousel-home" class="carousel slide" data-ride="carousel" data-interval="15000" data-pause="" style="display:none;">
-                    <ol class="carousel-indicators">
-                        <li data-target="#carousel-home" data-slide-to="1"></li>
-                        <li data-target="#carousel-home" data-slide-to="2"></li>
-                        @*<li data-target="#carousel-home" data-slide-to="3"></li>
-                            <li data-target="#carousel-home" data-slide-to="4"></li>*@
-                    </ol>
+                    @if (slide.Count() != 0)
+                    {                   
+                        <ol class="carousel-indicators">
+                            @foreach (var item in slide)
+                            {
+                                indexSlide++;
+                                <li data-target="#carousel-home" data-slide-to="@indexSlide"></li>
+                            }
+                        </ol>
+                    }
                     <div class="carousel-inner" role="listbox">
-                        <div class="item active">
-                            <ins>
-                                <a href="#"><img src="~/assets/client/img/Ban_do_quy_hoach_bac_van_phong.jpg" width="535" height="300" alt="" title="" border="0"></a>
-                                <div class="text-block">
-                                    <h4>BẢN ĐỒ QUY HOẠCH</h4>
-                                    <a href="http://maps.vanphong.gov.vn/">Đặc khu Bắc Vân Phong</a>
-                                </div>
-                            </ins>
-                        </div>
-                        <div class="item active">
-                            <ins>
-                                <a href="#"><img src="~/assets/client/img/bai-bien-doc-let-e1502107014517.jpg" width="535" height="300" alt="" title="" border="0"></a>
-                                <div class="text-block">
-                                    <h4></h4>
-                                    <a href="#"></a>
-                                </div>
-                            </ins>
-                        </div>
+                        @foreach (var item in slide)
+                        {
+                            <div class="item active">
+                                <ins>
+                                    <a href="@item.Url"><img src="~/fileman/Uploads/Slide/@item.Image" width="535" height="300" alt="" title="" border="0"></a>
+                                    @if (!String.IsNullOrEmpty(item.Description))
+                                    {
+                                        <div class="text-block">
+                                            <h4>@item.Description</h4>
+                                            <a href="@item.Url" style="color:#000000">xem chi tiết</a>
+                                        </div>
+                                    }
+
+                                </ins>
+                            </div>
+                        }                      
                     </div>
                     <a class="left carousel-control" href="#carousel-home" role="button" data-slide="prev">
                         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true">

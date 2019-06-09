@@ -25,9 +25,9 @@ namespace LandProject.Web.Infrastructure.Extensions
         public static void UpdateSlide(this Slide slide, SlideViewModel slideVm)
         {
             slide.ID = slideVm.ID;
-            slide.Image = slideVm.Image;
             slide.Name = slideVm.Name;
-            slide.Content = slideVm.Content;
+			slide.Image = slideVm.Image;
+			slide.Content = slideVm.Content;
             slide.Status = slideVm.Status;
             slide.DisplayOrder = slideVm.DisplayOrder;
             slide.Description = slideVm.Description;
@@ -192,6 +192,7 @@ namespace LandProject.Web.Infrastructure.Extensions
             postDb.MetaKeyword = postVm.MetaKeyword;
             postDb.MetaDescription = postVm.MetaDescription;
             postDb.Status = postVm.Status;
+			postDb.Image = postVm.Image;
 
         }
 

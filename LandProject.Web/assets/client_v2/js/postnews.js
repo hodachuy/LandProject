@@ -932,7 +932,9 @@ function getLandNews() {
             landnews.Code = data.Code;
             landnews.LandNewsScheduleID = data.LandNewsScheduleID;
             landnews.AgentID = data.AgentID;
-
+            landnews.Status = data.Status;
+            landnews.IsPublished = data.IsPublished;
+            landnews.IsDelete = data.IsDelete;
             agent.ID = data.AgentID;
 
             if (data.LandFiles.length != 0) {
@@ -992,6 +994,8 @@ function SubmitSalePlan() {
             landnews.Code = "";
             landnews.LandNewsScheduleID = 2;
             landnews.AgentID = 0;
+            landnews.Status = false;
+            landnews.IsPublished = false;
         }
 
         agent.Name = $("#UserName").val(),

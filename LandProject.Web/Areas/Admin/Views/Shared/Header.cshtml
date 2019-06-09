@@ -155,7 +155,7 @@
             return false;
         }
         var user = {
-            Id: $("#userId").val,
+            Id: $("#userId").val(),
             UserName: $("#txtUserName").val(),
             FullName: $("#txtFullName").val(),
             Address: $("#txtAddress").val(),
@@ -173,7 +173,7 @@
             success: function (response) {
                 if (response.status) {
                     toastr.success("", response.message, 3000);
-                    $("#UserModel1").modal('hide');
+                    $("#UserInfoModal").modal('hide');
                 } else {
                     toastr.error("", response.message, 3000);
                 }

@@ -2,7 +2,7 @@
 @{
     var pageIndex = Model.Page;
     ViewBag.Title = pageIndex == 1 ? ViewBag.LandTypeName : ViewBag.LandTypeName + " - Trang " + pageIndex;
-    var categoryWard = (IEnumerable<LandProject.Common.CountLandNewsDistrictViewModel>)ViewBag.CategoryWard;
+    var landCategory = (IEnumerable<LandProject.Model.Models.LandCategory>)ViewBag.LandCategory;
     Layout = "~/Views/Shared/_LayoutLand_v2.cshtml";
 }
 <div class="jumbotron head">
@@ -16,7 +16,10 @@
                         </a>
                     </li>
                     <li>
-                        <p itemprop="title">Nhà đất</p>
+                        <a href="/nha-dat-ban.html" itemprop="url">
+                            <p itemprop="cusp">Nhà đất</p> >
+                        </a>
+
                     </li>
                     <li class="active">
                         <p itemprop="title">@ViewBag.LandTypeName</p>
@@ -184,6 +187,31 @@
                     </div>
                 </div>
                 <div class="col-xs-12 col-md-4 col-lg-3 col-md-pull-8 col-lg-pull-9" id="jump2filter">
+                    <div class="panel panel-filter padding-top-0">
+                        <div class="panel-heading">
+                            <span class="title">Danh mục</span>&nbsp;
+                            <small>(<a id="MainContent_ctlList_ctlFilters_ctlCategory_lnkAll" href="/sitemap">Hiển thị toàn bộ</a>)</small>
+                        </div>
+                        <div class="list-group">
+                            <div class="row list-group-item active">
+                            	<a >@ViewBag.LandTypeName </a>
+                                <p class="badge cussp">
+                                    <a ><img src="/images/x.png" class="pull-right" alt=""> </a>
+                                </p>
+                            </div>
+                            @if (landCategory.Count() != 0)
+                            {
+                                foreach (var item in landCategory)
+                                {
+                                    var url = "/nha-dat/" + ViewBag.LandTypeAlias + "/" + item.Alias + ".lc-" + item.ID + ".html";
+                                    <div class="row list-group-item p-l-10">
+                                        <a href="@url"> - @item.Name </a>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </div>
+
                     <div class="panel panel-filter">
                         <div class="panel-heading">
                             Giá (VND)
@@ -268,26 +296,8 @@
                             </div>
                         </div>
                         <div class="_mbndUlListViewRight row-pull">
-                            <a rel="next" target="_blank" href="http://www.muabannhadat.vn/nha-dat-3490" title="cho thue nha dat">
-                                <h2 class="mbnd_feature_title_home">
-                                    <span title="Tin mới nhất">DANH MỤC NHÀ ĐẤT</span>
-                                </h2>
-                            </a>
-                            <ul>
-                                @if (categoryWard.Count() != 0)
-                                {
-                                    foreach (var item in categoryWard)
-                                    {
-                                        var url = "/nha-dat/" + HttpUtility.HtmlDecode(item.Name) + ".w-" + item.ID + ".html";
-                                        <li>
-                                            <a rel="next" target="_blank" href="@url">
-                                                @item.Name (@item.TotalLandNews)
-                                            </a>
-                                            <hr class="mbnd_hr_m_w">
-                                        </li>
-                                    }
-                                }
-                            </ul>
+                            <!--Category-->
+                            @{Html.RenderAction("CategoryDistrict", "Home2"); }
                         </div>
                     </div>
                 </div>

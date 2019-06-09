@@ -165,14 +165,14 @@ var Columns = [
             headerAttributes: { style: "text-align: center" },
         },
         {
-            template: '#=data.ID#',
-            field: "ID",
-            title: "ID",
-        },
-        {
             template: '#=data.Name#',
             field: "Name",
             title: "Thể loại",
+        },
+        {
+            template: '#:getUrl(data.ID,data.Alias)#',
+            field: "Name",
+            title: "Đường dẫn",
         },
         {
             template: '#=data.DisplayOrder#',
@@ -183,6 +183,10 @@ var Columns = [
 ];
 LoadGrid = function () {
     InitKendoGrid(_idgrid, Columns, new DataSource().MasterDatasource("" + _Host + "api/postcategory/getalltable"), null, false, '')
+}
+function getUrl(id,alias) {
+    if (id == null) return "";
+    else return kendo.toString("/tin-tuc/"+alias+".pc-"+id+".html");
 }
 function templateForAction(e) {
     var html = '';
@@ -199,6 +203,9 @@ function templateForAction(e) {
         html += '<ul class="dropdown-menu dropdown-white dropdown-menu-right">';
         html += '<li>';
         html += '<a href="javascript:new ForumCatg(' + e.ID + ').Edit()">Chỉnh sửa</a>';
+        html += '</li>';
+        html += '<li>';
+        html += '<a href="javascript:new ForumCatg(' + e.ID + ').View(\'' + e.Alias + '\')">Xem trước</a>';
         html += '</li>';
         html += '<li>';
         html += '<a href="javascript:new ForumCatg(' + e.ID + ').Delete(\'' + e.Name + '\')">Xóa</a>';
@@ -218,6 +225,10 @@ function templateForAction(e) {
     return html;
 }
 ForumCatg = function (id) {
+    this.View = function (alias) {
+        var url = _Host + "tin-tuc/" + alias + ".pc-" + id + ".html";
+        window.open(url, '_blank');
+    }
     this.Edit = function () {
         TypeActionAdd = false;
         $("#PostCategoryModel").modal({

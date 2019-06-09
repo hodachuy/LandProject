@@ -278,6 +278,7 @@
     <Compile Include="Areas\Admin\Controllers\LProjectController.cs" />
     <Compile Include="Areas\Admin\Controllers\MenuController.cs" />
     <Compile Include="Areas\Admin\Controllers\PostController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SlideController.cs" />
     <Compile Include="Areas\Admin\Controllers\VisitorController.cs" />
     <Compile Include="Areas\Admin\Infrastructure\Core\BaseController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -322,6 +323,7 @@
     <Compile Include="Models\MenuViewModel.cs" />
     <Compile Include="Models\NotifyViewModel.cs" />
     <Compile Include="Models\PostCategoryViewModel.cs" />
+    <Compile Include="Models\PostCommonViewModel.cs" />
     <Compile Include="Models\PostViewModel.cs" />
     <Compile Include="Models\ProvinceViewModel.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
@@ -343,6 +345,7 @@
     <Content Include="assets\admin\js\MenuParent.js" />
     <Content Include="assets\admin\js\Post.js" />
     <Content Include="assets\admin\js\PostCategory.js" />
+    <Content Include="assets\admin\js\Slide.js" />
     <Content Include="assets\admin\js\VisitorStatistic.js" />
     <Content Include="assets\build\css\custom.css" />
     <Content Include="assets\build\css\custom.min.css" />
@@ -2137,6 +2140,7 @@
     <Content Include="assets\client_v2\css\ddk-detail.min.css" />
     <Content Include="Areas\Admin\Views\ApplicationUser\Account.cshtml" />
     <Content Include="Areas\Admin\Views\ApplicationUser\AccountLandNews.cshtml" />
+    <Content Include="Areas\Admin\Views\Slide\Index.cshtml" />
     <None Include="Properties\PublishProfiles\LAND.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -2200,6 +2204,9 @@
     <Content Include="Views\Post\Detail.cshtml" />
     <Content Include="Views\LandNews2\SearchLandNews.cshtml" />
     <Content Include="Views\Member\ManagerAccount.cshtml" />
+    <Content Include="Views\Shared\CategoryDistrict.cshtml" />
+    <Content Include="Views\LandNews2\LandNewsAllRent.cshtml" />
+    <Content Include="Views\Post\PostCategory.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="API Client\" />

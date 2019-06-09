@@ -1,6 +1,6 @@
 ﻿@model LandProject.Web.Infrastructure.Core.PaginationSet<LandProject.Web.Models.LandNewsViewModel>
 @{
-    ViewBag.Title = "Manager";
+    ViewBag.Title = "Quản lý tin thành viên";
     Layout = "~/Views/Shared/_LayoutLand_v2.cshtml";
 }
 
@@ -36,7 +36,7 @@
                                 <address class="col-md-6 col-xs-12">
                                     <br>
                                     @item.ProvinceName / @item.DistrictName / @item.WardName<br>
-                                    Ngày cập nhật: @item.CreatedDate.ToString()<br>
+                                    Ngày cập nhật: @item.CreatedDate.Value.ToString("dd/MM/yyyy")<br>
 
                                 </address>
                                 <div class="col-md-6 col-xs-12">Diện tích : @item.Area m²&nbsp;</div>

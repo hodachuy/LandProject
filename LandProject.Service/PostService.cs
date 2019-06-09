@@ -23,7 +23,9 @@ namespace LandProject.Service
 
         IEnumerable<Post> GetAllByCategoryPaging(int categoryId, int page, int pageSize, out int totalRow);
 
-        Post GetById(int id);
+		IEnumerable<Post> GetAllByCategory(int categoryId);
+
+		Post GetById(int id);
 
         IEnumerable<Post> GetAllByTagPaging(string tag, int page, int pageSize, out int totalRow);
 
@@ -56,9 +58,14 @@ namespace LandProject.Service
             return _postRepository.GetAll(new string[] { "PostCategory" });
         }
 
-        public IEnumerable<Post> GetAllByCategoryPaging(int categoryId, int page, int pageSize, out int totalRow)
+		public IEnumerable<Post> GetAllByCategory(int categoryId)
+		{
+			return _postRepository.GetMulti(x=>x.PostCategoryID == categoryId, new string[] { "PostCategory" });
+		}
+
+		public IEnumerable<Post> GetAllByCategoryPaging(int categoryId, int page, int pageSize, out int totalRow)
         {
-            return _postRepository.GetMultiPaging(x => x.Status && x.PostCategoryID == categoryId, out totalRow, page, pageSize, new string[] { "PostCategory" });
+            return _postRepository.GetMultiPaging(x =>x.PostCategoryID == categoryId, out totalRow, page, pageSize, new string[] { "PostCategory" });
         }
 
         public IEnumerable<Post> GetAllByCondition(string condition)
@@ -80,7 +87,7 @@ namespace LandProject.Service
 
         public Post GetById(int id)
         {
-            return _postRepository.GetSingleById(id);
+            return _postRepository.GetSingleByCondition(x=>x.ID == id, new string[] { "PostCategory" });
         }
 
         public void SaveChanges()

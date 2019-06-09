@@ -18,24 +18,32 @@ namespace LandProject.Web.Controllers
         IMenuService _menuService;
         IAddressCommonService _addressCommonService;
         ILandNewsService _landNewsService;
+		ICommonService _commonService;
 
         public Home2Controller(IMenuGroupService menugroupService,
         IMenuService menuService,
         IAddressCommonService addressCommonService,
-        ILandNewsService landNewsService)
+		ICommonService commonService,
+		ILandNewsService landNewsService)
         {
             _menugroupService = menugroupService;
             _menuService = menuService;
             _addressCommonService = addressCommonService;
             _landNewsService = landNewsService;
-        }
+			_commonService = commonService;
+
+		}
         // GET: Home2
         public ActionResult Index()
         {
             var homeViewModel = new HomeViewModel();
             var categoryWard = _addressCommonService.GetTotalLandNewsOfWards(571).ToList();
 
-            int pageSizeHot = int.Parse(ConfigHelper.GetByKey("PageSizeHot"));
+			var slide = _commonService.GetSlide().ToList();
+			ViewBag.Slide = slide;
+
+
+			int pageSizeHot = int.Parse(ConfigHelper.GetByKey("PageSizeHot"));
 			int pageSizeSale = int.Parse(ConfigHelper.GetByKey("PageSizeSale"));
 			int pageSizeRent = int.Parse(ConfigHelper.GetByKey("PageSizeRent"));
 			int keyLandHot = int.Parse(ConfigHelper.GetByKey("LandScheduleID"));
@@ -80,12 +88,18 @@ namespace LandProject.Web.Controllers
         [ChildActionOnly]
         public ActionResult Footer2()
         {
-            var categoryWard = _addressCommonService.GetTotalLandNewsOfWards(571).ToList();
-            ViewBag.CategoryFooter = categoryWard;
             return PartialView();
         }
 
-        public ApplicationUserViewModel UserInfo
+		[ChildActionOnly]
+		[OutputCache(Duration = 3600, Location = System.Web.UI.OutputCacheLocation.Client)]
+		public ActionResult CategoryDistrict()
+		{
+			var categoryWard = _addressCommonService.GetTotalLandNewsOfWards(571).ToList();
+			return PartialView(categoryWard);
+		}
+
+		public ApplicationUserViewModel UserInfo
         {
             get
             {

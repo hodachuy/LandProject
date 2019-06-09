@@ -14,28 +14,32 @@
                 <ul class="nav child_menu">
                     <li><a href="@Url.Action("Form","LandNews",new { typeExchange = 1 , lTypeName = "bán" })"> Tin nhà đất bán</a></li>
                     <li><a href="@Url.Action("Form","LandNews",new { typeExchange = 2 , lTypeName = "cho thuê" })"> Tin nhà đất cho thuê</a></li>
+                    <li><a href="#"> Tin đã xóa</a></li>
                 </ul>
             </li>
             <li>
                 <a><i class="fa fa-square"></i> Nhà đất <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
-                    <li><a href="@Url.Action("Index","LandType")"> Thể loại</a></li>
-                    <li><a href="@Url.Action("Index","LandCategory")"> Phân mục</a></li>
+                    <li><a href="@Url.Action("Index","LandType")"> Thể loại nhà đất</a></li>
+                    <li><a href="@Url.Action("Index","LandCategory")"> Phân mục nhà đất</a></li>
                 </ul>
             </li>
             <li>
                 <a><i class="fa fa-tasks"></i> Dự án <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
-                    <li><a href="@Url.Action("Index","LProjectCategory")"> Thể loại</a></li>
-                    <li><a href="@Url.Action("Index","LProject")"> Danh sách dự án</a></li>
+                    <li><a href="@Url.Action("Index","LProjectCategory")"> Danh mục dự án</a></li>
+                    <li><a href="@Url.Action("Index","LProject")"> Tạo dự án</a></li>
                 </ul>
             </li>
             <li>
                 <a><i class="fa fa-newspaper-o"></i> Tin tức <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
-                    <li><a href="@Url.Action("PostCategory","Post")">Thể loại tin tức</a></li>
-                    <li><a href="@Url.Action("Post","Post")">Danh sách tin tức</a></li>
+                    <li><a href="@Url.Action("PostCategory","Post")">Danh mục tin tức</a></li>
+                    <li><a href="@Url.Action("Post","Post")">Danh sách bản tin</a></li>
                 </ul>
+            </li>
+            <li>
+                <a href="@Url.Action("Index","Slide")"><i class="fa fa-newspaper-o"></i>Slide</a>
             </li>
             <li>
                 <a href="@Url.Action("Index","LandNewsSchedule")"><i class="fa fa-newspaper-o"></i> Loại phí tin</a>
@@ -50,9 +54,9 @@
             </li>
 
             <li>
-                <a><i class="fa fa-users"></i> Hệ thống <span class="fa fa-chevron-down"></span></a>
+                <a><i class="fa fa-users"></i> Người dùng <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
-                    <li><a href="@Url.Action("Account","ApplicationUser")">Người dùng</a></li>
+                    <li><a href="@Url.Action("Account","ApplicationUser")">Danh sách Người dùng</a></li>
                 </ul>
             </li>
 
@@ -62,10 +66,10 @@
         <h3><i class="fa fa-arrow-circle-right"></i> <a href="@Url.Action("Index","Visitor")" style="text-decoration:underline;cursor:pointer; color:white">Khách truy cập</a></h3>
         <ul class="nav side-menu">
             <li style="cursor:unset">
-                <a style="cursor:unset"><i class="fa fa-user"></i> Hôm nay : @totalVisitor.TotalInDay </a>
+                <a href="@Url.Action("Index","Visitor")" style="cursor:unset"><i class="fa fa-user"></i> Hôm nay : @totalVisitor.TotalInDay </a>
             </li>
             <li style="cursor:unset">
-                <a style="cursor:unset"><i class="fa fa-user"></i> Tất cả : @totalVisitor.TotalAllDay </a>
+                <a href="@Url.Action("Index","Visitor")" style="cursor:unset"><i class="fa fa-user"></i> Tất cả : @totalVisitor.TotalAllDay </a>
             </li>
         </ul>
     </div>

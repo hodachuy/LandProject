@@ -191,25 +191,34 @@ namespace LandProject.Web.Areas.Admin.Controllers
         [HttpPost]
         public JsonResult UpdateUserInfo(ApplicationUserViewModel userVm)
         {
-            var userCheckEmail = _userManager.FindByEmail(userVm.Email);
+			var userDb = _userManager.FindById(userVm.Id);
+
+			var userCheckEmail = _userManager.FindByEmail(userVm.Email);
             if(userCheckEmail != null)
             {
-                return Json(new
-                {
-                    message = "Email này đã được đăng ký từ tài khoản khác",
-                    status = false
-                });
+				if(userDb.Email != userVm.Email) {
+					return Json(new
+					{
+						message = "Email này đã được đăng ký từ tài khoản khác",
+						status = false
+					});
+				}
+
             }
             var userCheckUserName = _userManager.FindByName(userVm.UserName);
-            if (userCheckEmail != null)
+            if (userCheckUserName != null)
             {
-                return Json(new
-                {
-                    message = "Tên tài khoản đã được đăng ký từ tài khoản khác",
-                    status = false
-                });
+				if(userDb.UserName != userVm.UserName)
+				{
+					return Json(new
+					{
+						message = "Tên tài khoản đã được đăng ký từ tài khoản khác",
+						status = false
+					});
+				}
+
             }
-            var userDb = _userManager.FindById(userVm.Id);
+
             userDb.FullName = userVm.FullName;
             userDb.UserName = userVm.UserName;
             userDb.PhoneNumber = userVm.PhoneNumber;
@@ -235,7 +244,8 @@ namespace LandProject.Web.Areas.Admin.Controllers
             var checkUser = _userManager.Find(userDb.UserName, passwordCurrent);
             if(checkUser != null)
             {
-                _userManager.ChangePassword(checkUser.Id, passwordCurrent, passwordNew);
+				_userManager.RemovePassword(userId);
+				_userManager.AddPassword(userId, passwordNew);
             }else
             {
                 return Json(new

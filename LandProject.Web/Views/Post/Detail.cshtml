@@ -1,8 +1,93 @@
-﻿
+﻿@model LandProject.Web.Models.PostViewModel
 @{
-    ViewBag.Title = "Detail";
+    ViewBag.Title = Model.Name;
     Layout = "~/Views/Shared/_LayoutLand_v2.cshtml";
+    var landType = (IEnumerable<LandProject.Model.Models.LandType>)ViewBag.LandType;
+    var urlPost = "/tin-tuc.html";
+    var urlPostCategory = "/tin-tuc/"+Model.Alias+".pc-"+Model.ID+".html";
 }
+<link href="~/assets/client_v2/css/blog.css" rel="stylesheet" />
+<div class="jumbotron head">
+    <div class="container head">
+        <div class="row">
+            <div class="col-lg-10 col-md-8 hidden-md hidden-sm hidden-xs">
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="/" itemprop="url">
+                            <p class="cusp" itemprop="title">Trang chủ</p> >
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="@urlPost">
+                            <p itemprop="cusp">Tin tức</p> >
+                        </a>
 
-<h2>Detail</h2>
+                    </li>
+                    <li class="active">
+                        <a href="@urlPostCategory">
+                            <p itemprop="cusp">@Model.PostCategory.Name</p> >
+                        </a>
+                    </li>
+                    <li class="active">
+                        <p itemprop="title">@Model.Name</p>
+                    </li>
+                </ol>
+            </div>
+            <div class="col-lg-2 col-md-12 col-xs-12">
+                <a id="lnkCreateAd" class="pull-right btn mbnd-btn-red" href="/dang-tin-mua-ban-nha-dat.html">
+                    <img src="~/assets/client_v2/img/ic-pencil.svg" /> Đăng tin miễn phí
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="mbndBlogContent container">
+    <div class="col-lg-9 col-md-9 mbndBlogContentLeft">
+        <div class="row-pull _mbndDetailPage">
+            <h1 class="_Title">
+                @Model.Name
+            </h1>
+            <span class="_dateTime">
+                @Model.CreatedDate.Value.ToString("dd/MM/yyyy")
+            </span>
+            <div class="_DesSummary">
+                @Model.Description
+
+            </div>
+            @*<div class="__Image">
+                <img alt="@Model.Name" class="img-thumbnail" src="~/fileman/Uploads/Post/@Model.Image">
+            </div>*@
+            <div class="__DesFull">
+                <div class="mbnd_detail_descripton">
+                  @Html.Raw(Model.Content)
+                </div>             
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 mbndBlogContentRight">
+        <div class="_mbndUlListViewRight row-pull">
+            <a rel="next" target="_blank" href="http://www.muabannhadat.vn/nha-dat-3490" title="nha dat ban">
+                <h3 class="_mbndCateTitle">
+                    NHÀ ĐẤT
+                </h3>
+            </a>
+            <ul>
+                @if (landType.Count() != 0)
+                {
+                    foreach (var item in landType)
+                    {
+                        var url = "/nha-dat/" + item.Alias + ".lt-" + item.ID + ".html";
+                        <li>
+                            <a rel="next" target="_blank" href="@url" title="@item.Name">
+                                @item.Name
+                            </a>
+                            <hr class="mbnd_hr_m_w">
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+     
+    </div>
+</div>
 

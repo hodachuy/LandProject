@@ -113,7 +113,12 @@ namespace LandProject.Web
 			defaults: new { controller = "Post", action = "Detail", id = UrlParameter.Optional },
 			  namespaces: new string[] { "LandProject.Web.Controllers" }
 		);
-
+			routes.MapRoute(
+			name: "PostCategory",
+			url: "tin-tuc/{alias}.pc-{id}.html",
+			defaults: new { controller = "Post", action = "PostCategory", id = UrlParameter.Optional },
+			  namespaces: new string[] { "LandProject.Web.Controllers" }
+		);
 			routes.MapRoute(
                 name: "NeedSaleAndForRent",
                 url: "dang-tin-mua-ban-nha-dat.html",
@@ -178,6 +183,13 @@ namespace LandProject.Web
 			routes.MapRoute(
 				name: "LandNewsByLandCategory",
 				url: "nha-dat/{alias}.lc-{id}.html",
+				defaults: new { controller = "LandNews2", action = "LandNewsByLandCategory", id = UrlParameter.Optional },
+				  namespaces: new string[] { "LandProject.Web.Controllers" }
+			);
+			//routes LandNewsByLandCategory2
+			routes.MapRoute(
+				name: "LandNewsByLandCategory2",
+				url: "nha-dat/{landtype}/{alias}.lc-{id}.html",
 				defaults: new { controller = "LandNews2", action = "LandNewsByLandCategory", id = UrlParameter.Optional },
 				  namespaces: new string[] { "LandProject.Web.Controllers" }
 			);

@@ -66,8 +66,8 @@ namespace LandProject.Web.Controllers
 		//lay tat ca TypeExchange = 1 ben ban'
 		public ActionResult LandNewsAllSale(int page = 1, string sort = "")//landTypeID
 		{
-			var categoryWard = _addressCommonService.GetTotalLandNewsOfWards(571).ToList();
-			ViewBag.CategoryWard = categoryWard;
+			var landType = _landTypeService.GetAll().ToList();
+			ViewBag.LandType = landType;
 
 			string filter = "lt.TypeExchange = 1" + " and ln.IsDelete = 0 and ln.IsPublished = 1";
 			int pageSize = int.Parse(ConfigHelper.GetByKey("PageSize"));
@@ -95,10 +95,10 @@ namespace LandProject.Web.Controllers
         //lay tat ca TypeExchange = 1 ben ban'
         public ActionResult LandNewsAllRent(int page = 1, string sort = "")//landTypeID
         {
-            var categoryWard = _addressCommonService.GetTotalLandNewsOfWards(571).ToList();
-            ViewBag.CategoryWard = categoryWard;
+			var landType = _landTypeService.GetAll().ToList();
+			ViewBag.LandType = landType;
 
-            string filter = "lt.TypeExchange = 2" + " and ln.IsDelete = 0 and ln.IsPublished = 1";
+			string filter = "lt.TypeExchange = 2" + " and ln.IsDelete = 0 and ln.IsPublished = 1";
             int pageSize = int.Parse(ConfigHelper.GetByKey("PageSize"));
             int totalRow = 0;
             var lstLandNews = _landNewsService.GetAllByFilter(filter, "PublishedDate desc", page, pageSize).ToList();
@@ -127,9 +127,11 @@ namespace LandProject.Web.Controllers
 		{
 			var landTypeDetail = _landTypeService.GetByID(id);
 			ViewBag.LandTypeName = landTypeDetail.Name;
+			ViewBag.LandTypeAlias = landTypeDetail.Alias;
 
-			var categoryWard = _addressCommonService.GetTotalLandNewsOfWards(571).ToList();
-			ViewBag.CategoryWard = categoryWard;
+			var landCategory = _landCategoryService.GetByLandTypeID(id).ToList();
+			ViewBag.LandCategory = landCategory;
+
 			string filter = "ln.LandTypeID = " + id + " and ln.IsDelete = 0 and ln.IsPublished = 1";
 			int pageSize = int.Parse(ConfigHelper.GetByKey("PageSize"));
 			int totalRow = 0;
@@ -156,9 +158,10 @@ namespace LandProject.Web.Controllers
 		{
 			var landCategoryDetail = _landCategoryService.GetByID(id);
 			ViewBag.LandTypeName = landCategoryDetail.LandType.Name;
+			ViewBag.LandTypeAlias = landCategoryDetail.LandType.Alias;
+			ViewBag.LandTypeID = landCategoryDetail.LandType.ID;
 			ViewBag.LandCategoryName = landCategoryDetail.Name;
-			var categoryWard = _addressCommonService.GetTotalLandNewsOfWards(571).ToList();
-			ViewBag.CategoryWard = categoryWard;
+
 			string filter = "ln.LandCategoryID = " + id + " and ln.IsDelete = 0 and ln.IsPublished = 1";
 			int pageSize = int.Parse(ConfigHelper.GetByKey("PageSize"));
 			int totalRow = 0;
@@ -185,8 +188,6 @@ namespace LandProject.Web.Controllers
 		{
 			var wardDetail = _addressCommonService.GetDetailWardByID(id);
 			ViewBag.WardName = wardDetail.Name;
-			var categoryWard = _addressCommonService.GetTotalLandNewsOfWards(571).ToList();
-			ViewBag.CategoryWard = categoryWard;
 			string filter = "ln.WardID = " + id + " and ln.IsDelete = 0 and ln.IsPublished = 1";
 			int pageSize = int.Parse(ConfigHelper.GetByKey("PageSize"));
 			int totalRow = 0;
@@ -210,11 +211,10 @@ namespace LandProject.Web.Controllers
 			return View(paginationSet);
 		}
 		public ActionResult LandNewsByDistrict(int id, int page = 1, string sort = "")//districtID
-		{
+		{ 
 			var districtDetail = _addressCommonService.GetDetailDistrictByID(id);
 			ViewBag.DistrictName = districtDetail.Name;
-			var categoryWard = _addressCommonService.GetTotalLandNewsOfWards(571).ToList();
-			ViewBag.CategoryWard = categoryWard;
+
 			string filter = "ln.DistrictID = " + id + " and ln.IsDelete = 0 and ln.IsPublished = 1";
 			int pageSize = int.Parse(ConfigHelper.GetByKey("PageSize"));
 			int totalRow = 0;
@@ -241,8 +241,7 @@ namespace LandProject.Web.Controllers
 		{
 			var provinceDetail = _addressCommonService.GetDetailProvinceByID(id);
 			ViewBag.ProvinceName = provinceDetail.Name;
-			var categoryWard = _addressCommonService.GetTotalLandNewsOfWards(571).ToList();
-			ViewBag.CategoryWard = categoryWard;
+
 			string filter = "ln.ProvinceID = " + id + " and ln.IsDelete = 0 and ln.IsPublished = 1";
 			int pageSize = int.Parse(ConfigHelper.GetByKey("PageSize"));
 			int totalRow = 0;
@@ -285,9 +284,6 @@ namespace LandProject.Web.Controllers
                 decimal priceVal = decimal.Parse(price);
                 filter += " and ln.DecimalTotalPrice > " + priceVal;
             }
-
-            var categoryWard = _addressCommonService.GetTotalLandNewsOfWards(571).ToList();
-            ViewBag.CategoryWard = categoryWard;
 
             int pageSize = int.Parse(ConfigHelper.GetByKey("PageSize"));
             int totalRow = 0;

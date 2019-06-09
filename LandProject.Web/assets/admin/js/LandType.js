@@ -174,11 +174,6 @@ var Columns = [
             headerAttributes: { style: "text-align: center" },
         },
         {
-            template: '#=data.ID#',
-            field: "ID",
-            title: "ID",
-        },
-        {
             template: '#=data.Name#',
             field: "Name",
             title: "Thể loại",
@@ -189,6 +184,11 @@ var Columns = [
             field: "Description",
             title: "Mô tả",
             filterable: false,
+        },
+        {
+            template: '#:getUrl(data.ID,data.Alias)#',
+            field: "Name",
+            title: "Đường dẫn",
         },
         {
             template: '#if(data.TypeExchange == 1){#Bán#} else if(data.TypeExchange == 2){#Cho thuê#}#',
@@ -207,6 +207,10 @@ var Columns = [
 LoadGrid = function () {
     InitKendoGrid(_idgrid, Columns, new DataSource().MasterDatasource("" + _Host + "api/landtype/getalltable"), null, false, '')
 }
+function getUrl(id, alias) {
+    if (id == null) return "";
+    else return kendo.toString("/nha-dat/" + alias + ".lt-" + id + ".html");
+}
 function templateForAction(e) {
     var html = '';
     var permission = {
@@ -222,6 +226,9 @@ function templateForAction(e) {
         html += '<ul class="dropdown-menu dropdown-white dropdown-menu-right">';
         html += '<li>';
         html += '<a href="javascript:new ForumCatg(' + e.ID + ').Edit()">Chỉnh sửa</a>';
+        html += '</li>';
+        html += '<li>';
+        html += '<a href="javascript:new ForumCatg(' + e.ID + ').View(\'' + e.Alias + '\')">Xem trước</a>';
         html += '</li>';
         html += '<li>';
         html += '<a href="javascript:new ForumCatg(' + e.ID + ').Delete(\'' + e.Name + '\')">Xóa</a>';
@@ -241,6 +248,10 @@ function templateForAction(e) {
     return html;
 }
 ForumCatg = function (id) {
+    this.View = function (alias) {
+        var url = _Host + "nha-dat/" + alias + ".lt-" + id + ".html";
+        window.open(url, '_blank');
+    }
     this.Edit = function () {
         TypeActionAdd = false;
         $("#LandTypeModel").modal({

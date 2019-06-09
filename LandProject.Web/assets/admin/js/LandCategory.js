@@ -175,15 +175,15 @@ var Columns = [
             attributes: { style: "text-align: center; overflow : visible; cursor: pointer", },
             headerAttributes: { style: "text-align: center" },
         },
-                {
-            template: '#=data.ID#',
-            field: "ID",
-            title: "ID",
-        },
         {
             template: '#=data.Name#',
             field: "Name",
             title: "Phân mục",
+        },
+        {
+            template: '#:getUrl(data.ID,data.Alias,data.LandType.Alias)#',
+            field: "Name",
+            title: "Đường dẫn",
         },
         {
             template: '#if(data.Description != null){##=data.Description##}#',
@@ -204,6 +204,10 @@ var Columns = [
 LoadGrid = function () {
     InitKendoGrid(_idgrid, Columns, new DataSource().MasterDatasource("" + _Host + "api/landcategory/getalltable"), null, false, '')
 }
+function getUrl(id, alias,landTypeName) {
+    if (id == null) return "";
+    else return kendo.toString("/nha-dat/" + landTypeName + "/" + alias + ".lc-" + id + ".html");
+}
 function templateForAction(e) {
     var html = '';
     var permission = {
@@ -222,6 +226,9 @@ function templateForAction(e) {
             html += '<a href="javascript:new ForumCatg(' + e.ID + ').Edit()">Chỉnh sửa</a>';
             html += '</li>';
         }
+        html += '<li>';
+        html += '<a href="javascript:new ForumCatg(' + e.ID + ').View(\'' + e.Alias + '\',\'' + e.LandType.Alias + '\')">Xem trước</a>';
+        html += '</li>';
         if (permission.IsDelete && e.IsDelete == "1") {
             html += '<li>';
             html += '<a href="javascript:new ForumCatg(' + e.ID + ').Delete(\'' + e.Name + '\')">Xóa</a>';
@@ -232,6 +239,10 @@ function templateForAction(e) {
     return html;
 }
 ForumCatg = function (id) {
+    this.View = function (alias,landTypeName) {
+        var url = _Host + "nha-dat/" + landTypeName + "/" + alias + ".lc-" + id + ".html";
+        window.open(url, '_blank');
+    }
     this.Edit = function () {
         TypeActionAdd = false;
         $("#LandCategoryModel").modal({

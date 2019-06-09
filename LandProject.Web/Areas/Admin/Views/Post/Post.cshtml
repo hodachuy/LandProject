@@ -3,6 +3,7 @@
     ViewBag.Title = "Post";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
+
 <style>
       @@media (min-width: 768px) {
         .modal-dialog.as-container {
@@ -30,12 +31,16 @@
         float: right;
         cursor: pointer;
     }
-
+        .thumbnail .image {
+    height: auto;
+    overflow: hidden;
+}
 </style>
+
 <div class="">
     <div class="page-title">
         <div class="title_left">
-            <h3>Danh sách tin tức</h3>
+            <h3>Tạo tin tức</h3>
         </div>
         <div class="title_right">
             <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
@@ -109,7 +114,7 @@
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
-                                <textarea id="txtDescription" style="width:100%;height:200px"></textarea>
+                                <textarea id="txtDescription" style="width:100%;height:100px"></textarea>
                             </div>
                         </div>
                     </div>

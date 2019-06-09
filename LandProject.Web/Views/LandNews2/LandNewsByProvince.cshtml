@@ -2,7 +2,6 @@
 @{
     var pageIndex = Model.Page;
     ViewBag.Title = pageIndex == 1 ? ViewBag.ProvinceName : ViewBag.ProvinceName + " - Trang " + pageIndex;
-    var categoryWard = (IEnumerable<LandProject.Common.CountLandNewsDistrictViewModel>)ViewBag.CategoryWard;
     Layout = "~/Views/Shared/_LayoutLand_v2.cshtml";
 }
 <div class="jumbotron head">
@@ -269,26 +268,8 @@
                         </div>
                     </div>
                     <div class="_mbndUlListViewRight row-pull">
-                        <a rel="next" target="_blank" href="http://www.muabannhadat.vn/nha-dat-3490" title="cho thue nha dat">
-                            <h2 class="mbnd_feature_title_home">
-                                <span title="Tin mới nhất">DANH MỤC NHÀ ĐẤT</span>
-                            </h2>
-                        </a>
-                        <ul>
-                            @if (categoryWard.Count() != 0)
-                            {
-                                foreach (var item in categoryWard)
-                                {
-                                    var url = "/nha-dat/" + HttpUtility.HtmlDecode(item.Name) + ".w-" + item.ID + ".html";
-                                    <li>
-                                        <a rel="next" target="_blank" href="@url">
-                                            @item.Name (@item.TotalLandNews)
-                                        </a>
-                                        <hr class="mbnd_hr_m_w">
-                                    </li>
-                                }
-                            }
-                        </ul>
+                        <!--Category-->
+                        @{Html.RenderAction("CategoryDistrict", "Home2"); }
                     </div>
                 </div>
             </div>

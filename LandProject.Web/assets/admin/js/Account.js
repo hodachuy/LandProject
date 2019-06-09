@@ -111,6 +111,12 @@ var Columns = [
             title: "Tài khoản",
             filterable: false,
         },
+                {
+            template: '#=data.TotalLands#',
+            field: "TotalLands",
+            title: "Số bài tin đăng",
+            filterable: false,
+        },
         {
             template: '#if(data.StrGroup != null){##=data.StrGroup##}else{#User#}#',
             field: "StrGroup",
@@ -139,12 +145,6 @@ var Columns = [
             template: '#if(data.PhoneNumber != null){##=data.PhoneNumber##}#',
             field: "PhoneNumber",
             title: "Số điện thoại",
-            filterable: false,
-        },
-        {
-            template: '#=data.TotalLands#',
-            field: "TotalLands",
-            title: "Số bài tin đăng",
             filterable: false,
         },
         {

@@ -14,6 +14,7 @@ using System.Web;
 using System.Web.Script.Serialization;
 using System.IO;
 using LandProject.Web.Infrastructure.Extensions;
+using Newtonsoft.Json.Linq;
 
 namespace LandProject.Web.API
 {
@@ -131,52 +132,28 @@ namespace LandProject.Web.API
                     return response;
                 }
 
-
-                var files = System.Web.HttpContext.Current.Request.Files;
-                List<LandFile> lstLProjectFile = new List<LandFile>();
-                if (files.Count != 0)
-                {
-                    for (int i = 0; i < files.Count; i++)
-                    {
-                        var file = files[i];
-                        Guid id = Guid.NewGuid();
-                        string extentsion = new FileInfo(file.FileName).Extension.ToLower();
-                        string fileName = id + "-" + new FileInfo(file.FileName).Name;
-                        file.SaveAs(Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/fileman/Uploads/")
-                        + CommonConstants.FolderPost + "/" + fileName));
-
-                        var fileImage = new LandFile()
-                        {
-                            FileName = fileName,
-                            Extension = extentsion,
-                            PostID = 0,
-                        };
-                        lstLProjectFile.Add(fileImage);
-                    }
-                }
-
                 // save lProjectDb
                 Post postDb = new Post();
                 postDb.UpdatePost(postVm);
                 postDb.CreatedDate = DateTime.Now;
-                if (lstLProjectFile.Count() != 0)
-                {
-                    postDb.Image = lstLProjectFile[0].FileName;
-                }
 
-                _postService.Add(postDb);
+				var files = System.Web.HttpContext.Current.Request.Files;
+				if (files.Count != 0)
+				{
+					var file = files[0];
+					Guid id = Guid.NewGuid();
+					string extentsion = new FileInfo(file.FileName).Extension.ToLower();
+					string fileName = id + "-" + new FileInfo(file.FileName).Name;
+					file.SaveAs(Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/fileman/Uploads/")
+					+ CommonConstants.FolderPost + "/" + fileName));
+					postDb.Image = fileName;
+				}
+
+
+				_postService.Add(postDb);
                 _postService.SaveChanges();
 
 
-                if (lstLProjectFile.Count() != 0)
-                {
-                    foreach (var item in lstLProjectFile)
-                    {
-                        item.PostID = postDb.ID;
-                        _landFileService.Add(item);
-                    }
-                    _landFileService.Save();
-                }
                 response = request.CreateResponse(HttpStatusCode.OK, new
                 {
                     status = true
@@ -207,47 +184,26 @@ namespace LandProject.Web.API
                     response = request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
                     return response;
                 }
-                var files = System.Web.HttpContext.Current.Request.Files;
-                List<LandFile> lstLProjectFile = new List<LandFile>();
-                if (files.Count != 0)
-                {
-                    for (int i = 0; i < files.Count; i++)
-                    {
-                        var file = files[i];
-                        Guid id = Guid.NewGuid();
-                        string extentsion = new FileInfo(file.FileName).Extension.ToLower();
-                        string fileName = id + "-" + new FileInfo(file.FileName).Name;
-                        file.SaveAs(Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/fileman/Uploads/")
-                        + CommonConstants.FolderPost + "/" + fileName));
 
-                        var fileImage = new LandFile()
-                        {
-                            FileName = fileName,
-                            Extension = extentsion,
-                            PostID = postVm.ID,
-                        };
-                        _landFileService.Add(fileImage);
-                    }
-                    _landFileService.Save();
-                }
 
                 // save lProjectDb
                 Post postDb = new Post();
                 postDb.UpdatePost(postVm);
                 postDb.UpdatedDate = DateTime.Now;
 
-                var lstFile = _landFileService.GetByPostID(postDb.ID).ToList();
+				var files = System.Web.HttpContext.Current.Request.Files;
+				if (files.Count != 0)
+				{
+					var file = files[0];
+					Guid id = Guid.NewGuid();
+					string extentsion = new FileInfo(file.FileName).Extension.ToLower();
+					string fileName = id + "-" + new FileInfo(file.FileName).Name;
+					file.SaveAs(Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/fileman/Uploads/")
+					+ CommonConstants.FolderPost + "/" + fileName));
+					postDb.Image = fileName;
+				}
 
-                if (lstFile.Count() == 0)
-                {
-                    postDb.Image = "";
-                }
-                else
-                {
-                    postDb.Image = lstFile[0].FileName;
-                }
-
-                _postService.Update(postDb);
+				_postService.Update(postDb);
                 _postService.SaveChanges();
 
                 response = request.CreateResponse(HttpStatusCode.OK, new
@@ -257,5 +213,131 @@ namespace LandProject.Web.API
                 return response;
             });
         }
-    }
+
+
+		[Route("publish")]
+		[HttpPost]
+		public HttpResponseMessage Publish(HttpRequestMessage request, JObject jsonData)
+		{
+			return CreateHttpResponse(request, () =>
+			{
+				HttpResponseMessage response;
+				dynamic json = jsonData;
+				int postID = json.postID;
+				if (postID == 0)
+				{
+					return request.CreateResponse(HttpStatusCode.NoContent);
+				}
+				var postDb = _postService.GetById(postID);
+				postDb.IsPublished = true;
+				postDb.UpdatedDate = DateTime.Now;
+				_postService.Update(postDb);
+				_postService.SaveChanges();
+
+				response = request.CreateResponse(HttpStatusCode.OK, true);
+				return response;
+			});
+		}
+
+		[Route("unpublish")]
+		[HttpPost]
+		public HttpResponseMessage UnPublish(HttpRequestMessage request, JObject jsonData)
+		{
+			return CreateHttpResponse(request, () =>
+			{
+				HttpResponseMessage response;
+				dynamic json = jsonData;
+				int postID = json.postID;
+				if (postID == 0)
+				{
+					return request.CreateResponse(HttpStatusCode.NoContent);
+				}
+				var postDb = _postService.GetById(postID);
+				postDb.IsPublished = false;
+				postDb.Status = false;
+
+				_postService.Update(postDb);
+				_postService.SaveChanges();
+
+				response = request.CreateResponse(HttpStatusCode.OK, true);
+				return response;
+			});
+		}
+
+		[Route("showtop")]
+		[HttpPost]
+		public HttpResponseMessage ShowTop(HttpRequestMessage request, JObject jsonData)
+		{
+			return CreateHttpResponse(request, () =>
+			{
+				HttpResponseMessage response;
+				dynamic json = jsonData;
+				int postID = json.postID;
+				if (postID == 0)
+				{
+					return request.CreateResponse(HttpStatusCode.NoContent);
+				}
+				var postDb = _postService.GetById(postID);
+				postDb.IsPublished = true;
+				postDb.Status = true;
+				postDb.UpdatedDate = DateTime.Now;
+
+				_postService.Update(postDb);
+				_postService.SaveChanges();
+
+				response = request.CreateResponse(HttpStatusCode.OK, true);
+				return response;
+			});
+		}
+
+		[Route("unshowtop")]
+		[HttpPost]
+		public HttpResponseMessage UnShowTop(HttpRequestMessage request, JObject jsonData)
+		{
+			return CreateHttpResponse(request, () =>
+			{
+				HttpResponseMessage response;
+				dynamic json = jsonData;
+				int postID = json.postID;
+				if (postID == 0)
+				{
+					return request.CreateResponse(HttpStatusCode.NoContent);
+				}
+				var postDb = _postService.GetById(postID);
+				postDb.IsPublished = true;
+				postDb.Status = false;
+
+				_postService.Update(postDb);
+				_postService.SaveChanges();
+
+				response = request.CreateResponse(HttpStatusCode.OK, true);
+				return response;
+			});
+		}
+
+		[Route("delete")]
+		[HttpPost]
+		public HttpResponseMessage Delete(HttpRequestMessage request, JObject jsonData)
+		{
+			return CreateHttpResponse(request, () =>
+			{
+				HttpResponseMessage response = null;
+				if (!ModelState.IsValid)
+				{
+					request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+				}
+				else
+				{
+					dynamic json = jsonData;
+					int postID = json.postID;
+
+					_postService.Delete(postID);
+					_postService.SaveChanges();
+
+					response = request.CreateResponse(HttpStatusCode.Created, true);
+				}
+				return response;
+			});
+		}
+	}
 }

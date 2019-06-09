@@ -1,0 +1,104 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .thumbnail .image {
+    height: auto;
+    overflow: hidden;
+}
+</style>
+<div class="">
+    <div class="page-title">
+        <div class="title_left">
+            <h3>Danh sách Slide</h3>
+        </div>
+        <div class="title_right">
+            <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                <div class="input-group" style="float:right">
+                    <a class="btn btn-primary" id="form-create-slide">
+                        Thêm
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="x_panel">
+        <div class="x_title">
+            <small>Trang chủ</small> / <small>Slide</small>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            <br />
+            <div id="grid"></div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="SlideModel" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Thêm slide</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 col-xs-12">
+                            <div class="x_content">
+                                <br />
+                                <form class="form-horizontal form-label-left input_mask">
+                                    <div class="form-group">
+                                        <label for="exampleFormControlTextarea1">Tiêu đề: <span class="required">*</span></label>
+                                        <input type="text" class="form-control" id="txtTitle" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Mô tả ngắn</label>
+                                        <input type="text" class="form-control" id="txtDescription" placeholder="Mô tả ngắn" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label >Đường dẫn liên kết</label>
+                                        <input type="text" class="form-control" id="txtURL" placeholder="/tin-tuc/tin-bat-dong-san.t-1.html" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label >Thứ tự hiển thị</label>
+                                        <input type="number" class="form-control" id="txtDisplayOrder" placeholder="1" />
+                                    </div>
+                                </form>
+                            </div>
+
+                    </div>
+                    <div class="col-md-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>HÌNH ẢNH ĐẠI DIỆN</h2>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <input type="file" id="multi-file" />
+                                <div class="row" id="lst-file-image">
+                                  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="saveSlide">Lưu</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="closeSlide">Đóng</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section footerJS{
+    <script src="~/assets/admin/js/Slide.js"></script>
+}
+
+
+
+

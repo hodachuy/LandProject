@@ -1,6 +1,6 @@
 ﻿@{
     var userInfo = (LandProject.Web.Models.ApplicationUserViewModel)ViewBag.User;
-    ViewBag.Title = "ManagerAccount";
+    ViewBag.Title = "Quản lý tài khoản thành viên";
     Layout = "~/Views/Shared/_LayoutLand_v2.cshtml";
 }
 
@@ -27,7 +27,7 @@
                     <div class="col-xs-12 col-sm-12">
                         <div class="form-group">
                             <label for="BodyContent_MainContent_ctlAccounttypeAddress_txtStreet" class="control-label">Tài khoản</label>
-                            <input type="text" id="FullName" disabled class="form-control valid" placeholder="Họ và tên" value="@userInfo.UserName">
+                            <input type="text" id="FullName" class="form-control valid" placeholder="Họ và tên" value="@userInfo.UserName" disabled>
                             <label for="BodyContent_MainContent_ctlAccounttypeAddress_txtStreet" class="help-block"></label>
                         </div>
                     </div>
