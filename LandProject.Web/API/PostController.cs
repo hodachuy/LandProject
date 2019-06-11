@@ -187,7 +187,7 @@ namespace LandProject.Web.API
 
 
                 // save lProjectDb
-                Post postDb = new Post();
+                var postDb = _postService.GetById(postVm.ID);
                 postDb.UpdatePost(postVm);
                 postDb.UpdatedDate = DateTime.Now;
 

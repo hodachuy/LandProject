@@ -37,7 +37,7 @@ namespace LandProject.Web.Controllers
         public ActionResult Index()
         {
             var homeViewModel = new HomeViewModel();
-            var categoryWard = _addressCommonService.GetTotalLandNewsOfWards(571).ToList();
+            var categoryWard = _addressCommonService.GetTotalLandNewsOfWards(571).ToList().OrderByDescending(x=>x.TotalLandNews);
 
 			var slide = _commonService.GetSlide().ToList();
 			ViewBag.Slide = slide;
@@ -95,7 +95,7 @@ namespace LandProject.Web.Controllers
 		[OutputCache(Duration = 3600, Location = System.Web.UI.OutputCacheLocation.Client)]
 		public ActionResult CategoryDistrict()
 		{
-			var categoryWard = _addressCommonService.GetTotalLandNewsOfWards(571).ToList();
+			var categoryWard = _addressCommonService.GetTotalLandNewsOfWards(571).ToList().OrderByDescending(x=>x.TotalLandNews);
 			return PartialView(categoryWard);
 		}
 
