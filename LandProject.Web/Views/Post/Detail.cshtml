@@ -1,10 +1,10 @@
-﻿@model LandProject.Web.Models.PostViewModel
+﻿﻿@model LandProject.Web.Models.PostViewModel
 @{
     ViewBag.Title = Model.Name;
     Layout = "~/Views/Shared/_LayoutLand_v2.cshtml";
     var landType = (IEnumerable<LandProject.Model.Models.LandType>)ViewBag.LandType;
     var urlPost = "/tin-tuc.html";
-    var urlPostCategory = "/tin-tuc/"+Model.Alias+".pc-"+Model.ID+".html";
+    var urlPostCategory = "/tin-tuc/" + Model.PostCategory.Alias + ".pc-" + Model.PostCategory.ID + ".html";
 }
 <link href="~/assets/client_v2/css/blog.css" rel="stylesheet" />
 <div class="jumbotron head">
@@ -55,12 +55,12 @@
 
             </div>
             @*<div class="__Image">
-                <img alt="@Model.Name" class="img-thumbnail" src="~/fileman/Uploads/Post/@Model.Image">
-            </div>*@
+                    <img alt="@Model.Name" class="img-thumbnail" src="~/fileman/Uploads/Post/@Model.Image">
+                </div>*@
             <div class="__DesFull">
                 <div class="mbnd_detail_descripton">
-                  @Html.Raw(Model.Content)
-                </div>             
+                    @Html.Raw(Model.Content)
+                </div>
             </div>
         </div>
     </div>
@@ -87,7 +87,7 @@
                 }
             </ul>
         </div>
-     
+
     </div>
 </div>
 

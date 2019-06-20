@@ -32,13 +32,17 @@ namespace LandProject.Web.Controllers
         }
 		public ActionResult ManagerAccount()
 		{
-			ViewBag.User = UserInfo;
-			return View();
+            if (Session[CommonConstants.SessionUser] == null)
+            {
+                return RedirectToAction("Index","Home2");
+            }
+            ViewBag.User = UserInfo;
+            return View();
 		}
 
 		public JsonResult UpdateAccount(ApplicationUserViewModel user)
 		{
-			ViewBag.User = UserInfo;
+            ViewBag.User = UserInfo;
 			var userDb = _userManager.FindByEmail(user.Email);
 			userDb.Address = user.Address;
 			userDb.PhoneNumber = user.PhoneNumber;
@@ -58,6 +62,11 @@ namespace LandProject.Web.Controllers
 
 		public ActionResult Manager()
         {
+            if (Session[CommonConstants.SessionUser] == null)
+            {
+                return RedirectToAction("Index", "Home2");
+            }
+
             string UserId = UserInfo.Id;
             int page = 1;
             int pageSize = 1000;

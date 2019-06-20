@@ -1,4 +1,4 @@
-﻿@using LandProject.Web.Models
+﻿﻿@using LandProject.Web.Models
 @model PostCategoryViewModel
 @{
     ViewBag.Title = Model.Name;
@@ -59,7 +59,7 @@
                             <span class="_date">
                                 <img class="hidden-sm hidden-xs" src="http://www.muabannhadat.vn/tin-tuc/wp-content/themes/blogmbnd/images/icon_date.png" alt="">
                                 <img class="hidden-lg hidden-md" src="http://www.muabannhadat.vn/tin-tuc/wp-content/themes/blogmbnd/images/clock_mobile.png" alt="">
-                                @item.UpdatedDate.Value.ToString("dd/MM/yyyy")
+                                @item.CreatedDate.Value.ToString("dd/MM/yyyy")
                             </span>
                             <span class="_des">
                                 @item.Description
@@ -68,16 +68,16 @@
                                 Xem chi tiết&nbsp;&nbsp;
                             </a>
                         </div>
-}
+                    }
                 }
 
 
             </div>
             @*<div class="row _CategoriesPagination">
-                <nav>
-                    <ul class="pagination"><li class="page-item"><a href="?page=1" class="page-link active">1</a></li><li class="page-item"><a href="?page=2" class="page-link">2</a></li><li class="page-item"><a href="?page=3" class="page-link">3</a></li><li class="page-item"><a href="?page=4" class="page-link">4</a></li><li class="page-item"><a href="?page=5" class="page-link">...</a></li><li class="page-item"><a href="?page=3616" class="page-link">&gt;</a></li></ul>
-                </nav>
-            </div>*@
+                    <nav>
+                        <ul class="pagination"><li class="page-item"><a href="?page=1" class="page-link active">1</a></li><li class="page-item"><a href="?page=2" class="page-link">2</a></li><li class="page-item"><a href="?page=3" class="page-link">3</a></li><li class="page-item"><a href="?page=4" class="page-link">4</a></li><li class="page-item"><a href="?page=5" class="page-link">...</a></li><li class="page-item"><a href="?page=3616" class="page-link">&gt;</a></li></ul>
+                    </nav>
+                </div>*@
         </div>
         <div class="col-lg-3 col-md-3 mbndBlogContentRight">
             <div class="_mbndUlListViewRight row-pull">
@@ -98,7 +98,7 @@
                                 </a>
                                 <hr class="mbnd_hr_m_w">
                             </li>
-}
+                        }
                     }
                 </ul>
             </div>
@@ -110,4 +110,3 @@
 
 
 </div>
-

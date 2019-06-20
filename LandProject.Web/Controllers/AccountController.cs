@@ -151,6 +151,14 @@ namespace LandProject.Web.Controllers
 				AuthenticationProperties props = new AuthenticationProperties();
 				props.IsPersistent = false;
 				authenticationManager.SignIn(props, identity);
+                if(!String.IsNullOrEmpty(applicationUserViewModel.Address) && !String.IsNullOrEmpty(applicationUserViewModel.PhoneNumber)&& !String.IsNullOrEmpty(applicationUserViewModel.FullName))
+                {
+                    return Json(new
+                    {
+                        returnUrl = "/",
+                        status = true
+                    });
+                }
 				return Json(new
 				{
 					returnUrl = "/thanh-vien/ho-so.html",

@@ -21,7 +21,7 @@ $(document).ready(function () {
             show: true
         });
     })
-    $('body').on('click', '#savePostCategory', function () { 
+    $('body').on('click', '#savePostCategory', function () {
         if (checkValid()) {
             PostCategoryModel.Name = $('#txtPostCategoryName').val();
             PostCategoryModel.Alias = new commonService().getSeoTitle($('#txtPostCategoryName').val());
@@ -184,9 +184,9 @@ var Columns = [
 LoadGrid = function () {
     InitKendoGrid(_idgrid, Columns, new DataSource().MasterDatasource("" + _Host + "api/postcategory/getalltable"), null, false, '')
 }
-function getUrl(id,alias) {
+function getUrl(id, alias) {
     if (id == null) return "";
-    else return kendo.toString("/tin-tuc/"+alias+".pc-"+id+".html");
+    else return kendo.toString("/tin-tuc/" + alias + ".pc-" + id + ".html");
 }
 function templateForAction(e) {
     var html = '';

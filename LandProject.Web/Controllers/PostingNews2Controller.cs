@@ -149,9 +149,11 @@ namespace LandProject.Web.Controllers
 
                     if (landNewsVm.TotalPrice.Contains("Triệu"))
                     {
+                        //landNewsDb.Price = landNewsDb.Price * 1000000;
                         landNewsDb.DecimalTotalPrice = landNewsDb.Price * 1000000;
                     }else if(landNewsVm.TotalPrice.Contains("Tỷ"))
                     {
+                        //landNewsDb.Price = landNewsDb.Price * 1000000000;
                         landNewsDb.DecimalTotalPrice = landNewsDb.Price * 1000000000;
                     }
 
@@ -237,10 +239,12 @@ namespace LandProject.Web.Controllers
 					landNewsDb.LandNewsScheduleID = landNewsDetail.LandNewsScheduleID;
                     if (landNewsVm.TotalPrice.Contains("Triệu"))
                     {
+                        //landNewsDb.Price = landNewsDb.Price * 1000000;
                         landNewsDb.DecimalTotalPrice = landNewsDb.Price * 1000000;
                     }
                     else if (landNewsVm.TotalPrice.Contains("Tỷ"))
                     {
+                        //landNewsDb.Price = landNewsDb.Price * 1000000000;
                         landNewsDb.DecimalTotalPrice = landNewsDb.Price * 1000000000;
                     }
 

@@ -370,11 +370,13 @@
     <Content Include="assets\client\img\20190522155946-e1fc.jpg" />
     <Content Include="assets\client\img\bai-bien-doc-let-e1502107014517.jpg" />
     <Content Include="assets\client\img\Ban_do_quy_hoach_bac_van_phong.jpg" />
+    <Content Include="assets\client\img\favicon.ico" />
     <Content Include="assets\client\img\Fotolia_19163061_XS.jpg" />
     <Content Include="assets\client\img\gmap_marker.png" />
     <Content Include="assets\client\img\gmap_marker_active.png" />
     <Content Include="assets\client\img\icon-dang-tin.png" />
     <Content Include="assets\client\img\logo_new.jpg" />
+    <Content Include="assets\client\img\logo_new1.jpg" />
     <Content Include="assets\client\img\tourdisan3.jpg" />
     <Content Include="assets\client\img\vietnam.jpg" />
     <Content Include="assets\client\img\vietnamtravelmark.jpg" />

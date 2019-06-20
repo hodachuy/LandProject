@@ -136,8 +136,9 @@ namespace LandProject.Web.API
                 Post postDb = new Post();
                 postDb.UpdatePost(postVm);
                 postDb.CreatedDate = DateTime.Now;
+                postDb.UpdatedDate = DateTime.Now;
 
-				var files = System.Web.HttpContext.Current.Request.Files;
+                var files = System.Web.HttpContext.Current.Request.Files;
 				if (files.Count != 0)
 				{
 					var file = files[0];

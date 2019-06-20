@@ -1,4 +1,4 @@
-﻿var _idgrid = "#grid";
+﻿﻿var _idgrid = "#grid";
 var LandNewsModel = {
     ID: '',
     Title: '',
@@ -36,12 +36,15 @@ var LandNewsModel = {
     CreatedDate: '',
     LandNewsScheduleID: '1',
     Agent: {
-        ID: '',
-        Phone: '',
-        Address: '',
-        Mobile: '',
-        Name: '',
-        UserId:''
+        ID: "",
+        Name: "",
+        Address: "",
+        Phone1: "",
+        Phone2: "",
+        Phone3: "",
+        PhoneShow: "",
+        Email: "",
+        UserId: ""
     }
 };
 
@@ -51,21 +54,24 @@ var TypeActionAdd = true;
 $(document).ready(function () {
     LoadGrid();
 
+    eventAfterLoadAttributes();
     $('body').on('click', '#saveLandNews', function () {
         if (checkValid()) {
             LandNewsModel.Title = $('#txtTitle').val();
             LandNewsModel.Alias = new commonService().getSeoTitle($('#txtTitle').val());
             LandNewsModel.Description = $('#txtDescription').val();
-            LandNewsModel.Address = $('#txtAddress').val();
+            LandNewsModel.Address = $('#Address').val();
             LandNewsModel.LandTypeID = $('#cboLandType').val();
             LandNewsModel.LandCategoryID = $('#cboLandCategory').val();
+            LandNewsModel.LatiLongTude = $('#LatiLongTude').val();
+            LandNewsModel.ProvinceID = $("#cboProvince").val();
             LandNewsModel.DistrictID = $('#cboDistrict').val();
             LandNewsModel.WardID = $('#cboWard').val();
             LandNewsModel.LProjectID = $('#cboLProject').val();
             LandNewsModel.Area = $('#txtArea').val();
-            LandNewsModel.Price = $("#txtPrice").val();
+            LandNewsModel.Price = $("#txtPrice").val() != "" ? parseFloat(numberReplaceCommas($("#txtPrice").val())) : 0;
             LandNewsModel.TotalPrice = $('#txtTotalPrice').val();
-            LandNewsModel.DecimalTotalPrice = $('#txtDecimalTotalPrice').val();
+            LandNewsModel.DecimalTotalPrice = $("#txtPrice").val() != "" ? parseFloat(numberReplaceCommas($("#txtPrice").val())) : 0;
             LandNewsModel.Unit = $('#txtUnit').val(); 
             LandNewsModel.Facade = $('#txtFacade').val();
             LandNewsModel.Entry = $('#txtEntry').val();
@@ -86,30 +92,39 @@ $(document).ready(function () {
             LandNewsModel.Agent.Address = $('#txtAgentAddress').val();
 
             LandNewsModel.Agent.Email = $('#txtAgentEmail').val();
-            LandNewsModel.Agent.UserId = $('#txtUserId').val();
 
+            console.log(LandNewsModel)
+            //File hình ảnh
+            var formData = new FormData();
 
-            if (TypeActionAdd) {//add          
-                var svr = new AjaxCall("api/landtype/create", JSON.stringify(LandNewsModel));
-                svr.callServicePOST(function (data) {
-                    console.log(data)
-                    if (data != undefined) {
+            formData.append('landnews', JSON.stringify(LandNewsModel));
+            formData.append('agent', JSON.stringify(LandNewsModel.Agent));
+
+            $.ajax({
+                url: _Host + "api/landnews/update",
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                dataType: "json",
+                success: function (result) {
+                    if (result) {
                         $("#LandNewsModel").modal('hide');
+                        swal({
+                            title: "Thông báo",
+                            text: "thành công",
+                            confirmButtonColor: "#EF5350",
+                            type: "success"
+                        }, function () { $("#model-notify").modal('show'); });
                         $('#grid').data('kendoGrid').dataSource.read();
                         $('#grid').data('kendoGrid').refresh();
-                    }
-                });
-            } else {//update
-                var svr = new AjaxCall("api/landtype/update", JSON.stringify(LandNewsModel));
-                svr.callServicePOST(function (data) {
-                    console.log(data)
-                    if (data != undefined) {
-                        $("#LandNewsModel").modal('hide');
-                        $('#grid').data('kendoGrid').dataSource.read();
-                        $('#grid').data('kendoGrid').refresh();
-                    }
-                });
-            }
+
+                    } 
+                },
+                error: function (e) {
+                    console.log(e)
+                }
+            });
         }
     })
     $('body').on('click', '#closeLandType', function () {
@@ -162,7 +177,7 @@ checkValid = function () {
     setTimeout(function () {
         $('#form').validationEngine('hide');
     }, 10000);
-    var LandNewsName = $('#txtLandNewsName').val();
+    var LandNewsName = $('#txtTitle').val();
     var AgentPhone = $('#txtAgentPhone1').val();
     if (LandNewsName.trim() == "") {
         $('#txtLandNewsName').validationEngine('showPrompt', '* Trường này bắt buộc', 'red', 'topRight', true);
@@ -200,11 +215,11 @@ checkValid = function () {
     } else {
         $("#txtAgentPhone1").validationEngine('hide');
     }
-    if ($('#txtAddress').val().trim() == "") {
-        $('#txtAddress').validationEngine('showPrompt', '* Trường này bắt buộc', 'red', 'topRight', true);
+    if ($('#Address').val().trim() == "") {
+        $('#Address').validationEngine('showPrompt', '* Trường này bắt buộc', 'red', 'topRight', true);
         res = false;
     } else {
-        $("#txtAddress").validationEngine('hide');
+        $("#Address").validationEngine('hide');
     }
 
     return res;
@@ -480,6 +495,7 @@ function templateForAction(e) {
 }
 ForumCatg = function (id) {
     this.Edit = function (landTypeName) {
+
         var form = new FormData();
         TypeActionAdd = false;
         $("#lTypeTitle").empty().html(landTypeName)
@@ -488,7 +504,7 @@ ForumCatg = function (id) {
         $('#txtUnit').val('');
         $('#txtPrice').val('');
         $('#txtTotalPrice').val('');
-        $('#txtAddress').val('');
+        $('#Address').val('');
         $('#txtDecimalTotalPrice').val('');
         $('#txtMetaKeyword').val('');
         $('#txtMetaDescription').val('');
@@ -535,10 +551,9 @@ ForumCatg = function (id) {
         }
         var svr = new AjaxCall("api/landnews/getbyid", param);
         svr.callServiceGET(function (data) {
-            console.log(data)
-            if (data != undefined) {
 
-               
+            console.log(data)
+            if (data != undefined) {              
                 LandNewsModel.ID = data.ID;
                 LandNewsModel.IsDelete = data.IsDelete;
                 LandNewsModel.IsPublished = data.IsPublished;
@@ -550,10 +565,14 @@ ForumCatg = function (id) {
                 LandNewsModel.Code = data.Code;
                 LandNewsModel.UserID = data.UserID;
                 LandNewsModel.LatiLongTude = data.LatiLongTude;
+                LandNewsModel.AgentID = data.AgentID;
+                $("#LatiLongTude").val(data.LatiLongTude);
 
-                if (LandNewsModel.LatiLongTude != undefined) {
+                if (LandNewsModel.LatiLongTude != "") {
                     var arrLatLong = LandNewsModel.LatiLongTude.split(',');
-                    initMap(arrLatLong[0], arrLatLong[1]);
+                    initLatiLongMap(arrLatLong[0], arrLatLong[1]);
+                } else {
+                    initMap();
                 }
 
                 var url1 = "api/landtype/getall";
@@ -566,9 +585,47 @@ ForumCatg = function (id) {
                 var element = "#cboLandCategory";
                 LoadComboBoxWithServices(element, url2,param1, "ID", "Name", data.LandCategoryID, "Chọn Thể Loại", false, null, function () { }, null);
 
+                var url6 = "api/lproject/getall";
+                var element = "#cboLProject";
+                LoadComboBoxWithServices(element, url6, null, "ID", "Name", data.LProjectID, "Chọn Dự án", false, null, function () { }, null);
+
+                var url4 = "api/address/getdistrict";
+                var element4 = "#cboDistrict";
+
+                var url5 = "api/address/getward";
+                var element5 = "#cboWard";
+
                 var url3 = "api/address/getprovince";
                 var element = "#cboProvince";
-                LoadComboBoxWithServices(element, url3, null, "ID", "Name", data.ProvinceID, "Chọn Tỉnh/Thành phố", false, null, function () { }, null);
+                LoadComboBoxWithServices(element, url3, null, "ID", "Name", data.ProvinceID, "Chọn Tỉnh/Thành phố", false, null, function (e) {
+                    console.log(e.sender._old);
+                    var provinceID = e.sender._old;
+                    $("#cboWard").data("kendoComboBox").value(null);
+                    if (provinceID == '') {
+                        provinceID = 0;
+                        $("#cboDistrict").val('');
+                        var param5 = {
+                            districtID: 0
+                        }
+                        LoadComboBoxWithServices(element5, url5, param5, "ID", "Name", null, "Chọn Phường/Xã", false, null, function () { }, null);
+                    }
+                    var param4 = {
+                        provinceID: provinceID
+                    }
+                    LoadComboBoxWithServices(element4, url4, param4, "ID", "Name", null, "Chọn Quận/Huyện", false, null, function (e) {
+                        console.log(e.sender._old);
+                        $("#cboWard").data("kendoComboBox").value(null);
+                        var districtID = e.sender._old;
+                        if (districtID == '') {
+                            districtID = 0;
+                            $("#cboWard").data("kendoComboBox").value(null);
+                        }
+                        var param5 = {
+                            districtID: districtID
+                        }
+                        LoadComboBoxWithServices(element5, url5, param5, "ID", "Name", null, "Chọn Phường/Xã", false, null, function () { }, null);
+                    }, null);
+                }, null);
 
                 var param4 = {
                     provinceID: data.ProvinceID
@@ -583,17 +640,13 @@ ForumCatg = function (id) {
                 var element = "#cboWard";
                 LoadComboBoxWithServices(element, url5, param5, "ID", "Name", data.WardID, "Chọn Phường/Xã", false, null, function () { }, null);
 
-                var url6 = "api/lproject/getall";
-                var element = "#cboLProject";
-                LoadComboBoxWithServices(element, url6, null, "ID", "Name", data.LProjectID, "Chọn Dự án", false, null, function () { }, null);
-
 
                 $('#txtTitle').val(data.Title);
                 $('#txtArea').val(data.Area);
                 $('#txtUnit').val(data.Unit);
                 $('#txtPrice').val(data.Price);
                 $('#txtTotalPrice').val(data.TotalPrice);
-                $('#txtAddress').val(data.Address);
+                $('#Address').val(data.Address);
                 $('#txtDecimalTotalPrice').val(data.DecimalTotalPrice);
                 $('#txtMetaKeyword').val(data.MetaKeyword);
                 $('#txtMetaDescription').val(data.MetaDescription);
@@ -607,15 +660,16 @@ ForumCatg = function (id) {
                 $('#txtNumberBedroom').val(data.NumberBedroom);
                 $('#txtNumberWC').val(data.NumberWC);
                 $('#txtFurniture').val(data.Furniture);
-                $("#txtDescription").html(data.Description.replace(/<br \/>/g, "&#13;&#10;"));
+                $("#txtDescription").val(data.Description.replace(/<br *\/?>/gi, '\n'));
 
                 $('#txtConvenient').val(data.Convenient);
                 $('#txtEnvironment').val(data.Environment);
                 $('#txtLegalStatus').val(data.LegalStatus);
 
                 if (data.Agent != undefined) {
-                    LandNewsModel.AgentID = data.Agent.AgentID;
-                    LandNewsModel.Agent.AgentID = data.Agent.AgentID;
+                    console.log(data.Agent)
+                    LandNewsModel.Agent.ID = data.Agent.ID;
+                    LandNewsModel.Agent.UserId = data.Agent.UserId;
                     $('#txtAgentName').val(data.Agent.Name);
                     $('#txtAgentAddress').val(data.Agent.Address);
                     $('#txtAgentPhone1').val(data.Agent.Phone1);
@@ -623,7 +677,6 @@ ForumCatg = function (id) {
                     $('#txtAgentPhone3').val(data.Agent.Phone3);
                     $('#txtAgentPhoneShow').val(data.Agent.PhoneShow);
                     $('#txtAgentEmail').val(data.Agent.Email);
-                    $('#txtUserId').val(data.Agent.UserId);
                 }
 
                 var html = '';
@@ -644,6 +697,8 @@ ForumCatg = function (id) {
                     })
                 }
                 $("#lst-file-image").append(html);
+
+                setTextMoneyAllowDecimal($("#txtPrice"));
 
                 $("#LandNewsModel").modal({
                     backdrop: 'static',
@@ -786,7 +841,7 @@ var lstLanType = new kendo.data.DataSource({
 });
 
 //init map
-function initMap(latitude, longitude) {
+function initLatiLongMap(latitude, longitude) {
     var posVietNam = { lat: 16.4498, lng: 107.5624 };
     var zoomSize = 5;
     if (latitude && longitude) {
@@ -809,7 +864,213 @@ function initMap(latitude, longitude) {
     });
     //autocomplete = new google.maps.places.Autocomplete(
     //    (document.getElementById('address')), { types: ['geocode'] });
-    //var input = document.getElementById('address');
-    //autocomplete = new google.maps.places.Autocomplete(input);
-    //autocomplete.addListener('place_changed', fillInAddress);
+    var input = document.getElementById('Address');
+    autocomplete = new google.maps.places.Autocomplete(input);
+    autocomplete.addListener('place_changed', fillInAddress);
 }
+
+//init map
+function initMap() {
+    var posVietNam = { lat: 16.4498, lng: 107.5624 };
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 5,
+        center: posVietNam
+    });
+    var image = {
+        url: "/assets/client/img/gmap_marker.png",
+        anchor: new google.maps.Point(25, 25),
+        scaledSize: new google.maps.Size(25, 25)
+    };
+    marker = new google.maps.Marker({
+        map: map,
+        draggable: true,
+        animation: google.maps.Animation.DROP,
+        position: posVietNam,
+        //icon: image
+    });
+    google.maps.event.addListener(marker, 'dragend', function (event) {
+        document.getElementById("Latitude").value = this.getPosition().lat();
+        document.getElementById("Longitude").value = this.getPosition().lng();
+    });
+    //autocomplete = new google.maps.places.Autocomplete((document.getElementById('address')), {types: ['geocode'] });
+    var input = document.getElementById('Address');
+    autocomplete = new google.maps.places.Autocomplete(input);
+    autocomplete.addListener('place_changed', fillInAddress);
+}
+
+function fillInAddress() {
+    // Get the place details from the autocomplete object.
+    var place = autocomplete.getPlace();
+    document.getElementById("LatiLongTude").value = place.geometry.location.lat() + "," + place.geometry.location.lng();
+    var pos = { lat: place.geometry.location.lat(), lng: place.geometry.location.lng() };
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 18,
+        center: pos
+    }); var image = {
+        url: "/assets/client/img/gmap_marker_active.png",
+        anchor: new google.maps.Point(25, 25),
+        scaledSize: new google.maps.Size(45, 45)
+    };
+    marker = new google.maps.Marker({
+        map: map,
+        draggable: true,
+        animation: google.maps.Animation.DROP,
+        position: pos,
+        //icon: image
+    });
+    google.maps.event.addListener(marker, 'dragend', function (event) {
+        document.getElementById("LatiLongTude").value = this.getPosition().lat() + "," + this.getPosition().lng();
+    });
+}
+
+function getLatitudeLongitude(callback, address) {
+    address = address || 'Ferrol, Galicia, Spain';
+    geocoder = new google.maps.Geocoder();
+    if (geocoder) {
+        geocoder.geocode({
+            'address': address
+        }, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                callback(results[0]);
+            }
+        });
+    }
+}
+
+function eventAfterLoadAttributes() {
+    $('#txtPrice').keypress(function (event) {
+        var $this = $(this);
+        if ((event.which != 46 || $this.val().indexOf('.') != -1) &&
+           ((event.which < 48 || event.which > 57) &&
+           (event.which != 0 && event.which != 8))) {
+            event.preventDefault();
+        }
+
+        var text = $(this).val();
+        if ((event.which == 46) && (text.indexOf('.') == -1)) {
+            setTimeout(function () {
+                if ($this.val().substring($this.val().indexOf('.')).length > 3) {
+                    $this.val($this.val().substring(0, $this.val().indexOf('.') + 3));
+                }
+            }, 1);
+        }
+
+        if ((text.indexOf('.') != -1) &&
+            (text.substring(text.indexOf('.')).length > 2) &&
+            (event.which != 0 && event.which != 8) &&
+            ($(this)[0].selectionStart >= text.length - 2)) {
+            event.preventDefault();
+        }
+    });
+
+    $("#txtPrice").on('input', function () {
+        setTextMoneyAllowDecimal($(this));
+    });
+}
+
+function setTextMoneyAllowDecimal(elementObject) {
+    var trueValue;
+    if (elementObject == null || elementObject.val() == "") trueValue = 0;
+    else trueValue = elementObject.val().replace(/,/g, '');
+
+    $('#hidXPrice').val(parseFloat(trueValue));
+    $('#hidXPriceTemp').val(parseFloat(trueValue));
+    var textMoney;
+    var displayValue;
+    var displayValueInput = trueValue;
+    if (parseFloat(trueValue) < 1000) {
+        // ok
+        textMoney = parseFloat(trueValue) + " Triệu";
+    } else {
+        var pricePrecision = trueValue.toString().split('.')[0];
+        var priceScale = trueValue.toString().split('.')[1];
+        displayValue = (parseFloat(pricePrecision) / 1000).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        if (typeof priceScale === "undefined") {
+            // ok
+            textMoney = displayValue + " Tỷ";
+            displayValueInput = pricePrecision.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        } else {
+            textMoney = displayValue + '.000' + priceScale + " Tỷ";
+            displayValueInput = pricePrecision.replace(/\B(?=(\d{3})+(?!\d))/g, ",") + '.' + priceScale;
+        }
+    }
+
+    var divPrivatePrice = $('#ck_13845').closest('.row').closest('.col-lg-6');
+    if ($('.dividePricePrivate').length == 0) {
+        $(divPrivatePrice).before('<div class="clearfix dividePricePrivate"></div>');
+        $('.dividePricePrivate').before($('.money-text').remove().clone());
+    }
+    $('#txtTotalPrice').val('');
+    $('#txtTotalPrice').val(textMoney);
+    if ($(elementObject).val() == 0 || $(elementObject).val() == "") {
+        $('#txtTotalPrice').val("Thỏa thuận");
+    }
+    $('#hidXPriceDisplay').val(textMoney);
+
+    if (displayValueInput != null && displayValueInput.length > 1) {
+        displayValueInput = displayValueInput.replace(/^0+/, '');
+    }
+    elementObject.val(displayValueInput);
+}
+
+function setTextMoney(elementObject) {
+    $(elementObject).parseNumber({ format: "#,###", locale: "vn" });
+    $(elementObject).formatNumber({ format: "#,###", locale: "vn" });
+    $('#hidXPrice').val($(elementObject).parseNumber({ format: "#,###.00", locale: "vn" }, false));
+    $('#hidXPriceTemp').val($(elementObject).val());
+    var divPrivatePrice = $('#ck_13845').closest('.row').closest('.col-lg-6');
+    if ($('.dividePricePrivate').length == 0) {
+        $(divPrivatePrice).before('<div class="clearfix dividePricePrivate"></div>');
+        $('.dividePricePrivate').before($('.money-text').remove().clone());
+    }
+
+    $('#txtTotalPrice').text('');
+    var textMoney;
+    var trueValue;
+    var displayValue;
+    displayValue = convertPointNumber($(elementObject).val().replace(/[^a-z0-9]/gi, ','));
+    trueValue = $(elementObject).parseNumber({ format: "#,###.00", locale: "vn" }, false);
+
+    if (trueValue < 1000) {
+        textMoney = displayValue + " Triệu";
+    } else {
+        textMoney = trueValue / 1000 + " Tỷ";
+    }
+
+    $('#txtTotalPrice').text(textMoney);
+    if ($(elementObject).val() == 0) {
+        $('#txtTotalPrice').text("Thỏa thuận");
+    }
+    $('#hidXPriceDisplay').val(textMoney);
+}
+
+function formatNumber(yourNumber) {
+    if (yourNumber) {
+        var components = yourNumber.toString().split(".");
+        components[0] = components[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return components.join(".");
+    } else {
+        return "0";
+    }
+}
+function numberReplaceCommas(x) {
+    return x.toString().replace(/\,/g, '');
+}
+
+/**
+ * Format Money
+ * Number.prototype.format(n, x, s, c)
+ * 
+ * @param integer n: length of decimal
+ * @param integer x: length of whole part
+ * @param mixed   s: sections delimiter
+ * @param mixed   c: decimal delimiter
+ */
+Number.prototype.format = function (n, x, s, c) {
+    var re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\D' : '$') + ')',
+        num = this.toFixed(Math.max(0, ~~n));
+
+    return (c ? num.replace('.', c) : num).replace(new RegExp(re, 'g'), '$&' + (s || ','));
+};
+function convertPointNumber(n) { var t, i; return (n.match(/,/g) || []).length == 1 && (t = n.split(",")[1], n = t.length > 2 ? n.split(",")[0] + "," + t.slice(0, -1) : n.split(",")[0] + "," + t), (n.match(/,/g) || []).length > 1 && (i = n.slice(-1), i == "," && (n = n.slice(0, -1))), n } 
+

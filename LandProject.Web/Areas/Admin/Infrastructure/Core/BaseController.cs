@@ -1,6 +1,7 @@
 ﻿using LandProject.Common;
 using LandProject.Model.Models;
 using LandProject.Service;
+using LandProject.Web.Infrastructure.Core;
 using LandProject.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -50,6 +51,16 @@ namespace LandProject.Web.Areas.Admin.Infrastructure.Core
             {
                 filterContext.Result = new RedirectResult(Url.Action("Login", "Account", new { returnUrl = CurrentURL }));
                 return;
+            }else
+            {
+                var user = (ApplicationUserViewModel)Session[CommonConstants.SessionUser];
+                var applicationGroupService = ServiceFactory.Get<IApplicationGroupService>();
+                var listGroup = applicationGroupService.GetListGroupByUserId(user.Id).ToList();
+                if ((listGroup.Count == 0) || ((listGroup.Count) != 0 && (listGroup.Any(x => x.Name != CommonConstants.Administrator))))
+                {
+                    filterContext.Result = new RedirectResult(Url.Action("Login", "Account", new { returnUrl = CurrentURL }));
+                    return;
+                }
             }
             base.OnActionExecuting(filterContext);
         }

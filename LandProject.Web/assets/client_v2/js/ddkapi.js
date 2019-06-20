@@ -1,11 +1,11 @@
 ﻿var mbndiframefeatureList = {
     init: function () {
-        null != document.getElementById("mbnd_id_feature_list") && jQuery.ajax({
-            url: mbndApi.lroot + "/mbndapi.php?mbndrequest=listFeature&v=" + mbndApi.version
-        }).done(function (n) {
-            console.log(n)
-            $("#mbnd_id_feature_list").html(n.HTML)
-        })
+        //null != document.getElementById("mbnd_id_feature_list") && jQuery.ajax({
+        //    url: mbndApi.lroot + "/mbndapi.php?mbndrequest=listFeature&v=" + mbndApi.version
+        //}).done(function (n) {
+        //    console.log(n)
+        //    $("#mbnd_id_feature_list").html(n.HTML)
+        //})
     }
 },
     mbndiframefeature = {

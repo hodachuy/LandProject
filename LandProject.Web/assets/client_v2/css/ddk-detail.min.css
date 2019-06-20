@@ -1107,11 +1107,11 @@ html.swipebox-html.swipebox-touch {
             }
 
         .property-detail-flexslider .flex-direction-nav .flex-next:before {
-            content: "ï„…";
+            content:"\003e";
         }
 
         .property-detail-flexslider .flex-direction-nav .flex-prev:before {
-            content: "ï„„";
+            content: "\003c";
         }
 
     .property-detail-flexslider .flex-control-thumbs li {

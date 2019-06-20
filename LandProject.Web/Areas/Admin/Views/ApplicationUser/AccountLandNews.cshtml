@@ -138,10 +138,10 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Diện tích/m2</label>
                                         <div class="col-md-9 col-sm-9 col-xs-12">
-                                            <input type="text" class="form-control" disabled id="txtArea">
+                                            <input type="text" class="form-control" id="txtArea">
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group" style="display:none">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Đơn vị</label>
                                         <div class="col-md-9 col-sm-9 col-xs-12">
                                             <input type="text" class="form-control" disabled id="txtUnit">
@@ -150,20 +150,20 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Giá</label>
                                         <div class="col-md-9 col-sm-9 col-xs-12">
-                                            <input type="text" class="form-control" disabled id="txtPrice">
+                                            <input type="text" class="form-control" id="txtPrice">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Tổng tiền</label>
+                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Tiền bằng chữ</label>
                                         <div class="col-md-9 col-sm-9 col-xs-12">
-                                            <input type="text" class="form-control" disabled id="txtDecimalTotalPrice">
-                                            <input type="text" class="form-control" disabled id="txtTotalPrice">
+                                            <input type="text" class="form-control hidden" disabled id="txtDecimalTotalPrice">
+                                            <input type="text" class="form-control" id="txtTotalPrice">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Địa chỉ <span class="required">*</span></label>
                                         <div class="col-md-9 col-sm-9 col-xs-12">
-                                            <input type="text" class="form-control" id="txtAddress">
+                                            <input type="text" class="form-control" name="Address" id="Address">
                                         </div>
                                     </div>
                                 </form>
@@ -261,13 +261,15 @@
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Tiện nghi</label>
                                         <div class="col-md-9 col-sm-9 col-xs-12">
-                                            <input type="text" class="form-control" id="txtConvenient">
+                                            @*<input type="text" class="form-control" id="txtConvenient">*@
+                                            <textarea id="txtConvenient" class="form-control" style="height:80px"></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Môi trường xung quanh</label>
                                         <div class="col-md-9 col-sm-9 col-xs-12">
-                                            <input type="text" class="form-control" id="txtEnvironment">
+                                            <textarea id="txtEnvironment" class="form-control" style="height:80px"></textarea>
+                                            @*<input type="text" class="form-control" id="txtEnvironment">*@
                                         </div>
                                     </div>
 
@@ -401,13 +403,14 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" disabled id="saveLandNews">Lưu</button>
+                <button type="button" class="btn btn-primary" id="saveLandNews">Lưu</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal" id="closeLandNews">Đóng</button>
             </div>
         </div>
 
     </div>
 </div>
+
 
 <div class="modal fade" id="ActionLandNewsSchedule" role="dialog">
     <div class="modal-dialog">

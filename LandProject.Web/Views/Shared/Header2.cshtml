@@ -1,7 +1,6 @@
-﻿@model IEnumerable<LandProject.Web.Models.MenuGroupViewModel>
+﻿﻿@model IEnumerable<LandProject.Web.Models.MenuGroupViewModel>
 @{
     var userInfo = (LandProject.Web.Models.ApplicationUserViewModel)ViewBag.UserInfo;
-    int index = 0;
 }
 <div class="jumbotron head cus_jumbotron_public">
     <div class="container head">
@@ -13,28 +12,24 @@
         </div>
     </div>
 </div>
-
 <!--Menu-->
 <div class="navbar navbar-default mbnd-navbar">
     <div class="container">
         <div class="row">
             <div class="col-lg-2 visible-lg hidden-xs hidden-sm logo">
                 <a href="/">
-                    <img src="~/assets/client/img/logo_new.jpg" height="50" width="100" alt="Đất đặc khu"/>
-                    @*<img src="http://muabannhadat.vn/img/svg/logo.svg" height="50" alt="Đất đặc khu">*@
+                    <img src="~/assets/client/img/logo_new.jpg" height="110" width="120" alt="Đất đặc khu" />
                 </a>
             </div>
             <div class="col-md-3 visible-md hidden-xs hidden-sm logo">
                 <a href="/">
-                    <img src="~/assets/client/img/logo_new.jpg" height="50" width="100" alt="Đất đặc khu" />
-                    @*<img src="http://muabannhadat.vn/img/svg/logo.svg" height="50" alt="Đất đặc khu">*@
+                    <img src="~/assets/client/img/logo_new.jpg" height="110" width="120" alt="Đất đặc khu" />
                 </a>
             </div>
             <div class="navbar-header hidden-md hidden-lg">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainNav"></button>
                 <a class="navbar-brand" href="/">
-                    <img src="~/assets/client/img/logo_new.jpg" height="50" width="100" alt="Đất đặc khu" />
-                    @*<img src="http://muabannhadat.vn/img/svg/logo.svg" height="50" alt="Đất đặc khu">*@
+                    <img src="~/assets/client/img/logo_new.jpg" height="90" width="100" alt="Đất đặc khu" />
                 </a>
             </div>
             <div class="col-md-10">
@@ -65,7 +60,7 @@
                                                 <li><a href="@itemChild.URL">@itemChild.Name</a></li>
                                             }
                                         </ul>
-                                    }                                    
+                                    }
                                 </li>
                             }
                         }

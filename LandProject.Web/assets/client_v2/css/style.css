@@ -7886,7 +7886,7 @@ select.btn {
 }
 
 .navbar {
-    padding-top: 5px;
+    /*padding-top: 5px;*/
     min-height: 54px;
     margin-bottom: 3px;
 }
@@ -7918,7 +7918,7 @@ select.btn {
 
 .body-content {
     background-color: #fff;
-    padding-top: 10px;
+    /*padding-top: 10px;*/
     padding-bottom: 20px;
 }
 
@@ -14793,7 +14793,7 @@ a.filter {
 }
 
 .logo {
-    margin-top: 10px;
+    /*margin-top: 10px;*/
 }
 
 .menu-logo-mobile {
@@ -17080,7 +17080,7 @@ div.mbnd_calendar_item > div > a > span.mbnd_calendar_item_title {
 
 .mbnd-navbar {
     margin: 0;
-    padding: 5px 0 10px 0;
+    /*padding: 5px 0 10px 0;*/
 }
 
     .mbnd-navbar.navbar-fixed-top {

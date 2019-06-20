@@ -67,8 +67,23 @@ namespace LandProject.Web.Areas.Admin.Controllers
                     ApplicationUser user = _userManager.FindById(User.Identity.GetUserId());
                     var applicationUserViewModel = Mapper.Map<ApplicationUser, ApplicationUserViewModel>(user);
                     Session[CommonConstants.SessionUser] = applicationUserViewModel;
+                    var applicationGroupService = ServiceFactory.Get<IApplicationGroupService>();
+                    var listGroup = applicationGroupService.GetListGroupByUserId(user.Id).ToList();
+                    if ((listGroup.Count == 0) || ((listGroup.Count) != 0 && (listGroup.Any(x => x.Name != CommonConstants.Administrator))))
+                    {
+                        return RedirectToAction("Login", "Account");
+                    }
                     if (!String.IsNullOrEmpty(returnUrl))
                         return Redirect(returnUrl);
+                }else
+                {
+                    ApplicationUser user = _userManager.FindById(User.Identity.GetUserId());
+                    var applicationGroupService = ServiceFactory.Get<IApplicationGroupService>();
+                    var listGroup = applicationGroupService.GetListGroupByUserId(user.Id).ToList();
+                    if ((listGroup.Count == 0) || ((listGroup.Count) != 0 && (listGroup.Any(x => x.Name != CommonConstants.Administrator))))
+                    {
+                        return RedirectToAction("Login","Account");
+                    }
                 }
 
                 return RedirectToAction("Index", "Dashboard");

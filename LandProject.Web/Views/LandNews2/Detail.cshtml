@@ -193,7 +193,7 @@
                                                         var arrContient = Model.LandNewsDetail.Convenient.Split(',');
                                                         foreach(var item in arrContient)
                                                         {
-                                                            @(item+"<br />");
+                                                            @Html.Raw(item+"<br />");
                                                         }
                                                     }
                                                 </span>
@@ -208,7 +208,7 @@
                                                         var arrEnvironment = Model.LandNewsDetail.Environment.Split(',');
                                                         foreach (var item in arrEnvironment)
                                                         {
-                                                            @(item + "<br />");
+                                                            @Html.Raw(item + "<br />");
                                                         }
                                                     }
                                                 </span>

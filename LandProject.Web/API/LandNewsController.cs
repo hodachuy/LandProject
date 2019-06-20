@@ -242,9 +242,9 @@ namespace LandProject.Web.API
         }
 
 
-        [Route("create")]
+        [Route("update")]
         [HttpPost]
-        public HttpResponseMessage Create(HttpRequestMessage request)
+        public HttpResponseMessage Update(HttpRequestMessage request)
         {
             return CreateHttpResponse(request, () =>
             {
@@ -280,53 +280,33 @@ namespace LandProject.Web.API
                 _agentService.Save();
 
                 // save landnews
+                var landNewsDetail = _landNewsService.GetByID(landNewsVm.ID);
                 LandNews landNewsDb = new LandNews();
                 landNewsDb.AgentID = agentDb.ID;
-                landNewsDb.Code = DateTime.Now.ToString() + agentDb.ID;
+                landNewsDb.CreatedDate = landNewsDetail.CreatedDate;
+                landNewsDb.Code = landNewsVm.Code;
+                landNewsDb.PublishedDate = DateTime.Now;
                 landNewsDb.UpdateLandNews(landNewsVm);
-
-                // image avatar
-                var files = HttpContext.Current.Request.Files;
-                if(files.Count != 0)
+                landNewsDb.Image = landNewsVm.Image;
+                landNewsDb.LandNewsScheduleID = landNewsDetail.LandNewsScheduleID;
+                if (landNewsVm.TotalPrice.Contains("Triệu"))
                 {
-                    var file = files[0];
-                    Guid id = Guid.NewGuid();
-                    string extentsion = new FileInfo(file.FileName).Extension.ToLower();
-                    string fileName = id + "-" + new FileInfo(file.FileName).Name;
-                    file.SaveAs(Path.Combine(HttpContext.Current.Server.MapPath("~/fileman/Uploads/")
-                    + CommonConstants.FolderLandNews + "/" + fileName));
-                    landNewsDb.Image = fileName;
+                    //landNewsDb.Price = landNewsDb.Price * 1000000;
+                    landNewsDb.DecimalTotalPrice = landNewsDb.Price * 1000000;
+                }
+                else if (landNewsVm.TotalPrice.Contains("Tỷ"))
+                {
+                    //landNewsDb.Price = landNewsDb.Price * 1000000000;
+                    landNewsDb.DecimalTotalPrice = landNewsDb.Price * 1000000000;
                 }
 
-                _landNewsService.Add(landNewsDb);
+
+                _landNewsService.Update(landNewsDb);
                 _landNewsService.Save();
 
-                // save landfile
-                if(files.Count != 0)
-                {
-                    for (int i = 0; i < files.Count; i++)
-                    {
-                        var file = files[i];
-                        Guid id = Guid.NewGuid();
-                        string extentsion = new FileInfo(file.FileName).Extension.ToLower();
-                        string fileName = id + "-" + new FileInfo(file.FileName).Name;
-                        file.SaveAs(Path.Combine(HttpContext.Current.Server.MapPath("~/fileman/Uploads/")
-                        + CommonConstants.FolderLandNews + "/" + fileName));
-
-                        var fileImage = new LandFile()
-                        {
-                            FileName = fileName,
-                            Extension = extentsion,
-                            LandNewsID = landNewsDb.ID
-                        };
-                        _landFileService.Add(fileImage);
-                    }
-                    _landFileService.Save();
-                }
 
                 response = request.CreateResponse(HttpStatusCode.OK, new
                 {
-                    code = landNewsDb.Code,// return mã tin nhắn của bạn
                     status = true
                 });
                 return response;

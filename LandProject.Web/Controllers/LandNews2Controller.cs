@@ -40,10 +40,10 @@ namespace LandProject.Web.Controllers
 		// GET: LandNews2
 		public ActionResult Detail(int id)
         {
-			var landNews = _landNewsService.GetByID(id);
-			var landNewsVm = Mapper.Map<LandNewsFilterViewModel, LandNewsViewModel>(landNews);
+            var landNews = _landNewsService.GetAllByFilter("ln.ID = " + id, null, 1, 1).ToList()[0];
+            var landNewsVm = Mapper.Map<LandNewsFilterViewModel, LandNewsViewModel>(landNews);
 
-			var lstLandFile = _landFileService.GetByLandNewsID(id);
+            var lstLandFile = _landFileService.GetByLandNewsID(id);
 			var lstLandFileVm = Mapper.Map<IEnumerable<LandFile>, IEnumerable<LandFileViewModel>>(lstLandFile);
 			landNewsVm.LandFiles = lstLandFileVm;
 
